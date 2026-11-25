@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="800" viewBox="0 0 800 800">
+<defs>
+<filter id="soft" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="2.5"/></filter>
+<filter id="sh" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur in="SourceAlpha" stdDeviation="5"/><feOffset dy="8"/><feComponentTransfer><feFuncA type="linear" slope=".4"/></feComponentTransfer><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+<pattern id="bPink" width="24" height="24" patternUnits="userSpaceOnUse"><circle cx="12" cy="12" r="5.5" fill="#FF3B5C"/></pattern>
+<clipPath id="lens"><circle cx="530" cy="386" r="104"/></clipPath>
+<radialGradient id="gS" cx="38%" cy="32%" r="70%"><stop offset="0" stop-color="#FF8F9C"/><stop offset=".45" stop-color="#E5162F"/><stop offset="1" stop-color="#8A0014"/></radialGradient>
+<radialGradient id="gL" cx="40%" cy="30%" r="80%"><stop offset="0" stop-color="#7EDC6E"/><stop offset="1" stop-color="#1D7A32"/></radialGradient>
+<radialGradient id="gSc" cx="50%" cy="45%" r="60%"><stop offset="0" stop-color="#FFF4F4"/><stop offset=".55" stop-color="#FF9DAD"/><stop offset="1" stop-color="#EE3352"/></radialGradient>
+<g id="straw">
+<path d="M0,-38C28,-46 50,-22 42,10C34,40 12,58 0,62C-12,58 -34,40 -42,10C-50,-22 -28,-46 0,-38Z" fill="url(#gS)"/>
+<g fill="#FFE08A" stroke="#9E0A1E" stroke-width=".8"><ellipse cx="-22" cy="-14" rx="1.8" ry="3"/><ellipse cx="-4" cy="-22" rx="1.8" ry="3"/><ellipse cx="16" cy="-18" rx="1.8" ry="3"/><ellipse cx="30" cy="-4" rx="1.8" ry="3"/><ellipse cx="-32" cy="2" rx="1.8" ry="3"/><ellipse cx="-14" cy="-2" rx="1.8" ry="3"/><ellipse cx="6" cy="-6" rx="1.8" ry="3"/><ellipse cx="22" cy="8" rx="1.8" ry="3"/><ellipse cx="-24" cy="20" rx="1.8" ry="3"/><ellipse cx="-6" cy="14" rx="1.8" ry="3"/><ellipse cx="12" cy="22" rx="1.8" ry="3"/><ellipse cx="28" cy="24" rx="1.8" ry="3"/><ellipse cx="-14" cy="34" rx="1.8" ry="3"/><ellipse cx="4" cy="36" rx="1.8" ry="3"/><ellipse cx="18" cy="40" rx="1.8" ry="3"/><ellipse cx="-4" cy="50" rx="1.8" ry="3"/></g>
+<ellipse cx="-17" cy="-10" rx="9" ry="20" fill="#fff" opacity=".45" filter="url(#soft)" transform="rotate(20 -17 -10)"/>
+<path d="M0,-34L-30,-44L-12,-33L-34,-24L-8,-28L0,-48L8,-28L34,-24L12,-33L30,-44Z" fill="url(#gL)"/>
+<path d="M0,-42Q2,-52 7,-58" stroke="#2E7D32" stroke-width="4" fill="none" stroke-linecap="round"/>
+</g>
+<g id="scut">
+<path d="M0,-38C28,-46 50,-22 42,10C34,40 12,58 0,62C-12,58 -34,40 -42,10C-50,-22 -28,-46 0,-38Z" fill="#C9102B"/>
+<path d="M0,-38C28,-46 50,-22 42,10C34,40 12,58 0,62C-12,58 -34,40 -42,10C-50,-22 -28,-46 0,-38Z" transform="translate(0,3) scale(.86)" fill="url(#gSc)"/>
+<path d="M0,-24C9,-8 9,22 0,44C-9,22 -9,-8 0,-24Z" fill="#FFFBF7" opacity=".9"/>
+<g stroke="#FFF6F6" stroke-width="2" fill="none" opacity=".75" stroke-linecap="round"><path d="M-3,-10Q-16,-22 -30,-26"/><path d="M3,-10Q16,-22 30,-26"/><path d="M-5,6Q-22,2 -36,6"/><path d="M5,6Q22,2 36,6"/><path d="M-4,22Q-16,30 -26,36"/><path d="M4,22Q16,30 26,36"/></g>
+<g fill="#FFE7A0"><circle cx="-34" cy="-14" r="1.6"/><circle cx="34" cy="-14" r="1.6"/><circle cx="-38" cy="10" r="1.6"/><circle cx="38" cy="10" r="1.6"/><circle cx="-26" cy="36" r="1.6"/><circle cx="26" cy="36" r="1.6"/><circle cx="0" cy="56" r="1.6"/></g>
+<ellipse cx="-18" cy="-18" rx="8" ry="14" fill="#fff" opacity=".35" filter="url(#soft)"/>
+</g>
+</defs>
+
+<rect width="800" height="800" fill="#36E2B4"/>
+<rect width="800" height="800" fill="url(#bPink)" opacity=".4"/>
+
+<!-- 标题 -->
+<g font-family="Source Han Sans SC, sans-serif" font-weight="900" font-size="64" text-anchor="middle">
+<text x="406" y="118" fill="#111">配料表只有两个字</text>
+<text x="400" y="112" fill="#fff" stroke="#111" stroke-width="10" stroke-linejoin="round" paint-order="stroke">配料表只有两个字</text>
+</g>
+
+<!-- 配料卡 -->
+<g transform="rotate(-3 400 420)">
+<rect x="104" y="199" width="620" height="485" rx="14" fill="#111"/>
+<rect x="90" y="185" width="620" height="485" rx="14" fill="#fff" stroke="#111" stroke-width="8"/>
+<path d="M94,275V199Q94,189 104,189H696Q706,189 706,199V275Z" fill="#FF3B5C"/>
+<line x1="90" y1="275" x2="710" y2="275" stroke="#111" stroke-width="8"/>
+<text x="130" y="248" font-family="Source Han Sans SC, sans-serif" font-weight="900" font-size="48" fill="#fff" stroke="#111" stroke-width="6" paint-order="stroke">配料表</text>
+<text x="676" y="245" text-anchor="end" font-family="Futura, sans-serif" font-weight="700" font-size="22" letter-spacing="4" fill="#fff">INGREDIENTS</text>
+<text x="124" y="430" font-family="Source Han Sans SC, sans-serif" font-weight="900" font-size="100" fill="#111">配料：</text>
+<text x="424" y="430" font-family="Source Han Sans SC, sans-serif" font-weight="900" font-size="100" fill="#FF3B5C">草莓</text>
+<line x1="120" y1="508" x2="680" y2="508" stroke="#111" stroke-width="4" stroke-dasharray="14 10"/>
+<text x="128" y="572" font-family="Source Han Sans SC, sans-serif" font-weight="800" font-size="46" fill="#111">净含量：18g</text>
+<line x1="120" y1="600" x2="680" y2="600" stroke="#111" stroke-width="4" stroke-dasharray="14 10"/>
+<text x="128" y="646" font-family="Source Han Sans SC, sans-serif" font-weight="800" font-size="34" fill="#111">非油炸 · 0添加糖</text>
+<!-- 放大镜 -->
+<line x1="612" y1="468" x2="688" y2="546" stroke="#111" stroke-width="34" stroke-linecap="round"/>
+<line x1="616" y1="472" x2="684" y2="542" stroke="#FFC300" stroke-width="18" stroke-linecap="round"/>
+<circle cx="530" cy="386" r="110" fill="#fff"/>
+<g clip-path="url(#lens)">
+<g transform="translate(530,386) scale(1.2) translate(-530,-386)">
+<text x="424" y="430" font-family="Source Han Sans SC, sans-serif" font-weight="900" font-size="100" fill="#FF3B5C" stroke="#111" stroke-width="5" stroke-linejoin="round" paint-order="stroke">草莓</text>
+</g>
+</g>
+<circle cx="530" cy="386" r="112" fill="none" stroke="#111" stroke-width="18"/>
+<path d="M458,330A88,88 0 0 1 540,296" stroke="#BFF5FF" stroke-width="8" fill="none" stroke-linecap="round"/>
+</g>
+
+<!-- 真实水果叠压 -->
+<use href="#scut" transform="translate(92,700) rotate(-22) scale(1)" filter="url(#sh)"/>
+<use href="#straw" transform="translate(694,640) rotate(24) scale(1.7)" filter="url(#sh)"/>
+
+<!-- 底部说明 -->
+<rect x="190" y="718" width="420" height="58" rx="8" fill="#111"/>
+<text x="400" y="758" text-anchor="middle" font-family="Source Han Sans SC, sans-serif" font-weight="800" font-size="30" fill="#fff">脆滋滋 · 草莓味 · 每袋18g</text>
+</svg>

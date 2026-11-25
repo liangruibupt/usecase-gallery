@@ -1,0 +1,51 @@
+{
+  "slug": "zh-fruit-crisp-listing",
+  "lang": "zh",
+  "title": "冻干水果脆抖音小店主图和详情页",
+  "summary": "为虚构品牌「脆滋滋」冻干水果脆做 5 张 800×800 主图和 6 屏 750 宽详情页，波普艺术风格：高饱和撞色、本戴网点、粗黑描边、漫画对话框和「咔嚓！」拟声大字，卖点只用给定事实。",
+  "tags": [
+    "Design",
+    "E-commerce",
+    "Marketing"
+  ],
+  "source": {
+    "site": "AutoClaw 博客",
+    "category": "Tutorial",
+    "title": "如何用 AutoClaw 设计专家制作商品主图和详情页：电商运营实战",
+    "url": "https://autoclaw.z.ai/cn/blog/tutorial/autoclaw-product-images-detail-page/",
+    "published": "2026-11-21",
+    "original_setup": "AutoClaw 设计专家 · GLM-5.3-Flash",
+    "notes": "原文水果用 AI 生成的摄影质感抠图，复现时全部是 SVG 绘制的插画，没有照片质感。为控制单轮输出，主图一轮、详情页分两轮交付；详情页每屏统一 750×1000，原文首屏高度与其他屏不同。"
+  },
+  "system": "你是 AutoClaw 设计专家：资深电商视觉设计师，用代码作图，动手前先规划版式，交付前检查成品。\n\n每张图的技术约束：\n- 每张图交付一个自包含 SVG，width/height 和 viewBox 等于目标像素尺寸。不能引用外部图片和网络字体，不用 <foreignObject>。商品、人物和场景用 SVG 形状、渐变和滤镜画成插画，不要伪装成照片。\n- 文字保留为 <text> 元素，方便之后修改。\n- SVG 在 macOS 上用 librsvg 渲染，可用字体：中文 \"Source Han Sans SC\"（字重 300–900 都有）、\"Hiragino Sans GB\"、\"PingFang SC\"、\"Songti SC\"；西文和数字 Futura、Avenir Next、DIN Alternate、Didot、Gill Sans。每个 font-family 先写其中一个，再写通用族。没有窄体字，需要窄体效果时用 transform 横向压缩。\n- 每个 SVG 会自动导出同名 PNG，只交付 SVG。\n- 主图文件名以 .main.svg 结尾（800×800），详情页每屏文件名以 .detail.svg 结尾（750×1000），例如 cuizizi-01-family.main.svg、cuizizi-detail-01-kv.detail.svg。",
+  "convert": {
+    ".main.svg": {
+      "to": "png",
+      "width": 800,
+      "height": 800
+    },
+    ".detail.svg": {
+      "to": "png",
+      "width": 750,
+      "height": 1000
+    }
+  },
+  "review_prompt": "这是你刚交付的文件渲染出来的图片（SVG 用 librsvg 导出，HTML 为浏览器截取的页面顶部），已缩小。请像交给客户评审前那样检查：文字是否被裁切或重叠、中文是否显示成方框或回退字体、版式是否错乱或留空、有没有违反需求里的规则。需要修改就用同样的文件名交付改好的文件；都没问题就用一两句话说明，不要再交付文件。",
+  "turns": [
+    {
+      "label": "提示词 · 5 张主图",
+      "review": true,
+      "prompt": "帮我做「脆滋滋」冻干水果脆的抖音小店商品图。产品有草莓、芒果、黄桃、蓝莓四个口味，每袋 18g，0 添加糖，非油炸。\n主图要 5 张 800×800：四口味全家福；草莓单品配果实切面；「咔嚓」一声的脆度定格，碎屑四溅；配料表特写「配料：草莓」；最后一张是追剧、办公室、露营三格场景。详情页宽 750，做 6 屏：首屏 KV、-40℃ 冻干工艺 4 步图解、和油炸果干的对比（只做示意，不写具体数据）、四口味介绍、吃法推荐（泡酸奶、配麦片、直接吃），以及规格和售后。\n风格用波普艺术，每个口味配一组高饱和撞色，比如草莓 #FF3B5C 配薄荷 #36E2B4、芒果 #FFC300 配紫 #7B4DFF，再加上本戴网点、粗黑描边、漫画对话框和「咔嚓！」这种拟声大字。水果本身要用逼真的摄影质感抠图，叠在平面的波普背景上形成反差。第一张主图只放品牌和口味，别加别的字；卖点只能用上面给的事实，不能出现「最」「第一」这类广告法违禁词；详情页每屏只讲一件事。\n\n（本轮先交付 5 张主图，详情页下一轮再做。）"
+    },
+    {
+      "label": "详情页第 1–3 屏",
+      "review": true,
+      "prompt": "现在交付详情页第 1–3 屏：首屏 KV、-40℃ 冻干工艺 4 步图解、和油炸果干的对比。"
+    },
+    {
+      "label": "详情页第 4–6 屏",
+      "review": true,
+      "prompt": "现在交付详情页第 4–6 屏：四口味介绍、吃法推荐、规格和售后。"
+    }
+  ]
+}

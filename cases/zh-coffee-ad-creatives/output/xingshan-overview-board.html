@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>醒山冻干咖啡 · 投放素材总览板</title>
+<style>
+  :root{
+    --ink:#16181D; --mute:#6B6F78; --soft:#9A9DA5; --line:#E4E1DB;
+    --bg:#F4F2EE; --card:#FFFFFF;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--bg); color:var(--ink);
+    font-family:"PingFang SC","Hiragino Sans GB","Source Han Sans SC",sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .num{font-family:"Avenir Next","Helvetica Neue",Arial,"PingFang SC",sans-serif;}
+  .wrap{max-width:1440px;margin:0 auto;padding:44px 56px 80px;}
+
+  /* ---------- header ---------- */
+  header{display:flex;justify-content:space-between;align-items:flex-end;gap:40px;padding-bottom:26px;border-bottom:2px solid var(--ink);}
+  .brand{display:flex;align-items:center;gap:14px;margin-bottom:14px;}
+  .brand .mark{width:40px;height:40px;border-radius:9px;background:var(--ink);display:flex;align-items:center;justify-content:center;}
+  .brand .name{font-size:22px;font-weight:700;letter-spacing:2px;}
+  .brand .en{font-size:11px;letter-spacing:3px;color:var(--mute);margin-top:2px;}
+  h1{margin:0;font-size:38px;line-height:1.2;font-weight:700;letter-spacing:1px;}
+  .sub{margin:10px 0 0;font-size:15px;color:var(--mute);}
+  .sub b{color:var(--ink);font-weight:600;}
+  .consts{display:grid;grid-template-columns:auto auto;gap:8px 28px;font-size:13.5px;min-width:520px;margin:0;}
+  .consts dt{color:var(--soft);}
+  .consts dd{margin:0;font-weight:600;}
+  .consts dd .hl{color:#EE2B1E;}
+  .toolbar{display:flex;justify-content:space-between;align-items:center;margin:26px 0 12px;}
+  .toolbar .note{font-size:13px;color:var(--mute);}
+  .btn{border:1.5px solid var(--ink);background:transparent;color:var(--ink);font:600 13px "PingFang SC","Hiragino Sans GB",sans-serif;padding:8px 16px;border-radius:999px;cursor:pointer;}
+  .btn:hover{background:var(--ink);color:#fff;}
+  body.show-sz .btn{background:var(--ink);color:#fff;}
+
+  /* ---------- matrix ---------- */
+  .cols,.row{display:grid;grid-template-columns:minmax(0,1fr) 191px 272px 340px;column-gap:16px;}
+  .cols{padding:0 20px 10px;font-size:12.5px;color:var(--mute);font-weight:600;letter-spacing:1px;}
+  .cols em{font-style:normal;color:var(--soft);font-weight:400;margin-left:6px;}
+  .row{background:var(--card);border-radius:14px;padding:20px;margin-bottom:14px;box-shadow:0 1px 0 rgba(0,0,0,.04),0 6px 18px rgba(30,25,15,.05);align-items:end;}
+
+  .meta{align-self:stretch;display:flex;flex-direction:column;gap:10px;padding-right:6px;}
+  .ttl{display:flex;align-items:center;gap:12px;}
+  .letter{width:38px;height:38px;border-radius:8px;display:flex;align-items:center;justify-content:center;font:800 20px "Avenir Next","Helvetica Neue",Arial,sans-serif;}
+  .ttl h2{margin:0;font-size:21px;font-weight:700;}
+  .ttl .en{font-size:11px;letter-spacing:2.5px;color:var(--soft);margin-left:2px;}
+  .headline{font-size:22px;line-height:1.3;margin:2px 0 0;}
+  .headline small{font:500 11.5px "PingFang SC",sans-serif;color:var(--soft);margin-left:8px;letter-spacing:0;}
+  .hA{font-family:"Source Han Sans SC","PingFang SC",sans-serif;font-weight:300;color:#0B1F33;}
+  .hB{font-family:"Source Han Sans SC","PingFang SC",sans-serif;font-weight:900;letter-spacing:-1px;}
+  .hC{font-family:"Songti SC",serif;font-weight:700;color:#3B1F3A;}
+  .hD{font-family:"Hiragino Sans GB","PingFang SC",sans-serif;font-weight:600;}
+  .hE{font-family:"Source Han Sans SC","PingFang SC",sans-serif;font-weight:900;color:#EE2B1E;}
+  .sw{display:flex;gap:4px;}
+  .sw i{width:20px;height:20px;border-radius:5px;box-shadow:inset 0 0 0 1px rgba(0,0,0,.08);}
+  .spec{font-size:12.5px;line-height:1.65;color:var(--mute);margin:0;}
+  .spec b{color:var(--ink);font-weight:600;}
+  .hypo{background:#F7F6F3;border-left:3px solid var(--acc,#16181D);border-radius:0 8px 8px 0;padding:10px 12px;font-size:13.5px;line-height:1.65;}
+  .hypo .lab{display:block;font-size:11px;font-weight:700;letter-spacing:2px;color:var(--soft);margin-bottom:3px;}
+  .kpi{display:grid;grid-template-columns:44px 1fr;gap:4px 8px;font-size:12.5px;line-height:1.55;margin:0;}
+  .kpi dt{color:var(--soft);}
+  .kpi dd{margin:0;}
+  .kpi dd.risk{color:#A4442E;}
+
+  figure{margin:0;}
+  figure a{display:block;position:relative;border-radius:6px;overflow:hidden;box-shadow:0 0 0 1px rgba(0,0,0,.08),0 4px 12px rgba(0,0,0,.08);background:#ddd;}
+  figure img{display:block;width:100%;height:auto;}
+  figure a:hover{box-shadow:0 0 0 2px var(--ink),0 6px 16px rgba(0,0,0,.14);}
+  figcaption{font-size:10.5px;color:var(--soft);margin-top:7px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-family:"Avenir Next","Helvetica Neue",Arial,sans-serif;}
+
+  /* douyin safe-zone overlay */
+  .sz{position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .2s;}
+  body.show-sz .sz{opacity:1;}
+  .sz .t,.sz .b,.sz .r{position:absolute;background:repeating-linear-gradient(45deg,rgba(255,40,80,.38) 0 6px,rgba(255,40,80,.18) 6px 12px);}
+  .sz .t{left:0;right:0;top:0;height:15%;}
+  .sz .b{left:0;right:0;bottom:0;height:25%;}
+  .sz .r{top:15%;bottom:25%;left:85.19%;right:0;}
+
+  /* ---------- bottom ---------- */
+  .bottom{display:grid;grid-template-columns:1.35fr 1fr;gap:16px;margin-top:22px;}
+  .panel{background:var(--card);border-radius:14px;padding:22px 24px;box-shadow:0 1px 0 rgba(0,0,0,.04),0 6px 18px rgba(30,25,15,.05);}
+  .panel h3{margin:0 0 14px;font-size:17px;}
+  table{width:100%;border-collapse:collapse;font-size:12.5px;}
+  th,td{text-align:left;padding:8px 8px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.5;}
+  th{color:var(--soft);font-weight:600;font-size:11.5px;letter-spacing:1px;}
+  td:first-child{font-weight:700;white-space:nowrap;}
+  .dot{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:-1px;}
+  ol{margin:0;padding-left:20px;font-size:13.5px;line-height:1.75;}
+  ol li{margin-bottom:4px;}
+  ol b{font-weight:600;}
+  footer{margin-top:22px;font-size:12px;color:var(--soft);}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div>
+      <div class="brand">
+        <div class="mark">
+          <svg width="26" height="26" viewBox="0 0 56 56"><path d="M10 40 L22 26 L29 33 L38 20 L48 40" stroke="#fff" stroke-width="4.5" fill="none" stroke-linejoin="round" stroke-linecap="round"/><circle cx="40" cy="14" r="4.5" fill="#7DF3FF"/></svg>
+        </div>
+        <div>
+          <div class="name">醒山</div>
+          <div class="en">XINGSHAN FREEZE-DRIED</div>
+        </div>
+      </div>
+      <h1>冻干咖啡 · 投放素材总览板</h1>
+      <p class="sub">单一卖点 × <b>5 个创意方向</b> × <b>3 个尺寸</b> = <b class="num">15</b> 张　|　抖音 · 朋友圈 · 淘宝</p>
+    </div>
+    <dl class="consts">
+      <dt>统一卖点</dt><dd>3 秒冷水速溶 · 0 糖 0 脂</dd>
+      <dt>统一 CTA</dt><dd>立即抢购 · 首单 <span class="hl num">9.9</span> 元 6 颗</dd>
+      <dt>统一元素</dt><dd>左上角 logo · 价格角标 · 底部 CTA · 主文案 ≤ 12 字</dd>
+      <dt>抖音安全区</dt><dd>避开顶部 15% / 底部 25% / 右侧 x &gt; 920 图标栏</dd>
+    </dl>
+  </header>
+
+  <div class="toolbar">
+    <span class="note">卖点、价格、CTA 在 5 个方向中保持一致，唯一变量是创意方向。点击缩略图可打开原尺寸 SVG。</span>
+    <button class="btn" id="szBtn" type="button">显示抖音遮挡区</button>
+  </div>
+
+  <div class="cols">
+    <span>方向 · 测试假设</span>
+    <span>抖音<em class="num">1080×1920</em></span>
+    <span>朋友圈<em class="num">1080×1350</em></span>
+    <span>淘宝<em class="num">800×800</em></span>
+  </div>
+
+  <!-- A -->
+  <section class="row" style="--acc:#0A8FB3">
+    <div class="meta">
+      <div class="ttl"><div class="letter" style="background:#0A8FB3;color:#fff">A</div><h2>实验室</h2><span class="en">LAB REPORT</span></div>
+      <p class="headline hA">冷水实测，3 秒全溶<small>8 字</small></p>
+      <div class="sw"><i style="background:#EEF2F4"></i><i style="background:#0B1F33"></i><i style="background:#0A8FB3"></i><i style="background:#7DF3FF"></i><i style="background:#FF5A36"></i></div>
+      <p class="spec"><b>字体</b> 思源黑体 Light + DIN Alternate　<b>角标</b> 圆形 · 信号橙<br><b>版式</b> 坐标网格、标尺，样本杯 + 3.00s 计时器 + 数据表</p>
+      <div class="hypo"><span class="lab">测试假设</span>「冷水 3 秒」本身让人半信半疑。用实验报告和计时器读数把它变成可验证的数据，理性型用户的点击率和转化率会更高。</div>
+      <dl class="kpi"><dt>人群</dt><dd>理性决策、看成分表的用户</dd><dt>主看</dt><dd>CTR、CVR</dd><dt>风险</dt><dd class="risk">画面偏冷静，信息流里的停留可能不如 B、E</dd></dl>
+    </div>
+    <figure><a href="xingshan-a-lab-douyin.1080x1920.svg" target="_blank"><img src="xingshan-a-lab-douyin.1080x1920.svg" width="191" height="340" alt="A 抖音"><span class="sz"><span class="t"></span><span class="b"></span><span class="r"></span></span></a><figcaption>xingshan-a-lab-douyin</figcaption></figure>
+    <figure><a href="xingshan-a-lab-moments.1080x1350.svg" target="_blank"><img src="xingshan-a-lab-moments.1080x1350.svg" width="272" height="340" alt="A 朋友圈"></a><figcaption>xingshan-a-lab-moments</figcaption></figure>
+    <figure><a href="xingshan-a-lab-taobao.800x800.svg" target="_blank"><img src="xingshan-a-lab-taobao.800x800.svg" width="340" height="340" alt="A 淘宝"></a><figcaption>xingshan-a-lab-taobao</figcaption></figure>
+  </section>
+
+  <!-- B -->
+  <section class="row" style="--acc:#8DB300">
+    <div class="meta">
+      <div class="ttl"><div class="letter" style="background:#0A0A0A;color:#C8FF00">B</div><h2>打工人</h2><span class="en">COMMUTER</span></div>
+      <p class="headline hB">早八续命，<span style="color:#7FA300">3 秒</span>到位<small>8 字</small></p>
+      <div class="sw"><i style="background:#050505"></i><i style="background:#3C3C40"></i><i style="background:#FFFFFF"></i><i style="background:#C8FF00"></i><i style="background:#FF8A2A"></i></div>
+      <p class="spec"><b>字体</b> 思源黑体 Heavy 横压 90% + Futura Bold　<b>角标</b> 爆炸贴 · 酸性绿<br><b>版式</b> 地铁门闪光灯直拍、手握冰咖啡、斜贴胶带</p>
+      <div class="hypo"><span class="lab">测试假设</span>用通勤场景加「续命」身份梗，让早八人群一眼代入「这就是我」。前 3 秒完播率和点击率预计高于纯产品素材。</div>
+      <dl class="kpi"><dt>人群</dt><dd>18–30 岁上班族</dd><dt>主看</dt><dd>3 秒完播率、CTR</dd><dt>风险</dt><dd class="risk">场景压过产品，小图里罐子识别度偏低</dd></dl>
+    </div>
+    <figure><a href="xingshan-b-commuter-douyin.1080x1920.svg" target="_blank"><img src="xingshan-b-commuter-douyin.1080x1920.svg" width="191" height="340" alt="B 抖音"><span class="sz"><span class="t"></span><span class="b"></span><span class="r"></span></span></a><figcaption>xingshan-b-commuter-douyin</figcaption></figure>
+    <figure><a href="xingshan-b-commuter-moments.1080x1350.svg" target="_blank"><img src="xingshan-b-commuter-moments.1080x1350.svg" width="272" height="340" alt="B 朋友圈"></a><figcaption>xingshan-b-commuter-moments</figcaption></figure>
+    <figure><a href="xingshan-b-commuter-taobao.800x800.svg" target="_blank"><img src="xingshan-b-commuter-taobao.800x800.svg" width="340" height="340" alt="B 淘宝"></a><figcaption>xingshan-b-commuter-taobao</figcaption></figure>
+  </section>
+
+  <!-- C -->
+  <section class="row" style="--acc:#FF3D7F">
+    <div class="meta">
+      <div class="ttl"><div class="letter" style="background:#FF3D7F;color:#fff">C</div><h2>颜值</h2><span class="en">CANDY</span></div>
+      <p class="headline hC">挑一颗，<span style="color:#FF3D7F">3</span> 秒好心情<small>8 字</small></p>
+      <div class="sw"><i style="background:#FFF4E6"></i><i style="background:#BFE6FF"></i><i style="background:#FFD3B8"></i><i style="background:#C9F0DC"></i><i style="background:#FFC6DA"></i><i style="background:#FFEBA3"></i><i style="background:#E0D3FF"></i><i style="background:#FF3D7F"></i></div>
+      <p class="spec"><b>字体</b> 宋体 Bold + Didot（全套唯一衬线）　<b>角标</b> 花瓣形 · 热粉<br><b>版式</b> 6 口味小罐俯拍一字排开，糖果色竖条，全圆角</p>
+      <div class="hypo"><span class="lab">测试假设</span>多口味、高饱和的色彩陈列能打动看颜值、爱收集的人群，「6 颗」首单像一次值得的尝鲜。收藏率和组合装客单价预计更高。</div>
+      <dl class="kpi"><dt>人群</dt><dd>女性、小红书风格用户</dd><dt>主看</dt><dd>收藏率、组合装客单价</dd><dt>风险</dt><dd class="risk">颜值压过「3 秒」卖点，速溶认知可能偏弱</dd></dl>
+    </div>
+    <figure><a href="xingshan-c-candy-douyin.1080x1920.svg" target="_blank"><img src="xingshan-c-candy-douyin.1080x1920.svg" width="191" height="340" alt="C 抖音"><span class="sz"><span class="t"></span><span class="b"></span><span class="r"></span></span></a><figcaption>xingshan-c-candy-douyin</figcaption></figure>
+    <figure><a href="xingshan-c-candy-moments.1080x1350.svg" target="_blank"><img src="xingshan-c-candy-moments.1080x1350.svg" width="272" height="340" alt="C 朋友圈"></a><figcaption>xingshan-c-candy-moments</figcaption></figure>
+    <figure><a href="xingshan-c-candy-taobao.800x800.svg" target="_blank"><img src="xingshan-c-candy-taobao.800x800.svg" width="340" height="340" alt="C 淘宝"></a><figcaption>xingshan-c-candy-taobao</figcaption></figure>
+  </section>
+
+  <!-- D -->
+  <section class="row" style="--acc:#2340FF">
+    <div class="meta">
+      <div class="ttl"><div class="letter" style="background:#2340FF;color:#FFD400">D</div><h2>对比</h2><span class="en">COMPARE</span></div>
+      <p class="headline hD">手冲 7 步，醒山 <span style="color:#2340FF">1</span> 步<small>8 字</small></p>
+      <div class="sw"><i style="background:#E7E3DB"></i><i style="background:#A79B88"></i><i style="background:#2340FF"></i><i style="background:#121318"></i><i style="background:#FFD400"></i></div>
+      <p class="spec"><b>字体</b> 冬青黑体 W6 + Avenir Next Heavy　<b>角标</b> 挂绳吊牌 · 柠檬黄<br><b>版式</b> 左右分屏对照表，耗时进度条，≈12 min vs 3 s</p>
+      <div class="hypo"><span class="lab">测试假设</span>用「7 步 vs 1 步」「≈12 min vs 3 s」把「省事」量化成看得见的落差。停留时长和点击率预计高于单一卖点素材，评论区更容易出现「确实懒得手冲」的共鸣。</div>
+      <dl class="kpi"><dt>人群</dt><dd>喝过精品咖啡、嫌手冲麻烦的上班族</dd><dt>主看</dt><dd>停留时长、CTR、评论共鸣</dd><dt>风险</dt><dd class="risk">信息密度高，淘宝小图步骤文字不可读</dd></dl>
+    </div>
+    <figure><a href="xingshan-d-compare-douyin.1080x1920.svg" target="_blank"><img src="xingshan-d-compare-douyin.1080x1920.svg" width="191" height="340" alt="D 抖音"><span class="sz"><span class="t"></span><span class="b"></span><span class="r"></span></span></a><figcaption>xingshan-d-compare-douyin</figcaption></figure>
+    <figure><a href="xingshan-d-compare-moments.1080x1350.svg" target="_blank"><img src="xingshan-d-compare-moments.1080x1350.svg" width="272" height="340" alt="D 朋友圈"></a><figcaption>xingshan-d-compare-moments</figcaption></figure>
+    <figure><a href="xingshan-d-compare-taobao.800x800.svg" target="_blank"><img src="xingshan-d-compare-taobao.800x800.svg" width="340" height="340" alt="D 淘宝"></a><figcaption>xingshan-d-compare-taobao</figcaption></figure>
+  </section>
+
+  <!-- E -->
+  <section class="row" style="--acc:#EE2B1E">
+    <div class="meta">
+      <div class="ttl"><div class="letter" style="background:#EE2B1E;color:#fff;box-shadow:inset 0 0 0 3px #111">E</div><h2>玩梗</h2><span class="en">MEME</span></div>
+      <p class="headline hE">比你回老板消息还快！<small>9 字</small></p>
+      <div class="sw"><i style="background:#EE2B1E"></i><i style="background:#D81E12"></i><i style="background:#FFFFFF"></i><i style="background:#111111"></i></div>
+      <p class="spec"><b>字体</b> 思源黑体 Heavy 纵拉 112% + 黑描边硬投影　<b>角标</b> 方形红框印章<br><b>版式</b> 大字报 + 墨镜咖啡表情包 + 群聊截图</p>
+      <div class="hypo"><span class="lab">测试假设</span>用「回老板消息」这个打工人共同痛点做反差梗，把卖点变成能转发的段子。评论率和分享率预计在 5 个方向中最高，前 3 秒停留也更好。</div>
+      <dl class="kpi"><dt>人群</dt><dd>18–30 岁抖音用户</dd><dt>主看</dt><dd>评论率、分享率、3 秒停留</dd><dt>风险</dt><dd class="risk">购买意图可能弱于 A、D，需和 D 对比 CVR</dd></dl>
+    </div>
+    <figure><a href="xingshan-e-meme-douyin.1080x1920.svg" target="_blank"><img src="xingshan-e-meme-douyin.1080x1920.svg" width="191" height="340" alt="E 抖音"><span class="sz"><span class="t"></span><span class="b"></span><span class="r"></span></span></a><figcaption>xingshan-e-meme-douyin</figcaption></figure>
+    <figure><a href="xingshan-e-meme-moments.1080x1350.svg" target="_blank"><img src="xingshan-e-meme-moments.1080x1350.svg" width="272" height="340" alt="E 朋友圈"></a><figcaption>xingshan-e-meme-moments</figcaption></figure>
+    <figure><a href="xingshan-e-meme-taobao.800x800.svg" target="_blank"><img src="xingshan-e-meme-taobao.800x800.svg" width="340" height="340" alt="E 淘宝"></a><figcaption>xingshan-e-meme-taobao</figcaption></figure>
+  </section>
+
+  <div class="bottom">
+    <div class="panel">
+      <h3>差异化对照：5 个方向不只是换文案</h3>
+      <table>
+        <thead><tr><th>方向</th><th>底色</th><th>字体</th><th>版式逻辑</th><th>角标</th><th>主测指标</th></tr></thead>
+        <tbody>
+          <tr><td><span class="dot" style="background:#0A8FB3"></span>A 实验室</td><td>雾灰蓝</td><td>思源 Light · DIN</td><td>数据排版</td><td>圆形</td><td>CTR / CVR</td></tr>
+          <tr><td><span class="dot" style="background:#C8FF00;box-shadow:inset 0 0 0 1px #000"></span>B 打工人</td><td>近黑</td><td>思源 Heavy 横压 · Futura</td><td>现场抓拍</td><td>爆炸贴</td><td>3 秒完播 / CTR</td></tr>
+          <tr><td><span class="dot" style="background:#FF3D7F"></span>C 颜值</td><td>奶油白</td><td>宋体 · Didot</td><td>色卡陈列</td><td>花瓣</td><td>收藏 / 客单价</td></tr>
+          <tr><td><span class="dot" style="background:#2340FF"></span>D 对比</td><td>灰 / 钴蓝分屏</td><td>冬青黑体 · Avenir</td><td>对照表</td><td>吊牌</td><td>停留 / CTR</td></tr>
+          <tr><td><span class="dot" style="background:#EE2B1E"></span>E 玩梗</td><td>警报红</td><td>思源 Heavy 纵拉描边</td><td>梗图 + 截图</td><td>印章</td><td>评论 / 分享</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="panel">
+      <h3>测试执行建议</h3>
+      <ol>
+        <li><b>控制变量</b>：卖点、价格、CTA、logo 位置全部一致，5 个方向同预算、同定向、同时段投放。</li>
+        <li><b>按渠道看不同指标</b>：抖音看 3 秒完播和互动，朋友圈看 CTR，淘宝看 CVR 和加购。</li>
+        <li><b>成对比较</b>：A 和 D 比「证据型说服」，B 和 E 比「情绪代入与传播」，C 单独看收藏率和客单价。</li>
+        <li><b>判胜负</b>：先用 CTR 筛掉落后方向，再用 CVR 和获客成本定最终方向。样本达到显著后再下结论。</li>
+      </ol>
+    </div>
+  </div>
+
+  <footer>所有素材为 SVG 插画示意，文字保留为可编辑的文本元素。数据型素材（A、D）带免责小字，便于过审。</footer>
+</div>
+
+<script>
+  (function(){
+    var btn = document.getElementById('szBtn');
+    btn.addEventListener('click', function(){
+      var on = document.body.classList.toggle('show-sz');
+      btn.textContent = on ? '隐藏抖音遮挡区' : '显示抖音遮挡区';
+    });
+  })();
+</script>
+</body>
+</html>

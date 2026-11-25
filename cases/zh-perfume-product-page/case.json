@@ -1,0 +1,65 @@
+{
+  "slug": "zh-perfume-product-page",
+  "lang": "zh",
+  "title": "小众香水 Shopify 详情页和九张商品图",
+  "summary": "为虚构香水 Atelier Oubli Nº 7「Fig & Smoke」画出九张暗调油画感商品图（主图、四个角度、微距、原料、床头场景、包装盒），再做一个桌面和手机通用的 HTML 商品页原型，含规格切换、香调金字塔、留香时间轴和配送退换折叠面板。",
+  "tags": [
+    "Design",
+    "E-commerce",
+    "Web"
+  ],
+  "source": {
+    "site": "AutoClaw 博客",
+    "category": "Tutorial",
+    "title": "如何用 AutoClaw 设计专家制作小众香水详情页和商品图",
+    "url": "https://autoclaw.z.ai/cn/blog/tutorial/autoclaw-perfume-product-page/",
+    "published": "2026-11-21",
+    "original_setup": "AutoClaw 设计专家 · GLM-5.3",
+    "notes": "提示词用原文实际提交的英文版。原文用 AI 生图得到摄影质感的商品图，复现时九张图都是 SVG 绘制的插画，不是照片。单轮输出有上限：九张图分四轮交付，商品页拆成样式表+脚本一轮、HTML 一轮。"
+  },
+  "system": "You are AutoClaw's Design Expert: a senior e-commerce art director and front-end designer who works in code and checks every deliverable before handing it over.\n\nTechnical constraints for every image:\n- Each image is one self-contained SVG whose width/height and viewBox equal the target pixel size. No external images, no web fonts, no <foreignObject>. Draw products, people and scenes with SVG shapes, gradients and filters as illustration; never pretend to be a photograph.\n- Keep text as real <text> elements so it stays editable.\n- SVGs are rendered with librsvg on macOS. Fonts that work there: Didot, Baskerville, Futura, Avenir Next, Gill Sans, Georgia, DIN Alternate, Bradley Hand (handwriting); for any Chinese text \"Source Han Sans SC\" (weights 300-900), \"Hiragino Sans GB\", \"PingFang SC\" or \"Songti SC\". Name one of these first in every font-family list, then a generic family. There are no condensed fonts; if you need a condensed look, compress text horizontally with a transform.\n- A PNG is exported automatically from every SVG, using the same base name, so deliver only the SVG.\n- Product images are 1600×2000 (4:5 portrait).\n\nTechnical constraints for HTML:\n- The product page is one HTML file plus one stylesheet (.css) and one script (.js) beside it, linked by relative path. You may load the Google Fonts the brief names with a <link>, always with a system-font fallback.\n- Images may only be SVG files you have delivered in this conversation, referenced by relative path (<img src=\"name.svg\">), or drawn inline with SVG/CSS. No external images.\n- For review the page is screenshotted in a 1440×2400 browser window (top of the page only). Do not size sections with vh units.\n- Name files in kebab-case, for example fig-smoke-hero.svg.",
+  "convert": {
+    ".svg": {
+      "to": "png",
+      "width": 1600,
+      "height": 2000
+    },
+    ".html": {
+      "to": "shot.png",
+      "width": 1440,
+      "height": 2400
+    }
+  },
+  "review_prompt": "Here are the images rendered from the files you just delivered (SVGs via librsvg, HTML as a browser screenshot of the top of the page), downscaled. Check them as a designer would before a client review: clipped or overlapping text, text that renders as boxes or in a fallback font, broken layout, empty areas, anything that breaks the brief's rules. If something needs fixing, deliver the corrected files under the same names. If everything is ready, say so in one or two sentences and deliver nothing.",
+  "turns": [
+    {
+      "label": "Prompt · hero and front view",
+      "review": true,
+      "prompt": "Design the Shopify product page and the full image set for Atelier Oubli Nº 7 \"Fig & Smoke\", a 50ml eau de parfum at $168. The notes are green fig and bergamot on top, iris and cedar in the heart, and birch tar and ambrette at the base.\nFor the images, start with a hero of the bottle at a three-quarter angle under a single Caravaggio-like side light on deep umber, with a halved fig and a wisp of smoke. Then shoot front, side, back and top-down views under exactly the same lighting, a macro of the engraved glass and heavy brass cap, a still life of the raw ingredients (fig, iris root, birch bark) labeled in tiny italic serif, a scene on a dark wooden nightstand with an open book and a burnt-out candle, and the black packaging box with a blind-embossed logo.\nThe page (desktop 1440 and mobile 390) needs a sticky gallery with zoom, a 50ml / 10ml travel size selector, a Discovery Set upsell, an interactive notes pyramid on hover, a \"How it wears\" timeline at 0h / 2h / 6h, reviews, and a shipping & returns accordion. Keep it dark, sensual and painterly: umber #2A1E17, fig #5B2A3C, brass #B08D57 and bone #E8E0D2, Cormorant Garamond italic for headlines and a small-caps grotesk for UI, with generous spacing and slow fades. No white backgrounds, pastels, sale badges or sparkles.\n\nDeliver the hero and the front view in this reply. I will ask for the other images and the page next."
+    },
+    {
+      "label": "Side, back, top-down",
+      "review": true,
+      "prompt": "Now deliver the side, back and top-down views under exactly the same lighting."
+    },
+    {
+      "label": "Macro and ingredients",
+      "review": true,
+      "prompt": "Now deliver the macro of the engraved glass and brass cap, and the raw-ingredients still life. Keep the bottle and lighting identical to the earlier images."
+    },
+    {
+      "label": "Nightstand and box",
+      "review": true,
+      "prompt": "Now deliver the nightstand scene and the black packaging box."
+    },
+    {
+      "label": "Product page · stylesheet and script",
+      "prompt": "Now build the product page for desktop 1440 and mobile 390, using the nine images you made. It is large, so split it: in this reply deliver only the stylesheet fig-smoke-page.css and the interaction script fig-smoke-page.js. I will ask for the HTML next."
+    },
+    {
+      "label": "Product page · HTML",
+      "review": true,
+      "prompt": "Now deliver fig-smoke-page.html, using that stylesheet, that script and the nine images."
+    }
+  ]
+}

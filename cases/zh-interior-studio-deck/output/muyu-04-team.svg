@@ -1,0 +1,162 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080">
+  <defs>
+    <filter id="blur" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="22"/>
+    </filter>
+    <clipPath id="c1"><rect x="720" y="96" width="240" height="460"/></clipPath>
+    <clipPath id="c2"><rect x="1000" y="96" width="240" height="460"/></clipPath>
+    <clipPath id="c3"><rect x="1280" y="96" width="240" height="460"/></clipPath>
+    <clipPath id="c4"><rect x="1560" y="96" width="240" height="460"/></clipPath>
+  </defs>
+
+  <rect width="1920" height="1080" fill="#FBFAF7"/>
+
+  <!-- 左栏 -->
+  <text x="120" y="150" font-family="'Avenir Next', sans-serif" font-size="16" letter-spacing="6" fill="#8A8278">04 — TEAM</text>
+  <rect x="120" y="178" width="40" height="1.5" fill="#2A2826"/>
+  <text x="118" y="262" font-family="'Source Han Sans SC', sans-serif" font-weight="300" font-size="56" letter-spacing="6" fill="#2A2826">团队</text>
+
+  <text font-family="'Songti SC', serif" font-size="44" fill="#2A2826" letter-spacing="2">
+    <tspan x="120" y="400">四个人，</tspan>
+    <tspan x="120" y="466">从第一张草图</tspan>
+    <tspan x="120" y="532">陪到交房那天。</tspan>
+  </text>
+  <rect x="120" y="590" width="60" height="1.5" fill="#A88660"/>
+
+  <text font-family="'Source Han Sans SC', sans-serif" font-weight="300" font-size="18" fill="#5E574F">
+    <tspan x="120" y="650">木屿是一个四人小团队。</tspan>
+    <tspan x="120" y="682">设计、材料、空间与施工协调各有专人，</tspan>
+    <tspan x="120" y="714">每个项目从勘测到软装陈设，</tspan>
+    <tspan x="120" y="746">都由同一组人跟到最后。</tspan>
+  </text>
+
+  <text x="120" y="860" font-family="'Avenir Next', sans-serif" font-size="13" letter-spacing="4" fill="#9A9288">WORKFLOW · 工作方式</text>
+  <text x="120" y="896" font-family="'Source Han Sans SC', sans-serif" font-weight="400" font-size="17" fill="#2A2826">现场勘测 · 方案设计 · 材料选样</text>
+  <text x="120" y="926" font-family="'Source Han Sans SC', sans-serif" font-weight="400" font-size="17" fill="#2A2826">施工协调 · 软装陈设 · 竣工交付</text>
+
+  <!-- 成员 01 林一舟 -->
+  <g clip-path="url(#c1)">
+    <g transform="translate(720,96)">
+      <rect width="240" height="460" fill="#E6DED1"/>
+      <ellipse cx="40" cy="120" rx="90" ry="150" fill="#FFFFFF" opacity="0.4" filter="url(#blur)"/>
+      <rect x="138" y="44" width="76" height="96" fill="#F6F2EA" stroke="#B89A74" stroke-width="3"/>
+      <path d="M150,60 L200,60 L200,124 L150,124 Z M150,92 L176,92 L176,124 M176,60 L176,78" fill="none" stroke="#9A9288" stroke-width="1.5"/>
+      <rect x="106" y="286" width="28" height="52" rx="10" fill="#DDBF9F"/>
+      <path d="M30,460 C30,370 66,336 120,332 C174,336 210,370 210,460 Z" fill="#4A4540"/>
+      <path d="M106,334 L120,358 L134,334 Z" fill="#DDBF9F"/>
+      <ellipse cx="120" cy="250" rx="40" ry="48" fill="#E5C9AA"/>
+      <path d="M80,246 C76,208 96,196 122,196 C150,196 166,214 160,248 C154,226 136,218 116,222 C100,226 88,234 80,246 Z" fill="#3B342E"/>
+    </g>
+  </g>
+
+  <!-- 成员 02 苏晚 -->
+  <g clip-path="url(#c2)">
+    <g transform="translate(1000,96)">
+      <rect width="240" height="460" fill="#ECE5D9"/>
+      <ellipse cx="40" cy="120" rx="90" ry="150" fill="#FFFFFF" opacity="0.4" filter="url(#blur)"/>
+      <line x1="136" y1="52" x2="222" y2="52" stroke="#8B7B66" stroke-width="2"/>
+      <rect x="142" y="52" width="22" height="72" fill="#D9CBB4"/>
+      <rect x="168" y="52" width="22" height="88" fill="#BFAF96"/>
+      <rect x="194" y="52" width="22" height="64" fill="#F3EDE2"/>
+      <path d="M76,250 C72,206 96,192 120,192 C146,192 168,208 164,252 L172,360 C150,370 90,370 68,360 Z" fill="#4A3C32"/>
+      <rect x="106" y="286" width="28" height="52" rx="10" fill="#DDBF9F"/>
+      <path d="M30,460 C30,370 66,336 120,332 C174,336 210,370 210,460 Z" fill="#D6C7AE"/>
+      <path d="M106,334 C108,348 132,348 134,334 Z" fill="#DDBF9F"/>
+      <ellipse cx="120" cy="250" rx="40" ry="48" fill="#E5C9AA"/>
+      <path d="M80,240 C82,208 100,198 122,198 C146,198 162,212 162,240 C150,220 128,212 108,218 C94,222 86,230 80,240 Z" fill="#4A3C32"/>
+    </g>
+  </g>
+
+  <!-- 成员 03 陈屿 -->
+  <g clip-path="url(#c3)">
+    <g transform="translate(1280,96)">
+      <rect width="240" height="460" fill="#E2D9CA"/>
+      <ellipse cx="40" cy="120" rx="90" ry="150" fill="#FFFFFF" opacity="0.4" filter="url(#blur)"/>
+      <rect x="130" y="150" width="96" height="6" fill="#B8956A"/>
+      <rect x="146" y="104" width="56" height="46" fill="#F1ECE2"/>
+      <path d="M164,150 L164,128 A10,10 0 0 1 184,128 L184,150 Z" fill="#D8CFC0"/>
+      <rect x="206" y="132" width="16" height="18" fill="#C9A77C"/>
+      <rect x="106" y="286" width="28" height="52" rx="10" fill="#DDBF9F"/>
+      <path d="M30,460 C30,370 66,336 120,332 C174,336 210,370 210,460 Z" fill="#B08D62"/>
+      <path d="M104,332 L120,352 L112,360 Z" fill="#EFE9DE"/>
+      <path d="M136,332 L120,352 L128,360 Z" fill="#EFE9DE"/>
+      <ellipse cx="120" cy="250" rx="40" ry="48" fill="#E5C9AA"/>
+      <path d="M80,238 C80,206 98,194 120,194 C144,194 162,206 160,236 C148,222 140,214 124,214 C104,214 92,226 80,238 Z" fill="#3B342E"/>
+      <g fill="none" stroke="#3B342E" stroke-width="2">
+        <circle cx="104" cy="254" r="9"/>
+        <circle cx="136" cy="254" r="9"/>
+        <line x1="113" y1="254" x2="127" y2="254"/>
+      </g>
+    </g>
+  </g>
+
+  <!-- 成员 04 周然 -->
+  <g clip-path="url(#c4)">
+    <g transform="translate(1560,96)">
+      <rect width="240" height="460" fill="#E9E3D8"/>
+      <ellipse cx="40" cy="120" rx="90" ry="150" fill="#FFFFFF" opacity="0.4" filter="url(#blur)"/>
+      <rect x="138" y="44" width="80" height="100" fill="#F4F0E8" stroke="#CFC4B2" stroke-width="2"/>
+      <circle cx="178" cy="44" r="3" fill="#A88660"/>
+      <rect x="148" y="58" width="30" height="6" fill="#C9A77C"/>
+      <rect x="160" y="74" width="40" height="6" fill="#B8A588"/>
+      <rect x="170" y="90" width="28" height="6" fill="#C9A77C"/>
+      <rect x="150" y="106" width="52" height="6" fill="#D8CFC0"/>
+      <rect x="184" y="122" width="24" height="6" fill="#A88660"/>
+      <rect x="106" y="286" width="28" height="52" rx="10" fill="#DDBF9F"/>
+      <path d="M30,460 C30,370 66,336 120,332 C174,336 210,370 210,460 Z" fill="#CFC7B9"/>
+      <path d="M106,334 C108,348 132,348 134,334 Z" fill="#DDBF9F"/>
+      <line x1="120" y1="348" x2="120" y2="460" stroke="#B8AFA0" stroke-width="2"/>
+      <ellipse cx="120" cy="250" rx="40" ry="48" fill="#E5C9AA"/>
+      <path d="M82,232 C82,204 100,196 120,196 C142,196 158,204 158,232 C146,222 134,218 120,218 C104,218 92,222 82,232 Z" fill="#3B342E"/>
+    </g>
+  </g>
+
+  <text x="720" y="590" font-family="'Source Han Sans SC', sans-serif" font-weight="300" font-size="13" fill="#9A9288">示意插画 · 成员肖像，可替换为照片</text>
+
+  <!-- 成员信息 -->
+  <g font-family="'Source Han Sans SC', sans-serif">
+    <line x1="720" y1="616" x2="960" y2="616" stroke="#2A2826" stroke-width="1"/>
+    <text x="720" y="664" font-family="Didot, serif" font-size="22" fill="#A88660">01</text>
+    <text x="760" y="664" font-weight="400" font-size="28" fill="#2A2826">林一舟</text>
+    <text x="720" y="704" font-weight="400" font-size="16" fill="#2A2826">创始人 / 主持设计师</text>
+    <text x="720" y="732" font-family="'Avenir Next', sans-serif" font-size="12" letter-spacing="2" fill="#9A9288">FOUNDER · PRINCIPAL</text>
+    <text font-weight="300" font-size="15" fill="#5E574F">
+      <tspan x="720" y="790">把控每个项目的方向，</tspan>
+      <tspan x="720" y="816">从第一张草图开始。</tspan>
+    </text>
+
+    <line x1="1000" y1="616" x2="1240" y2="616" stroke="#2A2826" stroke-width="1"/>
+    <text x="1000" y="664" font-family="Didot, serif" font-size="22" fill="#A88660">02</text>
+    <text x="1040" y="664" font-weight="400" font-size="28" fill="#2A2826">苏晚</text>
+    <text x="1000" y="704" font-weight="400" font-size="16" fill="#2A2826">软装与材料设计师</text>
+    <text x="1000" y="732" font-family="'Avenir Next', sans-serif" font-size="12" letter-spacing="2" fill="#9A9288">MATERIALS &amp; STYLING</text>
+    <text font-weight="300" font-size="15" fill="#5E574F">
+      <tspan x="1000" y="790">负责材料选样与软装，</tspan>
+      <tspan x="1000" y="816">家里摸得到的都经她手。</tspan>
+    </text>
+
+    <line x1="1280" y1="616" x2="1520" y2="616" stroke="#2A2826" stroke-width="1"/>
+    <text x="1280" y="664" font-family="Didot, serif" font-size="22" fill="#A88660">03</text>
+    <text x="1320" y="664" font-weight="400" font-size="28" fill="#2A2826">陈屿</text>
+    <text x="1280" y="704" font-weight="400" font-size="16" fill="#2A2826">空间设计师</text>
+    <text x="1280" y="732" font-family="'Avenir Next', sans-serif" font-size="12" letter-spacing="2" fill="#9A9288">SPATIAL DESIGNER</text>
+    <text font-weight="300" font-size="15" fill="#5E574F">
+      <tspan x="1280" y="790">梳理格局、动线与收纳，</tspan>
+      <tspan x="1280" y="816">把想法落到每个尺寸。</tspan>
+    </text>
+
+    <line x1="1560" y1="616" x2="1800" y2="616" stroke="#2A2826" stroke-width="1"/>
+    <text x="1560" y="664" font-family="Didot, serif" font-size="22" fill="#A88660">04</text>
+    <text x="1600" y="664" font-weight="400" font-size="28" fill="#2A2826">周然</text>
+    <text x="1560" y="704" font-weight="400" font-size="16" fill="#2A2826">项目经理 · 施工协调</text>
+    <text x="1560" y="732" font-family="'Avenir Next', sans-serif" font-size="12" letter-spacing="2" fill="#9A9288">PROJECT MANAGER</text>
+    <text font-weight="300" font-size="15" fill="#5E574F">
+      <tspan x="1560" y="790">对接工地与工期，</tspan>
+      <tspan x="1560" y="816">让施工按图、按时完成。</tspan>
+    </text>
+  </g>
+
+  <!-- 页脚 -->
+  <text x="120" y="1010" font-family="Didot, serif" font-size="18" fill="#2A2826">04 <tspan fill="#B0A89D">/ 09</tspan></text>
+  <text x="1800" y="1010" text-anchor="end" font-family="'Avenir Next', sans-serif" font-size="13" letter-spacing="4" fill="#9A9288">MUYU DESIGN STUDIO</text>
+</svg>

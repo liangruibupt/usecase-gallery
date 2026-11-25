@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>木屿设计 · 工作室介绍</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: #EFECE6;
+    color: #2A2826;
+    font-family: "Avenir Next", "PingFang SC", "Hiragino Sans GB", "Source Han Sans SC", sans-serif;
+  }
+  .cn { font-family: "PingFang SC", "Hiragino Sans GB", "Source Han Sans SC", sans-serif; }
+  header {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 22px 32px 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .brand { font-size: 12px; letter-spacing: .32em; color: #8A8278; }
+  .brand b { font-weight: 500; color: #2A2826; letter-spacing: .1em; margin-right: 14px; font-family: "PingFang SC", "Hiragino Sans GB", "Source Han Sans SC", sans-serif; }
+  .links { display: flex; gap: 22px; align-items: center; }
+  .links a, .links .link {
+    font-size: 13px; letter-spacing: .12em; color: #5E574F; text-decoration: none;
+    border: 0; border-bottom: 1px solid #CFC6B8; padding: 0 0 2px; background: none; cursor: pointer;
+    font-family: "PingFang SC", "Hiragino Sans GB", "Source Han Sans SC", sans-serif;
+  }
+  .links a:hover, .links .link:hover { color: #2A2826; border-color: #2A2826; }
+  .stage { max-width: 1280px; margin: 0 auto; padding: 0 32px; }
+  .frame {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    background: #FBFAF7;
+    box-shadow: 0 1px 2px rgba(42,40,38,.06), 0 12px 40px rgba(42,40,38,.08);
+    overflow: hidden;
+  }
+  .frame img { display: block; width: 100%; height: 100%; object-fit: contain; }
+  .frame:fullscreen { aspect-ratio: auto; width: 100%; height: 100%; box-shadow: none; background: #FBFAF7; }
+  .frame:-webkit-full-screen { width: 100%; height: 100%; background: #FBFAF7; }
+  .hit { position: absolute; top: 0; bottom: 0; width: 30%; }
+  .hit.prev { left: 0; cursor: w-resize; }
+  .hit.next { right: 0; cursor: e-resize; }
+  .progress { display: flex; gap: 4px; margin-top: 14px; }
+  .progress button {
+    flex: 1; height: 14px; border: 0; padding: 0; background: none; cursor: pointer; position: relative;
+  }
+  .progress button::after {
+    content: ""; position: absolute; left: 0; right: 0; top: 6px; height: 2px; background: #D8D1C5; transition: background .2s;
+  }
+  .progress button:hover::after { background: #B0A89D; }
+  .progress button.on::after { background: #A88660; }
+  .bar {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 10px 0 32px;
+  }
+  .title { font-size: 15px; color: #5E574F; min-width: 220px; }
+  .title .num { font-family: Didot, "Songti SC", serif; color: #A88660; font-size: 18px; margin-right: 10px; }
+  .controls { display: flex; align-items: center; gap: 14px; min-width: 220px; justify-content: flex-end; }
+  .count { font-family: Didot, "Songti SC", serif; font-size: 16px; min-width: 64px; text-align: center; }
+  .count span { color: #B0A89D; }
+  .round {
+    width: 44px; height: 44px; border-radius: 50%;
+    border: 1px solid #CFC6B8; background: #FBFAF7; color: #2A2826;
+    font-size: 18px; cursor: pointer; transition: background .2s, border-color .2s, color .2s;
+  }
+  .round:hover:not(:disabled) { background: #2A2826; color: #FBFAF7; border-color: #2A2826; }
+  .round:disabled { opacity: .35; cursor: default; }
+  .hint { font-size: 12px; color: #9A9288; letter-spacing: .06em; }
+</style>
+</head>
+<body>
+  <header>
+    <div class="brand"><b>木屿设计</b>MUYU DESIGN STUDIO · PROFILE</div>
+    <div class="links">
+      <button class="link" id="fs" type="button">全屏放映</button>
+      <a href="muyu-index.html" id="toIndex">九宫格索引</a>
+    </div>
+  </header>
+  <main class="stage">
+    <div class="frame" id="frame">
+      <img id="slide" src="muyu-01-cover.svg" alt="第 1 页 封面">
+      <div class="hit prev" id="hitPrev" title="上一页"></div>
+      <div class="hit next" id="hitNext" title="下一页"></div>
+    </div>
+    <div class="progress" id="progress"></div>
+    <div class="bar">
+      <div class="title cn" id="title"><span class="num">01</span>封面</div>
+      <div class="hint cn">← → 翻页 · 1–9 跳页 · F 全屏 · G 索引</div>
+      <div class="controls">
+        <button class="round" id="prev" type="button" aria-label="上一页">‹</button>
+        <div class="count" id="count">01 <span>/ 09</span></div>
+        <button class="round" id="next" type="button" aria-label="下一页">›</button>
+      </div>
+    </div>
+  </main>
+<script>
+  var pages = [
+    { src: "muyu-01-cover.svg", title: "封面" },
+    { src: "muyu-02-contents.svg", title: "目录" },
+    { src: "muyu-03-philosophy.svg", title: "设计理念" },
+    { src: "muyu-04-team.svg", title: "团队" },
+    { src: "muyu-05-space-material.svg", title: "空间与材质" },
+    { src: "muyu-06-light-mood.svg", title: "光影情绪" },
+    { src: "muyu-07-room-schedule.svg", title: "空间清单" },
+    { src: "muyu-08-lighting-details.svg", title: "灯具与材质细节" },
+    { src: "muyu-09-contact.svg", title: "联系方式" }
+  ];
+  var idx = 0;
+  var img = document.getElementById("slide");
+  var frame = document.getElementById("frame");
+  var pad = function (n) { return (n < 10 ? "0" : "") + n; };
+
+  pages.forEach(function (p) { var i = new Image(); i.src = p.src; });
+
+  var prog = document.getElementById("progress");
+  pages.forEach(function (p, i) {
+    var b = document.createElement("button");
+    b.type = "button";
+    b.title = pad(i + 1) + " " + p.title;
+    b.setAttribute("aria-label", "跳到第 " + (i + 1) + " 页 " + p.title);
+    b.onclick = function () { go(i); };
+    prog.appendChild(b);
+  });
+
+  function fromHash() {
+    var n = parseInt((location.hash || "").replace("#", ""), 10);
+    return (n >= 1 && n <= pages.length) ? n - 1 : 0;
+  }
+  function render() {
+    var p = pages[idx];
+    img.src = p.src;
+    img.alt = "第 " + (idx + 1) + " 页 " + p.title;
+    document.title = pad(idx + 1) + " " + p.title + " · 木屿设计";
+    document.getElementById("title").innerHTML = '<span class="num">' + pad(idx + 1) + "</span>" + p.title;
+    document.getElementById("count").innerHTML = pad(idx + 1) + " <span>/ " + pad(pages.length) + "</span>";
+    document.getElementById("prev").disabled = idx === 0;
+    document.getElementById("next").disabled = idx === pages.length - 1;
+    Array.prototype.forEach.call(prog.children, function (b, i) { b.className = i <= idx ? "on" : ""; });
+    var h = "#" + (idx + 1);
+    if (location.hash !== h) history.replaceState(null, "", h);
+    try { localStorage.setItem("muyu-last", String(idx + 1)); } catch (e) {}
+  }
+  function go(n) {
+    idx = Math.max(0, Math.min(pages.length - 1, n));
+    render();
+  }
+  function toggleFs() {
+    if (document.fullscreenElement || document.webkitFullscreenElement) {
+      (document.exitFullscreen || document.webkitExitFullscreen).call(document);
+    } else {
+      var req = frame.requestFullscreen || frame.webkitRequestFullscreen;
+      if (req) req.call(frame);
+    }
+  }
+
+  document.getElementById("prev").onclick = function () { go(idx - 1); };
+  document.getElementById("next").onclick = function () { go(idx + 1); };
+  document.getElementById("hitPrev").onclick = function () { go(idx - 1); };
+  document.getElementById("hitNext").onclick = function () { go(idx + 1); };
+  document.getElementById("fs").onclick = toggleFs;
+
+  document.addEventListener("keydown", function (e) {
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    var k = e.key;
+    if (k === "ArrowRight" || k === "PageDown" || k === " ") { e.preventDefault(); go(idx + 1); }
+    else if (k === "ArrowLeft" || k === "PageUp") { e.preventDefault(); go(idx - 1); }
+    else if (k === "Home") { e.preventDefault(); go(0); }
+    else if (k === "End") { e.preventDefault(); go(pages.length - 1); }
+    else if (k === "f" || k === "F") { toggleFs(); }
+    else if (k === "g" || k === "G") { location.href = "muyu-index.html"; }
+    else if (/^[1-9]$/.test(k)) { go(parseInt(k, 10) - 1); }
+  });
+
+  var tx = null;
+  frame.addEventListener("touchstart", function (e) { tx = e.touches[0].clientX; }, { passive: true });
+  frame.addEventListener("touchend", function (e) {
+    if (tx === null) return;
+    var dx = e.changedTouches[0].clientX - tx;
+    if (Math.abs(dx) > 40) go(idx + (dx < 0 ? 1 : -1));
+    tx = null;
+  });
+
+  window.addEventListener("hashchange", function () { idx = fromHash(); render(); });
+  idx = fromHash();
+  render();
+</script>
+</body>
+</html>

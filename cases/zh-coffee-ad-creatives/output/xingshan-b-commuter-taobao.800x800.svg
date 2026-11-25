@@ -1,0 +1,193 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="800" viewBox="0 0 800 800">
+  <style>
+    .cn{font-family:'Source Han Sans SC',sans-serif}
+    .fu{font-family:'Futura',sans-serif}
+    .av{font-family:'Avenir Next',sans-serif}
+  </style>
+  <defs>
+    <radialGradient id="flash" cx="340" cy="480" r="540" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#77777C"/>
+      <stop offset="0.35" stop-color="#3C3C40"/>
+      <stop offset="1" stop-color="#0A0A0B"/>
+    </radialGradient>
+    <radialGradient id="vig" cx="400" cy="420" r="620" gradientUnits="userSpaceOnUse">
+      <stop offset="0.5" stop-color="#000" stop-opacity="0"/>
+      <stop offset="1" stop-color="#000" stop-opacity="0.8"/>
+    </radialGradient>
+    <linearGradient id="pole" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#1A1A1A"/>
+      <stop offset="0.25" stop-color="#6E6E70"/>
+      <stop offset="0.42" stop-color="#FFFFFF"/>
+      <stop offset="0.5" stop-color="#E6E6E6"/>
+      <stop offset="0.7" stop-color="#555555"/>
+      <stop offset="1" stop-color="#111111"/>
+    </linearGradient>
+    <linearGradient id="cof" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#9A6038"/>
+      <stop offset="0.3" stop-color="#5A3018"/>
+      <stop offset="1" stop-color="#241106"/>
+    </linearGradient>
+    <linearGradient id="cupShade" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#000" stop-opacity="0.35"/>
+      <stop offset="0.3" stop-color="#000" stop-opacity="0"/>
+      <stop offset="0.7" stop-color="#000" stop-opacity="0"/>
+      <stop offset="1" stop-color="#000" stop-opacity="0.45"/>
+    </linearGradient>
+    <linearGradient id="skin" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#FFE4D2"/>
+      <stop offset="0.5" stop-color="#F0BFA3"/>
+      <stop offset="1" stop-color="#C98A6E"/>
+    </linearGradient>
+    <linearGradient id="skinBack" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#D9A084"/>
+      <stop offset="1" stop-color="#A8684F"/>
+    </linearGradient>
+    <clipPath id="cupClip">
+      <path d="M170 160 L430 160 L405 590 Q403 606 387 606 L213 606 Q197 606 195 590 Z"/>
+    </clipPath>
+    <clipPath id="winClip">
+      <rect x="30" y="-30" width="350" height="320" rx="28"/>
+      <rect x="420" y="-30" width="350" height="320" rx="28"/>
+    </clipPath>
+    <filter id="grain" filterUnits="userSpaceOnUse" x="0" y="0" width="800" height="800">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="7"/>
+      <feColorMatrix type="matrix" values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  1.6 0 0 0 -0.7"/>
+    </filter>
+    <filter id="stampGlow" x="-10%" y="-60%" width="120%" height="220%">
+      <feGaussianBlur stdDeviation="2" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <rect width="800" height="800" fill="#050505"/>
+  <rect width="800" height="800" fill="url(#flash)"/>
+  <rect x="30" y="-30" width="350" height="320" rx="28" fill="#07080A" stroke="#000" stroke-width="8"/>
+  <rect x="420" y="-30" width="350" height="320" rx="28" fill="#07080A" stroke="#000" stroke-width="8"/>
+  <g clip-path="url(#winClip)">
+    <g fill="#FFFFFF">
+      <rect x="20" y="230" width="260" height="3" opacity="0.14"/>
+      <rect x="460" y="250" width="260" height="4" opacity="0.14"/>
+    </g>
+    <rect x="480" y="210" width="180" height="5" fill="#C8FF00" opacity="0.16"/>
+    <polygon points="120,-30 180,-30 60,280 30,220" fill="#FFFFFF" opacity="0.05"/>
+  </g>
+  <rect x="392" y="0" width="12" height="800" fill="#0C0C0D"/>
+  <rect x="404" y="0" width="2" height="800" fill="#FFFFFF" opacity="0.12"/>
+
+  <!-- pole (outside content margin) -->
+  <rect x="786" y="0" width="14" height="800" fill="#000" opacity="0.45"/>
+  <rect x="764" y="0" width="22" height="800" fill="url(#pole)"/>
+
+  <!-- SCENE -->
+  <g transform="translate(120 262) scale(0.68)">
+    <g transform="translate(36 24)" fill="#000" fill-opacity="0.6">
+      <path d="M170 160 L430 160 L405 590 Q403 606 387 606 L213 606 Q197 606 195 590 Z"/>
+      <path d="M252 330 Q224 330 226 360 L228 560 Q230 596 262 596 L716 640 L700 262 L560 300 Z"/>
+      <path d="M384 40 L408 46 L362 300 L338 294 Z"/>
+      <path d="M212 48 L288 48 L282 110 L218 110 Z" transform="rotate(-18 250 79)"/>
+    </g>
+    <line x1="352" y1="300" x2="396" y2="46" stroke="#0E0E10" stroke-width="18" stroke-linecap="round"/>
+    <line x1="347" y1="292" x2="389" y2="52" stroke="#FFFFFF" stroke-opacity="0.55" stroke-width="3" stroke-linecap="round"/>
+    <g clip-path="url(#cupClip)">
+      <rect x="160" y="150" width="280" height="470" fill="#FFFFFF" fill-opacity="0.12"/>
+      <rect x="160" y="250" width="280" height="370" fill="url(#cof)"/>
+      <rect x="160" y="250" width="280" height="370" fill="url(#cupShade)"/>
+      <ellipse cx="300" cy="250" rx="128" ry="12" fill="#B9845B"/>
+      <ellipse cx="285" cy="360" rx="70" ry="120" fill="#FFFFFF" fill-opacity="0.1"/>
+      <g fill="#FFFFFF" fill-opacity="0.35" stroke="#FFFFFF" stroke-opacity="0.95" stroke-width="2.5">
+        <rect x="196" y="224" width="70" height="62" rx="10" transform="rotate(-12 231 255)"/>
+        <rect x="276" y="230" width="64" height="58" rx="10" transform="rotate(8 308 259)"/>
+        <rect x="344" y="226" width="58" height="56" rx="9" transform="rotate(-5 373 254)"/>
+      </g>
+      <g fill="#FFFFFF" fill-opacity="0.6">
+        <circle cx="230" cy="320" r="4"/><circle cx="382" cy="402" r="3"/><circle cx="250" cy="560" r="4"/>
+        <circle cx="360" cy="330" r="3"/>
+      </g>
+    </g>
+    <path d="M170 160 L430 160 L405 590 Q403 606 387 606 L213 606 Q197 606 195 590 Z" fill="none" stroke="#FFFFFF" stroke-opacity="0.55" stroke-width="3"/>
+    <ellipse cx="300" cy="160" rx="130" ry="14" fill="#FFFFFF" fill-opacity="0.15" stroke="#FFFFFF" stroke-opacity="0.95" stroke-width="4"/>
+    <path d="M196 185 L214 575" stroke="#FFFFFF" stroke-width="16" stroke-linecap="round" opacity="0.85"/>
+    <path d="M412 190 L398 560" stroke="#FFFFFF" stroke-width="5" stroke-linecap="round" opacity="0.5"/>
+    <circle cx="214" cy="196" r="9" fill="#FFFFFF"/>
+    <path d="M214 170 V222 M188 196 H240" stroke="#FFFFFF" stroke-width="2.5" opacity="0.9"/>
+    <path d="M392 318 C450 296 520 300 566 326 L580 590 C520 606 452 604 402 584 C420 500 420 400 392 318 Z" fill="url(#skinBack)"/>
+    <g stroke="#9A5E46" stroke-width="2">
+      <rect x="250" y="492" width="176" height="50" rx="25" fill="url(#skin)"/>
+      <rect x="232" y="440" width="196" height="54" rx="27" fill="url(#skin)"/>
+      <rect x="226" y="386" width="200" height="56" rx="28" fill="url(#skin)"/>
+      <rect x="238" y="332" width="190" height="56" rx="28" fill="url(#skin)"/>
+    </g>
+    <g fill="#FFFFFF" opacity="0.55">
+      <ellipse cx="318" cy="348" rx="60" ry="8"/><ellipse cx="306" cy="402" rx="62" ry="8"/>
+      <ellipse cx="312" cy="456" rx="60" ry="8"/><ellipse cx="326" cy="506" rx="54" ry="7"/>
+    </g>
+    <g fill="#FBE3D8" stroke="#D9A896" stroke-width="1.5">
+      <ellipse cx="266" cy="360" rx="16" ry="18"/><ellipse cx="254" cy="414" rx="16" ry="18"/>
+      <ellipse cx="260" cy="467" rx="16" ry="17"/><ellipse cx="276" cy="517" rx="15" ry="16"/>
+    </g>
+    <g fill="none" stroke="#A86A52" stroke-width="2" opacity="0.7">
+      <path d="M360 340 Q366 360 360 380"/><path d="M356 394 Q362 414 356 434"/>
+      <path d="M360 448 Q366 467 360 486"/><path d="M366 499 Q372 517 366 535"/>
+    </g>
+    <path d="M546 312 L584 302 C604 410 604 520 588 616 L552 608 C568 512 566 410 546 312 Z" fill="#F4F4F4" stroke="#BBBBBB" stroke-width="2"/>
+    <path d="M578 290 L700 262 L716 640 L584 624 C602 520 602 400 578 290 Z" fill="#1B1C21"/>
+    <path d="M590 300 C606 400 606 520 594 620" fill="none" stroke="#5A5C66" stroke-width="4" opacity="0.8"/>
+    <g stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" opacity="0.7">
+      <line x1="236" y1="-20" x2="228" y2="14"/><line x1="262" y1="-30" x2="254" y2="4"/><line x1="288" y1="-18" x2="282" y2="12"/>
+    </g>
+    <g transform="rotate(-18 250 79)">
+      <path d="M212 48 L288 48 L282 102 Q281 110 273 110 L227 110 Q219 110 218 102 Z" fill="#F5F5F0" stroke="#000" stroke-width="3"/>
+      <rect x="208" y="38" width="84" height="14" rx="4" fill="#C8FF00" stroke="#000" stroke-width="3"/>
+      <rect x="218" y="64" width="64" height="22" fill="#0A0A0A"/>
+      <text x="250" y="81" text-anchor="middle" class="cn" font-weight="900" font-size="15" fill="#C8FF00">醒山</text>
+      <rect x="224" y="52" width="8" height="54" fill="#FFFFFF" opacity="0.8"/>
+    </g>
+    <g fill="#3A1D0C">
+      <rect x="262" y="124" width="9" height="9" transform="rotate(20 266 128)"/>
+      <rect x="282" y="140" width="7" height="7" transform="rotate(-15 285 143)"/>
+      <rect x="250" y="146" width="8" height="8" transform="rotate(35 254 150)"/>
+    </g>
+    <g fill="#FFFFFF" opacity="0.85">
+      <ellipse cx="258" cy="136" rx="4" ry="6"/><ellipse cx="300" cy="128" rx="3" ry="5"/><ellipse cx="318" cy="146" rx="3" ry="4"/>
+    </g>
+  </g>
+
+  <rect width="800" height="800" fill="url(#vig)"/>
+  <rect width="800" height="800" fill="#FFFFFF" filter="url(#grain)" opacity="0.22"/>
+
+  <!-- logo -->
+  <g transform="translate(44 40) scale(0.8)">
+    <rect width="56" height="56" rx="10" fill="#C8FF00"/>
+    <path d="M10 40 L22 26 L29 33 L38 20 L48 40" stroke="#0A0A0A" stroke-width="4" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+    <circle cx="40" cy="14" r="4" fill="#0A0A0A"/>
+    <text x="70" y="36" class="cn" font-size="36" font-weight="900" fill="#FFFFFF" letter-spacing="2">醒山</text>
+    <text x="70" y="54" class="fu" font-size="11" font-weight="700" fill="#FFFFFF" fill-opacity="0.6" letter-spacing="3">XINGSHAN</text>
+  </g>
+  <path d="M474 52 L464 70 H473 L468 84 L483 64 H474 L479 52 Z" fill="#C8FF00"/>
+  <text x="700" y="74" text-anchor="end" class="cn" font-size="16" font-weight="700" fill="#CFCFCF" letter-spacing="1.5">AM 07:58 · 2 号线早高峰</text>
+
+  <!-- headline -->
+  <text transform="translate(44 196) scale(0.9 1)" class="cn" font-size="72" font-weight="900" fill="#FFFFFF">早八续命，<tspan class="fu" font-weight="700" font-size="90" fill="#C8FF00">3</tspan><tspan fill="#C8FF00"> 秒</tspan>到位</text>
+
+  <g transform="translate(48 226) rotate(-2)">
+    <rect width="330" height="46" fill="#FFFFFF"/>
+    <text x="16" y="33" class="cn" font-size="24" font-weight="900" fill="#0A0A0A">3 秒冷水速溶<tspan font-weight="500" fill="#555555"> · 0 糖 0 脂</tspan></text>
+  </g>
+
+  <!-- price badge -->
+  <g transform="translate(652 392) rotate(10) scale(0.85)">
+    <polygon transform="translate(10 10)" fill="#000" opacity="0.6" points="118,0 96.6,25.9 102.2,59 70.7,70.7 59,102.2 25.9,96.6 0,118 -25.9,96.6 -59,102.2 -70.7,70.7 -102.2,59 -96.6,25.9 -118,0 -96.6,-25.9 -102.2,-59 -70.7,-70.7 -59,-102.2 -25.9,-96.6 0,-118 25.9,-96.6 59,-102.2 70.7,-70.7 102.2,-59 96.6,-25.9"/>
+    <polygon fill="#C8FF00" stroke="#000" stroke-width="4" stroke-linejoin="round" points="118,0 96.6,25.9 102.2,59 70.7,70.7 59,102.2 25.9,96.6 0,118 -25.9,96.6 -59,102.2 -70.7,70.7 -102.2,59 -96.6,25.9 -118,0 -96.6,-25.9 -102.2,-59 -70.7,-70.7 -59,-102.2 -25.9,-96.6 0,-118 25.9,-96.6 59,-102.2 70.7,-70.7 102.2,-59 96.6,-25.9"/>
+    <text y="-44" text-anchor="middle" class="cn" font-size="28" font-weight="900" fill="#0A0A0A" letter-spacing="3">首单</text>
+    <text y="32" text-anchor="middle" fill="#0A0A0A"><tspan class="fu" font-weight="700" font-size="88">9.9</tspan><tspan class="cn" font-size="30" font-weight="900">元</tspan></text>
+    <text y="72" text-anchor="middle" class="cn" font-size="28" font-weight="900" fill="#0A0A0A">6 颗</text>
+  </g>
+
+  <text x="752" y="694" text-anchor="end" class="av" font-weight="600" font-size="20" fill="#FF8A2A" letter-spacing="3" filter="url(#stampGlow)">07:58  ’25 3 17</text>
+
+  <!-- CTA -->
+  <rect x="48" y="712" width="704" height="64" fill="#FFFFFF"/>
+  <text x="76" y="755" class="cn" font-size="30" font-weight="900" fill="#0A0A0A">立即抢购 · 首单 <tspan class="fu" font-weight="700" font-size="36">9.9</tspan> 元 6 颗</text>
+  <rect x="688" y="712" width="64" height="64" fill="#C8FF00"/>
+  <path d="M708 744 H732 M722 734 L732 744 L722 754" stroke="#0A0A0A" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

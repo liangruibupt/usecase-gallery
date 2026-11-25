@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1200" viewBox="0 0 1600 1200">
+<rect x="0" y="0" width="1600" height="1200" fill="#FFFFFF"/>
+<g font-family="PingFang SC, Hiragino Sans GB, STHeiti, sans-serif">
+<text x="800" y="52" text-anchor="middle" font-size="32" font-weight="bold" fill="#1F2937">栖木咖啡 2026年1–6月销售汇总（清洗后 230 单）</text>
+<text x="800" y="88" text-anchor="middle" font-size="18" fill="#4B5563">柱长 = 销售额（四个面板统一刻度）；标签 = 销售额 · 占全部销售额比例 · 订单数</text>
+
+<rect x="40" y="120" width="740" height="500" rx="12" fill="#F7F8FA" stroke="#E5E7EB"/>
+<text x="64" y="160" font-size="24" font-weight="bold" fill="#1F2937">按月度</text>
+<line x1="180" y1="188" x2="180" y2="576" stroke="#9CA3AF" stroke-width="1"/>
+<text x="170" y="223" text-anchor="end" font-size="18" fill="#374151">2026-01</text>
+<rect x="180" y="200" width="136.9" height="34" fill="#4C78A8"/>
+<text x="327" y="223" font-size="18" fill="#1F2937">1955元 · 13.72% · 35单</text>
+<text x="170" y="289" text-anchor="end" font-size="18" fill="#374151">2026-02</text>
+<rect x="180" y="266" width="113.7" height="34" fill="#4C78A8"/>
+<text x="304" y="289" font-size="18" fill="#1F2937">1624元 · 11.40% · 25单</text>
+<text x="170" y="355" text-anchor="end" font-size="18" fill="#374151">2026-03</text>
+<rect x="180" y="332" width="154.4" height="34" fill="#4C78A8"/>
+<text x="344" y="355" font-size="18" fill="#1F2937">2205元 · 15.48% · 34单</text>
+<text x="170" y="421" text-anchor="end" font-size="18" fill="#374151">2026-04</text>
+<rect x="180" y="398" width="298.1" height="34" fill="#4C78A8"/>
+<text x="488" y="421" font-size="18" fill="#1F2937">4259元 · 29.89% · 64单</text>
+<text x="170" y="487" text-anchor="end" font-size="18" fill="#374151">2026-05</text>
+<rect x="180" y="464" width="113.1" height="34" fill="#4C78A8"/>
+<text x="303" y="487" font-size="18" fill="#1F2937">1616元 · 11.34% · 33单</text>
+<text x="170" y="553" text-anchor="end" font-size="18" fill="#374151">2026-06</text>
+<rect x="180" y="530" width="181.2" height="34" fill="#4C78A8"/>
+<text x="371" y="553" font-size="18" fill="#1F2937">2589元 · 18.17% · 39单</text>
+<text x="64" y="602" font-size="16" fill="#6B7280">退款（元）：1月 58 · 2月 137 · 3月 105 · 4月 134 · 5月 0 · 6月 71</text>
+
+<rect x="820" y="120" width="740" height="500" rx="12" fill="#F7F8FA" stroke="#E5E7EB"/>
+<text x="844" y="160" font-size="24" font-weight="bold" fill="#1F2937">按门店（按销售额降序）</text>
+<line x1="960" y1="188" x2="960" y2="444" stroke="#9CA3AF" stroke-width="1"/>
+<text x="950" y="223" text-anchor="end" font-size="18" fill="#374151">星海广场店</text>
+<rect x="960" y="200" width="367.3" height="34" fill="#F58518"/>
+<text x="1337" y="223" font-size="18" fill="#1F2937">5247元 · 36.83% · 78单</text>
+<text x="950" y="289" text-anchor="end" font-size="18" fill="#374151">大学城店</text>
+<rect x="960" y="266" width="239.3" height="34" fill="#F58518"/>
+<text x="1209" y="289" font-size="18" fill="#1F2937">3418元 · 23.99% · 54单</text>
+<text x="950" y="355" text-anchor="end" font-size="18" fill="#374151">滨江店</text>
+<rect x="960" y="332" width="219.8" height="34" fill="#F58518"/>
+<text x="1190" y="355" font-size="18" fill="#1F2937">3140元 · 22.04% · 55单</text>
+<text x="950" y="421" text-anchor="end" font-size="18" fill="#374151">高新园店</text>
+<rect x="960" y="398" width="171.0" height="34" fill="#F58518"/>
+<text x="1141" y="421" font-size="18" fill="#1F2937">2443元 · 17.15% · 43单</text>
+<text x="844" y="602" font-size="16" fill="#6B7280">退款（元）：星海广场店 198 · 大学城店 122 · 滨江店 131 · 高新园店 54</text>
+
+<rect x="40" y="650" width="740" height="500" rx="12" fill="#F7F8FA" stroke="#E5E7EB"/>
+<text x="64" y="690" font-size="24" font-weight="bold" fill="#1F2937">按产品（按销售额降序）</text>
+<line x1="180" y1="718" x2="180" y2="1106" stroke="#9CA3AF" stroke-width="1"/>
+<text x="170" y="753" text-anchor="end" font-size="18" fill="#374151">拿铁</text>
+<rect x="180" y="730" width="287.6" height="34" fill="#54A24B"/>
+<text x="478" y="753" font-size="18" fill="#1F2937">4108元 · 28.83% · 54单</text>
+<text x="170" y="819" text-anchor="end" font-size="18" fill="#374151">燕麦拿铁</text>
+<rect x="180" y="796" width="215.6" height="34" fill="#54A24B"/>
+<text x="406" y="819" font-size="18" fill="#1F2937">3080元 · 21.62% · 51单</text>
+<text x="170" y="885" text-anchor="end" font-size="18" fill="#374151">生椰拿铁</text>
+<rect x="180" y="862" width="176.6" height="34" fill="#54A24B"/>
+<text x="367" y="885" font-size="18" fill="#1F2937">2523元 · 17.71% · 33单</text>
+<text x="170" y="951" text-anchor="end" font-size="18" fill="#374151">美式</text>
+<rect x="180" y="928" width="170.9" height="34" fill="#54A24B"/>
+<text x="361" y="951" font-size="18" fill="#1F2937">2442元 · 17.14% · 45单</text>
+<text x="170" y="1017" text-anchor="end" font-size="18" fill="#374151">冷萃</text>
+<rect x="180" y="994" width="80.5" height="34" fill="#54A24B"/>
+<text x="271" y="1017" font-size="18" fill="#1F2937">1150元 · 8.07% · 20单</text>
+<text x="170" y="1083" text-anchor="end" font-size="18" fill="#374151">可颂</text>
+<rect x="180" y="1060" width="66.2" height="34" fill="#54A24B"/>
+<text x="256" y="1083" font-size="18" fill="#1F2937">945元 · 6.63% · 27单</text>
+<text x="64" y="1132" font-size="16" fill="#6B7280">退款（元）：拿铁 104 · 燕麦拿铁 140 · 生椰拿铁 29 · 美式 22 · 冷萃 150 · 可颂 60</text>
+
+<rect x="820" y="650" width="740" height="500" rx="12" fill="#F7F8FA" stroke="#E5E7EB"/>
+<text x="844" y="690" font-size="24" font-weight="bold" fill="#1F2937">按渠道（按销售额降序）</text>
+<line x1="960" y1="718" x2="960" y2="974" stroke="#9CA3AF" stroke-width="1"/>
+<text x="950" y="753" text-anchor="end" font-size="18" fill="#374151">小程序</text>
+<rect x="960" y="730" width="350.9" height="34" fill="#B279A2"/>
+<text x="1321" y="753" font-size="18" fill="#1F2937">5013元 · 35.18% · 80单</text>
+<text x="950" y="819" text-anchor="end" font-size="18" fill="#374151">外卖平台</text>
+<rect x="960" y="796" width="305.3" height="34" fill="#B279A2"/>
+<text x="1275" y="819" font-size="18" fill="#1F2937">4361元 · 30.61% · 74单</text>
+<text x="950" y="885" text-anchor="end" font-size="18" fill="#374151">团购</text>
+<rect x="960" y="862" width="191.0" height="34" fill="#B279A2"/>
+<text x="1161" y="885" font-size="18" fill="#1F2937">2729元 · 19.15% · 41单</text>
+<text x="950" y="951" text-anchor="end" font-size="18" fill="#374151">门店堂食</text>
+<rect x="960" y="928" width="150.2" height="34" fill="#B279A2"/>
+<text x="1120" y="951" font-size="18" fill="#1F2937">2145元 · 15.05% · 35单</text>
+<text x="844" y="1132" font-size="16" fill="#6B7280">退款（元）：小程序 211 · 外卖平台 164 · 团购 68 · 门店堂食 62</text>
+
+<text x="40" y="1172" font-size="15" fill="#4B5563">数据来源：合并清洗明细.csv（230 行）。销售额合计 14248 元、退款 505 元、净额 13743 元；四个维度各自合计均与明细一致。</text>
+<text x="40" y="1192" font-size="15" fill="#4B5563">暂定口径（待确认）：退款空值补 0；XCX-0208-0145 退款 120 按 100 封顶；5 行异常金额已修正；3 组冲突重复按来源优先级保留。</text>
+</g>
+</svg>

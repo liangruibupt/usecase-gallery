@@ -1,0 +1,71 @@
+{
+  "slug": "zh-brand-rollout",
+  "lang": "zh",
+  "title": "把品牌规范落到七类接触点：Low Tide 自然酒吧",
+  "summary": "按给定的颜色、字体、字标和波浪线辅助图形，把自然酒吧 Low Tide 的规范应用到官网首页、A4 菜单、三张 Instagram 帖子、杯垫、托特包、名片和橱窗贴，交付一份带可开关标注层的 HTML 总览。",
+  "tags": [
+    "Design",
+    "Web",
+    "Marketing"
+  ],
+  "source": {
+    "site": "AutoClaw 博客",
+    "category": "Tutorial",
+    "title": "如何用 AutoClaw 设计专家落地品牌视觉规范：品牌设计实战",
+    "url": "https://autoclaw.z.ai/cn/blog/tutorial/autoclaw-brand-identity-rollout/",
+    "published": "2026-11-21",
+    "original_setup": "AutoClaw 设计专家 · GLM-5.3",
+    "notes": "提示词用原文实际提交的英文版。原文交付单个 HTML 总览；复现时一次交付超出单轮输出上限，所以按接触点拆成多个 HTML 分四轮交付，最后的总览板用各件的截图拼成并带可开关标注层。Gloock / Work Sans / DM Mono 通过 Google Fonts 加载，酒款和价格由模型虚构。"
+  },
+  "system": "You are AutoClaw's Design Expert: a senior brand designer who works in code, plans a layout before building it and checks the result before handing it over.\n\nTechnical constraints:\n- Every piece is a self-contained HTML file: inline CSS and JS. Load Gloock, Work Sans and DM Mono from Google Fonts with a <link>, with a system-font fallback.\n- No external images. Draw illustrations, maps and the wave device with inline SVG or CSS.\n- Each file is screenshotted for review at a fixed browser window size set by its name ending. Size the piece to fill exactly that window and do not use vh units:\n  - .page.html: 1440×2400 (the homepage; only the top 2400px are captured)\n  - .a4.html: 1240×1754 (A4 portrait at 150 dpi)\n  - .post.html: 1080×1350 (one Instagram post per file)\n  - .sheet.html: 1440×1800 (a presentation sheet showing several objects)\n  - .board.html: 1440×2400 (the overview board)\n- After each reply, every piece's screenshot is saved beside it as <base>.shot.png (low-tide-homepage.page.html becomes low-tide-homepage.shot.png). The overview board shows the pieces with <img> of those screenshots and links each to its HTML file; do not embed the pieces with iframes.\n- Name files in kebab-case, for example low-tide-homepage.page.html.",
+  "convert": {
+    ".page.html": {
+      "to": "shot.png",
+      "width": 1440,
+      "height": 2400
+    },
+    ".a4.html": {
+      "to": "shot.png",
+      "width": 1240,
+      "height": 1754
+    },
+    ".post.html": {
+      "to": "shot.png",
+      "width": 1080,
+      "height": 1350
+    },
+    ".sheet.html": {
+      "to": "shot.png",
+      "width": 1440,
+      "height": 1800
+    },
+    ".board.html": {
+      "to": "shot.png",
+      "width": 1440,
+      "height": 2400
+    }
+  },
+  "review_prompt": "Here are the images rendered from the files you just delivered (SVGs via librsvg, HTML as a browser screenshot of the top of the page), downscaled. Check them as a designer would before a client review: clipped or overlapping text, text that renders as boxes or in a fallback font, broken layout, empty areas, anything that breaks the brief's rules. If something needs fixing, deliver the corrected files under the same names. If everything is ready, say so in one or two sentences and deliver nothing.",
+  "turns": [
+    {
+      "label": "Prompt · guidelines and homepage",
+      "review": true,
+      "prompt": "Here are the brand guidelines for Low Tide, a natural wine bar in Red Hook, Brooklyn. Please apply them exactly to the touchpoints below.\nColors: Tide Navy #14213D as primary, Oyster #EDE6DA as background, Kelp #4E6E4E, and Sunset Coral #F2795B as an accent that never takes more than 10% of a composition. Type: Gloock for display, always in sentence case; Work Sans for text; DM Mono for prices and labels. Logo: the lowercase wordmark \"low tide\" with a wave line beneath it, clear space equal to the height of the \"l\". Graphic device: horizontal wavy lines of varying density, like a tide chart, never rotated. Voice: dry, witty, short, e.g. \"Wine, mostly.\"\nThe touchpoints are: a homepage at 1440 (hero, this week's pours, Tuesday tastings and Sunday oysters, reservation CTA, map); an A4 menu with 12 wines by the glass (grape, region, price) and 6 snacks; three Instagram posts at 1080×1350 (a new bottle arrival, an event announcement, a quote); a 100mm round coaster; a tote bag; a business card; and storefront window vinyl.\nShow everything on one overview board and then each piece individually, with a toggleable annotation layer that points out which rule drives each design decision. Don't introduce a single color or font that isn't in the guidelines.\n\nBuild it as separate HTML files over a few replies. In this reply, deliver the homepage. I will ask for the other pieces next."
+    },
+    {
+      "label": "A4 menu and Instagram posts",
+      "review": true,
+      "prompt": "Now deliver the A4 menu and the three Instagram posts."
+    },
+    {
+      "label": "Coaster, tote, card, window vinyl",
+      "review": true,
+      "prompt": "Now deliver the 100mm round coaster, the tote bag, the business card and the storefront window vinyl, presented together on one sheet."
+    },
+    {
+      "label": "Overview board with annotation layer",
+      "review": true,
+      "prompt": "Now deliver the overview board: everything together first, then each piece individually, with the toggleable annotation layer that points out which rule drives each design decision."
+    }
+  ]
+}

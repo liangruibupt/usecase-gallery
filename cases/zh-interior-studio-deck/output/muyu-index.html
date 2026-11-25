@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>木屿设计 · 九宫格索引</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: #FBFAF7;
+    color: #2A2826;
+    font-family: "Avenir Next", "PingFang SC", "Hiragino Sans GB", "Source Han Sans SC", sans-serif;
+  }
+  .cn { font-family: "PingFang SC", "Hiragino Sans GB", "Source Han Sans SC", sans-serif; }
+  .wrap { max-width: 1016px; margin: 0 auto; padding: 36px 24px 48px; box-sizing: content-box; }
+  header {
+    display: flex; align-items: flex-end; justify-content: space-between;
+    border-bottom: 1.5px solid #2A2826; padding-bottom: 14px; margin-bottom: 24px;
+  }
+  h1 { margin: 0; font-weight: 300; font-size: 30px; letter-spacing: .12em; }
+  h1 small { display: block; font-size: 11px; letter-spacing: .34em; color: #8A8278; margin-bottom: 8px; font-family: "Avenir Next", sans-serif; }
+  header a {
+    font-size: 13px; letter-spacing: .12em; color: #5E574F; text-decoration: none;
+    border-bottom: 1px solid #CFC6B8; padding-bottom: 2px;
+  }
+  header a:hover { color: #2A2826; border-color: #2A2826; }
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px 28px; }
+  .card { display: block; text-decoration: none; color: inherit; outline: none; }
+  .thumb {
+    aspect-ratio: 16 / 9; background: #FFFFFF; overflow: hidden; position: relative;
+    outline: 1px solid #E2DCD2; transition: outline-color .2s, transform .3s, box-shadow .3s;
+  }
+  .thumb img { display: block; width: 100%; height: 100%; }
+  .card:hover .thumb, .card:focus-visible .thumb {
+    outline-color: #A88660; transform: translateY(-2px); box-shadow: 0 10px 24px rgba(42,40,38,.10);
+  }
+  .card.last .thumb { outline: 1.5px solid #A88660; }
+  .card.last .thumb::after {
+    content: "上次看到"; position: absolute; right: 8px; top: 8px;
+    font-size: 11px; letter-spacing: .1em; color: #FBFAF7; background: rgba(42,40,38,.72);
+    padding: 3px 8px; font-family: "PingFang SC", "Hiragino Sans GB", "Source Han Sans SC", sans-serif;
+  }
+  .cap { display: flex; align-items: baseline; gap: 10px; padding-top: 8px; font-size: 14px; }
+  .cap .num { font-family: Didot, "Songti SC", serif; color: #A88660; font-size: 16px; }
+  .cap .en { margin-left: auto; font-family: "Avenir Next", sans-serif; font-size: 10px; letter-spacing: .2em; color: #9A9288; }
+  footer { margin-top: 26px; font-size: 12px; color: #9A9288; letter-spacing: .06em; display: flex; justify-content: space-between; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1 class="cn"><small>MUYU DESIGN STUDIO · INDEX</small>木屿设计 · 全部页面</h1>
+      <a class="cn" href="muyu-viewer.html#1">从封面开始翻阅 →</a>
+    </header>
+    <div class="grid" id="grid"></div>
+    <footer class="cn">
+      <span>点击缩略图进入翻页器 · 画面均为示意插画</span>
+      <span>09 PAGES · 1920 × 1080</span>
+    </footer>
+  </div>
+<script>
+  var pages = [
+    ["muyu-01-cover.svg", "封面", "COVER"],
+    ["muyu-02-contents.svg", "目录", "CONTENTS"],
+    ["muyu-03-philosophy.svg", "设计理念", "PHILOSOPHY"],
+    ["muyu-04-team.svg", "团队", "TEAM"],
+    ["muyu-05-space-material.svg", "空间与材质", "SPACE &amp; MATERIAL"],
+    ["muyu-06-light-mood.svg", "光影情绪", "LIGHT &amp; MOOD"],
+    ["muyu-07-room-schedule.svg", "空间清单", "ROOM SCHEDULE"],
+    ["muyu-08-lighting-details.svg", "灯具与材质细节", "DETAILS"],
+    ["muyu-09-contact.svg", "联系方式", "CONTACT"]
+  ];
+  var last = 0;
+  try { last = parseInt(localStorage.getItem("muyu-last") || "0", 10) || 0; } catch (e) {}
+  var html = "";
+  pages.forEach(function (p, i) {
+    var n = (i + 1 < 10 ? "0" : "") + (i + 1);
+    html += '<a class="card' + (last === i + 1 && last > 1 ? " last" : "") + '" href="muyu-viewer.html#' + (i + 1) + '">' +
+              '<div class="thumb"><img src="' + p[0] + '" alt="第 ' + (i + 1) + ' 页 ' + p[1] + '"></div>' +
+              '<div class="cap cn"><span class="num">' + n + '</span>' + p[1] + '<span class="en">' + p[2] + '</span></div>' +
+            '</a>';
+  });
+  document.getElementById("grid").innerHTML = html;
+</script>
+</body>
+</html>

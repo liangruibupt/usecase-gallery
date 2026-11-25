@@ -1,0 +1,46 @@
+{
+  "slug": "zh-web-table-excel",
+  "lang": "zh",
+  "title": "采集网页表格到 Excel：预览核对、来源随行、更新重跑",
+  "summary": "把统计局页面上的“分行业平均工资”表整理成数值格式的 Excel：先给 10 行预览和核对结果，确认后全量输出并给每行加来源和访问日期；页面更新后按同一规则重跑，逐格比对出新增列和修订值，写进变更记录。",
+  "tags": [
+    "Data",
+    "Excel",
+    "Research"
+  ],
+  "source": {
+    "site": "AutoClaw 博客",
+    "category": "Tutorial",
+    "title": "如何用 AutoClaw 采集网页表格到 Excel",
+    "url": "https://autoclaw.z.ai/cn/blog/tutorial/M11W3C/",
+    "published": "2026-11-17",
+    "original_setup": "AutoClaw 新建任务 · GLM-5.3-Flash（浏览器访问统计局页面）",
+    "notes": "原文本身是演示页面和演示数据。复现不访问网络：按原文截图重建了页面（前 6 个行业的数值与截图一致，其余 13 个行业为合成），以保存下来的 HTML 作为输入；页面更新那一步把新版页面 HTML 直接贴在提示词里。原文“原始页面另存为 PDF”需要浏览器，这里做不到，模型会说明。用脚本逐格核对：两版共 209 格全部正确（其中 4 格为空值，已留空），变更记录 1 处修订加 19 格新增与页面一致。"
+  },
+  "system": "你是一名数据专员的助理，在一个通用 AI 任务工作台里工作。今天是 2026-11-17。\n\n工作方式：\n- 你不能上网。用户已把要采集的网页保存成 HTML 文件交给你，把它当作“这个页面”。页面更新时，用户会把新版页面内容贴给你。\n- 你没有浏览器，不能把页面另存为 PDF；遇到这类要求，说明做不到并给出替代做法，不要假装已完成。\n- 你没有代码执行工具，数字要逐格核对：报告行数、列数、空值位置，并抽查首行数值与页面原值是否一致。\n- 每个工作表单独交付一个 CSV（UTF-8，第一行是表头；数值列只写数字，不带千分位和空格；空值就留空），文件名用工作表名，例如 分行业工资.csv。CSV 会自动转成 Excel。",
+  "inputs": [
+    "分行业平均工资_页面_20261117.html"
+  ],
+  "convert": {
+    ".csv": {
+      "to": "xlsx"
+    },
+    ".md": {
+      "to": "docx"
+    }
+  },
+  "turns": [
+    {
+      "label": "第一步 · 说清网址、目标表和输出格式",
+      "prompt": "帮我采集这个页面上的分行业平均工资表，整理成 Excel，后面要做行业间对比分析。\n网址：（某市统计局“分行业城镇非私营单位就业人员年平均工资”页面）\n目标：页面中的第 2 张表，标题为“分行业平均工资”，2021–2025 年共 5 列数据。\n要求：\n1. 表头和全部数据行都保留，列名照页面原样；\n2. 数字列转成数值格式，去掉千分位逗号和空格；\n3. 缺失值留空，不要填 0；\n4. 每行新增两列：来源（页面标题）、访问日期（今天）。\n先给我看前 10 行预览，确认行数和列名没问题再全量采集。\n输出：一个 Excel 文件，工作表命名“分行业工资”；原始页面另存一份 PDF 放在同一文件夹。"
+    },
+    {
+      "label": "第三步 · 确认预览，全量采集",
+      "prompt": "预览没问题，放行全量采集。"
+    },
+    {
+      "label": "第四步 · 页面更新后，按同一套规则重跑",
+      "prompt": "今天是 2027-06-18，统计局页面更新了，新版页面的内容贴在下面。请按同样的规则重新采集，并与上一版逐格比对：\n1. 新版写入工作表“分行业工资”，访问日期写今天；\n2. 上一版另存为工作表“分行业工资_20261117”，内容保持不变；\n3. 新增的列、被修订的格子记入“变更记录”工作表（行业、年份、旧值、新值、变化类型），并统计其余没有变化的格子数。\n\n<page name=\"分行业平均工资_页面_20270618.html\">\n<!DOCTYPE html>\n<html lang=\"zh-CN\"><head><meta charset=\"utf-8\"><title>分行业城镇非私营单位就业人员年平均工资 - 某市统计局（演示页面）</title></head>\n<body>\n<header><div class=\"logo\">某市统计局</div><nav>首页 &gt; 统计数据 &gt; 统计公报 &gt; 工资</nav></header>\n<main>\n  <h1>分行业城镇非私营单位就业人员年平均工资</h1>\n  <p class=\"meta\">发布时间：2027-03-22　来源：某市统计局　（2025 年数据已修订为最终数）</p>\n  <p>说明：本页面为演示数据。年平均工资指城镇非私营单位就业人员的年平均工资。“—”表示该年数据暂缺。最新年份为初步数，下次发布时修订为最终数。</p>\n\n  <h2>表1　城镇非私营单位就业人员年平均工资（总体）</h2>\n  <table border=\"1\">\n    <thead><tr><th>年份</th><th>年平均工资（元）</th><th>名义增速（%）</th></tr></thead>\n    <tbody><tr><td>2021</td><td class=\"num\">104,900</td><td class=\"num\">4.8</td></tr><tr><td>2022</td><td class=\"num\">112,020</td><td class=\"num\">5.2</td></tr><tr><td>2023</td><td class=\"num\">116,130</td><td class=\"num\">6.7</td></tr><tr><td>2024</td><td class=\"num\">116,600</td><td class=\"num\">4.9</td></tr><tr><td>2025</td><td class=\"num\">125,930</td><td class=\"num\">5.0</td></tr><tr><td>2026</td><td class=\"num\">130,260</td><td class=\"num\">5.3</td></tr></tbody>\n  </table>\n\n  <h2>表2　分行业平均工资</h2>\n  <p class=\"unit\">单位：元</p>\n  <table border=\"1\">\n    <thead>\n      <tr><th rowspan=\"2\">行业</th><th colspan=\"6\">年平均工资</th></tr>\n      <tr><th>2021</th><th>2022</th><th>2023</th><th>2024</th><th>2025</th><th>2026</th></tr>\n    </thead>\n    <tbody>\n      <tr><td>农、林、牧、渔业</td><td class=\"num\">62, 310</td><td class=\"num\">65,870</td><td class=\"num\">68,240</td><td class=\"num\">71,050</td><td class=\"num\">73,980</td><td class=\"num\">76,010</td></tr>\n      <tr><td>采矿业</td><td class=\"num\">118,450</td><td class=\"num\">124,300</td><td class=\"num\">131,620</td><td class=\"num\">135,870</td><td class=\"num\">140, 210</td><td class=\"num\">143,440</td></tr>\n      <tr><td>制造业</td><td class=\"num\">92,640</td><td class=\"num\">97, 180</td><td class=\"num\">101,950</td><td class=\"num\">106,330</td><td class=\"num\">110,480</td><td class=\"num\">114,920</td></tr>\n      <tr><td>电力、热力、燃气及水生产和供应业</td><td class=\"num\">131,500</td><td class=\"num\">136,450</td><td class=\"num\">142,310</td><td class=\"num\">151,020</td><td class=\"num\">156,810</td><td class=\"num\">163, 700</td></tr>\n      <tr><td>建筑业</td><td class=\"num\">81,270</td><td class=\"num\">84,560</td><td class=\"num\">87, 930</td><td class=\"num\">90,410</td><td class=\"num\">93,540</td><td class=\"num\">96,870</td></tr>\n      <tr><td>批发和零售业</td><td class=\"num\">98,400</td><td class=\"num\">102,770</td><td class=\"num\">105,260</td><td class=\"num\">109,530</td><td class=\"num\">114,620</td><td class=\"num\">118,840</td></tr>\n      <tr><td>交通运输、仓储和邮政业</td><td class=\"num\">106,200</td><td class=\"num\">108,290</td><td class=\"num\">111,560</td><td class=\"num\">113, 740</td><td class=\"num\">120,050</td><td class=\"num\">124,060</td></tr>\n      <tr><td>住宿和餐饮业</td><td class=\"num\">56, 300</td><td class=\"num\">57,260</td><td class=\"num\">60,930</td><td class=\"num\">64,790</td><td class=\"num\">67,880</td><td class=\"num\">69,630</td></tr>\n      <tr><td>信息传输、软件和信息技术服务业</td><td class=\"num\">176,820</td><td class=\"num\">185,430</td><td class=\"num\">191,260</td><td class=\"num\">198,460</td><td class=\"num\">205, 730</td><td class=\"num\">213,050</td></tr>\n      <tr><td>金融业</td><td class=\"num\">168,350</td><td class=\"num\">172, 940</td><td class=\"num\">178,610</td><td class=\"num\">181,020</td><td class=\"num\">186,550</td><td class=\"num\">190,780</td></tr>\n      <tr><td>房地产业</td><td class=\"num\">94,100</td><td class=\"num\">96,250</td><td class=\"num\">97,770</td><td class=\"num\">101,820</td><td class=\"num\">103,650</td><td class=\"num\">107, 720</td></tr>\n      <tr><td>租赁和商务服务业</td><td class=\"num\">101,700</td><td class=\"num\">104,460</td><td class=\"num\">106, 180</td><td class=\"num\">110,240</td><td class=\"num\">114,320</td><td class=\"num\">117,010</td></tr>\n      <tr><td>科学研究和技术服务业</td><td class=\"num\">149,800</td><td class=\"num\">155,940</td><td class=\"num\">163,270</td><td class=\"num\">169,800</td><td class=\"num\">177,970</td><td class=\"num\">183,780</td></tr>\n      <tr><td>水利、环境和公共设施管理业</td><td class=\"num\">69,800</td><td class=\"num\">71,820</td><td class=\"num\">76,480</td><td class=\"num\">—</td><td class=\"num\">86,070</td><td class=\"num\">88,340</td></tr>\n      <tr><td>居民服务、修理和其他服务业</td><td class=\"num\">—</td><td class=\"num\">66,900</td><td class=\"num\">68,670</td><td class=\"num\">70,690</td><td class=\"num\">72,000</td><td class=\"num\">74,020</td></tr>\n      <tr><td>教育</td><td class=\"num\">118,300</td><td class=\"num\">122,440</td><td class=\"num\">129,460</td><td class=\"num\">133,910</td><td class=\"num\">142, 330</td><td class=\"num\">149,320</td></tr>\n      <tr><td>卫生和社会工作</td><td class=\"num\">129,600</td><td class=\"num\">131, 550</td><td class=\"num\">134,900</td><td class=\"num\">143,060</td><td class=\"num\">148,570</td><td class=\"num\">155,120</td></tr>\n      <tr><td>文化、体育和娱乐业</td><td class=\"num\">122,400</td><td class=\"num\">126,670</td><td class=\"num\">129,030</td><td class=\"num\">135,030</td><td class=\"num\">142,310</td><td class=\"num\">146, 450</td></tr>\n      <tr><td>公共管理、社会保障和社会组织</td><td class=\"num\">115,200</td><td class=\"num\">117,430</td><td class=\"num\">121, 140</td><td class=\"num\">128,800</td><td class=\"num\">135,610</td><td class=\"num\">141,920</td></tr>\n    </tbody>\n  </table>\n\n  <h2>表3　分登记注册类型平均工资（2026）</h2>\n  <table border=\"1\">\n    <thead><tr><th>登记注册类型</th><th>年平均工资（元）</th></tr></thead>\n    <tbody><tr><td>国有单位</td><td class=\"num\">132,923</td></tr><tr><td>集体单位</td><td class=\"num\">78,587</td></tr><tr><td>其他单位</td><td class=\"num\">115,728</td></tr></tbody>\n  </table>\n</main>\n<footer>主办单位：某市统计局（演示）　本页数据仅用于演示，不代表任何真实统计结果。</footer>\n</body></html>\n</page>"
+    }
+  ]
+}

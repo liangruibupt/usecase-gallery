@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920">
+  <title>D-04 · Data "2×" · Stories/Reels 1080×1920</title>
+  <desc>ID: D-04 | Hook: Data – huge "2×" with a simple bar chart, 24 min → 12 min, "user survey, n=312 (placeholder)" | Hypothesis: A concrete, quantified result makes the "fall asleep 2× faster" USP credible and specific, lifting click-through vs. qualitative claims | Primary metric: Link CTR | Placement: Stories/Reels (text kept within y 269–1248, x below 900) | Note: survey data is PLACEHOLDER – substantiate before launch</desc>
+  <defs>
+    <radialGradient id="bg" cx="540" cy="560" r="1400" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#3a2452"/>
+      <stop offset="1" stop-color="#22152f"/>
+    </radialGradient>
+    <radialGradient id="glow" cx="540" cy="580" r="480" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#C9A15B" stop-opacity=".28"/>
+      <stop offset="1" stop-color="#C9A15B" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="horizon" cx="540" cy="1920" r="760" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#C9A15B" stop-opacity=".14"/>
+      <stop offset="1" stop-color="#C9A15B" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="gold" x1="0" y1="400" x2="0" y2="700" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#F4DFAE"/>
+      <stop offset="1" stop-color="#C9A15B"/>
+    </linearGradient>
+    <linearGradient id="goldBar" x1="80" y1="0" x2="480" y2="0" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#C9A15B"/>
+      <stop offset="1" stop-color="#E8CD92"/>
+    </linearGradient>
+  </defs>
+
+  <rect x="0" y="0" width="1080" height="1920" fill="url(#bg)"/>
+  <rect x="0" y="0" width="1080" height="1920" fill="url(#glow)"/>
+  <rect x="0" y="1160" width="1080" height="760" fill="url(#horizon)"/>
+
+  <!-- decorative only outside safe zone -->
+  <g fill="#F3EBDD">
+    <circle cx="140" cy="110" r="2.5" opacity=".35"/><circle cx="430" cy="190" r="2" opacity=".25"/>
+    <circle cx="830" cy="80" r="2.5" opacity=".3"/><circle cx="970" cy="220" r="2" opacity=".2"/>
+    <circle cx="160" cy="1420" r="2.5" opacity=".3"/><circle cx="400" cy="1560" r="2" opacity=".2"/>
+    <circle cx="780" cy="1400" r="2.5" opacity=".25"/><circle cx="290" cy="1740" r="2" opacity=".2"/>
+    <circle cx="900" cy="1630" r="2" opacity=".2"/><circle cx="620" cy="1830" r="2.5" opacity=".2"/>
+  </g>
+
+  <text x="540" y="330" text-anchor="middle" font-family="'Avenir Next', 'Gill Sans', sans-serif" font-size="26" font-weight="600" letter-spacing="5" fill="#F3EBDD" fill-opacity=".7">0.5 LB PRESSURE · TOTAL BLACKOUT</text>
+
+  <text x="540" y="700" text-anchor="middle" font-family="Didot, Baskerville, Georgia, serif" font-size="420" font-weight="bold" fill="url(#gold)">2×</text>
+
+  <text x="540" y="780" text-anchor="middle" font-family="'Avenir Next', 'Gill Sans', sans-serif" font-size="44" font-weight="500" fill="#F3EBDD">faster to fall asleep</text>
+
+  <text x="80" y="866" font-family="'Avenir Next', 'Gill Sans', sans-serif" font-size="28" font-weight="500" fill="#F3EBDD" fill-opacity=".7">Without Dusk</text>
+  <rect x="80" y="882" width="800" height="64" rx="32" fill="#F3EBDD" fill-opacity=".16"/>
+  <text x="850" y="926" text-anchor="end" font-family="'Avenir Next', 'Gill Sans', sans-serif" font-size="32" font-weight="700" fill="#F3EBDD">24 min</text>
+
+  <text x="80" y="994" font-family="'Avenir Next', 'Gill Sans', sans-serif" font-size="28" font-weight="600" fill="#E8CD92">With Dusk</text>
+  <rect x="80" y="1010" width="400" height="64" rx="32" fill="url(#goldBar)"/>
+  <text x="450" y="1054" text-anchor="end" font-family="'Avenir Next', 'Gill Sans', sans-serif" font-size="32" font-weight="700" fill="#2B1B3D">12 min</text>
+
+  <line x1="480" y1="872" x2="480" y2="1086" stroke="#F3EBDD" stroke-opacity=".35" stroke-width="2" stroke-dasharray="6 8"/>
+
+  <text x="80" y="1122" font-family="'Avenir Next', 'Gill Sans', sans-serif" font-size="22" font-weight="500" fill="#F3EBDD" fill-opacity=".55">Avg. minutes to fall asleep · user survey, n=312 (placeholder)</text>
+
+  <!-- BRAND FRAME (fixed, inside Reels safe zone) -->
+  <g id="brand-frame">
+    <g transform="translate(84 1206)">
+      <path d="M6,-17 A18,18 0 1 0 6,17 A20,20 0 0 1 6,-17 Z" fill="#F3EBDD"/>
+      <text x="32" y="15" font-family="Futura, 'Avenir Next', sans-serif" font-size="46" font-weight="500" letter-spacing="3" fill="#F3EBDD">dusk</text>
+    </g>
+    <rect x="440" y="1168" width="460" height="76" rx="38" fill="#F3EBDD"/>
+    <text x="670" y="1216" text-anchor="middle" font-family="'Avenir Next', 'Gill Sans', sans-serif" font-size="28" font-weight="600" fill="#2B1B3D">Shop Dusk, 30-night trial</text>
+  </g>
+</svg>

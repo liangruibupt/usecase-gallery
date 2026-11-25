@@ -1,13 +1,260 @@
 {
  "cases": [
   {
+   "slug": "zh-training-scores",
+   "title": "汇总培训考试成绩，判定谁能结业",
+   "summary": "52 名新员工、4 门课：按工号对上签到、成绩和补考，按写明的出勤、及格、补考封顶规则逐人判定结业，交付个人成绩总表、未结业名单、补考名单；补上成都分公司的直播出勤规则后只重算 8 人，出 V2 和变更对照表。",
+   "tags": [
+    "HR",
+    "Excel",
+    "Education"
+   ],
+   "lang": "zh",
+   "source": {
+    "site": "AutoClaw 博客",
+    "category": "Tutorial",
+    "title": "如何用 AutoClaw 汇总培训考试成绩",
+    "url": "https://autoclaw.z.ai/cn/blog/tutorial/M11W4D/",
+    "published": "2026-11-24",
+    "original_setup": "AutoClaw 新建任务 · GLM-5.3-Flash",
+    "notes": "原文没有展示四份原始表，输入是按原文给出的总数合成的虚构数据（52 人、现场签到 171 条、成绩 205 条缺考 3 门次、补考 9 人次、成都 8 人）；直播观看记录在第二轮随提示词附上。原文说仍出勤不足的那 1 人“有一次课只看了 52%”，按 4 次到 3 次的规则一次达标就会合格，复现时把他两次直播都设为不足 80%（52%、70%）。用脚本按同一规则重算核对：V1、V2 的 52 人结业状态、出勤次数和 208 个成绩格全部一致（V1 结业 39 / 未结业 13，V2 结业 42、不及格 7、缺考 2、出勤不足 1，与原文相同）。"
+   },
+   "model": "us.anthropic.claude-opus-5-5",
+   "provider": "bedrock",
+   "finished": "2026-11-25T03:51:48+00:00",
+   "turns": 2,
+   "outputs": 9,
+   "usage": {
+    "input": 31348,
+    "output": 27220
+   },
+   "seconds": 213,
+   "cover": null,
+   "doc_titles": [
+    "V1-个人成绩总表",
+    "V1-未结业名单",
+    "V1-补考名单"
+   ]
+  },
+  {
+   "slug": "zh-supplier-price-compare",
+   "title": "三家报价统一口径做供应商比价",
+   "summary": "办公家具采购 18 项 156 件、三家格式不同的报价单：统一按 13% 含税、把备注里的安装费并入、逐项对照规格，交付比价总表、54 行逐项对照表和待询价清单；丙补报两项规格后只重算这两行，出 V2，结论从丙反转为甲。",
+   "tags": [
+    "Operations",
+    "Excel",
+    "Finance"
+   ],
+   "lang": "zh",
+   "source": {
+    "site": "AutoClaw 博客",
+    "category": "Tutorial",
+    "title": "如何用 AutoClaw 做供应商比价",
+    "url": "https://autoclaw.z.ai/cn/blog/tutorial/M11W4C/",
+    "published": "2026-11-24",
+    "original_setup": "AutoClaw 新建任务 · GLM-5.3-Flash",
+    "notes": "原文只展示了三家总价和两项规格不符，18 项需求清单和三份报价单是按这些总价合成的虚构数据（乙、丙的 PDF/Word 原件以 Markdown 文本代替）。用脚本核对：54 条报价行单价全部正确，三家含税总价 186,400 / 193,456 / 186,300 和 V2 丙 191,100 与原文一致，丙两项规格不符都被标出，结论同样反转为推荐甲。模型另把“安装费是否含税”“乙未写质保”“是否送货上楼”列入待询价清单。"
+   },
+   "model": "us.anthropic.claude-opus-5-5",
+   "provider": "bedrock",
+   "finished": "2026-11-25T03:54:42+00:00",
+   "turns": 2,
+   "outputs": 9,
+   "usage": {
+    "input": 20829,
+    "output": 36876
+   },
+   "seconds": 291,
+   "cover": null,
+   "doc_titles": [
+    "V1-比价总表",
+    "V1-逐项对照表",
+    "V1-待询价清单"
+   ]
+  },
+  {
+   "slug": "zh-risk-review-pilot",
+   "title": "AI 风控辅助模式试点：12 件历史贷款案件逐件出审核建议并与人工对照",
+   "summary": "按“辅助模式”拿 12 件已有结论的小微贷款历史案件试点：先只看材料，逐件标出相互矛盾的信息、引用原始材料、列待核查问题并给出建议；再拿到人工结论和后续还款表现，逐条对比、归纳分歧原因；最后写一份阶段二过关评估。",
+   "tags": [
+    "Finance",
+    "Research",
+    "Documents"
+   ],
+   "lang": "zh",
+   "source": {
+    "site": "AutoClaw 博客",
+    "category": "Tutorial",
+    "title": "AutoClaw 实操指南：AI 金融风控如何落地？",
+    "url": "https://autoclaw.z.ai/cn/blog/tutorial/risk-control-implementation/",
+    "published": "2026-11-24",
+    "original_setup": "AutoClaw 桌面端 · 「金融分析」模式",
+    "notes": "原文是方法文章，没有演示具体任务。这里复现的是文末“从哪里开始试”给出的做法：挑一批已有结论的历史案件，按辅助模式逐件出审核建议，再和人工结论对照（对应原文第七节阶段二）。12 件案件材料、审核要点和人工结论都是虚构的，提示词按原文描述编写，不是原文原句。模型只输出信号、证据和建议，不作授信决定。预设的关联企业（C04/C09）、快进快出、关联交易、公私混用、材料缺失都被识别；规则外的行业政策（C12）没有识别，模型在对照环节把它归为“规则没写到”。"
+   },
+   "model": "us.anthropic.claude-opus-5-5",
+   "provider": "bedrock",
+   "finished": "2026-11-25T04:43:32+00:00",
+   "turns": 3,
+   "outputs": 5,
+   "usage": {
+    "input": 40517,
+    "output": 37504
+   },
+   "seconds": 371,
+   "cover": null,
+   "doc_titles": [
+    "审核建议表",
+    "风险信号明细",
+    "建议与人工结论对照表"
+   ]
+  },
+  {
+   "slug": "zh-backtest-review",
+   "title": "复核一条量化策略回测：查口径、算成本、拆收益、出复核报告",
+   "summary": "拿到一条回测年化 22.8% 的小盘价值动量策略，先通读回测脚本找出未来信息和幸存者偏差并给出修正版脚本，再用年度结果按 5 档成本估算扣费后收益和临界成本、拆分超额收益来源、评估参数试验带来的研究偏差，最后按团队模板出复核报告和本地待重跑清单。",
+   "tags": [
+    "Finance",
+    "Research",
+    "Data"
+   ],
+   "lang": "zh",
+   "source": {
+    "site": "AutoClaw 博客",
+    "category": "Tutorial",
+    "title": "AutoClaw 实操指南：AI 量化策略回测怎么做？",
+    "url": "https://autoclaw.z.ai/cn/blog/tutorial/ai-quant-strategy-backtest/",
+    "published": "2026-11-24",
+    "original_setup": "AutoClaw 桌面端 · 「金融分析」模式（读取本地文件、调用金融数据工具、编写并运行代码）",
+    "notes": "原文给的是“用 AutoClaw 复核一条策略”的五步示例流程，没有具体提示词和数据。这里按这五步写成对话，策略、脚本、年度结果和参数试验记录都是虚构的。模型在这里不能运行代码，也没有行情和金融数据工具：未重跑回测、未做留出期复测、未补基本面背景，扣费后收益是用“毛收益 − 双边换手 × 单边成本”估算出来的，不是重跑结果。需要执行的部分整理成待重跑清单。扣费后年收益、年化和临界单边成本（0.622%）与脚本计算一致。合成数据里有两处不自洽（月度调仓年双边换手不应超过 24 倍；脚本截断行情后 2019 年动量无法计算），模型在第一轮就指了出来。"
+   },
+   "model": "us.anthropic.claude-opus-5-5",
+   "provider": "bedrock",
+   "finished": "2026-11-25T04:34:58+00:00",
+   "turns": 4,
+   "outputs": 19,
+   "usage": {
+    "input": 123617,
+    "output": 128838
+   },
+   "seconds": 1148,
+   "cover": null,
+   "doc_titles": [
+    "回测复核报告：小盘价值动量 V3",
+    "问题清单_backtest_v3",
+    "成本敏感性估算_按年度表"
+   ]
+  },
+  {
+   "slug": "zh-contract-review",
+   "title": "结合业务背景审查算力采购合同",
+   "summary": "站在采购方立场，把一份算力服务采购合同和业务背景、模拟补贴条件对照审查，按重要程度给出意见；再把服务期限与计费、补贴申报材料、服务故障补偿三项写成完整替换条款，最后整理成一份 Word 谈判底稿。",
+   "tags": [
+    "Legal",
+    "Documents"
+   ],
+   "lang": "zh",
+   "source": {
+    "site": "AutoClaw 博客",
+    "category": "Tutorial",
+    "title": "如何用 AutoClaw 审查合同？从业务背景到条款修改",
+    "url": "https://autoclaw.z.ai/cn/blog/tutorial/how-to-review-contracts-with-autoclaw/",
+    "published": "2026-11-23",
+    "original_setup": "AutoClaw 法律助手 · GLM-5.3-FlashX-Legal · 元典法律数据库",
+    "notes": "原文的两份 Word 材料未公开，这里按原文披露的条款原文（第 2.1、2.3、3.2、4.1、4.3 条等）和业务条件重建为两份 Markdown，当事方均为虚构。复现不接法律数据库，系统提示要求引用法律依据时注明无法联网核验。前两轮提示词照抄原文截图；第三轮“整理成谈判底稿”原文只有叙述，这里写成明确的一轮。审查结果覆盖原文的三项重点（服务期错位、补贴材料、故障补偿），另指出预付款早于交付、末月付款开票与 6 月 15 日申报截止衔接、委托项目是否属于“自身研发”等问题。"
+   },
+   "model": "us.anthropic.claude-opus-5-5",
+   "provider": "bedrock",
+   "finished": "2026-11-25T03:58:48+00:00",
+   "turns": 3,
+   "outputs": 1,
+   "usage": {
+    "input": 53527,
+    "output": 65837
+   },
+   "seconds": 620,
+   "cover": null,
+   "doc_titles": [
+    "算力服务采购合同审查要点——谈判底稿"
+   ]
+  },
+  {
+   "slug": "zh-contract-ledger",
+   "title": "46 份在执行合同整理成合同台账",
+   "summary": "把 34 份电子版和 12 份扫描件合同按写定的字段逐份提取成一张台账（编号、合作方、含税金额、期限、续约方式、通知期、付款节点），看不清的字段标页码待人工确认；再给 19 份自动续约合同算出通知截止日和提醒日，单列 40 天内到期的 7 份。",
+   "tags": [
+    "Legal",
+    "Excel",
+    "Operations"
+   ],
+   "lang": "zh",
+   "source": {
+    "site": "AutoClaw 博客",
+    "category": "Tutorial",
+    "title": "如何用 AutoClaw 整理合同台账",
+    "url": "https://autoclaw.z.ai/cn/blog/tutorial/M11W4B/",
+    "published": "2026-11-23",
+    "original_setup": "AutoClaw 新建任务 · GLM-5.3-Flash",
+    "notes": "46 份合同是按原文的数字合成的虚构文本（34 份电子版、12 份扫描件以 OCR 文字和 ▇ 表示看不清，3 份共 5 个字段识别不清），截图里 7 份 40 天内到截止的合同按原样复刻。用脚本逐格核对：V1 278 格、V2 297 格（含 19 份通知截止日）全部正确，43 份固定金额合计 12,864,000 元，7 份清单与原文截图一致。第一次运行发现合成数据里有“月数和起止日不符”的瑕疵（模型标出了），修正输入后重跑，收录的是第二次运行。"
+   },
+   "model": "us.anthropic.claude-opus-5-5",
+   "provider": "bedrock",
+   "finished": "2026-11-25T04:04:26+00:00",
+   "turns": 2,
+   "outputs": 5,
+   "usage": {
+    "input": 41415,
+    "output": 29999
+   },
+   "seconds": 224,
+   "cover": null,
+   "doc_titles": [
+    "V1-合同台账",
+    "在执行合同台账 V1 核对报告",
+    "V2-合同台账"
+   ]
+  },
+  {
+   "slug": "zh-attendance-anomalies",
+   "title": "统计月度考勤异常，逐条对上审批",
+   "summary": "市场部 36 人、21 个工作日的打卡记录和 33 条审批：按写明的迟到、早退、缺卡规则初筛，再用请假、出差、补卡审批逐条抵消，交付异常明细、个人汇总和待确认清单；补上设计组弹性工作制后只重算 6 人，出 V2 和改动对照表。",
+   "tags": [
+    "HR",
+    "Excel"
+   ],
+   "lang": "zh",
+   "source": {
+    "site": "AutoClaw 博客",
+    "category": "Tutorial",
+    "title": "如何用 AutoClaw 统计月度考勤异常",
+    "url": "https://autoclaw.z.ai/cn/blog/tutorial/M11W4A/",
+    "published": "2026-11-23",
+    "original_setup": "AutoClaw 新建任务 · GLM-5.3-Flash",
+    "notes": "打卡和审批记录是按原文总数合成的虚构数据（36 人、21 个工作日、1,440 次打卡、33 条审批），打卡表为一人一天一行。用脚本按同一规则重算核对：V1 77 条、V2 66 条异常与参考答案逐条完全一致（初筛 97、抵消 20；V2 迟到 19、早退 10、缺卡 33、旷工待确认 4、涉及 21 人，与原文相同）。V2 改动对照表 12 行，把“迟到改为早退”的那一天合并成一行（原文按 13 条计）。"
+   },
+   "model": "us.anthropic.claude-opus-5-5",
+   "provider": "bedrock",
+   "finished": "2026-11-25T04:01:03+00:00",
+   "turns": 2,
+   "outputs": 9,
+   "usage": {
+    "input": 62905,
+    "output": 47299
+   },
+   "seconds": 356,
+   "cover": null,
+   "doc_titles": [
+    "V1-异常明细",
+    "V1-个人汇总",
+    "V1-待确认清单"
+   ]
+  },
+  {
    "slug": "cafe-menu",
    "title": "Design a Printable Café Menu",
    "summary": "A one-page A4 brunch menu for the fictional café Sunday Fern, delivered as an editable SVG and a 300 DPI PNG, then revised in the same conversation with new prices and a footer line.",
    "tags": [
     "Design",
-    "Print",
-    "SVG"
+    "Marketing"
    ],
    "lang": "en",
    "source": {
@@ -32,13 +279,945 @@
    "doc_titles": []
   },
   {
+   "slug": "zh-sleep-mask-ad-matrix",
+   "title": "助眠眼罩 Meta 广告测试矩阵：六种创意钩子",
+   "summary": "为虚构加重助眠眼罩 Dusk 做六种创意钩子（UGC、评价卡、对比、数据、痛点、产品特写），每种出 Feed 1080×1350 和 Stories/Reels 1080×1920 两版，共 12 张，统一品牌框架，再交付一张标注编号、假设和指标的总览表。",
+   "tags": [
+    "Design",
+    "Marketing"
+   ],
+   "lang": "zh",
+   "source": {
+    "site": "AutoClaw 博客",
+    "category": "Tutorial",
+    "title": "如何用 AutoClaw 设计专家制作助眠眼罩广告素材：六种创意钩子实战",
+    "url": "https://autoclaw.z.ai/cn/blog/tutorial/autoclaw-sleep-mask-ad-hooks/",
+    "published": "2026-11-21",
+    "original_setup": "AutoClaw 设计专家 · GLM-5.3-Flash",
+    "notes": "提示词用原文实际提交的英文版。原文 12 张是 AI 生成的摄影风格 JPG，复现时全部为 SVG 插画（自拍、凌晨刷手机、面料微距都是画出来的）；为控制单轮输出每轮两个变体、分四轮交付，总览表为引用这 12 张 SVG 的 HTML。"
+   },
+   "model": "us.anthropic.claude-opus-5-5",
+   "provider": "bedrock",
+   "finished": "2026-11-25T06:21:47+00:00",
+   "turns": 8,
+   "outputs": 13,
+   "usage": {
+    "input": 495325,
+    "output": 134923
+   },
+   "seconds": 1251,
+   "cover": "cases/zh-sleep-mask-ad-matrix/output/dusk-contact-sheet.shot.preview.jpg",
+   "doc_titles": []
+  },
+  {
+   "slug": "zh-perfume-product-page",
+   "title": "小众香水 Shopify 详情页和九张商品图",
+   "summary": "为虚构香水 Atelier Oubli Nº 7「Fig & Smoke」画出九张暗调油画感商品图（主图、四个角度、微距、原料、床头场景、包装盒），再做一个桌面和手机通用的 HTML 商品页原型，含规格切换、香调金字塔、留香时间轴和配送退换折叠面板。",
+   "tags": [
+    "Design",
+    "E-commerce",
+    "Web"
+   ],
+   "lang": "zh",
+   "source": {
+    "site": "AutoClaw 博客",
+    "category": "Tutorial",
+    "title": "如何用 AutoClaw 设计专家制作小众香水详情页和商品图",
+    "url": "https://autoclaw.z.ai/cn/blog/tutorial/autoclaw-perfume-product-page/",
+    "published": "2026-11-21",
+    "original_setup": "AutoClaw 设计专家 · GLM-5.3",
+    "notes": "提示词用原文实际提交的英文版。原文用 AI 生图得到摄影质感的商品图，复现时九张图都是 SVG 绘制的插画，不是照片。单轮输出有上限：九张图分四轮交付，商品页拆成样式表+脚本一轮、HTML 一轮。"
+   },
+   "model": "us.anthropic.claude-opus-5-5",
+   "provider": "bedrock",
+   "finished": "2026-11-25T07:45:05+00:00",
+   "turns": 11,
+   "outputs": 12,
+   "usage": {
+    "input": 1269527,
+    "output": 345144
+   },
+   "seconds": 4168,
+   "cover": "cases/zh-perfume-product-page/output/fig-smoke-page.shot.preview.jpg",
+   "doc_titles": []
+  },
+  {
+   "slug": "zh-inventory-variance",
+   "title": "核对仓库月末盘点差异，出调账建议",
+   "summary": "华东仓 186 个 SKU：先把三份实盘表统一成“件”和系统编码，再按单位换算 → 未过账入库 → 未过账调拨 → 相近 SKU 串位的顺序逐条找原因，查不到的标待复盘；补回现场复盘结果后更新差异明细，调账建议只剩 1 条真实盘亏。",
+   "tags": [
+    "Operations",
+    "Excel",
+    "Finance"
+   ],
+   "lang": "zh",
+   "source": {
+    "site": "AutoClaw 博客",
+    "category": "Tutorial",
+    "title": "如何用 AutoClaw 核对库存盘点差异",
+    "url": "https://autoclaw.z.ai/cn/blog/tutorial/M11W3L/",
+    "published": "2026-11-21",
+    "original_setup": "AutoClaw 新建任务 · GLM-5.3-Flash",
+    "notes": "账面、三个库区的实盘表和单据导出是按原文情形合成的虚构数据（186 个 SKU，B 区按箱记、4 个 SKU 盘点员箱规记错，C 区 9 个编码漏前缀，RK-1130-07、DB-1129-03 未过账，两款纸箱串位，3 条无单据差异）。用脚本核对：10 条真实差异的差异数、原因和单据号全部正确。与原文不同的是，模型按第 2 条口径先用正确箱规换算，把 4 个箱规记错的 SKU 计为“一致”并单独列出（176+10=186，原文记作 172+14）；复盘后剩下的 1 件扫码枪，模型没有直接认定为盘亏 380 元，而是写成“继续追查，如确认丢失影响 -380 元”。"
+   },
+   "model": "us.anthropic.claude-opus-5-5",
+   "provider": "bedrock",
+   "finished": "2026-11-25T04:00:13+00:00",
+   "turns": 2,
+   "outputs": 6,
+   "usage": {
+    "input": 43800,
+    "output": 22603
+   },
+   "seconds": 185,
+   "cover": null,
+   "doc_titles": [
+    "V1-差异明细",
+    "V1-调账建议",
+    "华东仓 2026 年 11 月末盘点差异核对报告（V1）"
+   ]
+  },
+  {
+   "slug": "zh-fruit-crisp-listing",
+   "title": "冻干水果脆抖音小店主图和详情页",
+   "summary": "为虚构品牌「脆滋滋」冻干水果脆做 5 张 800×800 主图和 6 屏 750 宽详情页，波普艺术风格：高饱和撞色、本戴网点、粗黑描边、漫画对话框和「咔嚓！」拟声大字，卖点只用给定事实。",
+   "tags": [
+    "Design",
+    "E-commerce",
+    "Marketing"
+   ],
+   "lang": "zh",
+   "source": {
+    "site": "AutoClaw 博客",
+    "category": "Tutorial",
+    "title": "如何用 AutoClaw 设计专家制作商品主图和详情页：电商运营实战",
+    "url": "https://autoclaw.z.ai/cn/blog/tutorial/autoclaw-product-images-detail-page/",
+    "published": "2026-11-21",
+    "original_setup": "AutoClaw 设计专家 · GLM-5.3-Flash",
+    "notes": "原文水果用 AI 生成的摄影质感抠图，复现时全部是 SVG 绘制的插画，没有照片质感。为控制单轮输出，主图一轮、详情页分两轮交付；详情页每屏统一 750×1000，原文首屏高度与其他屏不同。"
+   },
+   "model": "us.anthropic.claude-opus-5-5",
+   "provider": "bedrock",
+   "finished": "2026-11-25T04:32:21+00:00",
+   "turns": 6,
+   "outputs": 11,
+   "usage": {
+    "input": 411191,
+    "output": 137957
+   },
+   "seconds": 1192,
+   "cover": "cases/zh-fruit-crisp-listing/output/cuizizi-detail-06-spec.preview.jpg",
+   "doc_titles": []
+  },
+  {
+   "slug": "zh-duty-roster",
+   "title": "排客服组整月值班表",
+   "summary": "8 人、31 天、早晚两班：按写成可检查句子的硬规则（晚班后不接早班、连续不超过 5 天、每班有老员工、年假和只上早班）和均衡要求一次排出 12 月值班表，附个人统计和逐条规则核对；再补“每人晚班不超过 10 次”，只在同一天内对调早晚班，出 V2 和改动格子清单。",
+   "tags": [
+    "Operations",
+    "Excel",
+    "HR"
+   ],
+   "lang": "zh",
+   "source": {
+    "site": "AutoClaw 博客",
+    "category": "Tutorial",
+    "title": "如何用 AutoClaw 排值班表",
+    "url": "https://autoclaw.z.ai/cn/blog/tutorial/M11W3K/",
+    "published": "2026-11-21",
+    "original_setup": "AutoClaw 新建任务 · GLM-5.3-Flash",
+    "notes": "无输入文件，提示词照原文。用脚本逐格核对 V1、V2：每天早晚各 2 人、晚班后次日不排早班、连续不超过 5 天、每班有老员工、孙悦年假、王婷只上早班、总班次相差 1、周末班每人 4 个全部满足，模型自报的个人统计与表格一致。与原文不同：这次的 V1 老员工合计只排了 62 班（原文 64 班），每班恰好 1 名老员工，3 名能上晚班的新员工要分担 31 个晚班位，“每人晚班不超过 10 次”在数学上排不开；模型按红线报告冲突而没有悄悄放宽，复现因此加了一轮“确认放宽代价最小的一条”，V2 让孙悦上 11 个晚班，只改了 12-12 一天的 2 个格子（原文 V2 对调 32 个格子、人人不超过 10）。前两次运行也都报告了同样的冲突，收录的是第三次运行。"
+   },
+   "model": "us.anthropic.claude-opus-5-5",
+   "provider": "bedrock",
+   "finished": "2026-11-25T04:15:09+00:00",
+   "turns": 3,
+   "outputs": 7,
+   "usage": {
+    "input": 9785,
+    "output": 33340
+   },
+   "seconds": 295,
+   "cover": null,
+   "doc_titles": [
+    "V1-月历视图",
+    "V1-个人统计",
+    "2026 年 12 月客服组值班表 · 规则核对（V1）"
+   ]
+  },
+  {
+   "slug": "zh-brand-rollout",
+   "title": "把品牌规范落到七类接触点：Low Tide 自然酒吧",
+   "summary": "按给定的颜色、字体、字标和波浪线辅助图形，把自然酒吧 Low Tide 的规范应用到官网首页、A4 菜单、三张 Instagram 帖子、杯垫、托特包、名片和橱窗贴，交付一份带可开关标注层的 HTML 总览。",
+   "tags": [
+    "Design",
+    "Web",
+    "Marketing"
+   ],
+   "lang": "zh",
+   "source": {
+    "site": "AutoClaw 博客",
+    "category": "Tutorial",
+    "title": "如何用 AutoClaw 设计专家落地品牌视觉规范：品牌设计实战",
+    "url": "https://autoclaw.z.ai/cn/blog/tutorial/autoclaw-brand-identity-rollout/",
+    "published": "2026-11-21",
+    "original_setup": "AutoClaw 设计专家 · GLM-5.3",
+    "notes": "提示词用原文实际提交的英文版。原文交付单个 HTML 总览；复现时一次交付超出单轮输出上限，所以按接触点拆成多个 HTML 分四轮交付，最后的总览板用各件的截图拼成并带可开关标注层。Gloock / Work Sans / DM Mono 通过 Google Fonts 加载，酒款和价格由模型虚构。"
+   },
+   "model": "us.anthropic.claude-opus-5-5",
+   "provider": "bedrock",
+   "finished": "2026-11-25T07:28:35+00:00",
+   "turns": 8,
+   "outputs": 7,
+   "usage": {
+    "input": 563115,
+    "output": 210733
+   },
+   "seconds": 3121,
+   "cover": "cases/zh-brand-rollout/output/low-tide-overview.shot.preview.jpg",
+   "doc_titles": []
+  },
+  {
+   "slug": "zh-batch-invitations",
+   "title": "按名单批量生成答谢会邀请函",
+   "summary": "86 行嘉宾名单先清洗（去重、称谓缺失不猜、桌位超员只报不调），再按中英文模板逐人生成邀请函和发送清单；补齐称谓、调桌后只重出受影响的几份，最后逐份和名单比对。",
+   "tags": [
+    "Operations",
+    "Documents",
+    "Data"
+   ],
+   "lang": "zh",
+   "source": {
+    "site": "AutoClaw 博客",
+    "category": "Tutorial",
+    "title": "如何用 AutoClaw 批量生成活动邀请函",
+    "url": "https://autoclaw.z.ai/cn/blog/tutorial/M11W3N/",
+    "published": "2026-11-21",
+    "original_setup": "AutoClaw 新建任务 · GLM-5.3-Flash",
+    "notes": "原文没有展示名单和模板，复现时按原文给出的结构合成了 86 行名单（2 人重复登记、4 人称谓为空、第 7 桌 9 人含 2 位携伴、6 位英文嘉宾）和两份模板。模型没有生成 PDF 的工具，每份邀请函交付为 Markdown 并自动转成 Word；为控制单轮输出，邀请函分两轮交付。用脚本对照名单核对：清洗结果（去重 84 人、待补 4 人、第 7 桌 11 人）与原文一致；最终 84 份邀请函的姓名、称谓、公司、职务、桌号、模板语言全部正确，发送清单 84 行邮箱和文件名全部对得上。调桌前的旧文件 7_星衍半导体_刘刚 留在输出里，模型已标为作废。"
+   },
+   "model": "us.anthropic.claude-opus-5-5",
+   "provider": "bedrock",
+   "finished": "2026-11-25T04:02:20+00:00",
+   "turns": 5,
+   "outputs": 91,
+   "usage": {
+    "input": 152944,
+    "output": 76093
+   },
+   "seconds": 550,
+   "cover": null,
+   "doc_titles": [
+    "年度客户答谢会名单清洗报告",
+    "send-list",
+    "邀请函核对报告（第 1–5 桌）"
+   ]
+  },
+  {
+   "slug": "zh-bank-receivables",
+   "title": "核对银行流水与应收台账，出核销建议",
+   "summary": "10 月 312 笔对公入账对 61 家客户、356 张未结发票：按户名+金额一对一、同一客户内组合、50 元内手续费、附言带合同号的代付的顺序匹配，对不上的列无法匹配；补回例外处理结论后更新匹配结果，核销建议只含已确认的发票。",
+   "tags": [
+    "Finance",
+    "Excel"
+   ],
+   "lang": "zh",
+   "source": {
+    "site": "AutoClaw 博客",
+    "category": "Tutorial",
+    "title": "如何用 AutoClaw 核对银行流水与应收",
+    "url": "https://autoclaw.z.ai/cn/blog/tutorial/M11W3M/",
+    "published": "2026-11-21",
+    "original_setup": "AutoClaw 新建任务 · GLM-5.3-Flash",
+    "notes": "流水和应收台账是按原文总数合成的虚构数据（312 笔合计 4,862,350.00 元、61 家客户、356 张未结发票，六类情形笔数与原文相同，并放了 1 笔同一客户能对上两种发票组合的流水）。合成数据里有部分发票开票日晚于到账日、附言月份和开票月份对不上，模型都另列成了例外。用脚本核对：312 笔中 311 笔匹配类型和发票完全正确；那笔有歧义的流水，模型列出了两种组合，但归为“无法匹配”（原文放在一付多里），所以已匹配金额是 4,803,483.75 元，不是 4,825,550.00 元。V2 核销建议 332 张发票与参考答案逐张一致。为避免单轮输出超限，V1 和 V2 拆成 5 轮交付；第一次运行第一轮超出输出上限，收录的是第二次运行。"
+   },
+   "model": "us.anthropic.claude-opus-5-5",
+   "provider": "bedrock",
+   "finished": "2026-11-25T04:38:00+00:00",
+   "turns": 5,
+   "outputs": 7,
+   "usage": {
+    "input": 326058,
+    "output": 194386
+   },
+   "seconds": 1335,
+   "cover": null,
+   "doc_titles": [
+    "V1-匹配结果",
+    "V1-例外清单",
+    "10 月对公账户入账流水与应收台账核对报告（V1）"
+   ]
+  },
+  {
+   "slug": "zh-signup-tally",
+   "title": "统计群接龙报名：合并去重、分班候补、打码导出",
+   "summary": "两个家长群的 6 张接龙截图加一张收集表，共 60 条报名。按写清的规则去重成 56 人，拿不准的先列出来确认，再分班、排候补，导出打码对外版和完整版名单，最后按家长更正出 V2 和版本记录。",
+   "tags": [
+    "Operations",
+    "Excel",
+    "Data",
+    "Education"
+   ],
+   "lang": "zh",
+   "source": {
+    "site": "AutoClaw 博客",
+    "category": "Tutorial",
+    "title": "如何用 AutoClaw 统计群接龙报名",
+    "url": "https://autoclaw.z.ai/cn/blog/tutorial/M11W3J/",
+    "published": "2026-11-20",
+    "original_setup": "AutoClaw 新建任务 · GLM-5.3-Flash",
+    "notes": "原文的 6 张接龙截图和收集表没有公开，这里按原文给出的统计口径合成：一群序号 1–22、二群 1–16、收集表 22 行，3 条跨来源重复、1 个孩子在一群填了两遍且年龄不一致、2 条没写意愿、两个同名“李一诺”、启蒙班 28 人报名。截图以逐张文字转录（.txt）代替，相邻截图保留上下重叠。家长电话、姓名均为虚构。用脚本按同一规则重算：V2 两班 53 人加候补 3 人，姓名、年龄、电话、报名时间和分班全部正确。"
+   },
+   "model": "us.anthropic.claude-opus-5-5",
+   "provider": "bedrock",
+   "finished": "2026-11-25T03:55:56+00:00",
+   "turns": 4,
+   "outputs": 16,
+   "usage": {
+    "input": 56053,
+    "output": 38185
+   },
+   "seconds": 302,
+   "cover": null,
+   "doc_titles": [
+    "启蒙班名单_完整版_V1",
+    "启蒙班名单_对外版_V1",
+    "进阶班名单_完整版_V1"
+   ]
+  },
+  {
+   "slug": "zh-equipment-quotation",
+   "title": "自动贴标机三档配置报价单",
+   "summary": "只按给定价目表取数，一次出齐基础、标准、旗舰三档报价单（参数对比、分项价格、小计、95 折合计、付款方式），附逐档验算；客户改配置后每处改动各出一个版本，价目表外的双面贴标标“需定制询价”，最后替换客户名称并复核。",
+   "tags": [
+    "Sales",
+    "Documents",
+    "Finance"
+   ],
+   "lang": "zh",
+   "source": {
+    "site": "AutoClaw 博客",
+    "category": "Tutorial",
+    "title": "如何用 AutoClaw 生成报价单",
+    "url": "https://autoclaw.z.ai/cn/blog/tutorial/M11W3I/",
+    "published": "2026-11-20",
+    "original_setup": "AutoClaw 新建任务 · GLM-5.3-Flash",
+    "notes": "价目和配置照原文提示词。三档小计、95 折价、旗舰档 9 折 193,500 的单独标注，以及改配置后 V2 旗舰 200,000 / 190,000（9 折失效）、基础档 150,000 / 142,500 全部算对。与原文不同的是，模型把三处改动依次叠加成 V2、V3、V4，双面贴标在 V4 标“需定制询价”（原文并入 V3）。原文没有给出替换客户名称的提示词，复现加了一轮“填入客户名称并核对”，生成 V5。"
+   },
+   "model": "us.anthropic.claude-opus-5-5",
+   "provider": "bedrock",
+   "finished": "2026-11-25T04:06:22+00:00",
+   "turns": 3,
+   "outputs": 5,
+   "usage": {
+    "input": 13176,
+    "output": 13127
+   },
+   "seconds": 109,
+   "cover": null,
+   "doc_titles": [
+    "示例智能装备有限公司",
+    "示例智能装备有限公司",
+    "示例智能装备有限公司"
+   ]
+  },
+  {
+   "slug": "zh-running-shoe-ooh",
+   "title": "跑鞋户外广告提案：三个创意方向 × 三种版位",
+   "summary": "围绕「182g. Lighter than your phone.」为虚构跑鞋 Aero 1 发展天平、纯字体、长曝光三个创意方向，每个方向出 48 开广告牌（2:1）、6 开候车亭（2:3）和 Instagram 1:1，共 9 张，最后附一页城市投放场景对比。",
+   "tags": [
+    "Design",
+    "Marketing"
+   ],
+   "lang": "zh",
+   "source": {
+    "site": "AutoClaw 博客",
+    "category": "Tutorial",
+    "title": "如何用 AutoClaw 设计专家制作跑鞋户外广告：三个创意方向实战",
+    "url": "https://autoclaw.z.ai/cn/blog/tutorial/autoclaw-running-shoe-outdoor-ads/",
+    "published": "2026-11-18",
+    "original_setup": "AutoClaw 设计专家 · GLM-5.3-Flash",
+    "notes": "提示词用原文实际提交的英文版。原文是 AI 生成的摄影画面（带生成水印），复现时 9 张都是 SVG 插画；没有 Anton 等超窄字体，纯字体方向用横向压缩的 Futura 代替。单轮输出有上限，所以分轮交付：方向 A 一轮，方向 B、C 各分两轮，最后一轮对比页。"
+   },
+   "model": "us.anthropic.claude-opus-5-5",
+   "provider": "bedrock",
+   "finished": "2026-11-25T08:01:06+00:00",
+   "turns": 12,
+   "outputs": 10,
+   "usage": {
+    "input": 720364,
+    "output": 189928
+   },
+   "seconds": 1950,
+   "cover": "cases/zh-running-shoe-ooh/output/aero1-ooh-comparison.shot.preview.jpg",
+   "doc_titles": []
+  },
+  {
+   "slug": "zh-coffee-ad-creatives",
+   "title": "冻干咖啡投放素材：五个创意方向 × 三个渠道尺寸",
+   "summary": "围绕「3 秒冷水速溶，0 糖 0 脂」为虚构品牌「醒山」冻干咖啡做实验室、打工人、颜值、对比、玩梗五个方向，每个方向出抖音、朋友圈、淘宝三种尺寸共 15 张，再做一张写明测试假设的总览板。",
+   "tags": [
+    "Design",
+    "Marketing",
+    "E-commerce"
+   ],
+   "lang": "zh",
+   "source": {
+    "site": "AutoClaw 博客",
+    "category": "Tutorial",
+    "title": "如何用 AutoClaw 设计专家制作广告素材：营销团队实战",
+    "url": "https://autoclaw.z.ai/cn/blog/tutorial/autoclaw-ad-creatives/",
+    "published": "2026-11-18",
+    "original_setup": "AutoClaw 设计专家 · GLM-5.3",
+    "notes": "原文 15 张是 AI 生图的 JPG，复现时全部为 SVG 插画；为控制单轮输出，每轮交付一个方向的 3 张，最后一轮交付总览板（引用 15 张 SVG 的 HTML）。原文后来补充的清晰度与加载修改要求未复现。"
+   },
+   "model": "us.anthropic.claude-opus-5-5",
+   "provider": "bedrock",
+   "finished": "2026-11-25T06:16:02+00:00",
+   "turns": 12,
+   "outputs": 16,
+   "usage": {
+    "input": 1444504,
+    "output": 294217
+   },
+   "seconds": 2544,
+   "cover": "cases/zh-coffee-ad-creatives/output/xingshan-overview-board.shot.preview.jpg",
+   "doc_titles": []
+  },
+  {
+   "slug": "zh-annual-report-speed-read",
+   "title": "速读上市公司年报：两页要点报告，数字带页码",
+   "summary": "把一份制造业公司年报整理成两页要点报告：主营业务、四个关键数字及同比、风险因素逐条、分红与回购，每个数字都标出处页码；再回原文逐项核对，并按同样规则回答追问。",
+   "tags": [
+    "Finance",
+    "Research",
+    "Documents"
+   ],
+   "lang": "zh",
+   "source": {
+    "site": "AutoClaw 博客",
+    "category": "Tutorial",
+    "title": "如何用 AutoClaw 速读上市公司年报",
+    "url": "https://autoclaw.z.ai/cn/blog/tutorial/M11W3F/",
+    "published": "2026-11-18",
+    "original_setup": "AutoClaw 新建任务 · GLM-5.3-Flash",
+    "notes": "原文用的是约 300 页的年报 PDF，未公开；这里按原文给出的数字和页码（第 31、35、48、58–60、95 页等）合成了一份保留原页码的年报节选（约 25 页，Markdown），公司和数据均为虚构。第一轮提示词照抄原文；回原文抽查和追问应收账款两轮原文只有叙述，这里写成明确的追问。抽查 6 项（4 个关键数字、综合毛利率、研发投入占比）的数值和页码全部与原文一致；报告照抄表格中以元为单位的数值，原文报告写的是亿元。"
+   },
+   "model": "us.anthropic.claude-opus-5-5",
+   "provider": "bedrock",
+   "finished": "2026-11-25T03:52:22+00:00",
+   "turns": 3,
+   "outputs": 1,
+   "usage": {
+    "input": 31371,
+    "output": 11722
+   },
+   "seconds": 105,
+   "cover": null,
+   "doc_titles": [
+    "恒岳精工股份有限公司 2025 年年报要点"
+   ]
+  },
+  {
+   "slug": "zh-web-table-excel",
+   "title": "采集网页表格到 Excel：预览核对、来源随行、更新重跑",
+   "summary": "把统计局页面上的“分行业平均工资”表整理成数值格式的 Excel：先给 10 行预览和核对结果，确认后全量输出并给每行加来源和访问日期；页面更新后按同一规则重跑，逐格比对出新增列和修订值，写进变更记录。",
+   "tags": [
+    "Data",
+    "Excel",
+    "Research"
+   ],
+   "lang": "zh",
+   "source": {
+    "site": "AutoClaw 博客",
+    "category": "Tutorial",
+    "title": "如何用 AutoClaw 采集网页表格到 Excel",
+    "url": "https://autoclaw.z.ai/cn/blog/tutorial/M11W3C/",
+    "published": "2026-11-17",
+    "original_setup": "AutoClaw 新建任务 · GLM-5.3-Flash（浏览器访问统计局页面）",
+    "notes": "原文本身是演示页面和演示数据。复现不访问网络：按原文截图重建了页面（前 6 个行业的数值与截图一致，其余 13 个行业为合成），以保存下来的 HTML 作为输入；页面更新那一步把新版页面 HTML 直接贴在提示词里。原文“原始页面另存为 PDF”需要浏览器，这里做不到，模型会说明。用脚本逐格核对：两版共 209 格全部正确（其中 4 格为空值，已留空），变更记录 1 处修订加 19 格新增与页面一致。"
+   },
+   "model": "us.anthropic.claude-opus-5-5",
+   "provider": "bedrock",
+   "finished": "2026-11-25T03:53:22+00:00",
+   "turns": 3,
+   "outputs": 3,
+   "usage": {
+    "input": 17475,
+    "output": 10126
+   },
+   "seconds": 85,
+   "cover": null,
+   "doc_titles": [
+    "分行业工资",
+    "分行业工资_20261117",
+    "变更记录"
+   ]
+  },
+  {
+   "slug": "zh-manual-translation",
+   "title": "翻译英文产品手册：术语锁定、分批交付、数字核对",
+   "summary": "把 R-240X 电动推杆英文手册按 10 页一批译成中文：术语表全程锁定，每批附术语命中清单，拿不准的句子集中提问；译完对全部数字和单位做原文对译文核对，最后交付中英对照和纯中文两份 Word。",
+   "tags": [
+    "Translation",
+    "Documents"
+   ],
+   "lang": "zh",
+   "source": {
+    "site": "AutoClaw 博客",
+    "category": "Tutorial",
+    "title": "如何用 AutoClaw 翻译 60 页产品手册",
+    "url": "https://autoclaw.z.ai/cn/blog/tutorial/M11W3D/",
+    "published": "2026-11-17",
+    "original_setup": "AutoClaw 新建任务 · GLM-5.3-Flash",
+    "notes": "原文的 60 页手册未公开。这里按原文给出的型号、参数、术语和两处问题（第 14 页 380 V 与第 8 页规格表 400 V 矛盾、第 34 页 derated above 40 °C）合成了一份保留原页码的 22 页英文节选，仍按 10 页一批分 6 批交付，产品和公司均为虚构。第一轮提示词照抄原文；继续各批、回复待确认、数字核对和确认笔误几轮原文只有叙述，这里写成明确的追问。6 批术语命中合计与按原文统计完全一致（push rod 25、stroke 8、duty cycle 8、IP54 4、delivery time 4、nominal voltage 2、derate 1）；模型在第 1 批就提示第 14 页 380 V 与规格表矛盾，数字核对共列 122 处。"
+   },
+   "model": "us.anthropic.claude-opus-5-5",
+   "provider": "bedrock",
+   "finished": "2026-11-25T04:08:52+00:00",
+   "turns": 8,
+   "outputs": 9,
+   "usage": {
+    "input": 127536,
+    "output": 68453
+   },
+   "seconds": 576,
+   "cover": null,
+   "doc_titles": [
+    "R-240X 电动推杆 操作与安装手册 — 中英对照（第 1 批，原手册第 1–10 页）",
+    "R-240X 电动推杆 操作与安装手册 — 中英对照（第 2 批，原手册第 11–20 页）",
+    "R-240X 电动推杆 操作与安装手册 — 中英对照（第 3 批，原手册第 21–30 页）"
+   ]
+  },
+  {
+   "slug": "zh-meeting-scheduling",
+   "title": "安排跨部门评审会：比对空闲、写邀请、处理改期",
+   "summary": "按 8 位与会人的已知占用比对出两个候选时段，起草带议程的会议邀请和会前预读提醒；财务临时出差后重新比对，交付改期通知和待办清单。",
+   "tags": [
+    "Project Management",
+    "Operations",
+    "Documents"
+   ],
+   "lang": "zh",
+   "source": {
+    "site": "AutoClaw 博客",
+    "category": "Tutorial",
+    "title": "如何用 AutoClaw 安排跨部门会议：项目助理实战",
+    "url": "https://autoclaw.z.ai/cn/blog/tutorial/M11W3A/",
+    "published": "2026-11-16",
+    "original_setup": "AutoClaw 新建任务 · GLM-5.3-Flash",
+    "notes": "第一轮提示词照抄原文；选定候选一、王芳临时出差这两步原文只有叙述，这里写成两轮明确的追问。原文“周四发版”的背景未写进提示词，复现中同样没有提供。复现中模型按占用逐时段比对，发现周二 16–17、周三 15–17 也全员无已知冲突，推荐的两个候选（周二 16–17、周三 16–17）与原文不同；第二轮仍按原文选定周二 14:00，改期后给出周三 16:00，与原文一致。"
+   },
+   "model": "us.anthropic.claude-opus-5-5",
+   "provider": "bedrock",
+   "finished": "2026-11-25T03:49:04+00:00",
+   "turns": 3,
+   "outputs": 8,
+   "usage": {
+    "input": 9199,
+    "output": 11970
+   },
+   "seconds": 121,
+   "cover": null,
+   "doc_titles": [
+    "V2.4评审会_候选时段对照表",
+    "会议邀请：V2.4 版本评审会",
+    "会前提醒：明天召开 V2.4 版本评审会，请提前预读"
+   ]
+  },
+  {
+   "slug": "zh-email-triage",
+   "title": "出差回来清收件箱：87 封邮件分拣、起草回复、定收件规则",
+   "summary": "把 87 封未读邮件按今日必回、本周待办、抄送知悉、可归档四档分拣，拿不准的单列“疑似重要”；再给必回邮件逐封起草带占位符的回复，最后按邮件分布整理收件规则和退订建议。",
+   "tags": [
+    "Operations",
+    "Writing",
+    "Sales"
+   ],
+   "lang": "zh",
+   "source": {
+    "site": "AutoClaw 博客",
+    "category": "Tutorial",
+    "title": "如何用 AutoClaw 整理与回复邮件：商务实战",
+    "url": "https://autoclaw.z.ai/cn/blog/tutorial/M11W3B/",
+    "published": "2026-11-16",
+    "original_setup": "AutoClaw 新建任务 · GLM-5.3-Flash",
+    "notes": "原文的 87 封邮件未公开，这里按原文描述的分布合成：今日必回 6 封（客户 4 封、合作方 2 封）、1 封发件人不在通讯录且涉及合同条款的邮件（其实是客户换了新邮箱）、本周待办 11 封、抄送知悉 19 封、可归档 50 封，另附通讯录和订阅打开记录，人物和公司均为虚构。第一轮提示词照抄原文；复核疑似重要、起草回复、整理收件规则几轮原文只有叙述，这里写成明确的追问。对照合成时的设定，87 封中 86 封分档一致，设定的那封疑似重要邮件被正确单列；另有 1 封上级交办的拜访安排也被标疑似重要交复核。建议退订的 5 个订阅与打开记录一致。"
+   },
+   "model": "us.anthropic.claude-opus-5-5",
+   "provider": "bedrock",
+   "finished": "2026-11-25T04:00:13+00:00",
+   "turns": 3,
+   "outputs": 3,
+   "usage": {
+    "input": 68984,
+    "output": 35912
+   },
+   "seconds": 328,
+   "cover": null,
+   "doc_titles": [
+    "出差未读_分拣清单",
+    "今日必回 · 回复草稿（7 封）",
+    "收件规则与退订建议"
+   ]
+  },
+  {
+   "slug": "zh-qa-to-faq",
+   "title": "把 120 条客服答疑记录整理成 FAQ 初稿",
+   "summary": "把三个客服群半个月的 120 条答疑记录按主题归堆、合并同类问法，整理成高频在前、每条带指路的 FAQ 初稿；答法不一致的并列标“需统一话术”，退款换货类标“过法务再挂”，最后交付挂前检查单。",
+   "tags": [
+    "Operations",
+    "Writing",
+    "Documents"
+   ],
+   "lang": "zh",
+   "source": {
+    "site": "AutoClaw 博客",
+    "category": "Tutorial",
+    "title": "如何用 AutoClaw 把答疑记录整理成 FAQ：客服主管实战",
+    "url": "https://autoclaw.z.ai/cn/blog/tutorial/M11W2R/",
+    "published": "2026-11-15",
+    "original_setup": "AutoClaw 新建任务 · GLM-5.3-Flash",
+    "notes": "原文的答疑记录未公开，这里按原文描述合成了 120 条记录（CSV）和 6 篇帮助页要点：38 个不同问题，10 个出现 8 次以上，“导出的表格打不开”11 次且有三种答法，“能开发票吗”9 次其中 2 次提到“下周才能开”，3 条 CSV 导入失败与帮助页“支持 CSV 导入”冲突。产品和人物均为虚构。第一轮提示词照抄原文；补充的法务规则和挂前检查两轮原文只有叙述，这里写成明确的追问。120 条记录全部归入正确的问题，无遗漏无重复；模型把“分享链接能设置密码吗”单列一条，因此 FAQ 为 39 条、高频 9 条（设定为 38 条、10 条）。发票“下周才能开”被并列为第二种答法，而不是像原文那样移进备注。"
+   },
+   "model": "us.anthropic.claude-opus-5-5",
+   "provider": "bedrock",
+   "finished": "2026-11-25T04:07:08+00:00",
+   "turns": 3,
+   "outputs": 4,
+   "usage": {
+    "input": 67349,
+    "output": 51878
+   },
+   "seconds": 412,
+   "cover": null,
+   "doc_titles": [
+    "云栈表单 FAQ 初稿（帮助页改版用）",
+    "云栈表单 待统一话术清单",
+    "11月W2 FAQ 挂前检查单"
+   ]
+  },
+  {
+   "slug": "zh-customer-ledger",
+   "title": "把销售群聊天记录整理成 28 家客户跟进台账",
+   "summary": "把两个销售群和邮箱里两周的沟通记录按客户归堆，整理成一家一行的跟进台账（最新进展、下一步、卡点、待我方动作、状态）和今日待回复清单；群里答应的折扣标“待确认”，对不上号的进“待归属”，两个销售说法打架的标“待对齐”。",
+   "tags": [
+    "Sales",
+    "Excel",
+    "Operations"
+   ],
+   "lang": "zh",
+   "source": {
+    "site": "AutoClaw 博客",
+    "category": "Tutorial",
+    "title": "如何用 AutoClaw 整理客户沟通记录：销售助理实战",
+    "url": "https://autoclaw.z.ai/cn/blog/tutorial/M11W2Q/",
+    "published": "2026-11-15",
+    "original_setup": "AutoClaw 新建任务 · GLM-5.3-Flash",
+    "notes": "原文的聊天记录未公开，这里按原文描述合成：28 家在跟客户名单、两个群约 50 条消息和 4 封邮件，埋入原文提到的情形（华创 40 台报价答应“周五给折扣”没发、锐联换对接人、铭泰需求改三版、正元“下周签”无具体日期、“华创-王经理/王工”同一手机尾号、“启航科技-李总”尾号对不上），另加两处销售说法打架和几条 10 月 20 日前的旧消息。公司和人物均为虚构。第一轮提示词照抄原文；补充规则和例会前核对两轮原文只有叙述，这里写成明确的追问。28 家中 25 家状态与设定一致；华夏纺织（等客户走验收）判为等客户、星辰传媒（两周无回复）判为等客户并交例会定，金石建材按补充规则标为待对齐。2 条待对齐、2 条待归属（含启航科技尾号不符、名单外的远景能源）全部识别，华创两个称呼按尾号 3378 合并。"
+   },
+   "model": "us.anthropic.claude-opus-5-5",
+   "provider": "bedrock",
+   "finished": "2026-11-25T04:13:36+00:00",
+   "turns": 3,
+   "outputs": 5,
+   "usage": {
+    "input": 36006,
+    "output": 44305
+   },
+   "seconds": 373,
+   "cover": null,
+   "doc_titles": [
+    "客户跟进台账_截至10月31日",
+    "今日待回复清单_11月2日",
+    "待归属与待对齐_例会确认"
+   ]
+  },
+  {
+   "slug": "zh-expense-check",
+   "title": "核对月度报销：46 笔逐笔对照发票和预算",
+   "summary": "报销明细 46 笔、发票 45 张、6 个部门预算，按五类问题逐笔核对，每笔标一致 / 不一致 / 待确认 / 缺依据，交回核对表、部门预算对照和待确认清单；补充价税规则后重出，再抽 5 笔回原始材料复核并定稿归档。",
+   "tags": [
+    "Finance",
+    "Excel",
+    "Operations"
+   ],
+   "lang": "zh",
+   "source": {
+    "site": "AutoClaw 博客",
+    "category": "Tutorial",
+    "title": "如何用 AutoClaw 核对月度报销：财务专员实战",
+    "url": "https://autoclaw.z.ai/cn/blog/tutorial/%E5%A6%82%E4%BD%95%E7%94%A8%20AutoClaw%20%E6%A0%B8%E5%AF%B9%E6%9C%88%E5%BA%A6%E6%8A%A5%E9%94%80%EF%BC%9A%E8%B4%A2%E5%8A%A1%E4%B8%93%E5%91%98%E5%AE%9E%E6%88%98/",
+    "published": "2026-11-14",
+    "original_setup": "AutoClaw 新建任务 · GLM-5.3-Flash",
+    "notes": "原文材料没有公开，按原文截图里的问题合成了 46 笔明细、45 张发票和 6 个部门预算：李峰报销填不含税价、陈晓芸金额差 4 元、赵磊团建超设计部剩余额度、王倩发票日期 9 月 28 日、周然和郑楠同号发票 GG-0421、孙悦缺票、吴桐发票抬头为个人、两张拍照件、明细日期格式混用。李峰那笔的发票按 3% 税率合成为价税合计 391.40（原文为 388）。45 张 PDF 发票以文字层识别结果（.md）代替。8 类预设问题全部找出，部门累计与脚本一致；两张拍照件模型标为“待确认”，原文是标“一致”并加备注。"
+   },
+   "model": "us.anthropic.claude-opus-5-5",
+   "provider": "bedrock",
+   "finished": "2026-11-25T03:59:01+00:00",
+   "turns": 3,
+   "outputs": 7,
+   "usage": {
+    "input": 57962,
+    "output": 40515
+   },
+   "seconds": 320,
+   "cover": null,
+   "doc_titles": [
+    "10月报销核对表",
+    "10月报销待确认清单",
+    "10 月报销核对说明（按补充规则更新）"
+   ]
+  },
+  {
+   "slug": "zh-content-calendar",
+   "title": "排出下个月三个渠道的内容排期表",
+   "summary": "把群聊选题接龙、月度复盘和两个产品节点收拢成 12 月 22 条内容的排期表（公众号 8、小红书 10、视频号 4），每条带日期、负责人和状态；缺选题、缺素材、缺负责人的归进缺口清单，再按缺口逐条补位。",
+   "tags": [
+    "Marketing",
+    "Project Management",
+    "Excel"
+   ],
+   "lang": "zh",
+   "source": {
+    "site": "AutoClaw 博客",
+    "category": "Tutorial",
+    "title": "如何用 AutoClaw 排下个月的内容排期：新媒体运营实战",
+    "url": "https://autoclaw.z.ai/cn/blog/tutorial/M11W2P/",
+    "published": "2026-11-14",
+    "original_setup": "AutoClaw 新建任务 · GLM-5.3-Flash",
+    "notes": "原文的选题接龙和复盘未公开，这里按原文描述合成：一份 11 月群聊接龙（含素材状态、许柯 12 月中旬休假、设计最快 12 月 15 日出图）和一份 11 月复盘（含“节假日前后阅读掉得快”和“下月想写”清单），账号为虚构的表格 SaaS。第一轮提示词照抄原文；补充的节点占位规则和缺口处理两轮原文只有叙述，这里写成明确的追问。原文第一版排期里模型自己把节前扎堆的条目挪开，复现没有提示这一点，看模型是否会自己做。22 条全部落在规定的星期和时段，两个节点当周发布、初稿提前 3 天；状态为就绪 11、缺料 10、待补选题 1（原文 13/6/3）。模型指出 12 月按“隔周一条”只能排 3 条视频号。原文模型自己挪开了 12 月 22–24 日的扎堆条目，复现中没有挪，而是把“节假日前后阅读掉得快”用在元旦前一周（第 5 周不排公众号）。"
+   },
+   "model": "us.anthropic.claude-opus-5-5",
+   "provider": "bedrock",
+   "finished": "2026-11-25T04:16:01+00:00",
+   "turns": 3,
+   "outputs": 2,
+   "usage": {
+    "input": 25506,
+    "output": 47596
+   },
+   "seconds": 428,
+   "cover": null,
+   "doc_titles": [
+    "12月内容排期表",
+    "12月排期缺口清单"
+   ]
+  },
+  {
+   "slug": "zh-task-acceptance",
+   "title": "多步任务按标准交付与验收：一周工作周报",
+   "summary": "把一周的原始工作记录交给模型，先写明三样交付物和可核对的完成标准，再按节点逐样交付周报、待办清单和群发文案，每样附对照标准的说明，最后照验收检查单逐条核对，写出数出来的字数、条数和抽查依据。",
+   "tags": [
+    "Writing",
+    "Project Management",
+    "Operations"
+   ],
+   "lang": "zh",
+   "source": {
+    "site": "AutoClaw 博客",
+    "category": "Tutorial",
+    "title": "给 AI 派了个多步任务，怎么验收它真做完了？",
+    "url": "https://autoclaw.z.ai/cn/blog/tutorial/M11W2I/",
+    "published": "2026-11-13",
+    "original_setup": "AutoClaw 通用对话（原文为演示用虚构示例，未展示实际运行结果）",
+    "notes": "原文只给了任务卡、节点交付样例和验收检查单，没有展示输入材料，本复现合成了一份虚构团队的一周原始工作记录（含 8 条未收尾事项、一条没标来源的周三阅读量）。任务卡、节点汇报要求和验收检查单逐字取自原文；\"继续\"和\"照检查单验收\"两轮是原文描述的人工节点操作。核对：周报和待办中的数字、负责人、日期与原始记录逐条一致；群发文案实测 134 个非空白字符（模型自报 133），符合 150 字以内；总验收 6 项均判通过，所以没有触发返工。"
+   },
+   "model": "us.anthropic.claude-opus-5-5",
+   "provider": "bedrock",
+   "finished": "2026-11-25T03:50:20+00:00",
+   "turns": 4,
+   "outputs": 3,
+   "usage": {
+    "input": 18791,
+    "output": 11219
+   },
+   "seconds": 118,
+   "cover": null,
+   "doc_titles": [
+    "青禾文化 · 新媒体组 · 工作周报",
+    "青禾文化 · 新媒体组 · 下周待办清单",
+    "群发文案（发送对象：新媒体组内群）"
+   ]
+  },
+  {
+   "slug": "zh-survey-analysis",
+   "title": "问卷数据分析：清洗对账、频数与交叉、开放题编码、分级结论报告",
+   "summary": "150 份用户满意度问卷按三条规则清洗并对账，输出单选/多选/量表/排序题频数表和按使用时长、回收渠道的交叉表（小样本组只列数据），开放题先出编码表供确认再归类，最后交一份每条结论都标证据强度和样本口径的 Word 报告。",
+   "tags": [
+    "Data",
+    "Research",
+    "Excel"
+   ],
+   "lang": "zh",
+   "source": {
+    "site": "AutoClaw 博客",
+    "category": "Tutorial",
+    "title": "问卷调查数据怎么分析？用 AutoClaw 从原始回收到结论报告",
+    "url": "https://autoclaw.z.ai/cn/blog/tutorial/M11W1E/",
+    "published": "2026-11-13",
+    "original_setup": "AutoClaw（通用 Agent，读取 Excel/CSV，交付可编辑文档）",
+    "notes": "原文是方法文章，给了一段可直接复制的任务描述，没有附数据。这里合成了一份 20 题、150 份回收的虚构产品问卷（含 17 份按规则应剔除的无效问卷，邮件和社群两个渠道样本不足 30），提示词中“（列出交叉维度）”填为“使用时长、回收渠道”。同一段任务描述原样发出，再按步骤分轮交付：第一次把五步放在一轮里、第二次把全部频数表放在一轮里，模型逐份手工计数都耗尽了输出上限，所以缩小样本并把频数表拆成两轮。开放题编码确认那一轮由用户给出一处主题合并意见。用脚本重算：剔除 17 份、各题频数和均值、交叉表、开放题 107 个片段计数全部一致。模型还指出了合成数据里开放题与封闭题互相矛盾的几份回答。"
+   },
+   "model": "us.anthropic.claude-opus-5-5",
+   "provider": "bedrock",
+   "finished": "2026-11-25T04:42:25+00:00",
+   "turns": 7,
+   "outputs": 16,
+   "usage": {
+    "input": 152921,
+    "output": 123473
+   },
+   "seconds": 945,
+   "cover": null,
+   "doc_titles": [
+    "清洗清单",
+    "剔除汇总",
+    "单选题频数表"
+   ]
+  },
+  {
+   "slug": "zh-quarterly-summary",
+   "title": "季度总结：从 13 篇周报到目标对账和三层提炼",
+   "summary": "把一位解决方案组长的 13 篇周报（其中一周缺报）、季度目标、CRM 签约表和工单表聚合成季度总结：目标对账表、“工作线 → 结果 → 规律”三层提炼、问题归类、下季度计划和结转清单，再按核对清单回查每个数字，最后按读者裁剪出给直属上级的版本。",
+   "tags": [
+    "Documents",
+    "Project Management",
+    "Excel"
+   ],
+   "lang": "zh",
+   "source": {
+    "site": "AutoClaw 博客",
+    "category": "Tutorial",
+    "title": "季度总结怎么写？用 AutoClaw 从周报到季度报告",
+    "url": "https://autoclaw.z.ai/cn/blog/tutorial/M11W1F/",
+    "published": "2026-11-13",
+    "original_setup": "AutoClaw 通用任务（原文未注明模型），交付 Word 季度总结、Excel 目标对账表和行动项跟踪表",
+    "notes": "原文只给了示例表格和任务描述。复现时按原文示例的数字（签约 15 家目标实际 12 家、v2.3 范围缩减、满意度未统计、方案 9 份平均 11 天对比上季度 17 天、冲突工单月均 7 件降到 2 件）合成了 13 篇周报、季度目标、CRM 签约表和工单表，并埋了核对点：W8 缺报但 CRM 里有一笔签约、一家客户在两周周报里都出现、一家客户 10 月才签约。第 1 轮提示词照原文；第 2 轮按原文核对清单自查；第 3 轮照原文“先做全量版，再按读者裁剪”的建议加了一轮。复核：签约 12 家（剔除 10 月签约的鹿鸣传媒、青簇零售不重复计、明渠水务只有 CRM 证据）、合同额 427 万元、方案 9 份平均 11.0 天、工单月均 2.0 件，均与脚本计算一致；给上级的版本篇幅约为全量版的 43%，数字一致。"
+   },
+   "model": "us.anthropic.claude-opus-5-5",
+   "provider": "bedrock",
+   "finished": "2026-11-25T04:01:16+00:00",
+   "turns": 3,
+   "outputs": 4,
+   "usage": {
+    "input": 40927,
+    "output": 43723
+   },
+   "seconds": 378,
+   "cover": null,
+   "doc_titles": [
+    "2026 年第三季度工作总结（全量版）",
+    "goal-reconciliation",
+    "action-tracker"
+   ]
+  },
+  {
+   "slug": "zh-event-landing-page",
+   "title": "活动报名落地页：周末咖啡漫游",
+   "summary": "为虚构城市活动「周末咖啡漫游」做一个可预览的报名落地页（首屏、亮点、两天日程、参与方式、FAQ、页尾，含日程切换和演示报名表单），附桌面与手机并排的设计画布，再按评审意见改一版。",
+   "tags": [
+    "Web",
+    "Design",
+    "Marketing"
+   ],
+   "lang": "zh",
+   "source": {
+    "site": "AutoClaw 博客",
+    "category": "Tutorial",
+    "title": "如何用 AutoClaw 设计专家制作活动落地页：营销团队实战",
+    "url": "https://autoclaw.z.ai/cn/blog/tutorial/autoclaw-event-landing-page/",
+    "published": "2026-11-13",
+    "original_setup": "AutoClaw 设计专家 · glm-5.3",
+    "notes": "原文配图为 AI 生成的咖啡主题图片，复现时用 SVG/CSS 绘制插画；设计画布用并排嵌入桌面与手机宽度页面的 HTML 代替。第二轮修改取自原文第三步举的修改例子（把工作坊介绍提前、缩短首屏副标题）。"
+   },
+   "model": "us.anthropic.claude-opus-5-5",
+   "provider": "bedrock",
+   "finished": "2026-11-25T04:05:12+00:00",
+   "turns": 4,
+   "outputs": 3,
+   "usage": {
+    "input": 151593,
+    "output": 94921
+   },
+   "seconds": 721,
+   "cover": "cases/zh-event-landing-page/output/design-canvas.shot.preview.jpg",
+   "doc_titles": []
+  },
+  {
+   "slug": "zh-web-mini-tool",
+   "title": "不写代码做一个报销合计网页小工具",
+   "summary": "用“输入、怎么算、结果、样式”五栏任务卡做出一个双击即开的报销合计页面，再按试用后攒下的三条意见改出第二版：加备注列、提醒线 1000 改 800、配色更素。",
+   "tags": [
+    "Web",
+    "Finance",
+    "Operations"
+   ],
+   "lang": "zh",
+   "source": {
+    "site": "AutoClaw 博客",
+    "category": "Tutorial",
+    "title": "想要个自己的网页小工具？让 AutoClaw 帮你做出来",
+    "url": "https://autoclaw.z.ai/cn/blog/tutorial/M11W2F/",
+    "published": "2026-11-12",
+    "original_setup": "AutoClaw 通用任务（原文未注明模型）",
+    "notes": "第 1 轮是原文的报销任务卡原文。原文第二版的修改清单（加一列备注、提醒线从 1000 改成 800、颜色换素一点、先存一份现在这版）散在正文里，这里按原文措辞合成一条修改指令。"
+   },
+   "model": "us.anthropic.claude-opus-5-5",
+   "provider": "bedrock",
+   "finished": "2026-11-25T03:53:28+00:00",
+   "turns": 4,
+   "outputs": 2,
+   "usage": {
+    "input": 45845,
+    "output": 25291
+   },
+   "seconds": 209,
+   "cover": "cases/zh-web-mini-tool/output/expense-summary-tool-v2.shot.preview.jpg",
+   "doc_titles": []
+  },
+  {
+   "slug": "zh-scattered-material-report",
+   "title": "散落资料整理成报告：清单、登记卡、口径核对",
+   "summary": "七份散在网页、PDF、群聊、邮件和内部表格里的资料，先按报告要回答的问题列资料清单，再逐份做资料登记卡和对照表、标出对不上的数字，核清“800 亿 vs 650 亿”和竞品调价的口径，最后写出每个数字带出处的市场进入方案初稿。",
+   "tags": [
+    "Research",
+    "Documents"
+   ],
+   "lang": "zh",
+   "source": {
+    "site": "AutoClaw 博客",
+    "category": "Tutorial",
+    "title": "资料散在各处，怎么让 AutoClaw 帮你整理成报告",
+    "url": "https://autoclaw.z.ai/cn/blog/tutorial/M11W2G/",
+    "published": "2026-11-12",
+    "original_setup": "AutoClaw 通用任务（原文未注明模型），可访问网页和本地文件夹",
+    "notes": "原文让 AutoClaw 去网页和桌面文件夹收资料；复现不联网，改为把七份资料作为附件给出，资料按原文截图里的示意数据重建（行业规模 800 亿含上下游、2024 全年 vs 650 亿只算核心品类、2025 全年；对手三条产品线主力款上调；用户评价好评集中在安装服务；三个渠道华东人力最足），品类设为智能门锁，公司与品牌均为虚构。另加了一条群聊调价消息和一份合作方报价作为核对点。提示词按原文的清单、收集任务和提问方式改写成四轮。复核：模型找出 800 亿与 650 亿的年份和统计范围都不同，判定为口径已查清，按“按某某口径统计”写，没有像原文示意图那样给出“相差约 19%”；K3 的 2,399 元若含安装则与 2,199+199 几乎持平，判定为无法确认涨价；用户评价只有 3 户样本被标为缺口。"
+   },
+   "model": "us.anthropic.claude-opus-5-5",
+   "provider": "bedrock",
+   "finished": "2026-11-25T04:00:28+00:00",
+   "turns": 4,
+   "outputs": 4,
+   "usage": {
+    "input": 34138,
+    "output": 25792
+   },
+   "seconds": 244,
+   "cover": null,
+   "doc_titles": [
+    "智能门锁市场进入方案 · 资料清单",
+    "智能门锁市场进入方案 · 资料登记卡",
+    "material-map"
+   ]
+  },
+  {
    "slug": "contract-package",
    "title": "Draft a B2B Contract Package",
    "summary": "A short consulting brief becomes an editable contract package: a pre-drafting clarification check, then a Consulting Services Agreement, SOW, Payment Schedule, Acceptance Form, Negotiation Guide and Lawyer Review checklist, then a focused revision of the payment and acceptance terms.",
    "tags": [
     "Legal",
-    "Word",
-    "Multi-turn"
+    "Documents"
    ],
    "lang": "en",
    "source": {
@@ -64,6 +1243,838 @@
     "CONSULTING SERVICES AGREEMENT",
     "STATEMENT OF WORK No. 1",
     "ANNEX 1 TO STATEMENT OF WORK No. 1: PAYMENT SCHEDULE"
+   ]
+  },
+  {
+   "slug": "zh-wechat-markdown-tool",
+   "title": "公众号 Markdown 排版工具：左贴稿、右看手机效果",
+   "summary": "一段写清字号、颜色、组件和交互的需求，换来一个单文件 HTML 排版工具：左栏贴 Markdown，右栏按 375/677 宽实时渲染，三套模板、一键复制富文本、草稿自动保存。",
+   "tags": [
+    "Web",
+    "Design",
+    "Marketing"
+   ],
+   "lang": "zh",
+   "source": {
+    "site": "AutoClaw 博客",
+    "category": "Tutorial",
+    "title": "如何用 AutoClaw 设计专家做一个公众号排版工具：新媒体运营实战",
+    "url": "https://autoclaw.z.ai/cn/blog/tutorial/autoclaw-wechat-markdown-tool/",
+    "published": "2026-11-11",
+    "original_setup": "AutoClaw 设计专家（原文未注明模型）",
+    "notes": "提示词照原文全文。原文附件 demo-article.md 未公开，这里按原文截图中可见的示例文章《算力的尽头是电网》重建前半部分，后半部分（代码块、有序列表、参考资料等）为合成，覆盖需求里的全部 Markdown 约定。"
+   },
+   "model": "us.anthropic.claude-opus-5-5",
+   "provider": "bedrock",
+   "finished": "2026-11-25T03:54:58+00:00",
+   "turns": 2,
+   "outputs": 1,
+   "usage": {
+    "input": 22208,
+    "output": 33191
+   },
+   "seconds": 298,
+   "cover": "cases/zh-wechat-markdown-tool/output/wechat-article-formatter.shot.preview.jpg",
+   "doc_titles": []
+  },
+  {
+   "slug": "zh-multi-platform-rewrite",
+   "title": "一稿多发：借爆款结构改写成三个平台版本",
+   "summary": "借一篇扫地机器人测评爆款的“30 天记录 + 一个痛点讲到底”结构，用自己的实测笔记改写出公众号、小红书、知乎三版稿子和备选标题，再交付发布前检查单、错峰发布排期和发布后数据表。",
+   "tags": [
+    "Marketing",
+    "Writing"
+   ],
+   "lang": "zh",
+   "source": {
+    "site": "AutoClaw 博客",
+    "category": "Tutorial",
+    "title": "看到爆款想模仿？让 AutoClaw 帮你一稿多发",
+    "url": "https://autoclaw.z.ai/cn/blog/tutorial/M11W2E/",
+    "published": "2026-11-11",
+    "original_setup": "AutoClaw 通用对话（原文未注明模型）",
+    "notes": "原文只给了任务模板和虚构的数据（吸毛 96%、噪音 58 分贝），没有展示爆款原文和作者笔记。复现时合成了一篇虚构爆款测评和一份作者自己的 30 天笔记作为输入，并在任务卡里加了一行指向笔记附件；任务卡、检查单的文字照原文。复核：三版都原样保留 96%、58 分贝、2,499 元、青禾 S7 和送样机声明，没有出现续航等未测数字；与爆款原文 8 字以上的重合只剩公众号版引用的一句评论区追问。第 1 轮模型自报全部通过，第 2 轮按检查单复查时自己找出公众号字数不足和与原文相似的句子并重交。"
+   },
+   "model": "us.anthropic.claude-opus-5-5",
+   "provider": "bedrock",
+   "finished": "2026-11-25T03:51:36+00:00",
+   "turns": 3,
+   "outputs": 7,
+   "usage": {
+    "input": 28581,
+    "output": 31915
+   },
+   "seconds": 307,
+   "cover": null,
+   "doc_titles": [
+    "公众号版",
+    "小红书版",
+    "知乎版"
+   ]
+  },
+  {
+   "slug": "zh-long-report-anchors",
+   "title": "分段写长报告：总纲、术语表、章节约束、跨章校对四个锚点",
+   "summary": "用已锁定的总纲和术语表，按带边界的分章指令逐章写一份虚构的高端宠物食品市场报告，四章分四轮交付；拼回后按术语、口径、衔接三类做跨章校对，先出校对记录再修订，最后交付带执行摘要的整份报告。",
+   "tags": [
+    "Writing",
+    "Research",
+    "Documents"
+   ],
+   "lang": "zh",
+   "source": {
+    "site": "AutoClaw 博客",
+    "category": "Tutorial",
+    "title": "让 AI 分段写长报告：用 4 个锚点避免前后不一致",
+    "url": "https://autoclaw.z.ai/cn/blog/tutorial/M11W2D/",
+    "published": "2026-11-10",
+    "original_setup": "AutoClaw 通用任务（原文未注明模型），按锚点分阶段成稿并做跨章校对",
+    "notes": "总纲和术语表照原文的两张示例表；报告主题、目标市场定义和三份数据材料（统计年鉴摘录、平台后台导出、竞品财报与官网摘录）为合成，并埋了原文点名的漂移点：年鉴用“覆盖率”、竞品资料用“占有率”“均价”“付费用户”，内容电商后台按 30 天窗口出数而其余渠道按自然月。原文只给了第三章分章指令的示例，四章的分章指令按同一格式写成。复核：第二章合计 10,940 万元、同比 22.4%、高端门店贡献增量 55.5% 等与脚本计算一致；禁用叫法只在带引号的原文直引里出现；校对记录 29 条，抓到内容电商 30 天窗口导致的 180 天对 181 天问题。最后一轮模型把自己起草的总纲修订当作已获确认执行，并在回复里说明了这一点。"
+   },
+   "model": "us.anthropic.claude-opus-5-5",
+   "provider": "bedrock",
+   "finished": "2026-11-25T04:16:50+00:00",
+   "turns": 7,
+   "outputs": 7,
+   "usage": {
+    "input": 94681,
+    "output": 100454
+   },
+   "seconds": 910,
+   "cover": null,
+   "doc_titles": [
+    "术语表 v2（依用户指令生效）",
+    "一、市场现状",
+    "二、增长原因"
+   ]
+  },
+  {
+   "slug": "zh-interactive-prototype",
+   "title": "团队任务管理工具的可交互原型",
+   "summary": "按产品经理写清的使用者、页面和操作规则，交付可点击的 HTML 原型（任务列表、组合筛选、详情侧栏、批量分配、空状态），再补一张设计画布和一份原型说明，列出待评审确认的问题。",
+   "tags": [
+    "Web",
+    "Design",
+    "Project Management"
+   ],
+   "lang": "zh",
+   "source": {
+    "site": "AutoClaw 博客",
+    "category": "Tutorial",
+    "title": "如何用 AutoClaw 设计专家制作交互原型：产品经理实战",
+    "url": "https://autoclaw.z.ai/cn/blog/tutorial/autoclaw-interactive-prototype/",
+    "published": "2026-11-10",
+    "original_setup": "AutoClaw 设计专家 · 设计创意项目 · GLM-5.3-Flash",
+    "notes": "第 1 轮提示词照原文全文。原文在同一项目里交付原型、设计画布和说明；这里为控制单次回复长度，把设计画布（单文件 HTML，并排展示各页面状态）和原型说明（Markdown 转 Word）放到第 2 轮交付。"
+   },
+   "model": "us.anthropic.claude-opus-5-5",
+   "provider": "bedrock",
+   "finished": "2026-11-25T04:09:46+00:00",
+   "turns": 4,
+   "outputs": 3,
+   "usage": {
+    "input": 165870,
+    "output": 109171
+   },
+   "seconds": 875,
+   "cover": "cases/zh-interactive-prototype/output/task-board-canvas.shot.preview.jpg",
+   "doc_titles": [
+    "团队任务管理 · 任务列表与详情 原型说明"
+   ]
+  },
+  {
+   "slug": "zh-resume-tailoring",
+   "title": "按岗位要求改简历：一句话改写 vs 三条边界规则",
+   "summary": "同一份虚构简历和岗位 JD 做两轮改写：第 1 轮只说“帮我匹配一下”，第 2 轮加上三条边界规则并要求逐条对照表；最后逐句比对原简历，列出两轮各自的事实改动和编造项。",
+   "tags": [
+    "HR",
+    "Writing"
+   ],
+   "lang": "zh",
+   "source": {
+    "site": "AutoClaw 博客",
+    "category": "Tutorial",
+    "title": "让 AI 按岗位要求改简历：编造是怎么混进来的，又怎么挡住",
+    "url": "https://autoclaw.z.ai/cn/blog/tutorial/M11W2B/",
+    "published": "2026-11-09",
+    "original_setup": "AutoClaw 通用任务（原文未注明模型），附脚本比对",
+    "notes": "简历和 JD 按原文描述重建（人物“李想”与公司均为原文的虚构设定），未展示的细节（学历、客服经历的具体内容）为合成。为让“一年以上经验”这一差距成立，简历标注更新于 2025 年 5 月。第 1 轮提示词照原文；第 2 轮的三条规则和禁止清单按原文措辞组合成一条指令；原文用脚本比对编造项，这里第 3 轮让模型自己逐句比对，另由复现者人工核对。与原文的差异：第 1 轮 Claude 没有像原文那样改任职时间、加 SQL 或编造增长项目，只出现措辞层面的拔高（如“负责”写成“独立运营”、“简单公式”写成“常用公式”），第 3 轮自查记为 8 项；复核第 2 轮稿件，时间、数字、职级与原简历完全一致，编造项为 0。"
+   },
+   "model": "us.anthropic.claude-opus-5-5",
+   "provider": "bedrock",
+   "finished": "2026-11-25T03:51:01+00:00",
+   "turns": 3,
+   "outputs": 4,
+   "usage": {
+    "input": 12274,
+    "output": 24346
+   },
+   "seconds": 225,
+   "cover": null,
+   "doc_titles": [
+    "李想 · 个人简历",
+    "李想 · 个人简历",
+    "JD 逐条对照表（第 2 轮）"
+   ]
+  },
+  {
+   "slug": "zh-ppt-layered-revision",
+   "title": "AI 改 PPT 不整份重做：分层下达修改清单",
+   "summary": "一份 5 页的 Q3 经营汇报（HTML 幻灯片），按“样式层全稿、论点层逐页”的清单只改指定位置，再输出逐页比对记录；复现者用脚本逐页比对文本，核对未点到的页面是否逐字未动。",
+   "tags": [
+    "Presentation",
+    "Writing",
+    "Operations"
+   ],
+   "lang": "zh",
+   "source": {
+    "site": "AutoClaw 博客",
+    "category": "Tutorial",
+    "title": "AI 生成的 PPT 怎么修改？三层修改法减少整份重做",
+    "url": "https://autoclaw.z.ai/cn/blog/tutorial/M11W2/",
+    "published": "2026-11-09",
+    "original_setup": "AutoClaw（原文未注明模型），原文用脚本逐页比对两版 PPT 的全部文字",
+    "notes": "原文的 5 页基准 PPT 未公开，这里按原文描述合成（含原文引用的“待观察：交付率是否在 11 月继续回升”“需要的支持：增补一名数据分析师”）。字号、颜色这类样式在 pandoc 生成的 PPT 里无法表达，这里把演示稿做成 HTML 幻灯片。只复现原文的条件 B（分层清单），没有跑条件 A（整份重做）的对照。"
+   },
+   "model": "us.anthropic.claude-opus-5-5",
+   "provider": "bedrock",
+   "finished": "2026-11-25T04:20:36+00:00",
+   "turns": 3,
+   "outputs": 2,
+   "usage": {
+    "input": 18215,
+    "output": 11453
+   },
+   "seconds": 102,
+   "cover": "cases/zh-ppt-layered-revision/output/q3-review-v2.shot.preview.jpg",
+   "doc_titles": [
+    "Q3 经营汇报 逐页比对记录"
+   ]
+  },
+  {
+   "slug": "zh-project-retrospective",
+   "title": "项目复盘：目标基线、结果对账、原因分析、下一步行动",
+   "summary": "根据一个虚构门店会员小程序项目的立项文档、16 篇周报、数据表和预算执行表，按四层结构写出复盘报告和行动项跟踪表，再按原文的交付前核对清单自查数字与证据。",
+   "tags": [
+    "Project Management",
+    "Documents",
+    "Excel"
+   ],
+   "lang": "zh",
+   "source": {
+    "site": "AutoClaw 博客",
+    "category": "Tutorial",
+    "title": "项目复盘怎么写？用 AutoClaw 从目标对齐到下一步行动",
+    "url": "https://autoclaw.z.ai/cn/blog/tutorial/M11W1D/",
+    "published": "2026-11-05",
+    "original_setup": "AutoClaw 通用任务（原文未注明模型），交付 Word 复盘报告和 Excel 行动项跟踪表",
+    "notes": "原文只给了方法和任务描述，没有展示项目材料。复现时合成了立项文档（含两条正式变更）、16 篇周报、首月数据表和预算执行表，并埋了几处需要核对的点：周报里的首周注册数含员工与测试账号、延期未走正式变更、满意度问卷未发放、测试环境故障原因未查清。第 1 轮提示词照原文；第 2 轮按原文“交付前核对清单”自查。复核：首月注册 26,480 人（完成率 88.3%）、崩溃率 0.34%（791/235,000）、超支 3.2 万元等数字与脚本计算一致，周报首周 5,800 人含员工与测试账号的口径问题被识别。"
+   },
+   "model": "us.anthropic.claude-opus-5-5",
+   "provider": "bedrock",
+   "finished": "2026-11-25T03:56:09+00:00",
+   "turns": 2,
+   "outputs": 2,
+   "usage": {
+    "input": 13397,
+    "output": 29974
+   },
+   "seconds": 253,
+   "cover": null,
+   "doc_titles": [
+    "华东门店会员小程序上线项目：复盘报告",
+    "action-items"
+   ]
+  },
+  {
+   "slug": "zh-meeting-minutes",
+   "title": "会议记录整理：从转写稿到行动项清单",
+   "summary": "把一份带转写错误的评审会录音稿、会前议程和会后群聊整理成四段结构的会议纪要（背景、结论、分歧与待确认、行动项）和带原话依据的行动项清单，再按原文的核对清单逐条自查。",
+   "tags": [
+    "Documents",
+    "Project Management",
+    "Operations"
+   ],
+   "lang": "zh",
+   "source": {
+    "site": "AutoClaw 博客",
+    "category": "Tutorial",
+    "title": "会议记录怎么整理？用 AutoClaw 从速记到行动项清单",
+    "url": "https://autoclaw.z.ai/cn/blog/tutorial/M11W1C/",
+    "published": "2026-11-05",
+    "original_setup": "AutoClaw 通用任务（原文未注明模型），交付 Word 纪要和 Excel 行动项清单",
+    "notes": "原文没有展示会议材料，复现时合成了一场虚构的产品评审会：转写稿里故意留了人名转写错误（陈好/陈浩、林小雨/林晓雨）、模糊承诺（“尽快”“相关同学”）、一位缺席者的待办和会后群聊里的时间更正。第 1 轮提示词照原文；第 2 轮把原文的“交付前核对清单”和“逐句扫描”方法作为自查指令。复核：复现者事先列出的 11 条应有行动项全部命中，两处人名错字、群聊里的改期（周一改周二）和缺席者待办都处理正确；第 2 轮自查又修正了 10 处细节，例如删掉自己补的“进行中”状态。"
+   },
+   "model": "us.anthropic.claude-opus-5-5",
+   "provider": "bedrock",
+   "finished": "2026-11-25T03:54:36+00:00",
+   "turns": 2,
+   "outputs": 2,
+   "usage": {
+    "input": 9351,
+    "output": 19601
+   },
+   "seconds": 168,
+   "cover": null,
+   "doc_titles": [
+    "新用户引导改版评审会 会议纪要",
+    "action-items"
+   ]
+  },
+  {
+   "slug": "zh-ppt-speaker-notes",
+   "title": "根据 PPT 页面内容写逐页讲稿",
+   "summary": "把一份 12 页投入方案 PPT 的逐页文字交给模型，按“一句开场 → 要点展开 → 过渡句”写成 10 分钟的逐页讲稿，每页标注建议秒数和唯一要记住的一句话，结尾附时间分配表。",
+   "tags": [
+    "Presentation",
+    "Writing"
+   ],
+   "lang": "zh",
+   "source": {
+    "site": "AutoClaw 博客",
+    "category": "Tutorial",
+    "title": "AI 怎么写 PPT 讲稿？从页面结构到逐页演讲备注",
+    "url": "https://autoclaw.z.ai/cn/blog/tutorial/M11W1B/",
+    "published": "2026-11-03",
+    "original_setup": "AutoClaw 通用 AI Agent（原文未注明模型）",
+    "notes": "提示词用原文“可直接复制的任务描述”，括号里的听众、时长、目的按原文示例填写。原文没有给出 PPT 内容，这里合成一份虚构公司“明川科技”的 12 页下季度投入方案逐页文字。"
+   },
+   "model": "us.anthropic.claude-opus-5-5",
+   "provider": "bedrock",
+   "finished": "2026-11-25T04:21:39+00:00",
+   "turns": 1,
+   "outputs": 1,
+   "usage": {
+    "input": 2010,
+    "output": 6299
+   },
+   "seconds": 63,
+   "cover": null,
+   "doc_titles": [
+    "明川科技 · 2027 年 Q1 智能客服投入方案 逐页讲稿"
+   ]
+  },
+  {
+   "slug": "zh-research-verification",
+   "title": "AI 调研结果怎么核验：会议工具选型的“生成 + 复核”两轮",
+   "summary": "为 20 人中文内容团队比较三款会议转写工具：第一轮只用给定的官方页面快照写出调研报告和来源表，区分事实、计算、判断和待确认；第二轮重新打开页面逐条复核，修正涨价、失效链接和新增说明，并在报告末尾附复核修改记录。",
+   "tags": [
+    "Research",
+    "Documents",
+    "Excel"
+   ],
+   "lang": "zh",
+   "source": {
+    "site": "AutoClaw 博客",
+    "category": "Tutorial",
+    "title": "AI 调研结果可靠吗？用 5 道检查核验来源、数据和结论",
+    "url": "https://autoclaw.z.ai/cn/blog/tutorial/how-to-verify-ai-research-results/",
+    "published": "2026-11-02",
+    "original_setup": "AutoClaw 通用 Agent（联网调研，原文给出两轮任务描述，未展示具体运行结果）",
+    "notes": "原文的两轮任务描述逐字使用，决策问题取自原文示例。原文任务需要联网，本复现改为提供 10 个虚构产品的页面快照（官方价格页、帮助中心、条款、公告各若干，外加一篇媒体文章和一个论坛帖），第二轮再附上 3 个“重新打开”后变化的页面（涨价、新增 FAQ、链接 404）。快照里预埋了官方页面互相冲突、带条件的“不限时长”、即将生效的调价和二手来源错误等检查点。脚本核对：第一轮报告标出了全部 6 个预埋检查点（额度冲突、待办导出冲突、12-01 调价、合理使用阈值、未找到官方说明、二手来源不采信），第二轮识别出全部 3 处页面变化；所有年费计算与独立重算一致。"
+   },
+   "model": "us.anthropic.claude-opus-5-5",
+   "provider": "bedrock",
+   "finished": "2026-11-25T04:01:21+00:00",
+   "turns": 2,
+   "outputs": 4,
+   "usage": {
+    "input": 22129,
+    "output": 42811
+   },
+   "seconds": 355,
+   "cover": null,
+   "doc_titles": [
+    "会议转写与纪要工具选型调研报告（第一轮）",
+    "来源表",
+    "会议转写与纪要工具选型调研报告（复核版）"
+   ]
+  },
+  {
+   "slug": "zh-3d-lens-webpage",
+   "title": "可拆解的 3D 相机镜头交互网页",
+   "summary": "用代码程序化生成镜筒、镜片和六叶片光圈，做出可旋转查看的 3D 镜头：光圈滑块 f/1.7–f/22 联动叶片开合，Studio / Exploded / Section 三种视图，加光线路径演示，交付离线单文件 HTML。",
+   "tags": [
+    "3D",
+    "Web",
+    "Education"
+   ],
+   "lang": "zh",
+   "source": {
+    "site": "AutoClaw 博客",
+    "category": "Tutorial",
+    "title": "AI 生成 3D 模型网页怎么做？AutoClaw 可拆解镜头",
+    "url": "https://autoclaw.z.ai/cn/blog/tutorial/ai-generate-interactive-3d-model-webpage/",
+    "published": "2026-10-31",
+    "original_setup": "AutoClaw（原文未注明专家与模型），交付 React 18 + TypeScript 项目和约 731 KB 单文件 HTML",
+    "notes": "提示词照原文英文原句。原文交付 React + TypeScript 工程和打包后的单文件版；这里没有构建工具也不能加载第三方库，只交付手写 3D 渲染的单文件 HTML，没有 React 工程源码。"
+   },
+   "model": "us.anthropic.claude-opus-5-5",
+   "provider": "bedrock",
+   "finished": "2026-11-25T04:15:35+00:00",
+   "turns": 2,
+   "outputs": 1,
+   "usage": {
+    "input": 27049,
+    "output": 98530
+   },
+   "seconds": 880,
+   "cover": "cases/zh-3d-lens-webpage/output/lens-lab.shot.preview.jpg",
+   "doc_titles": []
+  },
+  {
+   "slug": "zh-word-version-compare",
+   "title": "两个 Word 版本逐条对比：差异表、变化摘要和复核记录",
+   "summary": "虚构公司《员工差旅与报销管理办法》V1（18 条）与 V2（20 条）逐条对比：先按条款内容建立对应关系，登记新增、删除、修改、文字调整和待确认，交付 Excel 差异表和 Word 变化摘要；第二轮复核后交付修订版和 Word 复核修改记录。",
+   "tags": [
+    "Documents",
+    "Excel",
+    "HR"
+   ],
+   "lang": "zh",
+   "source": {
+    "site": "AutoClaw 博客",
+    "category": "Tutorial",
+    "title": "两个 Word 文档怎么对比？AutoClaw 找出版本差异",
+    "url": "https://autoclaw.z.ai/cn/blog/tutorial/compare-word-documents-with-autoclaw/",
+    "published": "2026-10-30",
+    "original_setup": "AutoClaw 通用任务（原文未注明模型），输入两份 Word",
+    "notes": "原文没有展示两份制度全文，这里按原文写明的变化重建了 V1 与 V2（公司“青岚数智”为虚构）：住宿 800→900 元、500→450 元，报销期限 15→10 个工作日，适用范围扩大到实习生并按 80% 执行，改签退票新增航班取消或延误 4 小时例外，事前审批 2→3 个工作日并新增 8000 元副总裁加签，删除 15 天 300 元补贴，施行与废止安排待确认；其余变化为合成，共埋入 16 处差异（13 实质、2 文字、1 待确认）。Word 用 Markdown 表示。原文一条指令里同时要求第二轮复核，这里拆成两轮对话。复核结果：埋入的 16 处差异全部登记，无误报；模型拆得比原文细（33 行，含 8 行“无变化（已核对）”，第二轮把 15 天/300 元补贴拆成两行），施行日期以“修改+新增”登记并在待确认列写明发布日期未载明，没有单列一条待确认类型。"
+   },
+   "model": "us.anthropic.claude-opus-5-5",
+   "provider": "bedrock",
+   "finished": "2026-11-25T03:56:56+00:00",
+   "turns": 2,
+   "outputs": 3,
+   "usage": {
+    "input": 19311,
+    "output": 58167
+   },
+   "seconds": 483,
+   "cover": null,
+   "doc_titles": [
+    "version-diff",
+    "员工差旅与报销管理办法版本变化摘要（第二轮复核修订版）",
+    "员工差旅与报销管理办法版本比对复核修改记录（第二轮）"
+   ]
+  },
+  {
+   "slug": "zh-network-poster-3d",
+   "title": "把 2D 网络海报变成可操作的 3D 可视化网页",
+   "summary": "从一张白底粉线的合著网络海报出发，保留编辑感排版，重建成约 1,500 节点的 3D 网络：拖动旋转、滚轮缩放、悬停高亮、点击聚焦、Esc 返回，Bundling / Density / Line Opacity 滑块，重新生成和导出 PNG。",
+   "tags": [
+    "3D",
+    "Web",
+    "Data",
+    "Design"
+   ],
+   "lang": "zh",
+   "source": {
+    "site": "AutoClaw 博客",
+    "category": "Tutorial",
+    "title": "AI 生成交互式网页怎么做？用 AutoClaw 把 2D 海报变成 3D 可视化",
+    "url": "https://autoclaw.z.ai/cn/blog/tutorial/ai-generate-interactive-3d-webpage/",
+    "published": "2026-10-30",
+    "original_setup": "AutoClaw（原文未注明专家与模型），输入一张海报图片，交付约 198 KB 离线单文件 HTML",
+    "notes": "原文的原始提示词未公开，这里用原文给出的“可复用任务描述”原句，后接原文列出的具体交互目标。运行器只能传文本，原图改成一份文字描述（poster-description.md），海报上的第三方品牌和文案换成了虚构的。"
+   },
+   "model": "us.anthropic.claude-opus-5-5",
+   "provider": "bedrock",
+   "finished": "2026-11-25T04:36:44+00:00",
+   "turns": 2,
+   "outputs": 1,
+   "usage": {
+    "input": 25062,
+    "output": 57005
+   },
+   "seconds": 479,
+   "cover": "cases/zh-network-poster-3d/output/coauthorship-network-3d.shot.preview.jpg",
+   "doc_titles": []
+  },
+  {
+   "slug": "zh-interior-studio-deck",
+   "title": "室内设计工作室作品集式介绍稿",
+   "summary": "为虚构工作室「木屿设计」做 9 页杂志画册式介绍稿（封面、目录、理念、团队、空间与材质、光影、空间清单、灯具与材质细节、封底）和一页九宫格索引，白底大留白、左窄右宽，可在浏览器里翻页。",
+   "tags": [
+    "Presentation",
+    "Design"
+   ],
+   "lang": "zh",
+   "source": {
+    "site": "AutoClaw 博客",
+    "category": "Tutorial",
+    "title": "室内设计公司介绍怎么做？用 AutoClaw 生成作品集式演示稿",
+    "url": "https://autoclaw.z.ai/cn/blog/tutorial/c5f316b8-962b-45df-b09f-cc774e697646/",
+    "published": "2026-10-30",
+    "original_setup": "AutoClaw（原文未注明专家与模型）",
+    "notes": "原文输入了工作室信息和 18 张项目照片；复现时按原文截图里可见的信息（木屿设计、四位成员、123㎡ 空间清单）合成了一份工作室资料，没有照片，空间画面全部用 SVG 绘制。每页交付为一张 1920×1080 的 SVG，另做一个引用这些页面的 HTML 翻页器和九宫格索引。"
+   },
+   "model": "us.anthropic.claude-opus-5-5",
+   "provider": "bedrock",
+   "finished": "2026-11-25T05:25:22+00:00",
+   "turns": 8,
+   "outputs": 11,
+   "usage": {
+    "input": 504096,
+    "output": 142838
+   },
+   "seconds": 2472,
+   "cover": "cases/zh-interior-studio-deck/output/muyu-index.shot.preview.jpg",
+   "doc_titles": []
+  },
+  {
+   "slug": "zh-brand-website",
+   "title": "护肤品牌营销单页",
+   "summary": "按指定的区块顺序和视觉语言交付一页式护肤品牌网站：冷灰首屏、深森林绿四列产品区、暖白套装区、胶囊按钮、配方编号徽章和底部 Bento 画廊，瓶身全部用 SVG 绘制。",
+   "tags": [
+    "Web",
+    "Design",
+    "Marketing",
+    "E-commerce"
+   ],
+   "lang": "zh",
+   "source": {
+    "site": "AutoClaw 博客",
+    "category": "Tutorial",
+    "title": "AI 生成品牌网站怎么做？AutoClaw 护肤营销单页",
+    "url": "https://autoclaw.z.ai/cn/blog/tutorial/ai-generate-brand-website/",
+    "published": "2026-10-30",
+    "original_setup": "AutoClaw（原文未注明专家与模型），交付约 1.2 MB 单文件 HTML",
+    "notes": "提示词照原文英文原句。原文成品内嵌了 AI 生成的产品图（文件约 1.2 MB）；这里不放照片，瓶身和画廊画面用 SVG/CSS 绘制，品牌名与产品均为虚构。"
+   },
+   "model": "us.anthropic.claude-opus-5-5",
+   "provider": "bedrock",
+   "finished": "2026-11-25T04:33:25+00:00",
+   "turns": 2,
+   "outputs": 1,
+   "usage": {
+    "input": 20309,
+    "output": 36592
+   },
+   "seconds": 281,
+   "cover": "cases/zh-brand-website/output/alder-assay-skincare.shot.preview.jpg",
+   "doc_titles": []
+  },
+  {
+   "slug": "zh-project-plan",
+   "title": "六周官网改版：项目计划书、排期表和风险清单",
+   "summary": "从一页官网改版需求出发，按原文的任务描述生成 Word 项目计划书和 Excel 排期表（阶段、任务、负责人、依赖、交付物、验收标准），再单独交付风险清单、上线检查表和待人工确认事项。",
+   "tags": [
+    "Project Management",
+    "Documents",
+    "Excel"
+   ],
+   "lang": "zh",
+   "source": {
+    "site": "AutoClaw 博客",
+    "category": "Tutorial",
+    "title": "项目计划书怎么写？用 AutoClaw 整理任务排期和风险清单",
+    "url": "https://autoclaw.z.ai/cn/blog/tutorial/how-to-write-project-plan-with-autoclaw/",
+    "published": "2026-10-29",
+    "original_setup": "AutoClaw 通用任务（原文未注明模型）",
+    "notes": "原文只给了“六周企业官网改版”示例的描述和一段通用任务描述，没有展示具体需求材料和成品。这里按原文描述的目标、范围、角色和限制合成了一份需求说明（公司“澄源仪器”为虚构，启动日期设为 2026-12-07）。任务描述照原文；为控制单次回复长度，交付拆成两轮。复核结果：排期表 42 行均落在 2026-12-07 至 2027-01-15，无周末日期；展会周已规避（设计文案确认前置到 12/25）；上线日期按“待管理层确认”留空；有 4 处任务与其前置任务日期重叠（如测试环境部署与内容迁移同周并行）。"
+   },
+   "model": "us.anthropic.claude-opus-5-5",
+   "provider": "bedrock",
+   "finished": "2026-11-25T03:54:21+00:00",
+   "turns": 2,
+   "outputs": 5,
+   "usage": {
+    "input": 16124,
+    "output": 33765
+   },
+   "seconds": 292,
+   "cover": null,
+   "doc_titles": [
+    "澄源仪器有限公司 企业官网改版项目计划书",
+    "schedule",
+    "risk-register"
+   ]
+  },
+  {
+   "slug": "zh-html-web-game",
+   "title": "单文件 HTML 跑酷小游戏 Puffy Cat",
+   "summary": "把操作、得分、风险和结束条件写清楚，交付一个包豪斯风格的 Canvas 屋顶跑酷：跳跃与二段跳、毛线球和猫罐头、越吃越蓬松的 Fluff 槽、按下键减负冲刺，两种结束条件。",
+   "tags": [
+    "Game",
+    "Web",
+    "Design"
+   ],
+   "lang": "zh",
+   "source": {
+    "site": "AutoClaw 博客",
+    "category": "Tutorial",
+    "title": "AI 生成网页游戏怎么做？AutoClaw 单文件 2D 跑酷",
+    "url": "https://autoclaw.z.ai/cn/blog/tutorial/ai-generate-html-web-game/",
+    "published": "2026-10-29",
+    "original_setup": "AutoClaw（原文未注明专家与模型），交付 43,116 字节单文件 HTML",
+    "notes": "提示词由原文的英文需求原句加上原文“这次给 AutoClaw 什么”一节列出的中文数值约束组成。"
+   },
+   "model": "us.anthropic.claude-opus-5-5",
+   "provider": "bedrock",
+   "finished": "2026-11-25T04:00:54+00:00",
+   "turns": 2,
+   "outputs": 1,
+   "usage": {
+    "input": 17858,
+    "output": 39760
+   },
+   "seconds": 344,
+   "cover": "cases/zh-html-web-game/output/puffy-cat-rooftop-runner.shot.preview.jpg",
+   "doc_titles": []
+  },
+  {
+   "slug": "zh-event-plan",
+   "title": "活动策划方案：预算、四周排期和执行清单",
+   "summary": "只给一段线下用户交流会的需求（上海、80 人、3 小时、预算上限 5 万、8 名工作人员），生成 Word 策划方案、八张执行表（倒排计划、预算、人员分工、物料、当天流程、风险预案、复盘指标、待确认事项）和执行摘要，并核对预算合计与各表之间的一致性。",
+   "tags": [
+    "Marketing",
+    "Operations",
+    "Project Management",
+    "Excel"
+   ],
+   "lang": "zh",
+   "source": {
+    "site": "AutoClaw 博客",
+    "category": "Tutorial",
+    "title": "活动策划方案怎么写？用 AutoClaw 生成预算、排期和执行清单",
+    "url": "https://autoclaw.z.ai/cn/blog/tutorial/ai-event-planning-with-autoclaw/",
+    "published": "2026-10-29",
+    "original_setup": "AutoClaw 通用任务（原文未注明模型），无上传文件、不搜索供应商",
+    "notes": "需求条件全部照原文的模拟场景；任务描述照原文“可以直接使用的任务描述”。原文交付的是一个九个工作表的 Excel，这里每张表交付一个 CSV（各自转成一个 xlsx）；为避免单轮输出过长，方案、执行表、执行摘要分四轮交付。原文的具体数字（44 项任务、17 项预算合计 47,500 元等）是 AutoClaw 的输出，不作为要求写进提示词。复核：预算 19 个明细加总 44,600 元，加不可预见费 5,400 元正好 50,000 元；倒排计划 52 项任务的负责人全部在人员分工表里。最后一轮自查发现茶歇没算嘉宾，改为 100 人份并同步修改多张表。"
+   },
+   "model": "us.anthropic.claude-opus-5-5",
+   "provider": "bedrock",
+   "finished": "2026-11-25T04:17:20+00:00",
+   "turns": 4,
+   "outputs": 10,
+   "usage": {
+    "input": 56369,
+    "output": 108529
+   },
+   "seconds": 940,
+   "cover": null,
+   "doc_titles": [
+    "AI 办公产品用户线下交流会 · 活动策划方案",
+    "01-schedule",
+    "02-budget"
+   ]
+  },
+  {
+   "slug": "zh-user-interview-analysis",
+   "title": "10 份用户访谈整理成证据表、需求清单和研究报告",
+   "summary": "10 份虚构用户访谈（团队知识库产品）逐段编号、逐条提取原话证据，归纳主题并保留冲突观点，按影响而非提及次数排出需求优先级；交付 Excel 访谈证据表、Excel 需求清单、Word 研究报告，最后逐条回查原文并输出复核修改记录。",
+   "tags": [
+    "Research",
+    "Documents",
+    "Excel"
+   ],
+   "lang": "zh",
+   "source": {
+    "site": "AutoClaw 博客",
+    "category": "Tutorial",
+    "title": "用户访谈记录怎么分析？AutoClaw 整理成需求清单",
+    "url": "https://autoclaw.z.ai/cn/blog/tutorial/analyze-user-interviews-with-autoclaw/",
+    "published": "2026-10-26",
+    "original_setup": "AutoClaw 通用任务（原文未注明模型），输入 10 份访谈记录",
+    "notes": "原文的 10 份访谈未公开，这里按原文描述合成（人物与公司均为虚构）：埋入版本混乱、搜不准、模板/通知/知识度量/权限四类冲突、移动端（3 人）、迁移与维护负担（6 人）等主题，以及投错预算表、折扣口径冲突、发错旧资质文件三个损失场景，U05 的“高铁能不能坐一等座”原话照搬原文。合成访谈比原文短，证据条数会少于原文的 88 条。任务描述照原文；为控制单次回复长度，交付和复核拆成九轮（证据表、需求清单、报告，分两半核对原话，回查结论并出复核记录，再逐个交付修正后的三份文件）。复核结果：证据表 81 条原话脚本逐字比对全部能在原文找到，段落位置 81 条全部正确；“版本可信度”8 人、“搜不准”7 人、移动端 3 人与埋入一致，冲突观点识别出 5 组（多出 AI 一组）。需求清单有 30 条（原文 14 条），其中“用户明确表达”22 条，拆得比原文细。"
+   },
+   "model": "us.anthropic.claude-opus-5-5",
+   "provider": "bedrock",
+   "finished": "2026-11-25T05:30:08+00:00",
+   "turns": 9,
+   "outputs": 4,
+   "usage": {
+    "input": 406436,
+    "output": 208519
+   },
+   "seconds": 2935,
+   "cover": null,
+   "doc_titles": [
+    "interview-evidence",
+    "requirements",
+    "团队知识管理产品用户研究报告"
+   ]
+  },
+  {
+   "slug": "zh-pdf-table-excel",
+   "title": "PDF 表格转 Excel：跨页、多级表头、水印噪声与合计复核",
+   "summary": "3 份虚构经营报告、10 页、8 张表，先建页面与表格清单，再逐表提取成可计算的工作表：展开两层表头、接上跨页表、清掉水印字符、区分空白和 0，最后用合计行和业务公式复核，交付来源对应表、问题与修改记录和说明报告。",
+   "tags": [
+    "Data",
+    "Excel",
+    "Finance",
+    "Documents"
+   ],
+   "lang": "zh",
+   "source": {
+    "site": "AutoClaw 博客",
+    "category": "Tutorial",
+    "title": "PDF 表格怎么转 Excel？复杂表格提取与复核方法",
+    "url": "https://autoclaw.z.ai/cn/blog/tutorial/pdf-table-to-excel/",
+    "published": "2026-10-26",
+    "original_setup": "AutoClaw（通用 Agent，读取 PDF 文件）",
+    "notes": "原文的 3 份虚构 PDF 没有公开。按原文描述合成了同样规模和难点的报告（10 页、8 张表，2 张跨页表、3 张两层表头、斜向水印混入单元格、新开城市空白、2,380.00* 和 48,213.55① 脚注、负数和百分比、一处合计行与明细差 0.1）。模型读不了二进制 PDF，这里以 pdftotext -layout 风格的文字层（.txt）作为输入，所以没有 OCR 环节。原文是一次性提交任务，这里分 4 轮交付，避免单轮输出过长。用脚本核对 8 张表 338 个数值格，全部与源数据一致，空白未填 0，表 5 合计差 0.1 已识别。"
+   },
+   "model": "us.anthropic.claude-opus-5-5",
+   "provider": "bedrock",
+   "finished": "2026-11-25T04:03:18+00:00",
+   "turns": 4,
+   "outputs": 12,
+   "usage": {
+    "input": 52228,
+    "output": 50181
+   },
+   "seconds": 422,
+   "cover": null,
+   "doc_titles": [
+    "T0_页面与表格清单",
+    "T1_华东分城市收入",
+    "T2_华东重点客户应收明细"
+   ]
+  },
+  {
+   "slug": "zh-research-library",
+   "title": "混杂的网页、PDF 和 Word 资料整理成可复用资料库",
+   "summary": "16 份已保存的检索记录、网页正文和下载附件（含同文转载、新旧版本、解读、新闻转载和自媒体文章）整理成资料库：Excel 资料目录与来源表（含统一归档文件名）、重复失效待确认清单、README，再交付逐份摘要和 Word 综合整理报告。",
+   "tags": [
+    "Research",
+    "Documents",
+    "Excel"
+   ],
+   "lang": "zh",
+   "source": {
+    "site": "AutoClaw 博客",
+    "category": "Tutorial",
+    "title": "如何用 AI 批量整理资料？用 AutoClaw 统一归档网页、PDF 和 Word",
+    "url": "https://autoclaw.z.ai/cn/blog/tutorial/ai-batch-organize-research-materials/",
+    "published": "2026-10-24",
+    "original_setup": "AutoClaw 通用任务（原文未注明模型），联网检索并下载官方附件",
+    "notes": "原文的检索、回访官网和下载附件需要联网，复现不做这一步：输入换成一批合成的“已保存”材料，地区“东川省”“滨海市”、文件、文号和网址（.example 域名）全部为虚构，不对应任何真实政策，也没有国家级文件。埋入 2 组同文多源、3 份被更新或废止的旧版本、1 份规划期已结束的规划、1 份缺文号、1 篇找不到原发页的新闻转载和 1 篇数字与原文冲突的自媒体文章。附件以文本代替，模型只给出归档文件名，不实际移动文件。任务描述照原文，另加一句说明检索下载已完成；为控制单次回复长度，交付拆成两轮。复核结果：2 组同文多源、3 份被替代或到期的旧文件、规划期届满、缺文号、新闻转载找不到原发页、自媒体数字冲突全部识别，另外标出“没有国家级来源”的覆盖缺口；检索记录和两篇非官方来源未收录。"
+   },
+   "model": "us.anthropic.claude-opus-5-5",
+   "provider": "bedrock",
+   "finished": "2026-11-25T04:04:59+00:00",
+   "turns": 2,
+   "outputs": 5,
+   "usage": {
+    "input": 26305,
+    "output": 57685
+   },
+   "seconds": 472,
+   "cover": null,
+   "doc_titles": [
+    "catalog",
+    "issues",
+    "中小企业数字化转型官方公开资料库 README"
+   ]
+  },
+  {
+   "slug": "zh-project-weekly-report",
+   "title": "从会议纪要和工作日志生成项目周报与行动清单",
+   "summary": "11 份虚构项目材料（5 份每日工作记录、2 份会议纪要、进度表、风险清单、下周计划草稿和材料说明）整理成一份 Word 项目周报和一份 Excel 行动项与风险清单，冲突和缺失并列保留来源、标记待确认。",
+   "tags": [
+    "Project Management",
+    "Documents",
+    "Excel"
+   ],
+   "lang": "zh",
+   "source": {
+    "site": "AutoClaw 博客",
+    "category": "Tutorial",
+    "title": "如何用 AI 自动生成项目周报？用 AutoClaw 从会议记录整理到行动清单",
+    "url": "https://autoclaw.z.ai/cn/blog/tutorial/ai-generate-project-weekly-report/",
+    "published": "2026-10-24",
+    "original_setup": "AutoClaw 通用任务（原文未注明模型），输入 11 份材料",
+    "notes": "原文没有展示 11 份输入材料，这里按原文描述合成（项目“拾光笔记 App 星火专项”沿用原文的虚构设定，人员为虚构）。埋入的冲突与缺失按原文列举：A/B 实验“全量上线”与“20% 灰度”、渠道复盘负责人和截止日期、次日留存 42% 与 38.6% 的口径差异、支付回调处理状态，以及缺少本周 iOS 崩溃率等 3 处缺失。Word 与 Excel 分别用 Markdown 和 CSV 交付后转换。任务描述照原文。复核结果：6 项已完成、2 项进行中、1 项延期与埋入一致；5 处冲突和 3 处缺失全部识别并并列原文，另外发现 1 处合成时无意留下的冲突（续费页提测“下周二”与“11 月 25 日”）。待确认事项列了 4 项（T2 之外还把负责人缺失的竞品调研、渠道复盘、故障复盘列入）。"
+   },
+   "model": "us.anthropic.claude-opus-5-5",
+   "provider": "bedrock",
+   "finished": "2026-11-25T03:56:37+00:00",
+   "turns": 1,
+   "outputs": 2,
+   "usage": {
+    "input": 3729,
+    "output": 15539
+   },
+   "seconds": 128,
+   "cover": null,
+   "doc_titles": [
+    "拾光笔记 App 星火专项 · 项目周报",
+    "actions-and-risks"
+   ]
+  },
+  {
+   "slug": "zh-merge-excel",
+   "title": "合并多个 Excel：字段映射、清洗去重、核对表和分析报告",
+   "summary": "6 份口径不一的门店销售表（238 行）先建字段映射，再统一日期、门店和渠道名称，处理完全重复、冲突重复、空值和异常金额，交付合并清洗明细、数据问题记录、月度/门店/产品/渠道汇总和图表、记录数与金额核对表，以及一份区分事实、判断和待确认问题的 Word 报告。",
+   "tags": [
+    "Data",
+    "Excel",
+    "Operations"
+   ],
+   "lang": "zh",
+   "source": {
+    "site": "AutoClaw 博客",
+    "category": "Tutorial",
+    "title": "多个 Excel 表格怎么合并汇总？AI 清洗去重实操",
+    "url": "https://autoclaw.z.ai/cn/blog/tutorial/merge-multiple-excel-files/",
+    "published": "2026-10-24",
+    "original_setup": "AutoClaw（通用 Agent，读写本地 Excel）",
+    "notes": "原文 6 份虚构表共 1,161 行。模型在这里没有代码工具，要逐行手工清洗，所以把规模缩到 238 行（6 份文件，问题类型与原文一致：完全重复 5 行、冲突重复 3 行、空值 16 处、异常金额 5 处、大量门店和渠道名称不统一），数据为合成。原文交付 8 张可编辑 Excel 图表，这里改为一张 SVG 汇总图（自动导出 PNG）。原文给了“名称对照表和去重规则”这类准备材料，这里写成一份字段说明（.md）随文件提供。用脚本按同一规则重算：清洗后 230 行逐行逐字段一致，销售额 14,248 元、退款 505 元，各维度汇总全部一致。"
+   },
+   "model": "us.anthropic.claude-opus-5-5",
+   "provider": "bedrock",
+   "finished": "2026-11-25T04:15:14+00:00",
+   "turns": 6,
+   "outputs": 14,
+   "usage": {
+    "input": 206324,
+    "output": 121526
+   },
+   "seconds": 918,
+   "cover": "cases/zh-merge-excel/output/汇总图表.preview.jpg",
+   "doc_titles": [
+    "字段映射表",
+    "标准值对照表",
+    "数据问题与处理规则说明（第一批）"
+   ]
+  },
+  {
+   "slug": "zh-official-report-ppt",
+   "title": "把统计公报整理成 12 页可编辑 PPT，附讲稿和证据表",
+   "summary": "一份虚构城市的年度统计公报，整理成适合 10 分钟汇报的 12 页可编辑 PPT，同步交付逐页讲稿、数据与图表来源表、PPT 页面与原文证据对应表和官方来源清单。",
+   "tags": [
+    "Presentation",
+    "Research",
+    "Documents",
+    "Data"
+   ],
+   "lang": "zh",
+   "source": {
+    "site": "AutoClaw 博客",
+    "category": "Tutorial",
+    "title": "官方报告怎么做成可编辑 PPT？AutoClaw 实操案例",
+    "url": "https://autoclaw.z.ai/cn/blog/tutorial/official-report-to-editable-ppt/",
+    "published": "2026-10-23",
+    "original_setup": "AutoClaw（原文未注明专家与模型），读取国家统计局官网的《2025年国民经济和社会发展统计公报》",
+    "notes": "原文读取国家统计局官网公报，这里不联网，也不凭记忆复述官方数据：改用一份合成的虚构“临江市 2025 年统计公报”作为唯一来源（发布机构、链接均为虚构示例），任务描述按原文“换成其他报告时只替换报告名称”的说法替换报告名。pandoc 生成的 PPT 没有原生图表，图表页用可编辑数据表代替。"
+   },
+   "model": "us.anthropic.claude-opus-5-5",
+   "provider": "bedrock",
+   "finished": "2026-11-25T04:39:05+00:00",
+   "turns": 3,
+   "outputs": 5,
+   "usage": {
+    "input": 23170,
+    "output": 41112
+   },
+   "seconds": 323,
+   "cover": null,
+   "doc_titles": [
+    "经济总量稳步扩大，全年增长 5.3%",
+    "《临江市 2025 年国民经济和社会发展统计公报》汇报讲稿",
+    "data-chart-sources"
    ]
   }
  ]

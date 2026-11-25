@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920">
+  <title>D-03 · Us vs. Them · Stories/Reels 1080×1920</title>
+  <desc>ID: D-03 | Hook: Us vs. Them – checklist comparison of Dusk against a regular sleep mask | Hypothesis: A direct side-by-side makes the feature gap obvious and justifies Dusk's premium over a regular mask, moving shoppers further down the funnel | Primary metric: Add-to-cart rate | Placement: Stories/Reels (text kept within y 269–1248, x below 900) | Note: "2× faster" row requires substantiation before launch</desc>
+  <defs>
+    <linearGradient id="maskg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#5a3d7a"/>
+      <stop offset="1" stop-color="#3a2552"/>
+    </linearGradient>
+    <linearGradient id="night" x1="0" y1="1120" x2="0" y2="1920" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#2B1B3D"/>
+      <stop offset="1" stop-color="#22152f"/>
+    </linearGradient>
+    <filter id="colShadow" x="-20%" y="-10%" width="140%" height="120%">
+      <feGaussianBlur stdDeviation="16"/>
+    </filter>
+    <g id="chk">
+      <circle r="38" fill="#F3EBDD"/>
+      <path d="M -16 1 L -5 13 L 17 -12" stroke="#2B1B3D" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+    <g id="crs">
+      <circle r="38" fill="none" stroke="#B5AA9B" stroke-width="4"/>
+      <path d="M -12 -12 L 12 12 M 12 -12 L -12 12" stroke="#9E9384" stroke-width="7" stroke-linecap="round"/>
+    </g>
+  </defs>
+
+  <rect x="0" y="0" width="1080" height="1920" fill="#F3EBDD"/>
+
+  <path transform="translate(930 150) scale(3.2)" d="M6,-17 A18,18 0 1 0 6,17 A20,20 0 0 1 6,-17 Z" fill="#2B1B3D" opacity=".06"/>
+
+  <text x="80" y="350" font-family="'Avenir Next', 'Gill Sans', sans-serif" font-size="56" font-weight="700" fill="#2B1B3D">Dusk vs. a regular mask</text>
+
+  <g stroke="#2B1B3D" stroke-opacity=".14" stroke-width="2">
+    <line x1="80" y1="690" x2="890" y2="690"/>
+    <line x1="80" y1="830" x2="890" y2="830"/>
+    <line x1="80" y1="970" x2="890" y2="970"/>
+  </g>
+
+  <!-- Regular column -->
+  <rect x="710" y="405" width="180" height="690" rx="26" fill="#E4DACB"/>
+  <g transform="translate(800 452) scale(.85)">
+    <path d="M -90 -2 L 90 -2" stroke="#A69C8F" stroke-width="4" stroke-linecap="round"/>
+    <path d="M -78 -12 C -50 -22 50 -22 78 -12 L 78 12 C 50 22 22 18 0 10 C -22 18 -50 22 -78 12 Z" fill="#BDB3A6"/>
+  </g>
+  <text x="800" y="520" text-anchor="middle" font-family="'Avenir Next', 'Gill Sans', sans-serif" font-size="26" font-weight="600" fill="#7A7064">Regular mask</text>
+
+  <!-- Dusk column -->
+  <rect x="510" y="404" width="190" height="720" rx="30" fill="#1a0f25" opacity=".35" filter="url(#colShadow)"/>
+  <rect x="500" y="390" width="190" height="720" rx="30" fill="#2B1B3D"/>
+  <g transform="translate(595 442) scale(.38) translate(-540 -1005)">
+    <path d="M 360 990 C 360 950 430 935 540 945 C 650 935 720 950 720 990 L 720 1030 C 720 1070 660 1080 610 1068 C 580 1060 560 1045 540 1045 C 520 1045 500 1060 470 1068 C 420 1080 360 1070 360 1030 Z" fill="url(#maskg)" stroke="#F3EBDD" stroke-opacity=".25" stroke-width="3"/>
+    <path d="M 376 1012 C 460 1003 620 1003 704 1012 M 450 952 C 442 990 442 1030 455 1068 M 630 952 C 638 990 638 1030 625 1068" stroke="#F3EBDD" stroke-opacity=".35" stroke-width="4" stroke-dasharray="8 8" fill="none"/>
+    <ellipse cx="630" cy="960" rx="60" ry="9" fill="#ffffff" opacity=".14"/>
+    <path transform="translate(410 980) scale(.6)" d="M6,-17 A18,18 0 1 0 6,17 A20,20 0 0 1 6,-17 Z" fill="#F3EBDD" opacity=".85"/>
+  </g>
+  <text x="595" y="522" text-anchor="middle" font-family="Futura, 'Avenir Next', sans-serif" font-size="36" font-weight="500" letter-spacing="2" fill="#F3EBDD">Dusk</text>
+
+  <g font-family="'Avenir Next', 'Gill Sans', sans-serif" font-size="32" font-weight="500" fill="#2B1B3D">
+    <text x="80" y="631">Gentle 0.5 lb pressure</text>
+    <text x="80" y="771">Total blackout</text>
+    <text x="80" y="911">Fall asleep 2× faster</text>
+    <text x="80" y="1051">30-night trial</text>
+  </g>
+  <use href="#chk" transform="translate(595 620) scale(.9)"/>
+  <use href="#chk" transform="translate(595 760) scale(.9)"/>
+  <use href="#chk" transform="translate(595 900) scale(.9)"/>
+  <use href="#chk" transform="translate(595 1040) scale(.9)"/>
+  <use href="#crs" transform="translate(800 620) scale(.9)"/>
+  <use href="#crs" transform="translate(800 760) scale(.9)"/>
+  <use href="#crs" transform="translate(800 900) scale(.9)"/>
+  <use href="#crs" transform="translate(800 1040) scale(.9)"/>
+
+  <path d="M 0 1150 C 300 1118 780 1118 1080 1150 L 1080 1920 L 0 1920 Z" fill="url(#night)"/>
+
+  <path transform="translate(540 1640) scale(6)" d="M6,-17 A18,18 0 1 0 6,17 A20,20 0 0 1 6,-17 Z" fill="#F3EBDD" opacity=".05"/>
+  <g fill="#F3EBDD">
+    <circle cx="160" cy="1420" r="2.5" opacity=".35"/><circle cx="410" cy="1540" r="2" opacity=".25"/>
+    <circle cx="790" cy="1390" r="2.5" opacity=".3"/><circle cx="290" cy="1720" r="2" opacity=".2"/>
+    <circle cx="900" cy="1600" r="2" opacity=".25"/><circle cx="640" cy="1820" r="2.5" opacity=".2"/>
+    <circle cx="980" cy="1780" r="2" opacity=".2"/><circle cx="90" cy="1860" r="2" opacity=".2"/>
+  </g>
+
+  <!-- BRAND FRAME (fixed, inside Reels safe zone) -->
+  <g id="brand-frame">
+    <g transform="translate(84 1206)">
+      <path d="M6,-17 A18,18 0 1 0 6,17 A20,20 0 0 1 6,-17 Z" fill="#F3EBDD"/>
+      <text x="32" y="15" font-family="Futura, 'Avenir Next', sans-serif" font-size="46" font-weight="500" letter-spacing="3" fill="#F3EBDD">dusk</text>
+    </g>
+    <rect x="440" y="1168" width="460" height="76" rx="38" fill="#F3EBDD"/>
+    <text x="670" y="1216" text-anchor="middle" font-family="'Avenir Next', 'Gill Sans', sans-serif" font-size="28" font-weight="600" fill="#2B1B3D">Shop Dusk, 30-night trial</text>
+  </g>
+</svg>

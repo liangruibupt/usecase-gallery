@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1350" viewBox="0 0 1080 1350">
+  <title>D-04 · Data "2×" · Feed 1080×1350</title>
+  <desc>ID: D-04 | Hook: Data – huge "2×" with a simple bar chart, 24 min → 12 min, "user survey, n=312 (placeholder)" | Hypothesis: A concrete, quantified result makes the "fall asleep 2× faster" USP credible and specific, lifting click-through vs. qualitative claims | Primary metric: Link CTR | Placement: Feed | Note: survey data is PLACEHOLDER – substantiate before launch</desc>
+  <defs>
+    <radialGradient id="bg" cx="540" cy="420" r="1000" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#3a2452"/>
+      <stop offset="1" stop-color="#22152f"/>
+    </radialGradient>
+    <radialGradient id="glow" cx="540" cy="420" r="440" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#C9A15B" stop-opacity=".28"/>
+      <stop offset="1" stop-color="#C9A15B" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="gold" x1="0" y1="240" x2="0" y2="570" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#F4DFAE"/>
+      <stop offset="1" stop-color="#C9A15B"/>
+    </linearGradient>
+    <linearGradient id="goldBar" x1="80" y1="0" x2="540" y2="0" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#C9A15B"/>
+      <stop offset="1" stop-color="#E8CD92"/>
+    </linearGradient>
+  </defs>
+
+  <rect x="0" y="0" width="1080" height="1350" fill="url(#bg)"/>
+  <rect x="0" y="0" width="1080" height="1206" fill="url(#glow)"/>
+  <g fill="#F3EBDD">
+    <circle cx="120" cy="90" r="2.5" opacity=".3"/><circle cx="960" cy="140" r="2" opacity=".25"/>
+    <circle cx="880" cy="420" r="2" opacity=".2"/><circle cx="170" cy="470" r="2.5" opacity=".2"/>
+  </g>
+
+  <text x="540" y="150" text-anchor="middle" font-family="'Avenir Next', 'Gill Sans', sans-serif" font-size="26" font-weight="600" letter-spacing="5" fill="#F3EBDD" fill-opacity=".7">0.5 LB PRESSURE · TOTAL BLACKOUT</text>
+
+  <text x="540" y="560" text-anchor="middle" font-family="Didot, Baskerville, Georgia, serif" font-size="460" font-weight="bold" fill="url(#gold)">2×</text>
+
+  <text x="540" y="660" text-anchor="middle" font-family="'Avenir Next', 'Gill Sans', sans-serif" font-size="46" font-weight="500" fill="#F3EBDD">faster to fall asleep</text>
+
+  <text x="80" y="800" font-family="'Avenir Next', 'Gill Sans', sans-serif" font-size="28" font-weight="500" fill="#F3EBDD" fill-opacity=".7">Without Dusk</text>
+  <rect x="80" y="820" width="920" height="72" rx="36" fill="#F3EBDD" fill-opacity=".16"/>
+  <text x="966" y="868" text-anchor="end" font-family="'Avenir Next', 'Gill Sans', sans-serif" font-size="34" font-weight="700" fill="#F3EBDD">24 min</text>
+
+  <text x="80" y="960" font-family="'Avenir Next', 'Gill Sans', sans-serif" font-size="28" font-weight="600" fill="#E8CD92">With Dusk</text>
+  <rect x="80" y="980" width="460" height="72" rx="36" fill="url(#goldBar)"/>
+  <text x="506" y="1028" text-anchor="end" font-family="'Avenir Next', 'Gill Sans', sans-serif" font-size="34" font-weight="700" fill="#2B1B3D">12 min</text>
+
+  <line x1="540" y1="808" x2="540" y2="1066" stroke="#F3EBDD" stroke-opacity=".35" stroke-width="2" stroke-dasharray="6 8"/>
+
+  <text x="80" y="1135" font-family="'Avenir Next', 'Gill Sans', sans-serif" font-size="22" font-weight="500" fill="#F3EBDD" fill-opacity=".55">Avg. minutes to fall asleep · user survey, n=312 (placeholder)</text>
+
+  <!-- BRAND FRAME (fixed) -->
+  <g id="brand-frame">
+    <rect x="0" y="1206" width="1080" height="144" fill="#2B1B3D"/>
+    <g transform="translate(84 1278)">
+      <path d="M6,-17 A18,18 0 1 0 6,17 A20,20 0 0 1 6,-17 Z" fill="#F3EBDD"/>
+      <text x="32" y="15" font-family="Futura, 'Avenir Next', sans-serif" font-size="46" font-weight="500" letter-spacing="3" fill="#F3EBDD">dusk</text>
+    </g>
+    <rect x="556" y="1240" width="460" height="76" rx="38" fill="#F3EBDD"/>
+    <text x="786" y="1288" text-anchor="middle" font-family="'Avenir Next', 'Gill Sans', sans-serif" font-size="28" font-weight="600" fill="#2B1B3D">Shop Dusk, 30-night trial</text>
+  </g>
+</svg>

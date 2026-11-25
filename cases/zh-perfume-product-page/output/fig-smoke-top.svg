@@ -1,0 +1,136 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1600" height="2000" viewBox="0 0 1600 2000">
+  <defs>
+    <!-- ===== Shared lighting rig, seen from above ===== -->
+    <radialGradient id="tableTop" gradientUnits="userSpaceOnUse" cx="460" cy="900" r="1500">
+      <stop offset="0" stop-color="#4f3727"/>
+      <stop offset="0.3" stop-color="#33241a"/>
+      <stop offset="0.62" stop-color="#1c130e"/>
+      <stop offset="1" stop-color="#0c0806"/>
+    </radialGradient>
+    <linearGradient id="rightDark" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="1600" y2="0">
+      <stop offset="0" stop-color="#000" stop-opacity="0"/>
+      <stop offset="0.45" stop-color="#000" stop-opacity="0.12"/>
+      <stop offset="1" stop-color="#000" stop-opacity="0.6"/>
+    </linearGradient>
+    <radialGradient id="tableLight" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#8a6242" stop-opacity="0.5"/>
+      <stop offset="1" stop-color="#8a6242" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="vignette" gradientUnits="userSpaceOnUse" cx="720" cy="980" r="1300">
+      <stop offset="0.45" stop-color="#000" stop-opacity="0"/>
+      <stop offset="1" stop-color="#000" stop-opacity="0.66"/>
+    </radialGradient>
+    <linearGradient id="castFade" gradientUnits="userSpaceOnUse" x1="885" y1="0" x2="1440" y2="0">
+      <stop offset="0" stop-color="#050302" stop-opacity="0.85"/>
+      <stop offset="0.4" stop-color="#050302" stop-opacity="0.5"/>
+      <stop offset="1" stop-color="#050302" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="mottle" filterUnits="userSpaceOnUse" x="0" y="0" width="1600" height="2000">
+      <feTurbulence type="fractalNoise" baseFrequency="0.004 0.006" numOctaves="3" seed="11"/>
+      <feColorMatrix type="matrix" values="0 0 0 0 0.36  0 0 0 0 0.25  0 0 0 0 0.17  1.1 0 0 0 -0.45"/>
+    </filter>
+    <filter id="grain" filterUnits="userSpaceOnUse" x="0" y="0" width="1600" height="2000">
+      <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" seed="7"/>
+      <feColorMatrix type="matrix" values="0 0 0 0 0.91  0 0 0 0 0.88  0 0 0 0 0.82  0 0 0 1.4 -0.55"/>
+    </filter>
+    <filter id="b3" filterUnits="userSpaceOnUse" x="-2000" y="-2000" width="6000" height="6000"><feGaussianBlur stdDeviation="3"/></filter>
+    <filter id="b6" filterUnits="userSpaceOnUse" x="-2000" y="-2000" width="6000" height="6000"><feGaussianBlur stdDeviation="6"/></filter>
+    <filter id="b12" filterUnits="userSpaceOnUse" x="-2000" y="-2000" width="6000" height="6000"><feGaussianBlur stdDeviation="12"/></filter>
+    <filter id="b16" filterUnits="userSpaceOnUse" x="-2000" y="-2000" width="6000" height="6000"><feGaussianBlur stdDeviation="16"/></filter>
+    <filter id="b24" filterUnits="userSpaceOnUse" x="-2000" y="-2000" width="6000" height="6000"><feGaussianBlur stdDeviation="24"/></filter>
+    <filter id="b32" filterUnits="userSpaceOnUse" x="-2000" y="-2000" width="6000" height="6000"><feGaussianBlur stdDeviation="32"/></filter>
+    <filter id="b48" filterUnits="userSpaceOnUse" x="-2000" y="-2000" width="6000" height="6000"><feGaussianBlur stdDeviation="48"/></filter>
+
+    <!-- ===== Glass & liquid from above ===== -->
+    <linearGradient id="liquidTop" gradientUnits="userSpaceOnUse" x1="497" y1="0" x2="783" y2="0">
+      <stop offset="0" stop-color="#a3633a"/>
+      <stop offset="0.25" stop-color="#7d4029"/>
+      <stop offset="0.6" stop-color="#4c2321"/>
+      <stop offset="1" stop-color="#1f0e10"/>
+    </linearGradient>
+    <linearGradient id="wallGlass" gradientUnits="userSpaceOnUse" x1="444" y1="0" x2="836" y2="0">
+      <stop offset="0" stop-color="#e8e0d2" stop-opacity="0.3"/>
+      <stop offset="0.3" stop-color="#e8e0d2" stop-opacity="0.12"/>
+      <stop offset="0.75" stop-color="#e8e0d2" stop-opacity="0.05"/>
+      <stop offset="1" stop-color="#e8e0d2" stop-opacity="0.02"/>
+    </linearGradient>
+    <clipPath id="bottleClip"><rect x="444" y="636" width="392" height="728" rx="10"/></clipPath>
+
+    <!-- ===== Brass disk ===== -->
+    <linearGradient id="brassDisk" gradientUnits="userSpaceOnUse" x1="458" y1="880" x2="822" y2="1120">
+      <stop offset="0" stop-color="#f1d9a0"/>
+      <stop offset="0.22" stop-color="#d4b072"/>
+      <stop offset="0.5" stop-color="#9a7744"/>
+      <stop offset="0.78" stop-color="#5b4224"/>
+      <stop offset="1" stop-color="#2a1c0e"/>
+    </linearGradient>
+    <linearGradient id="rimDisk" gradientUnits="userSpaceOnUse" x1="458" y1="900" x2="822" y2="1100">
+      <stop offset="0" stop-color="#ffe9b8" stop-opacity="0.85"/>
+      <stop offset="0.45" stop-color="#ffe9b8" stop-opacity="0.12"/>
+      <stop offset="0.7" stop-color="#1a1008" stop-opacity="0.3"/>
+      <stop offset="1" stop-color="#1a1008" stop-opacity="0.7"/>
+    </linearGradient>
+  </defs>
+
+  <!-- ===== Table from above ===== -->
+  <rect width="1600" height="2000" fill="url(#tableTop)"/>
+  <rect width="1600" height="2000" fill="#000" filter="url(#mottle)" opacity="0.2"/>
+  <ellipse cx="420" cy="940" rx="560" ry="760" fill="url(#tableLight)"/>
+  <ellipse cx="330" cy="860" rx="300" ry="480" fill="#6a4a33" opacity="0.22" filter="url(#b48)"/>
+  <rect width="1600" height="2000" fill="url(#rightDark)"/>
+
+  <!-- ===== Cast shadow: falls right and fades out ===== -->
+  <polygon points="880,552 1300,596 1440,1000 1300,1404 880,1448" fill="url(#castFade)" filter="url(#b16)"/>
+  <ellipse cx="1150" cy="1000" rx="290" ry="250" fill="url(#castFade)" opacity="0.55" filter="url(#b24)"/>
+  <ellipse cx="985" cy="1000" rx="44" ry="270" fill="#c47a3e" opacity="0.2" filter="url(#b16)"/>
+  <ellipse cx="968" cy="1000" rx="10" ry="190" fill="#e0a060" opacity="0.24" filter="url(#b6)"/>
+  <rect x="390" y="540" width="500" height="920" rx="14" fill="none" stroke="#000" stroke-width="12" opacity="0.7" filter="url(#b6)"/>
+
+  <!-- ===== Bottle & cap, scaled 125% around the frame centre ===== -->
+  <g transform="translate(640,1000) scale(1.25) translate(-640,-1000)">
+    <rect x="444" y="636" width="392" height="728" rx="10" fill="#1a120d"/>
+    <rect x="497" y="689" width="286" height="622" rx="6" fill="url(#liquidTop)"/>
+    <g clip-path="url(#bottleClip)">
+      <ellipse cx="560" cy="1000" rx="90" ry="330" fill="#e0985a" opacity="0.25" filter="url(#b32)"/>
+      <ellipse cx="690" cy="1000" rx="110" ry="300" fill="#1a0c0e" opacity="0.4" filter="url(#b32)"/>
+      <rect x="497" y="689" width="286" height="622" rx="6" fill="none" stroke="#000" stroke-width="10" opacity="0.35"/>
+      <path d="M444,636 H836 V1364 H444 Z M497,689 V1311 H783 V689 Z" fill="url(#wallGlass)" fill-rule="evenodd"/>
+      <rect x="444" y="636" width="53" height="728" fill="#e8e0d2" opacity="0.1"/>
+      <rect x="783" y="636" width="53" height="728" fill="#000" opacity="0.4"/>
+      <line x1="668" y1="998" x2="820" y2="990" stroke="#000" stroke-width="364" stroke-linecap="round" opacity="0.4" filter="url(#b16)"/>
+      <rect x="508" y="700" width="14" height="600" rx="7" fill="#e8e0d2" opacity="0.22" filter="url(#b6)"/>
+    </g>
+    <rect x="497" y="689" width="286" height="622" rx="6" fill="none" stroke="#e8b27a" stroke-width="2" opacity="0.45"/>
+    <line x1="447" y1="642" x2="447" y2="1358" stroke="#f4ecdf" stroke-width="10" opacity="0.25" filter="url(#b6)"/>
+    <line x1="447" y1="642" x2="447" y2="1358" stroke="#f4ecdf" stroke-width="3" opacity="0.85"/>
+    <line x1="450" y1="638" x2="830" y2="638" stroke="#f4ecdf" stroke-width="2" opacity="0.4"/>
+    <line x1="450" y1="1362" x2="830" y2="1362" stroke="#e8e0d2" stroke-width="2" opacity="0.18"/>
+    <line x1="834" y1="642" x2="834" y2="1358" stroke="#e8e0d2" stroke-width="1.5" opacity="0.12"/>
+    <rect x="444" y="636" width="392" height="728" rx="10" fill="none" stroke="#e8e0d2" stroke-width="1.5" opacity="0.14"/>
+
+    <!-- brass cap from above -->
+    <circle cx="640" cy="1000" r="188" fill="#0a0604" opacity="0.6" filter="url(#b3)"/>
+    <circle cx="640" cy="1000" r="182" fill="url(#brassDisk)"/>
+    <ellipse cx="575" cy="950" rx="70" ry="120" fill="#fff4d6" opacity="0.18" filter="url(#b24)"/>
+    <g fill="none" stroke-width="1.2">
+      <circle cx="640" cy="1000" r="34" stroke="#000" opacity="0.12"/>
+      <circle cx="640" cy="1000" r="48" stroke="#ffe9b8" opacity="0.1"/>
+      <circle cx="640" cy="1000" r="62" stroke="#000" opacity="0.1"/>
+      <circle cx="640" cy="1000" r="76" stroke="#ffe9b8" opacity="0.1"/>
+      <circle cx="640" cy="1000" r="90" stroke="#000" opacity="0.1"/>
+      <circle cx="640" cy="1000" r="104" stroke="#ffe9b8" opacity="0.09"/>
+      <circle cx="640" cy="1000" r="118" stroke="#000" opacity="0.1"/>
+      <circle cx="640" cy="1000" r="132" stroke="#ffe9b8" opacity="0.09"/>
+      <circle cx="640" cy="1000" r="146" stroke="#000" opacity="0.1"/>
+    </g>
+    <circle cx="640" cy="1000" r="157" fill="none" stroke="#000" stroke-width="2.5" opacity="0.3"/>
+    <circle cx="640" cy="1000" r="172" fill="none" stroke="url(#rimDisk)" stroke-width="12"/>
+    <circle cx="640" cy="1000" r="182" fill="none" stroke="#1a1008" stroke-width="2" opacity="0.6"/>
+    <text x="641.2" y="1023.2" font-family="Didot, serif" font-size="64" text-anchor="middle" fill="#ffe9b8" opacity="0.3">Nº 7</text>
+    <text x="640" y="1022" font-family="Didot, serif" font-size="64" text-anchor="middle" fill="#2a1c0e" opacity="0.72">Nº 7</text>
+  </g>
+
+  <!-- ===== Finish ===== -->
+  <rect width="1600" height="2000" fill="url(#vignette)"/>
+  <rect width="1600" height="2000" fill="#000" filter="url(#grain)" opacity="0.22"/>
+</svg>

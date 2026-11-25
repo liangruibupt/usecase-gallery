@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1350" viewBox="0 0 1080 1350">
+  <title>D-03 · Us vs. Them · Feed 1080×1350</title>
+  <desc>ID: D-03 | Hook: Us vs. Them – checklist comparison of Dusk against a regular sleep mask | Hypothesis: A direct side-by-side makes the feature gap obvious and justifies Dusk's premium over a regular mask, moving shoppers further down the funnel | Primary metric: Add-to-cart rate | Placement: Feed | Note: "2× faster" row requires substantiation before launch</desc>
+  <defs>
+    <linearGradient id="maskg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#5a3d7a"/>
+      <stop offset="1" stop-color="#3a2552"/>
+    </linearGradient>
+    <filter id="colShadow" x="-20%" y="-10%" width="140%" height="120%">
+      <feGaussianBlur stdDeviation="16"/>
+    </filter>
+    <g id="chk">
+      <circle r="38" fill="#F3EBDD"/>
+      <path d="M -16 1 L -5 13 L 17 -12" stroke="#2B1B3D" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+    <g id="crs">
+      <circle r="38" fill="none" stroke="#B5AA9B" stroke-width="4"/>
+      <path d="M -12 -12 L 12 12 M 12 -12 L -12 12" stroke="#9E9384" stroke-width="7" stroke-linecap="round"/>
+    </g>
+  </defs>
+
+  <rect x="0" y="0" width="1080" height="1350" fill="#F3EBDD"/>
+
+  <!-- Headline -->
+  <text x="80" y="150" font-family="'Avenir Next', 'Gill Sans', sans-serif" font-size="64" font-weight="700" fill="#2B1B3D">Dusk vs. a regular mask</text>
+
+  <!-- row separators -->
+  <g stroke="#2B1B3D" stroke-opacity=".14" stroke-width="2">
+    <line x1="80" y1="630" x2="1010" y2="630"/>
+    <line x1="80" y1="800" x2="1010" y2="800"/>
+    <line x1="80" y1="970" x2="1010" y2="970"/>
+  </g>
+
+  <!-- Regular column -->
+  <rect x="810" y="230" width="200" height="890" rx="28" fill="#E4DACB"/>
+  <g transform="translate(910 300)">
+    <path d="M -90 -2 L 90 -2" stroke="#A69C8F" stroke-width="4" stroke-linecap="round"/>
+    <path d="M -78 -12 C -50 -22 50 -22 78 -12 L 78 12 C 50 22 22 18 0 10 C -22 18 -50 22 -78 12 Z" fill="#BDB3A6"/>
+  </g>
+  <text x="910" y="400" text-anchor="middle" font-family="'Avenir Next', 'Gill Sans', sans-serif" font-size="28" font-weight="600" fill="#7A7064">Regular mask</text>
+
+  <!-- Dusk column -->
+  <rect x="590" y="226" width="210" height="930" rx="32" fill="#1a0f25" opacity=".35" filter="url(#colShadow)"/>
+  <rect x="580" y="210" width="210" height="930" rx="32" fill="#2B1B3D"/>
+  <g transform="translate(685 300) scale(.5) translate(-540 -1005)">
+    <path d="M 360 990 C 360 950 430 935 540 945 C 650 935 720 950 720 990 L 720 1030 C 720 1070 660 1080 610 1068 C 580 1060 560 1045 540 1045 C 520 1045 500 1060 470 1068 C 420 1080 360 1070 360 1030 Z" fill="url(#maskg)" stroke="#F3EBDD" stroke-opacity=".25" stroke-width="3"/>
+    <path d="M 376 1012 C 460 1003 620 1003 704 1012 M 450 952 C 442 990 442 1030 455 1068 M 630 952 C 638 990 638 1030 625 1068" stroke="#F3EBDD" stroke-opacity=".35" stroke-width="4" stroke-dasharray="8 8" fill="none"/>
+    <ellipse cx="630" cy="960" rx="60" ry="9" fill="#ffffff" opacity=".14"/>
+    <path transform="translate(410 980) scale(.6)" d="M6,-17 A18,18 0 1 0 6,17 A20,20 0 0 1 6,-17 Z" fill="#F3EBDD" opacity=".85"/>
+  </g>
+  <text x="685" y="400" text-anchor="middle" font-family="Futura, 'Avenir Next', sans-serif" font-size="40" font-weight="500" letter-spacing="2" fill="#F3EBDD">Dusk</text>
+
+  <!-- Rows -->
+  <g font-family="'Avenir Next', 'Gill Sans', sans-serif" font-size="38" font-weight="500" fill="#2B1B3D">
+    <text x="80" y="558">Gentle 0.5 lb pressure</text>
+    <text x="80" y="728">Total blackout</text>
+    <text x="80" y="898">Fall asleep 2× faster</text>
+    <text x="80" y="1068">30-night trial</text>
+  </g>
+  <use href="#chk" x="685" y="545"/>
+  <use href="#chk" x="685" y="715"/>
+  <use href="#chk" x="685" y="885"/>
+  <use href="#chk" x="685" y="1055"/>
+  <use href="#crs" x="910" y="545"/>
+  <use href="#crs" x="910" y="715"/>
+  <use href="#crs" x="910" y="885"/>
+  <use href="#crs" x="910" y="1055"/>
+
+  <!-- BRAND FRAME (fixed) -->
+  <g id="brand-frame">
+    <rect x="0" y="1206" width="1080" height="144" fill="#2B1B3D"/>
+    <g transform="translate(84 1278)">
+      <path d="M6,-17 A18,18 0 1 0 6,17 A20,20 0 0 1 6,-17 Z" fill="#F3EBDD"/>
+      <text x="32" y="15" font-family="Futura, 'Avenir Next', sans-serif" font-size="46" font-weight="500" letter-spacing="3" fill="#F3EBDD">dusk</text>
+    </g>
+    <rect x="556" y="1240" width="460" height="76" rx="38" fill="#F3EBDD"/>
+    <text x="786" y="1288" text-anchor="middle" font-family="'Avenir Next', 'Gill Sans', sans-serif" font-size="28" font-weight="600" fill="#2B1B3D">Shop Dusk, 30-night trial</text>
+  </g>
+</svg>

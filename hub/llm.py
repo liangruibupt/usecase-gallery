@@ -23,11 +23,12 @@ class Reply:
 
 
 def chat(system: str, messages: list[dict]) -> Reply:
-    if PROVIDER == "bedrock":
-        return _bedrock(system, messages)
-    if PROVIDER == "openai":
-        return _openai(system, messages)
-    raise SystemExit(f"Unknown HUB_PROVIDER={PROVIDER!r}; use 'bedrock' or 'openai'")
+    if PROVIDER not in ("bedrock", "openai"):
+        raise SystemExit(f"Unknown HUB_PROVIDER={PROVIDER!r}; use 'bedrock' or 'openai'")
+    reply = _bedrock(system, messages) if PROVIDER == "bedrock" else _openai(system, messages)
+    if not reply.text.strip():
+        raise RuntimeError(f"Model returned an empty reply ({reply.usage['output']} output tokens); split the turn")
+    return reply
 
 
 def _bedrock(system, messages):

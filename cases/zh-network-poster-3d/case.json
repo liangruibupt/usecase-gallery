@@ -1,0 +1,40 @@
+{
+  "slug": "zh-network-poster-3d",
+  "lang": "zh",
+  "title": "把 2D 网络海报变成可操作的 3D 可视化网页",
+  "summary": "从一张白底粉线的合著网络海报出发，保留编辑感排版，重建成约 1,500 节点的 3D 网络：拖动旋转、滚轮缩放、悬停高亮、点击聚焦、Esc 返回，Bundling / Density / Line Opacity 滑块，重新生成和导出 PNG。",
+  "tags": [
+    "3D",
+    "Web",
+    "Data",
+    "Design"
+  ],
+  "source": {
+    "site": "AutoClaw 博客",
+    "category": "Tutorial",
+    "title": "AI 生成交互式网页怎么做？用 AutoClaw 把 2D 海报变成 3D 可视化",
+    "url": "https://autoclaw.z.ai/cn/blog/tutorial/ai-generate-interactive-3d-webpage/",
+    "published": "2026-10-30",
+    "original_setup": "AutoClaw（原文未注明专家与模型），输入一张海报图片，交付约 198 KB 离线单文件 HTML",
+    "notes": "原文的原始提示词未公开，这里用原文给出的“可复用任务描述”原句，后接原文列出的具体交互目标。运行器只能传文本，原图改成一份文字描述（poster-description.md），海报上的第三方品牌和文案换成了虚构的。"
+  },
+  "system": "你是 AutoClaw 设计专家，在「设计创意」项目里工作：先梳理页面结构、状态和交互规则，再写代码；交付前自己预览检查，确认每个可见控件都真的能用。\n\n网页交付的技术约束：\n- 每个网页交付为一个自包含的 .html 文件：CSS 和 JavaScript 全部内联，不引用任何 CDN、外部脚本库、网络字体、外部图片，也不发任何网络请求，断网双击即可打开。图形、插画和产品形象用 CSS、内联 SVG 或 Canvas 绘制，不放照片。\n- 中文字体栈以 \"PingFang SC\", \"Hiragino Sans GB\", \"Microsoft YaHei\" 开头，最后接通用族（sans-serif 或 serif）；等宽字体用 \"SF Mono\", Menlo, monospace。\n- 你交付的 HTML 会在 1440×900 的无头 Chrome 窗口里打开（脚本运行约 5 秒）并截图，截图会回传给你做交付前检查。\n- 文件名用英文 kebab-case，例如 task-board-prototype.html。修改时用同名文件交付完整新版本。\n- 3D 渲染用你自己写的 Canvas 2D 代码完成（自己做三维投影和深度排序）：检查截图用的无头 Chrome 关闭了 GPU，WebGL 不可用。",
+  "inputs": [
+    "poster-description.md"
+  ],
+  "convert": {
+    ".html": {
+      "to": "shot.png",
+      "width": 1440,
+      "height": 900
+    }
+  },
+  "review_prompt": "这是你刚交付的网页在无头 Chrome 中打开后的截图。像交付前预览检查一样看：文字重叠或被截断、布局错位、中文显示成方框、画面空白、控件看不见。再回读你的代码，确认每个可见控件都接上了事件处理、核心交互能走通。需要修改就用同名文件交付完整的修正版；已经可以交付就用一两句话说明，不交付文件。",
+  "turns": [
+    {
+      "label": "需求",
+      "review": true,
+      "prompt": "请根据我提供的静态可视化图片，制作一个可以在浏览器运行的交互式 3D 网页。先提取图片中需要保留的背景、配色、线条、排版和说明文字，再将主体内容重建为三维结构。用户需要能够拖动旋转、滚轮缩放、悬停查看关系、点击对象查看详细信息并返回全局视图。所有可见控件都必须工作。请交付一份可以离线打开的单文件 HTML，并列出已经实现的交互、测试结果和仍需人工确认的事项。不要把静态截图当作最终交付物。\n\n具体要求：网络需要在三维空间中展开；用户可以拖动旋转、滚轮缩放、悬停查看连接、点击节点进入局部，并显示节点编号、连接数量和三维坐标，按 Esc 返回；页面还需要提供边线聚合（Bundling）、密度（Density）和透明度（Line Opacity）调节，以及重新生成（Regenerate）和导出 PNG（Export PNG）的能力。网络规模约 1,500 个节点。\n\n（图片以文字描述的形式附在下面。）"
+    }
+  ]
+}

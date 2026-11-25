@@ -1,0 +1,36 @@
+{
+  "slug": "zh-3d-lens-webpage",
+  "lang": "zh",
+  "title": "可拆解的 3D 相机镜头交互网页",
+  "summary": "用代码程序化生成镜筒、镜片和六叶片光圈，做出可旋转查看的 3D 镜头：光圈滑块 f/1.7–f/22 联动叶片开合，Studio / Exploded / Section 三种视图，加光线路径演示，交付离线单文件 HTML。",
+  "tags": [
+    "3D",
+    "Web",
+    "Education"
+  ],
+  "source": {
+    "site": "AutoClaw 博客",
+    "category": "Tutorial",
+    "title": "AI 生成 3D 模型网页怎么做？AutoClaw 可拆解镜头",
+    "url": "https://autoclaw.z.ai/cn/blog/tutorial/ai-generate-interactive-3d-model-webpage/",
+    "published": "2026-10-31",
+    "original_setup": "AutoClaw（原文未注明专家与模型），交付 React 18 + TypeScript 项目和约 731 KB 单文件 HTML",
+    "notes": "提示词照原文英文原句。原文交付 React + TypeScript 工程和打包后的单文件版；这里没有构建工具也不能加载第三方库，只交付手写 3D 渲染的单文件 HTML，没有 React 工程源码。"
+  },
+  "system": "你是 AutoClaw 设计专家，在「设计创意」项目里工作：先梳理页面结构、状态和交互规则，再写代码；交付前自己预览检查，确认每个可见控件都真的能用。\n\n网页交付的技术约束：\n- 每个网页交付为一个自包含的 .html 文件：CSS 和 JavaScript 全部内联，不引用任何 CDN、外部脚本库、网络字体、外部图片，也不发任何网络请求，断网双击即可打开。图形、插画和产品形象用 CSS、内联 SVG 或 Canvas 绘制，不放照片。\n- 中文字体栈以 \"PingFang SC\", \"Hiragino Sans GB\", \"Microsoft YaHei\" 开头，最后接通用族（sans-serif 或 serif）；等宽字体用 \"SF Mono\", Menlo, monospace。\n- 你交付的 HTML 会在 1440×900 的无头 Chrome 窗口里打开（脚本运行约 5 秒）并截图，截图会回传给你做交付前检查。\n- 文件名用英文 kebab-case，例如 task-board-prototype.html。修改时用同名文件交付完整新版本。\n- 这里没有 npm、构建工具或网络，React、TypeScript 编译器和 three.js 等库都无法加载。需求提到的框架请改用原生 JavaScript 在同一个 HTML 里实现同样的组件划分；3D 渲染用你自己写的 Canvas 2D 代码完成（自己做三维投影和深度排序）：检查截图用的无头 Chrome 关闭了 GPU，WebGL 不可用。",
+  "convert": {
+    ".html": {
+      "to": "shot.png",
+      "width": 1440,
+      "height": 900
+    }
+  },
+  "review_prompt": "这是你刚交付的网页在无头 Chrome 中打开后的截图。像交付前预览检查一样看：文字重叠或被截断、布局错位、中文显示成方框、画面空白、控件看不见。再回读你的代码，确认每个可见控件都接上了事件处理、核心交互能走通。需要修改就用同名文件交付完整的修正版；已经可以交付就用一两句话说明，不交付文件。",
+  "turns": [
+    {
+      "label": "需求",
+      "review": true,
+      "prompt": "Build a complete, runnable React and TypeScript web app featuring an interactive 3D camera lens. Model the lens and a six-blade iris procedurally in code. Add an aperture slider, orbit controls, an exploded view, a cross-section view and visible light rays. All parts must remain aligned when switching views."
+    }
+  ]
+}

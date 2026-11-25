@@ -1,0 +1,143 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="800" height="800" viewBox="0 0 800 800">
+  <style>
+    .hg{font-family:'Hiragino Sans GB',sans-serif}
+    .av{font-family:'Avenir Next',sans-serif}
+  </style>
+  <defs>
+    <clipPath id="glassClip">
+      <path d="M0 0 L200 0 L184 250 Q183 260 172 260 L28 260 Q17 260 16 250 Z"/>
+    </clipPath>
+    <linearGradient id="cof" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#D8A576"/>
+      <stop offset="0.3" stop-color="#8A5430"/>
+      <stop offset="1" stop-color="#3A1D0C"/>
+    </linearGradient>
+    <filter id="blur" x="-20%" y="-100%" width="140%" height="300%"><feGaussianBlur stdDeviation="6"/></filter>
+    <g id="glass">
+      <ellipse cx="100" cy="268" rx="96" ry="10" fill="#000" opacity="0.3" filter="url(#blur)"/>
+      <g clip-path="url(#glassClip)">
+        <rect width="200" height="260" fill="#FFFFFF" fill-opacity="0.16"/>
+        <rect y="70" width="200" height="200" fill="url(#cof)"/>
+        <ellipse cx="100" cy="70" rx="98" ry="8" fill="#C08A5E"/>
+        <path d="M30 128 C80 100 130 150 175 118" fill="none" stroke="#F1CFA8" stroke-width="7" stroke-linecap="round" opacity="0.45"/>
+        <path d="M40 188 C90 166 120 210 165 184" fill="none" stroke="#F1CFA8" stroke-width="5" stroke-linecap="round" opacity="0.3"/>
+        <g fill="#FFFFFF" fill-opacity="0.38" stroke="#FFFFFF" stroke-opacity="0.95" stroke-width="2.5">
+          <rect x="34" y="50" width="44" height="40" rx="7" transform="rotate(-12 56 70)"/>
+          <rect x="88" y="54" width="40" height="36" rx="7" transform="rotate(9 108 72)"/>
+          <rect x="136" y="48" width="38" height="36" rx="6" transform="rotate(-6 155 66)"/>
+        </g>
+        <rect x="24" y="0" width="12" height="260" fill="#FFFFFF" opacity="0.25"/>
+      </g>
+      <path d="M0 0 L200 0 L184 250 Q183 260 172 260 L28 260 Q17 260 16 250 Z" fill="none" stroke="#FFFFFF" stroke-width="4"/>
+      <ellipse cx="100" cy="0" rx="100" ry="9" fill="#FFFFFF" fill-opacity="0.12" stroke="#FFFFFF" stroke-width="4"/>
+    </g>
+    <g id="pod">
+      <path d="M-30 -22 L30 -22 L26 24 Q25 30 19 30 L-19 30 Q-25 30 -26 24 Z" fill="#FFFFFF" stroke="#121318" stroke-width="3"/>
+      <rect x="-34" y="-32" width="68" height="12" fill="#FFD400" stroke="#121318" stroke-width="3"/>
+      <rect x="-22" y="-8" width="44" height="18" fill="#2340FF"/>
+      <text x="0" y="6" text-anchor="middle" class="hg" font-size="12" font-weight="700" fill="#FFFFFF">醒山</text>
+    </g>
+    <g id="tag">
+      <path d="M0 -82 C -12 -120 -26 -140 -36 -168" fill="none" stroke="#FFFFFF" stroke-width="2.5"/>
+      <polygon transform="translate(6 8)" points="-68,-70 -40,-104 40,-104 68,-70 68,104 -68,104" fill="#000" fill-opacity="0.28"/>
+      <polygon points="-68,-70 -40,-104 40,-104 68,-70 68,104 -68,104" fill="#FFD400" stroke="#121318" stroke-width="3" stroke-linejoin="round"/>
+      <circle cy="-82" r="9" fill="#2340FF" stroke="#121318" stroke-width="3"/>
+      <text y="-36" text-anchor="middle" class="hg" font-size="26" font-weight="700" fill="#121318" letter-spacing="3">首单</text>
+      <text y="34" text-anchor="middle" fill="#121318"><tspan class="av" font-weight="800" font-size="54">9.9</tspan><tspan class="hg" font-size="20" font-weight="700" dx="2">元</tspan></text>
+      <line x1="-52" y1="56" x2="52" y2="56" stroke="#121318" stroke-width="2" stroke-dasharray="4 5"/>
+      <text y="90" text-anchor="middle" class="hg" font-size="26" font-weight="700" fill="#121318">6 颗</text>
+    </g>
+  </defs>
+
+  <rect width="800" height="800" fill="#E7E3DB"/>
+  <rect x="400" y="0" width="400" height="800" fill="#2340FF"/>
+
+  <!-- logo -->
+  <g transform="translate(40 36) scale(0.8)">
+    <rect width="56" height="56" fill="#23201C"/>
+    <path d="M10 40 L22 26 L29 33 L38 20 L48 40" stroke="#FFFFFF" stroke-width="4" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+    <circle cx="40" cy="14" r="4" fill="#FFD400"/>
+    <text x="70" y="36" class="hg" font-size="34" font-weight="700" fill="#23201C" letter-spacing="2">醒山</text>
+    <text x="71" y="54" class="av" font-size="11" font-weight="700" fill="#23201C" fill-opacity="0.55" letter-spacing="3">XINGSHAN</text>
+  </g>
+  <text x="760" y="66" text-anchor="end" class="hg" font-size="14" font-weight="700" fill="#FFFFFF" fill-opacity="0.85" letter-spacing="2">对比实验 · COMPARE</text>
+
+  <text x="40" y="112" class="hg" font-size="15" font-weight="700" fill="#8C8273" letter-spacing="2">传统手冲 · POUR-OVER</text>
+  <text x="424" y="112" class="hg" font-size="15" font-weight="700" fill="#FFFFFF" fill-opacity="0.8" letter-spacing="2">醒山冻干 · XINGSHAN</text>
+
+  <!-- headline -->
+  <text x="40" y="190" class="hg" font-size="72" font-weight="700" fill="#23201C">手冲<tspan class="av" font-weight="800" font-size="100" dx="4">7</tspan><tspan dx="4">步，</tspan></text>
+  <text x="424" y="190" class="hg" font-size="72" font-weight="700" fill="#FFFFFF">醒山<tspan class="av" font-weight="800" font-size="100" dx="4" fill="#FFD400">1</tspan><tspan dx="4">步</tspan></text>
+  <circle cx="400" cy="158" r="22" fill="#121318"/>
+  <text x="400" y="164" text-anchor="middle" class="av" font-style="italic" font-weight="800" font-size="17" fill="#FFD400">VS</text>
+
+  <rect x="40" y="208" width="720" height="46" fill="#121318"/>
+  <text x="400" y="240" text-anchor="middle" class="hg" font-size="26" font-weight="700" fill="#FFFFFF"><tspan fill="#FFD400">3 秒冷水速溶</tspan> · 0 糖 0 脂</text>
+
+  <!-- LEFT: 7 steps -->
+  <line x1="58" y1="285" x2="58" y2="573" stroke="#23201C" stroke-opacity="0.35" stroke-width="1.5" stroke-dasharray="3 4"/>
+  <g fill="#E7E3DB" stroke="#23201C" stroke-width="1.8">
+    <circle cx="58" cy="285" r="13"/><circle cx="58" cy="333" r="13"/><circle cx="58" cy="381" r="13"/>
+    <circle cx="58" cy="429" r="13"/><circle cx="58" cy="477" r="13"/><circle cx="58" cy="525" r="13"/><circle cx="58" cy="573" r="13"/>
+  </g>
+  <g class="av" font-weight="700" font-size="14" fill="#23201C" text-anchor="middle">
+    <text x="58" y="290">1</text><text x="58" y="338">2</text><text x="58" y="386">3</text>
+    <text x="58" y="434">4</text><text x="58" y="482">5</text><text x="58" y="530">6</text><text x="58" y="578">7</text>
+  </g>
+  <g class="hg" font-size="19" fill="#23201C">
+    <text x="82" y="292">烧水至 <tspan class="av" font-weight="500">92 °C</tspan></text><text x="82" y="340">称豆 <tspan class="av" font-weight="500">15 g</tspan></text><text x="82" y="388">磨豆至中细</text>
+    <text x="82" y="436">折滤纸、温杯</text><text x="82" y="484">闷蒸萃取</text><text x="82" y="532">分段注水</text><text x="82" y="580">清洗器具</text>
+  </g>
+  <g class="av" font-weight="600" font-size="15" fill="#8C8273" text-anchor="end">
+    <text x="380" y="292">4 min</text><text x="380" y="340">30 s</text><text x="380" y="388">1 min</text>
+    <text x="380" y="436">1 min</text><text x="380" y="484">30 s</text><text x="380" y="532">2 min</text><text x="380" y="580">3 min</text>
+  </g>
+  <g fill="#23201C" fill-opacity="0.07">
+    <rect x="82" y="300" width="240" height="4"/><rect x="82" y="348" width="240" height="4"/><rect x="82" y="396" width="240" height="4"/>
+    <rect x="82" y="444" width="240" height="4"/><rect x="82" y="492" width="240" height="4"/><rect x="82" y="540" width="240" height="4"/><rect x="82" y="588" width="240" height="4"/>
+  </g>
+  <g fill="#A79B88">
+    <rect x="82" y="300" width="240" height="4"/><rect x="82" y="348" width="30" height="4"/><rect x="82" y="396" width="60" height="4"/>
+    <rect x="82" y="444" width="60" height="4"/><rect x="82" y="492" width="30" height="4"/><rect x="82" y="540" width="120" height="4"/><rect x="82" y="588" width="180" height="4"/>
+  </g>
+
+  <!-- RIGHT: 1 step -->
+  <rect x="424" y="266" width="92" height="24" fill="#FFD400"/>
+  <text x="470" y="283" text-anchor="middle" class="av" font-weight="800" font-size="13" fill="#121318" letter-spacing="2">STEP 01</text>
+  <text x="528" y="284" class="hg" font-size="15" font-weight="700" fill="#FFFFFF" fill-opacity="0.85">只有这一步</text>
+
+  <use xlink:href="#glass" transform="translate(438 346) scale(0.62)"/>
+  <use xlink:href="#pod" transform="translate(500 318) rotate(-18) scale(0.7)"/>
+  <g fill="#3A1D0C">
+    <rect x="492" y="338" width="5" height="5" transform="rotate(20 494 340)"/>
+  </g>
+
+  <use xlink:href="#tag" transform="translate(668 430) rotate(6) scale(0.85)"/>
+
+  <text x="424" y="542" class="hg" font-size="24" font-weight="700" fill="#FFFFFF">倒冷水，丢一颗</text>
+  <text x="424" y="566" class="hg" font-size="15" fill="#FFFFFF" fill-opacity="0.8">搅一下，3 秒就能喝</text>
+  <g fill="none" stroke="#FFFFFF" stroke-opacity="0.55" stroke-width="1.5">
+    <rect x="424" y="576" width="104" height="26"/><rect x="534" y="576" width="104" height="26"/><rect x="644" y="576" width="104" height="26"/>
+  </g>
+  <g fill="none" stroke="#FFD400" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M435 589 l4 4 l8 -8"/><path d="M545 589 l4 4 l8 -8"/><path d="M655 589 l4 4 l8 -8"/>
+  </g>
+  <g class="hg" font-size="14" font-weight="700" fill="#FFFFFF">
+    <text x="456" y="594">免烧水</text><text x="566" y="594">免器具</text><text x="676" y="594">免清洗</text>
+  </g>
+
+  <!-- totals -->
+  <line x1="40" y1="612" x2="380" y2="612" stroke="#23201C" stroke-opacity="0.3" stroke-width="1.2"/>
+  <line x1="424" y1="612" x2="760" y2="612" stroke="#FFFFFF" stroke-opacity="0.35" stroke-width="1.2"/>
+  <text x="40" y="640" class="hg" font-size="16" font-weight="700" fill="#8C8273">总耗时 <tspan class="av" font-weight="800" font-size="24" fill="#23201C">≈ 12 min</tspan></text>
+  <text x="424" y="640" class="hg" font-size="16" font-weight="700" fill="#FFFFFF" fill-opacity="0.8">总耗时 <tspan class="av" font-weight="800" font-size="24" fill="#FFD400" fill-opacity="1">3 s</tspan></text>
+
+  <!-- base -->
+  <rect x="0" y="654" width="800" height="146" fill="#121318"/>
+  <text x="40" y="676" class="hg" font-size="12" fill="#8E8F96">* 手冲步骤与耗时为常见流程估算；醒山冷水搅拌后速溶，图示为示意。</text>
+
+  <rect x="40" y="690" width="720" height="70" fill="#FFD400"/>
+  <text x="68" y="737" class="hg" font-size="30" font-weight="700" fill="#121318">立即抢购 · 首单 <tspan class="av" font-weight="800" font-size="35">9.9</tspan> 元 6 颗</text>
+  <rect x="690" y="690" width="70" height="70" fill="#2340FF"/>
+  <path d="M711 725 H739 M728 714 L739 725 L728 736" stroke="#FFFFFF" stroke-width="4.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

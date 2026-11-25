@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>公众号排版 · 版心</title>
+<style>
+  :root{
+    --bg:#F2F3F5; --panel:#FFFFFF; --line:#E4E7EC; --text:#1F2937; --muted:#6B7280;
+    --brand:#1D4ED8; --brand-d:#1E40AF;
+    --font:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
+    --mono:"SF Mono",Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%}
+  body{font-family:var(--font);color:var(--text);background:var(--bg);display:flex;flex-direction:column;overflow:hidden;font-size:14px;-webkit-font-smoothing:antialiased}
+  button{font-family:inherit}
+
+  /* ---------- 顶栏 ---------- */
+  .top{height:60px;flex-shrink:0;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;padding:0 20px;gap:22px}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:15px;color:#0F172A;white-space:nowrap}
+  .logo{width:28px;height:28px;border-radius:7px;background:#0F172A;color:#fff;display:grid;place-items:center;font-size:14px;font-weight:700}
+  .brand small{font-weight:400;color:var(--muted);font-size:12px;margin-left:2px}
+  .divider-v{width:1px;height:22px;background:var(--line)}
+  .ctrl{display:flex;align-items:center;gap:8px}
+  .ctrl-label{font-size:12px;color:var(--muted);white-space:nowrap}
+  .seg{display:inline-flex;background:#F1F2F4;border-radius:8px;padding:3px;gap:2px}
+  .seg button{border:0;background:transparent;height:28px;padding:0 11px;border-radius:6px;font-size:13px;color:#4B5563;cursor:pointer;display:inline-flex;align-items:center;gap:6px;white-space:nowrap;transition:background .15s,color .15s}
+  .seg button:hover{color:#111827}
+  .seg button.on{background:#fff;color:#111827;box-shadow:0 1px 2px rgba(15,23,42,.1);font-weight:600}
+  .seg .dot{width:8px;height:8px;border-radius:50%}
+  .seg .px{font-family:var(--mono);font-size:12px;color:#9CA3AF}
+  .seg button.on .px{color:#6B7280}
+  .spacer{flex:1}
+  .status{font-size:12px;color:var(--muted);display:flex;align-items:center;gap:6px;white-space:nowrap}
+  .status i{width:6px;height:6px;border-radius:50%;background:#10B981;display:inline-block}
+  .status.warn i{background:#F59E0B}
+  .actions{display:flex;gap:8px}
+  .btn{height:34px;padding:0 14px;border-radius:8px;border:1px solid var(--line);background:#fff;font-size:13px;cursor:pointer;color:#374151;white-space:nowrap;transition:background .15s,border-color .15s}
+  .btn:hover{background:#F9FAFB;border-color:#D1D5DB}
+  .btn:active{transform:translateY(1px)}
+  .btn.primary{background:var(--brand);border-color:var(--brand);color:#fff;font-weight:600;padding:0 16px;display:inline-flex;align-items:center;gap:6px;min-width:132px;justify-content:center}
+  .btn.primary:hover{background:var(--brand-d);border-color:var(--brand-d)}
+  .btn.primary.done{background:#059669;border-color:#059669}
+
+  /* ---------- 主体 ---------- */
+  main{flex:1;display:grid;grid-template-columns:minmax(380px,1fr) minmax(480px,1.18fr);min-height:0}
+  .pane{display:flex;flex-direction:column;min-height:0;min-width:0}
+  .pane-head{height:44px;flex-shrink:0;display:flex;align-items:center;justify-content:space-between;padding:0 20px;font-size:13px;border-bottom:1px solid var(--line)}
+  .pane-head b{color:#111827;font-weight:600}
+  .pane-head .meta{color:var(--muted);font-size:12px}
+  .editor{background:#fff;border-right:1px solid var(--line)}
+  textarea{flex:1;width:100%;border:0;outline:none;resize:none;padding:20px 28px 40px;font-family:var(--mono);font-size:14px;line-height:1.85;color:#1F2937;background:#fff;tab-size:4}
+  textarea::placeholder{color:#B6BCC6}
+  .chips{flex-shrink:0;border-top:1px solid var(--line);padding:10px 20px 12px;display:flex;flex-wrap:wrap;gap:6px;align-items:center;background:#FBFBFC}
+  .chips .ctrl-label{margin-right:4px}
+  .chip{height:26px;padding:0 10px;border:1px solid var(--line);background:#fff;border-radius:6px;font-size:12px;color:#4B5563;cursor:pointer;display:inline-flex;align-items:center;gap:5px}
+  .chip:hover{border-color:#93A4C9;color:#1D4ED8}
+  .chip code{font-family:var(--mono);font-size:11px;color:#9CA3AF}
+  .chip:hover code{color:#6B85C9}
+
+  .preview{background:#E8EAEE}
+  .preview .pane-head{background:#F4F5F7}
+  .stage{flex:1;min-height:0;overflow:auto;display:flex;justify-content:center;padding:22px 24px}
+
+  .device{height:100%;display:flex;flex-direction:column;flex-shrink:0;transition:width .25s ease}
+  .device.phone{width:399px;padding:12px;background:#111827;border-radius:48px;box-shadow:0 20px 50px rgba(15,23,42,.22),inset 0 0 0 2px #2B3445}
+  .device.pc{width:677px;background:#fff;border-radius:10px;box-shadow:0 14px 40px rgba(15,23,42,.14);overflow:hidden}
+  .screen-wrap{flex:1;min-height:0;background:#fff;display:flex;flex-direction:column;overflow:hidden;position:relative}
+  .phone .screen-wrap{border-radius:36px}
+  .sbar,.nav,.urlbar{display:none}
+  .phone .sbar{display:flex;height:44px;flex-shrink:0;align-items:center;justify-content:space-between;padding:4px 30px 0;font-size:14px;font-weight:600;color:#111;position:relative}
+  .phone .sbar .notch{position:absolute;left:50%;top:9px;transform:translateX(-50%);width:108px;height:28px;border-radius:16px;background:#111827}
+  .sig{display:flex;align-items:flex-end;gap:2px;height:11px}
+  .sig span{width:3px;background:#111;border-radius:1px}
+  .bat{width:24px;height:11px;border:1.5px solid #111;border-radius:3px;padding:1px;margin-left:6px;position:relative}
+  .bat::before{content:"";display:block;width:75%;height:100%;background:#111;border-radius:1px}
+  .phone .nav{display:flex;height:42px;flex-shrink:0;align-items:center;justify-content:space-between;padding:0 18px;border-bottom:1px solid #F0F1F3;color:#111;font-size:18px}
+  .nav .ttl{font-size:14px;color:#6B7280}
+  .pc .urlbar{display:flex;height:40px;flex-shrink:0;align-items:center;gap:7px;padding:0 14px;background:#F6F7F9;border-bottom:1px solid #ECEEF1}
+  .urlbar i{width:10px;height:10px;border-radius:50%;display:inline-block}
+  .urlbar .url{margin-left:14px;flex:1;height:24px;border-radius:6px;background:#fff;border:1px solid #E5E7EB;font-size:12px;color:#9CA3AF;display:flex;align-items:center;padding:0 10px;font-family:var(--mono)}
+  .screen{flex:1;overflow-y:auto;overflow-x:hidden}
+  .article{padding:22px 20px 56px}
+  .pc .article{padding:36px 20px 64px}
+  .screen::-webkit-scrollbar,.stage::-webkit-scrollbar,textarea::-webkit-scrollbar{width:8px;height:8px}
+  .screen::-webkit-scrollbar-thumb,.stage::-webkit-scrollbar-thumb,textarea::-webkit-scrollbar-thumb{background:#D3D7DE;border-radius:4px}
+  .empty{padding:120px 20px;text-align:center;color:#9CA3AF;font-size:14px;line-height:1.9}
+  .empty b{display:block;color:#4B5563;font-size:15px;margin-bottom:4px}
+
+  /* ---------- 提示 ---------- */
+  .toast{position:fixed;left:50%;bottom:28px;transform:translate(-50%,20px);opacity:0;pointer-events:none;background:#111827;color:#fff;padding:10px 16px;border-radius:10px;font-size:13px;display:flex;align-items:center;gap:14px;box-shadow:0 10px 30px rgba(0,0,0,.2);transition:all .2s;z-index:20}
+  .toast.show{opacity:1;transform:translate(-50%,0);pointer-events:auto}
+  .toast button{border:0;background:transparent;color:#93C5FD;font-size:13px;cursor:pointer;padding:0;font-weight:600}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="brand"><span class="logo">版</span>版心<small>公众号排版</small></div>
+  <div class="divider-v"></div>
+  <div class="ctrl">
+    <span class="ctrl-label">模板</span>
+    <div class="seg" id="themeSeg"></div>
+  </div>
+  <div class="ctrl">
+    <span class="ctrl-label">预览宽度</span>
+    <div class="seg" id="widthSeg">
+      <button data-w="375">手机 <span class="px">375</span></button>
+      <button data-w="677">电脑 <span class="px">677</span></button>
+    </div>
+  </div>
+  <div class="spacer"></div>
+  <div class="status" id="status"><i></i><span>已自动保存</span></div>
+  <div class="actions">
+    <button class="btn" id="btnClear">清空</button>
+    <button class="btn" id="btnDemo">恢复示例</button>
+    <button class="btn primary" id="btnCopy">复制到公众号</button>
+  </div>
+</header>
+
+<main>
+  <section class="pane editor">
+    <div class="pane-head"><b>稿件 · Markdown / 纯文本</b><span class="meta" id="srcMeta">0 行</span></div>
+    <textarea id="src" spellcheck="false" placeholder="在这里粘贴 Markdown 或纯文本稿件……&#10;&#10;# 大标题&#10;[副标题] 一句话副标题&#10;[作者] 文 / 作者 · 日期&#10;&#10;第一段会自动排成导语。"></textarea>
+    <div class="chips" id="chips"><span class="ctrl-label">插入</span></div>
+  </section>
+
+  <section class="pane preview">
+    <div class="pane-head"><b id="pvTitle">预览 · 375px</b><span class="meta" id="pvMeta"></span></div>
+    <div class="stage">
+      <div class="device phone" id="device">
+        <div class="screen-wrap">
+          <div class="sbar"><span>9:41</span><span class="notch"></span>
+            <span style="display:flex;align-items:center"><span class="sig"><span style="height:4px"></span><span style="height:6px"></span><span style="height:8px"></span><span style="height:11px"></span></span><span class="bat"></span></span>
+          </div>
+          <div class="nav"><span>✕</span><span class="ttl"></span><span>···</span></div>
+          <div class="urlbar"><i style="background:#F87171"></i><i style="background:#FBBF24"></i><i style="background:#34D399"></i><span class="url">mp.weixin.qq.com/s/preview</span></div>
+          <div class="screen" id="screen"><div class="article" id="article"></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div class="toast" id="toast"><span id="toastMsg"></span><button id="toastAct"></button></div>
+
+<script type="text/plain" id="demo"># 算力的尽头是电网
+[副标题] 当芯片不再稀缺，配电成了新的闸门
+[作者] 文 / 示例科技观察 · 2026 年 11 月 11 日
+
+过去两年，行业把注意力放在制程上：3nm、2nm、A16。但一个被反复忽略的变量是功率密度。单机架的功耗从 Hopper 时代的 40kW 涨到 GB300 的 130kW 以上，而多数数据中心的配电设计仍然停留在 20kW 量级。
+
+[数据] 3.2 倍｜GB300 单机架功率相对 Hopper 代的增幅
+
+芯片到货了，机房却装不下。这是 2026 年算力供给曲线变平的直接原因。
+
+## 01 芯片不再是瓶颈
+
+从 2024 年到 2026 年，全球 AI 加速卡的产能扩张了约四倍。供给端的紧张已经缓解，交付周期却没有同步缩短——卡不缺了，电和机位成了新的闸门。
+
+一位云厂商的基础设施负责人把这轮扩张形容成给跑车找停车位。
+
+> 我们不是缺芯片，是缺把电送进机房的人。—— 某云厂商基础设施负责人
+
+## 02 配电改造的十八个月
+
+一座标准园区的配电改造，从立项到送电通常需要 18 到 24 个月，审批、设备采购、施工各占三分之一。这个周期和 GPU 的迭代节奏完全错位。
+
+- 液冷改造：单机柜成本上升 30%–50%，功率密度可以翻倍。
+- 异地部署：把训练任务迁到电价更低、审批更快的地区，代价是网络延迟。
+- 降低利用率：最保守的做法，也是多数厂商实际在做的。
+
+三种路径的账本并不一样。液冷是一次性投入，异地部署是长期运营成本，降低利用率则直接体现为算力浪费。
+
+![图片位] 三种路径的成本对比示意图｜建议尺寸 1080×720
+
+### 液冷为什么还没普及
+
+液冷的难点不在技术本身，而在**存量机房的改造窗口**。一个在运行的机房很难停机施工，新建园区又要等配电指标。很多团队最后选择在调度层做文章，比如用 `power_cap` 参数给单卡限功耗。
+
+```
+# 示例：按机柜功率上限分配任务
+for rack in racks:
+    if rack.power_kw > rack.limit_kw * 0.9:
+        rack.defer(job)
+```
+
+## 03 下一阶段比的是什么
+
+1. 谁能更早拿到配电指标。
+2. 谁的机房能在不停机的情况下改造液冷。
+3. 谁的调度系统能把有限的电用在最该用的任务上。
+
+[数据] 18–24 个月｜标准园区配电改造从立项到送电的典型周期
+
+当算力的单位从“卡”变成“兆瓦”，竞争的关键也从采购能力转向了基础设施的规划能力。
+
+文｜示例作者
+
+## 参考资料
+
+- 示例研究院：《2026 数据中心功率密度观察》，2026 年 9 月
+- 示例产业联盟：《液冷数据中心建设指南（征求意见稿）》，2026 年 6 月
+- 公开访谈整理，2026 年 10 月
+</script>
+
+<script>
+(function(){
+  const DEMO = document.getElementById('demo').textContent.replace(/^\s*\n/, '');
+  const STORE_KEY = 'banxin.wechat.v1';
+  const FONT = "'PingFang SC','Hiragino Sans GB','Microsoft YaHei',-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif";
+  const MONO = "'SF Mono',Menlo,monospace";
+  const TITLE = '#0F172A', BODY = '#33383D', SUB = '#475569', MUTED = '#94A3B8', RULE = '#E5E7EB';
+
+  const THEMES = {
+    blue:  {name:'科技蓝', accent:'#1D4ED8', soft:'#F3F6FE', line:'#DCE4FB'},
+    teal:  {name:'青碧',   accent:'#0F766E', soft:'#F1F8F7', line:'#D3EAE6'},
+    ochre: {name:'赭石',   accent:'#B4532A', soft:'#FBF5F1', line:'#F0DED3'},
+    ink:   {name:'石墨',   accent:'#334155', soft:'#F4F5F7', line:'#E2E5EA'}
+  };
+
+  const $ = id => document.getElementById(id);
+  const src = $('src'), article = $('article'), device = $('device');
+  const state = {theme:'blue', width:375};
+
+  /* ================= 渲染 ================= */
+  const esc = s => s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+
+  function inline(s, t){
+    return s.split(/(`[^`]+`)/).map(p => {
+      if (/^`[^`]+`$/.test(p)) {
+        return `<code style="font-family:${MONO};font-size:14px;padding:2px 6px;margin:0 2px;border-radius:4px;background:#F1F3F6;color:${TITLE};letter-spacing:0;word-break:break-all;">${esc(p.slice(1,-1))}</code>`;
+      }
+      let x = esc(p);
+      const strong = (_, a) => `<strong style="font-weight:700;color:${t.accent};">${a}</strong>`;
+      x = x.replace(/\*\*(.+?)\*\*/g, strong).replace(/__(.+?)__/g, strong);
+      x = x.replace(/\[([^\]]+)\]\(([^)\s]+)\)/g, (_, a) => `<span style="color:${t.accent};border-bottom:1px solid ${t.line};">${a}</span>`);
+      return x;
+    }).join('');
+  }
+
+  const P_STYLE = `margin:0 0 20px;font-size:16px;line-height:1.75;color:${BODY};letter-spacing:0.3px;text-align:justify;`;
+
+  function codeBlock(buf, lang){
+    while (buf.length && !buf[buf.length-1].trim()) buf.pop();
+    const body = buf.map(l => {
+      let s = esc(l.replace(/\t/g,'    ')).replace(/ /g,'&nbsp;');
+      return /^\s*(#|\/\/|--)/.test(l) ? `<span style="color:#8B949E;">${s}</span>` : s;
+    }).join('<br>');
+    const head = lang ? `<p style="margin:0;padding:8px 16px;font-size:12px;line-height:1.4;color:#8B949E;font-family:${MONO};border-bottom:1px solid #E6EAF0;letter-spacing:0;">${esc(lang)}</p>` : '';
+    return `<section style="margin:4px 0 28px;background:#F6F8FA;border:1px solid #E6EAF0;border-radius:6px;overflow:hidden;">${head}<section style="overflow-x:auto;padding:14px 16px;"><code style="display:block;white-space:nowrap;font-family:${MONO};font-size:13px;line-height:1.75;color:#24292F;letter-spacing:0;background:transparent;padding:0;">${body || '&nbsp;'}</code></section></section>`;
+  }
+
+  function listBlock(items, ordered, refs, t){
+    const rows = items.map((it, idx) => {
+      const last = idx === items.length - 1;
+      let marker, size = refs ? 13 : 16, color = refs ? '#64748B' : BODY, lh = refs ? 1.7 : 1.75;
+      if (refs) marker = `<span style="flex-shrink:0;width:2.3em;color:${MUTED};font-family:${MONO};font-size:12px;">[${idx+1}]</span>`;
+      else if (ordered) marker = `<span style="flex-shrink:0;min-width:1.6em;padding-right:4px;color:${t.accent};font-weight:700;">${esc(it.n)}.</span>`;
+      else marker = `<span style="flex-shrink:0;width:1.25em;color:${t.accent};font-weight:700;">•</span>`;
+      return `<section style="display:flex;align-items:flex-start;margin:0 0 ${last?0:(refs?6:10)}px;font-size:${size}px;line-height:${lh};color:${color};letter-spacing:0.3px;">${marker}<span style="flex:1;min-width:0;text-align:justify;">${inline(it.text, t)}</span></section>`;
+    }).join('');
+    return `<section style="margin:0 0 ${refs?8:24}px;">${rows}</section>`;
+  }
+
+  function render(text, t){
+    const lines = text.replace(/\r\n?/g,'\n').split('\n');
+    const out = [];
+    let i = 0, h2n = 0, refs = false, bodyStarted = false, leadDone = false;
+    const A = t.accent;
+
+    while (i < lines.length){
+      const raw = lines[i], line = raw.trim();
+      if (!line){ i++; continue; }
+      let m;
+
+      // 代码块
+      if ((m = line.match(/^(```|~~~)\s*([\w+#.-]*)/))){
+        const fence = m[1], buf = []; i++;
+        while (i < lines.length && !lines[i].trim().startsWith(fence)){ buf.push(lines[i]); i++; }
+        i++;
+        out.push(codeBlock(buf, m[2])); bodyStarted = true; continue;
+      }
+      // 标题
+      if ((m = line.match(/^(#{1,6})\s+(.+)$/))){
+        const lv = m[1].length, txt = m[2].trim(); i++;
+        if (lv === 1){
+          out.push(`<h1 style="margin:0 0 14px;font-size:26px;line-height:1.4;font-weight:700;color:${TITLE};letter-spacing:0.5px;">${inline(txt,t)}</h1>`);
+        } else if (lv === 2){
+          bodyStarted = true;
+          if (/^(参考资料|参考文献|参考|资料来源|延伸阅读|References)$/i.test(txt)){
+            refs = true;
+            out.push(`<section style="margin:40px 0 14px;padding-top:20px;border-top:1px solid ${RULE};"><h2 style="margin:0;font-size:15px;line-height:1.5;font-weight:700;color:${TITLE};letter-spacing:0.5px;">${inline(txt,t)}</h2></section>`);
+          } else {
+            refs = false;
+            let num, title = txt, nm = txt.match(/^(\d{1,2})[\s.、．)）]+(.+)$/);
+            if (nm){ num = parseInt(nm[1],10); title = nm[2]; h2n = Math.max(h2n, num); }
+            else { num = ++h2n; }
+            const ns = String(num).padStart(2,'0');
+            out.push(`<section style="margin:44px 0 20px;"><p style="margin:0 0 8px;font-size:28px;line-height:1;font-weight:700;color:${A};letter-spacing:0;">${ns}</p><h2 style="margin:0;padding-bottom:12px;border-bottom:1px solid ${RULE};font-size:20px;line-height:1.45;font-weight:700;color:${TITLE};letter-spacing:0.5px;">${inline(title,t)}</h2></section>`);
+          }
+        } else {
+          bodyStarted = true;
+          out.push(`<h3 style="margin:32px 0 14px;padding-left:10px;border-left:3px solid ${A};font-size:17px;line-height:1.5;font-weight:700;color:${TITLE};letter-spacing:0.3px;">${inline(txt,t)}</h3>`);
+        }
+        continue;
+      }
+      // 副标题 / 作者
+      if ((m = line.match(/^\[副标题\]\s*(.*)$/))){
+        out.push(`<p style="margin:0 0 16px;font-size:17px;line-height:1.6;color:${SUB};letter-spacing:0.3px;">${inline(m[1],t)}</p>`); i++; continue;
+      }
+      if ((m = line.match(/^\[作者\]\s*(.*)$/))){
+        out.push(`<p style="margin:0 0 28px;padding-bottom:20px;border-bottom:1px solid ${RULE};font-size:14px;line-height:1.6;color:${MUTED};letter-spacing:0.3px;">${inline(m[1],t)}</p>`); i++; continue;
+      }
+      // 数据卡片
+      if ((m = line.match(/^\[数据\]\s*(.*)$/))){
+        const parts = m[1].split(/[｜|]/), val = (parts.shift()||'').trim(), desc = parts.join('｜').trim();
+        const vm = val.match(/^([+\-−]?[\d.,]+(?:\s*[–\-~～至]\s*[\d.,]+)?\s*%?)\s*(.*)$/);
+        const num = vm ? vm[1] : val, unit = vm ? vm[2] : '';
+        out.push(`<section style="margin:4px 0 28px;padding:20px 20px 18px;background:${t.soft};border:1px solid ${t.line};border-radius:8px;"><p style="margin:0;line-height:1.15;color:${A};font-weight:700;letter-spacing:-0.5px;"><span style="font-size:40px;">${esc(num)}</span>${unit?`<span style="font-size:18px;margin-left:4px;letter-spacing:0;">${esc(unit)}</span>`:''}</p>${desc?`<p style="margin:10px 0 0;font-size:14px;line-height:1.6;color:${SUB};letter-spacing:0.3px;">${inline(desc,t)}</p>`:''}</section>`);
+        bodyStarted = true; i++; continue;
+      }
+      // 图片位
+      if ((m = line.match(/^!\[([^\]]*)\](?:\([^)]*\))?\s*(.*)$/))){
+        const alt = m[1].trim(), rest = m[2].trim();
+        const parts = rest ? rest.split(/[｜|]/) : [];
+        let cap = (parts[0]||'').trim(), spec = (parts[1]||'').trim();
+        if (!cap && alt && !/^(图片位|图片|图)$/.test(alt)) cap = alt;
+        out.push(`<section style="margin:4px 0 28px;"><section style="border:1px dashed #CBD5E1;background:#F8FAFC;border-radius:6px;padding:46px 16px;text-align:center;"><p style="margin:0;font-size:14px;line-height:1.5;color:#64748B;font-weight:600;letter-spacing:1px;">图片位</p><p style="margin:6px 0 0;font-size:12px;line-height:1.5;color:${MUTED};">${spec?esc(spec)+' · ':''}在公众号后台替换</p></section>${cap?`<p style="margin:10px 0 0;font-size:13px;line-height:1.6;color:${MUTED};text-align:center;letter-spacing:0.3px;">${inline(cap,t)}</p>`:''}</section>`);
+        bodyStarted = true; i++; continue;
+      }
+      // 引用
+      if (line.startsWith('>')){
+        const paras = [[]];
+        while (i < lines.length && lines[i].trim().startsWith('>')){
+          const c = lines[i].trim().replace(/^>\s?/,'').trim();
+          if (!c) paras.push([]); else paras[paras.length-1].push(c);
+          i++;
+        }
+        const ps = paras.map(p => p.join('')).filter(Boolean);
+        let source = '';
+        if (ps.length){
+          const lastP = ps[ps.length-1], k = lastP.lastIndexOf('——');
+          if (k >= 0){ source = lastP.slice(k+2).trim(); ps[ps.length-1] = lastP.slice(0,k).trim(); if(!ps[ps.length-1]) ps.pop(); }
+        }
+        const body = ps.map((p,j) => `<p style="margin:${j?'10px':'0'} 0 0;font-size:16px;line-height:1.75;color:${TITLE};font-weight:500;letter-spacing:0.3px;text-align:justify;">${inline(p,t)}</p>`).join('');
+        out.push(`<section style="margin:4px 0 28px;padding:16px 4px 18px;border-top:1px solid ${RULE};border-bottom:1px solid ${RULE};"><p style="margin:0 0 2px;font-size:34px;line-height:1;height:24px;color:${A};font-weight:700;">“</p>${body}${source?`<p style="margin:12px 0 0;font-size:13px;line-height:1.6;color:${MUTED};text-align:right;">—— ${inline(source,t)}</p>`:''}</section>`);
+        bodyStarted = true; continue;
+      }
+      // 列表
+      const ulRe = /^[-*+•]\s+(.*)$/, olRe = /^(\d+)[.、)）]\s*(.+)$/;
+      if (ulRe.test(line) || olRe.test(line)){
+        const ordered = !ulRe.test(line), re = ordered ? olRe : ulRe, items = [];
+        while (i < lines.length){
+          const l = lines[i].trim();
+          if (!l){
+            let j = i; while (j < lines.length && !lines[j].trim()) j++;
+            if (j < lines.length && re.test(lines[j].trim())){ i = j; continue; }
+            break;
+          }
+          const mm = l.match(re);
+          if (mm){ items.push(ordered ? {n:mm[1], text:mm[2]} : {text:mm[1]}); i++; }
+          else if (/^\s{2,}/.test(lines[i]) && items.length){ items[items.length-1].text += l; i++; }
+          else break;
+        }
+        out.push(listBlock(items, ordered, refs, t)); bodyStarted = true; continue;
+      }
+      // 分隔线
+      if (/^(-{3,}|\*{3,}|_{3,})$/.test(line)){
+        out.push(`<hr style="margin:32px 0;border:0;border-top:1px solid ${RULE};height:0;">`); i++; continue;
+      }
+      // 文末署名
+      if (line.length < 40 && /^(文|撰文|作者|编辑|责编|校对|审校|排版|图|策划)\s*[｜|丨\/:：]\s*\S/.test(line)){
+        const sigs = [];
+        while (i < lines.length){
+          const l = lines[i].trim();
+          if (l.length < 40 && /^(文|撰文|作者|编辑|责编|校对|审校|排版|图|策划)\s*[｜|丨\/:：]\s*\S/.test(l)){ sigs.push(l); i++; } else break;
+        }
+        out.push(`<section style="margin:36px 0 8px;text-align:right;">${sigs.map(s=>`<p style="margin:0;font-size:14px;line-height:1.8;color:#64748B;letter-spacing:0.5px;">${inline(s,t)}</p>`).join('')}</section>`);
+        bodyStarted = true; continue;
+      }
+      // 导语（显式或第一段）
+      let lm = line.match(/^\[导语\]\s*(.*)$/);
+      if (lm || (!bodyStarted && !leadDone)){
+        const txt = lm ? lm[1] : line;
+        out.push(`<section style="margin:0 0 28px;padding:16px 18px;background:#F6F7F9;border-left:3px solid ${A};border-radius:0 4px 4px 0;"><p style="margin:0;font-size:15px;line-height:1.8;color:${SUB};letter-spacing:0.3px;text-align:justify;">${inline(txt,t)}</p></section>`);
+        leadDone = true; i++; continue;
+      }
+      // 正文
+      out.push(`<p style="${P_STYLE}">${inline(line,t)}</p>`);
+      i++;
+    }
+    if (!out.length) return '';
+    return `<section style="font-family:${FONT};font-size:16px;line-height:1.75;color:${BODY};letter-spacing:0.3px;word-break:break-word;text-align:left;">${out.join('')}</section>`;
+  }
+
+  /* ================= 界面 ================= */
+  let lastHTML = '';
+  function update(){
+    const html = render(src.value, THEMES[state.theme]);
+    lastHTML = html;
+    article.innerHTML = html || '<div class="empty"><b>稿件为空</b>在左侧粘贴 Markdown 或纯文本，<br>这里会按公众号版式实时渲染。<br>也可以点击顶部「恢复示例」。</div>';
+    const plain = html ? article.innerText : '';
+    const cjk = (plain.match(/[\u4e00-\u9fa5]/g) || []).length;
+    const words = (plain.match(/[A-Za-z0-9]+/g) || []).length;
+    const total = cjk + words;
+    $('pvMeta').textContent = total ? `约 ${total.toLocaleString()} 字 · 阅读约 ${Math.max(1, Math.round(total/400))} 分钟` : '';
+    $('srcMeta').textContent = `${src.value ? src.value.split('\n').length : 0} 行 · ${src.value.length.toLocaleString()} 字符`;
+  }
+
+  // 模板按钮
+  const themeSeg = $('themeSeg');
+  Object.entries(THEMES).forEach(([k, th]) => {
+    const b = document.createElement('button');
+    b.dataset.k = k;
+    b.innerHTML = `<span class="dot" style="background:${th.accent}"></span>${th.name}`;
+    b.onclick = () => { state.theme = k; syncControls(); update(); save(); };
+    themeSeg.appendChild(b);
+  });
+  document.querySelectorAll('#widthSeg button').forEach(b => {
+    b.onclick = () => { state.width = +b.dataset.w; syncControls(); save(); };
+  });
+  function syncControls(){
+    themeSeg.querySelectorAll('button').forEach(b => b.classList.toggle('on', b.dataset.k === state.theme));
+    document.querySelectorAll('#widthSeg button').forEach(b => b.classList.toggle('on', +b.dataset.w === state.width));
+    device.className = 'device ' + (state.width === 375 ? 'phone' : 'pc');
+    $('pvTitle').textContent = `预览 · ${state.width}px · ${THEMES[state.theme].name}`;
+  }
+
+  // 保存
+  let saveTimer;
+  function save(){
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(() => {
+      const st = $('status');
+      try {
+        localStorage.setItem(STORE_KEY, JSON.stringify({text:src.value, theme:state.theme, width:state.width}));
+        const d = new Date();
+        st.classList.remove('warn');
+        st.lastElementChild.textContent = `已自动保存 · ${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`;
+      } catch(e){
+        st.classList.add('warn');
+        st.lastElementChild.textContent = '浏览器禁止本地保存';
+      }
+    }, 300);
+  }
+  function load(){
+    try {
+      const d = JSON.parse(localStorage.getItem(STORE_KEY) || 'null');
+      if (d && typeof d.text === 'string'){
+        src.value = d.text;
+        if (THEMES[d.theme]) state.theme = d.theme;
+        if (d.width === 375 || d.width === 677) state.width = d.width;
+        return;
+      }
+    } catch(e){}
+    src.value = DEMO;
+  }
+
+  // 提示
+  let toastTimer;
+  function toast(msg, actLabel, act){
+    const el = $('toast'), btn = $('toastAct');
+    $('toastMsg').textContent = msg;
+    btn.style.display = actLabel ? '' : 'none';
+    btn.textContent = actLabel || '';
+    btn.onclick = () => { el.classList.remove('show'); act && act(); };
+    el.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => el.classList.remove('show'), actLabel ? 5000 : 2400);
+  }
+
+  function replaceAll(text, msg){
+    const prev = src.value;
+    src.value = text; update(); save();
+    if (prev && prev !== text) toast(msg, '撤销', () => { src.value = prev; update(); save(); });
+    else toast(msg);
+  }
+  $('btnClear').onclick = () => { if (!src.value){ toast('稿件已经是空的'); return; } replaceAll('', '已清空稿件'); src.focus(); };
+  $('btnDemo').onclick = () => {
+    if (src.value === DEMO){ toast('当前已是示例文章'); return; }
+    replaceAll(DEMO, '已恢复示例文章'); $('screen').scrollTop = 0; src.scrollTop = 0;
+  };
+
+  // 复制
+  function copyRich(html, plain){
+    let ok = false;
+    const handler = e => { e.clipboardData.setData('text/html', html); e.clipboardData.setData('text/plain', plain); e.preventDefault(); ok = true; };
+    document.addEventListener('copy', handler);
+    try { document.execCommand('copy'); } catch(e){}
+    document.removeEventListener('copy', handler);
+    if (ok) return Promise.resolve();
+    if (navigator.clipboard && window.ClipboardItem){
+      return navigator.clipboard.write([new ClipboardItem({
+        'text/html': new Blob([html], {type:'text/html'}),
+        'text/plain': new Blob([plain], {type:'text/plain'})
+      })]);
+    }
+    // 最后兜底：选中预览区复制
+    return new Promise((res, rej) => {
+      const r = document.createRange(); r.selectNodeContents(article);
+      const s = getSelection(); s.removeAllRanges(); s.addRange(r);
+      const done = document.execCommand('copy'); s.removeAllRanges();
+      done ? res() : rej();
+    });
+  }
+  let copyTimer;
+  $('btnCopy').onclick = () => {
+    if (!lastHTML){ toast('没有可复制的内容，先在左侧输入稿件'); return; }
+    const btn = $('btnCopy');
+    copyRich(lastHTML, article.innerText).then(() => {
+      btn.classList.add('done'); btn.textContent = '已复制 ✓';
+      clearTimeout(copyTimer);
+      copyTimer = setTimeout(() => { btn.classList.remove('done'); btn.textContent = '复制到公众号'; }, 1800);
+      toast('已复制，到公众号编辑器里直接粘贴即可');
+    }).catch(() => toast('复制失败，请在预览区全选后手动复制'));
+  };
+
+  // 编辑器
+  function insertText(text){
+    src.focus();
+    if (!document.execCommand('insertText', false, text)){
+      src.setRangeText(text, src.selectionStart, src.selectionEnd, 'end');
+      src.dispatchEvent(new Event('input'));
+    }
+  }
+  src.addEventListener('input', () => { update(); save(); });
+  src.addEventListener('keydown', e => {
+    if (e.key === 'Tab' && !e.metaKey && !e.ctrlKey){ e.preventDefault(); insertText('    '); }
+  });
+
+  const SNIPPETS = [
+    ['大标题', '#', '# 文章标题'],
+    ['副标题', '[副标题]', '[副标题] 一句话副标题'],
+    ['作者行', '[作者]', '[作者] 文 / 作者 · 2026 年 1 月 1 日'],
+    ['小标题', '##', '## 小标题'],
+    ['三级标题', '###', '### 三级标题'],
+    ['引用', '>', '> 引用内容。—— 出处'],
+    ['数据卡片', '[数据]', '[数据] 42%｜一行说明文字'],
+    ['图片位', '![ ]', '![图片位] 图片说明｜建议尺寸 1080×720'],
+    ['代码块', '```', '```\n# 代码\n```'],
+    ['列表', '-', '- 列表项'],
+    ['有序列表', '1.', '1. 列表项'],
+    ['署名', '文｜', '文｜作者']
+  ];
+  const chips = $('chips');
+  SNIPPETS.forEach(([label, hint, snip]) => {
+    const b = document.createElement('button');
+    b.className = 'chip';
+    b.innerHTML = `${label}<code>${esc(hint)}</code>`;
+    b.onclick = () => {
+      const pos = src.selectionStart, before = src.value.slice(0, pos);
+      const pre = (!before || before.endsWith('\n\n')) ? '' : (before.endsWith('\n') ? '\n' : '\n\n');
+      insertText(pre + snip + '\n');
+    };
+    chips.appendChild(b);
+  });
+
+  load();
+  syncControls();
+  update();
+})();
+</script>
+</body>
+</html>

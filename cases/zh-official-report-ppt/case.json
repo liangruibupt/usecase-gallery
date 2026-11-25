@@ -1,0 +1,50 @@
+{
+  "slug": "zh-official-report-ppt",
+  "lang": "zh",
+  "title": "把统计公报整理成 12 页可编辑 PPT，附讲稿和证据表",
+  "summary": "一份虚构城市的年度统计公报，整理成适合 10 分钟汇报的 12 页可编辑 PPT，同步交付逐页讲稿、数据与图表来源表、PPT 页面与原文证据对应表和官方来源清单。",
+  "tags": [
+    "Presentation",
+    "Research",
+    "Documents",
+    "Data"
+  ],
+  "source": {
+    "site": "AutoClaw 博客",
+    "category": "Tutorial",
+    "title": "官方报告怎么做成可编辑 PPT？AutoClaw 实操案例",
+    "url": "https://autoclaw.z.ai/cn/blog/tutorial/official-report-to-editable-ppt/",
+    "published": "2026-10-23",
+    "original_setup": "AutoClaw（原文未注明专家与模型），读取国家统计局官网的《2025年国民经济和社会发展统计公报》",
+    "notes": "原文读取国家统计局官网公报，这里不联网，也不凭记忆复述官方数据：改用一份合成的虚构“临江市 2025 年统计公报”作为唯一来源（发布机构、链接均为虚构示例），任务描述按原文“换成其他报告时只替换报告名称”的说法替换报告名。pandoc 生成的 PPT 没有原生图表，图表页用可编辑数据表代替。"
+  },
+  "system": "你是 AutoClaw 通用 AI Agent，擅长把长篇报告整理成可汇报的演示文稿，并同步交付讲稿和可复核的来源材料。\n\n交付规则：\n- PPT 用 Markdown 幻灯片交付，文件名以 .slides.md 结尾，会自动用 pandoc 转成可编辑的 .pptx：文件开头用 YAML 写 title / subtitle / date，# 不用，## 开始一页新幻灯片。转换器按 GitHub Markdown 读取：不支持 ::: notes 之类的围栏块（会原样显示在页面上），演讲内容只写进讲稿文件。一页里如果有表格，表格必须放在这一页的最后，要点和来源说明写在表格前面，因为 pandoc 会把表格后面的内容拆到新的一页。每页的文字（不含表格）控制在 4 行以内，每行不超过 40 个字，来源写成一行短注，避免溢出页面。pandoc 不能生成原生图表，需要图表的页面用可编辑的数据表呈现，并在页面里注明“图表：……（可在 PowerPoint 中选中表格插入图表）”。\n- 讲稿、来源清单等文档用 Markdown 交付，会自动转成 Word。\n- 表格类交付物用 UTF-8 CSV 交付，会自动转成 Excel；第一行是表头，含逗号的字段用双引号包起来。\n- 只能使用用户提供的材料，所有数字逐字取自原文，单位和口径保持一致；原文找不到依据的内容不要补写。\n- 文件名：official-report.slides.md、speech-script.md、data-chart-sources.csv、slide-evidence-map.csv、official-sources.md。",
+  "inputs": [
+    "linjiang-2025-statistical-bulletin.md"
+  ],
+  "convert": {
+    ".slides.md": {
+      "to": "pptx"
+    },
+    ".md": {
+      "to": "docx"
+    },
+    ".csv": {
+      "to": "xlsx"
+    }
+  },
+  "turns": [
+    {
+      "label": "任务描述 · 先交付 PPT",
+      "prompt": "请把临江市统计局《临江市 2025 年国民经济和社会发展统计公报》整理成一份适合 10 分钟汇报的可编辑 PPT。只使用临江市统计局官方页面和官方报告中的信息，不使用第三方数据或网络图片。PPT 控制在 12 页左右，每页只表达一个主要结论，图表根据官方数据重新绘制并保持可编辑。请同时输出逐页讲稿、数据与图表来源表、PPT 页面与原文证据对应表，以及官方来源清单。所有具体数据都写明来源链接、发布日期和访问日期；找不到官方依据的内容不要补写。\n\n公报全文附在下面，访问日期按 2026 年 10 月 23 日记。这条回复先交付 PPT，其余文件我会分批要。"
+    },
+    {
+      "label": "逐页讲稿",
+      "prompt": "现在交付逐页讲稿，和 PPT 页码一一对应，总时长约 10 分钟，每页标注建议时长。"
+    },
+    {
+      "label": "来源表、证据对应表、来源清单",
+      "prompt": "现在交付数据与图表来源表、PPT 页面与原文证据对应表和官方来源清单。证据对应表每行写页码、页面主题、所用数据、原文位置（章节和原句）和来源链接。"
+    }
+  ]
+}

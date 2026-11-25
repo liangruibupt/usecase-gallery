@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920">
+  <title>D-06 · Product macro · Stories/Reels 1080×1920</title>
+  <desc>ID: D-06 | Hook: Product hero – macro of the quilted mask fabric under soft studio light, minimal copy | Hypothesis: A tactile, crafted close-up signals premium materials and quality, attracting higher-intent buyers who convert more efficiently | Primary metric: Cost per purchase | Placement: Stories/Reels (text kept within y 269–1248, x below 900) | Note: verify quilting/embroidery against real product finish</desc>
+  <defs>
+    <radialGradient id="puff" cx=".38" cy=".32" r=".78">
+      <stop offset="0" stop-color="#c9aedf"/>
+      <stop offset=".35" stop-color="#9070b0"/>
+      <stop offset=".75" stop-color="#5a3d7a"/>
+      <stop offset="1" stop-color="#33204a"/>
+    </radialGradient>
+    <pattern id="quilt" patternUnits="userSpaceOnUse" width="260" height="260">
+      <rect width="260" height="260" fill="#1f1229"/>
+      <rect x="6" y="6" width="248" height="248" rx="100" fill="url(#puff)"/>
+      <path d="M0 0H260M0 260H260M0 0V260M260 0V260" stroke="#F3EBDD" stroke-opacity=".5" stroke-width="4" stroke-dasharray="11 9"/>
+    </pattern>
+    <pattern id="weave" patternUnits="userSpaceOnUse" width="7" height="7">
+      <path d="M0 3.5H7M3.5 0V7" stroke="#ffffff" stroke-opacity=".05" stroke-width="1.2"/>
+    </pattern>
+    <linearGradient id="thread" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fbf4e8"/>
+      <stop offset="1" stop-color="#cdbb9f"/>
+    </linearGradient>
+    <radialGradient id="dofG" cx="567" cy="616" r="660" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset=".45" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#000000"/>
+    </radialGradient>
+    <mask id="sharp" maskUnits="userSpaceOnUse" x="0" y="0" width="1080" height="1920">
+      <rect x="0" y="0" width="1080" height="1920" fill="url(#dofG)"/>
+    </mask>
+    <radialGradient id="light" cx="820" cy="380" r="950" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#fff6e8" stop-opacity=".5"/>
+      <stop offset=".4" stop-color="#fff6e8" stop-opacity=".16"/>
+      <stop offset="1" stop-color="#fff6e8" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="shade" x1="900" y1="260" x2="150" y2="1300" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#1a0f25" stop-opacity="0"/>
+      <stop offset=".55" stop-color="#1a0f25" stop-opacity=".35"/>
+      <stop offset="1" stop-color="#1a0f25" stop-opacity=".85"/>
+    </linearGradient>
+    <linearGradient id="scrim" x1="0" y1="960" x2="0" y2="1920" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#2B1B3D" stop-opacity="0"/>
+      <stop offset=".2" stop-color="#2B1B3D" stop-opacity=".85"/>
+      <stop offset=".32" stop-color="#2B1B3D" stop-opacity=".9"/>
+      <stop offset=".6" stop-color="#2B1B3D" stop-opacity=".55"/>
+      <stop offset="1" stop-color="#2B1B3D" stop-opacity=".75"/>
+    </linearGradient>
+    <filter id="dof" filterUnits="userSpaceOnUse" x="-150" y="-150" width="1380" height="2220">
+      <feGaussianBlur stdDeviation="7"/>
+    </filter>
+    <filter id="streak" x="-50%" y="-100%" width="200%" height="300%">
+      <feGaussianBlur stdDeviation="40"/>
+    </filter>
+    <filter id="emb" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="3"/>
+    </filter>
+    <filter id="grain" filterUnits="userSpaceOnUse" x="0" y="0" width="1080" height="1920">
+      <feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="5"/>
+      <feColorMatrix values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  .1 0 0 0 0"/>
+    </filter>
+    <filter id="tshadow" x="-10%" y="-40%" width="120%" height="180%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="8"/>
+      <feOffset dy="3" result="b"/>
+      <feFlood flood-color="#120a1a" flood-opacity=".8"/>
+      <feComposite in2="b" operator="in" result="s"/>
+      <feMerge><feMergeNode in="s"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <rect x="0" y="0" width="1080" height="1920" fill="#3a2552"/>
+
+  <g filter="url(#dof)">
+    <g transform="rotate(-28 540 800)">
+      <rect x="-1100" y="-1100" width="3300" height="3700" fill="url(#quilt)"/>
+    </g>
+  </g>
+  <g mask="url(#sharp)">
+    <g transform="rotate(-28 540 800)">
+      <rect x="-1100" y="-1100" width="3300" height="3700" fill="url(#quilt)"/>
+      <rect x="-1100" y="-1100" width="3300" height="3700" fill="url(#weave)"/>
+      <g transform="translate(650 650) rotate(28)">
+        <path transform="translate(4 7) scale(2.8)" d="M6,-17 A18,18 0 1 0 6,17 A20,20 0 0 1 6,-17 Z" fill="#120a1a" opacity=".55" filter="url(#emb)"/>
+        <path transform="scale(2.8)" d="M6,-17 A18,18 0 1 0 6,17 A20,20 0 0 1 6,-17 Z" fill="url(#thread)" stroke="#a8916f" stroke-width=".6" stroke-dasharray="1.4 1"/>
+      </g>
+    </g>
+  </g>
+  <rect x="0" y="0" width="1080" height="1920" fill="url(#shade)"/>
+  <rect x="0" y="0" width="1080" height="1920" fill="url(#light)"/>
+  <rect x="620" y="140" width="560" height="150" rx="75" fill="#ffffff" opacity=".2" filter="url(#streak)" transform="rotate(-28 900 220)"/>
+  <rect x="0" y="0" width="1080" height="1920" fill="#ffffff" filter="url(#grain)"/>
+  <rect x="0" y="960" width="1080" height="960" fill="url(#scrim)"/>
+
+  <!-- minimal copy (safe zone) -->
+  <text x="80" y="1050" font-family="Didot, Baskerville, Georgia, serif" font-style="italic" font-size="96" fill="#F3EBDD" filter="url(#tshadow)">0.5 lb of quiet.</text>
+  <text x="84" y="1108" font-family="'Avenir Next', 'Gill Sans', sans-serif" font-size="26" font-weight="600" letter-spacing="5" fill="#F3EBDD" fill-opacity=".85">GENTLE WEIGHT · TOTAL BLACKOUT</text>
+
+  <!-- BRAND FRAME (fixed, inside Reels safe zone) -->
+  <g id="brand-frame">
+    <g transform="translate(84 1206)">
+      <path d="M6,-17 A18,18 0 1 0 6,17 A20,20 0 0 1 6,-17 Z" fill="#F3EBDD"/>
+      <text x="32" y="15" font-family="Futura, 'Avenir Next', sans-serif" font-size="46" font-weight="500" letter-spacing="3" fill="#F3EBDD">dusk</text>
+    </g>
+    <rect x="440" y="1168" width="460" height="76" rx="38" fill="#F3EBDD"/>
+    <text x="670" y="1216" text-anchor="middle" font-family="'Avenir Next', 'Gill Sans', sans-serif" font-size="28" font-weight="600" fill="#2B1B3D">Shop Dusk, 30-night trial</text>
+  </g>
+</svg>

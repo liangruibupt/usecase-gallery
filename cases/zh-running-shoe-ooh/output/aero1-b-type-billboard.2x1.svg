@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="2400" height="1200" viewBox="0 0 2400 1200">
+  <defs>
+    <text id="num" x="0" y="0" transform="translate(-175,916) scale(0.73,1)" font-family="Futura, 'Avenir Next', sans-serif" font-weight="700" font-size="1435"><tspan>1</tspan><tspan dx="-230">8</tspan><tspan dx="-29">2</tspan><tspan dx="-29">g</tspan></text>
+    <g id="mark">
+      <path d="M-70,0 L-45,-43 L-30,-43 L-55,0 Z M-40,0 L-15,-43 L0,-43 L-25,0 Z"/>
+      <text x="-88" y="0" text-anchor="end" font-family="Futura, 'Avenir Next', sans-serif" font-weight="700" font-size="60">AERO 1</text>
+    </g>
+    <mask id="onNum" maskUnits="userSpaceOnUse" x="0" y="0" width="2400" height="1200">
+      <use xlink:href="#num" fill="#ffffff"/>
+    </mask>
+  </defs>
+
+  <rect width="2400" height="1200" fill="#D4FF3A"/>
+
+  <use xlink:href="#num" fill="#0d0d0d"/>
+
+  <text x="60" y="1140" font-family="Futura, 'Avenir Next', sans-serif" font-weight="500" font-size="80" fill="#0d0d0d">Lighter than your phone.</text>
+
+  <use xlink:href="#mark" transform="translate(2340,1140) scale(1.2)" fill="#0d0d0d"/>
+  <g mask="url(#onNum)">
+    <use xlink:href="#mark" transform="translate(2340,1140) scale(1.2)" fill="#D4FF3A"/>
+  </g>
+</svg>

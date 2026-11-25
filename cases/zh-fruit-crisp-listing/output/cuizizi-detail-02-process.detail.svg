@@ -1,0 +1,141 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="750" height="1000" viewBox="0 0 750 1000">
+<defs>
+<filter id="soft" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="2.5"/></filter>
+<filter id="sh" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur in="SourceAlpha" stdDeviation="4"/><feOffset dy="6"/><feComponentTransfer><feFuncA type="linear" slope=".4"/></feComponentTransfer><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+<pattern id="bBlue" width="22" height="22" patternUnits="userSpaceOnUse"><circle cx="11" cy="11" r="5" fill="#2B47FF"/></pattern>
+<pattern id="pDot" width="16" height="16" patternUnits="userSpaceOnUse"><circle cx="8" cy="8" r="3" fill="#00C2FF"/></pattern>
+<pattern id="dMint" width="14" height="14" patternUnits="userSpaceOnUse"><circle cx="7" cy="7" r="3.2" fill="#36E2B4"/></pattern>
+<radialGradient id="gS" cx="38%" cy="32%" r="70%"><stop offset="0" stop-color="#FF8F9C"/><stop offset=".45" stop-color="#E5162F"/><stop offset="1" stop-color="#8A0014"/></radialGradient>
+<radialGradient id="gL" cx="40%" cy="30%" r="80%"><stop offset="0" stop-color="#7EDC6E"/><stop offset="1" stop-color="#1D7A32"/></radialGradient>
+<radialGradient id="gSc" cx="50%" cy="45%" r="60%"><stop offset="0" stop-color="#FFF4F4"/><stop offset=".55" stop-color="#FF9DAD"/><stop offset="1" stop-color="#EE3352"/></radialGradient>
+<g id="straw">
+<path d="M0,-38C28,-46 50,-22 42,10C34,40 12,58 0,62C-12,58 -34,40 -42,10C-50,-22 -28,-46 0,-38Z" fill="url(#gS)"/>
+<g fill="#FFE08A" stroke="#9E0A1E" stroke-width=".8"><ellipse cx="-22" cy="-14" rx="1.8" ry="3"/><ellipse cx="-4" cy="-22" rx="1.8" ry="3"/><ellipse cx="16" cy="-18" rx="1.8" ry="3"/><ellipse cx="30" cy="-4" rx="1.8" ry="3"/><ellipse cx="-32" cy="2" rx="1.8" ry="3"/><ellipse cx="-14" cy="-2" rx="1.8" ry="3"/><ellipse cx="6" cy="-6" rx="1.8" ry="3"/><ellipse cx="22" cy="8" rx="1.8" ry="3"/><ellipse cx="-24" cy="20" rx="1.8" ry="3"/><ellipse cx="-6" cy="14" rx="1.8" ry="3"/><ellipse cx="12" cy="22" rx="1.8" ry="3"/><ellipse cx="28" cy="24" rx="1.8" ry="3"/><ellipse cx="-14" cy="34" rx="1.8" ry="3"/><ellipse cx="4" cy="36" rx="1.8" ry="3"/><ellipse cx="18" cy="40" rx="1.8" ry="3"/><ellipse cx="-4" cy="50" rx="1.8" ry="3"/></g>
+<ellipse cx="-17" cy="-10" rx="9" ry="20" fill="#fff" opacity=".45" filter="url(#soft)" transform="rotate(20 -17 -10)"/>
+<path d="M0,-34L-30,-44L-12,-33L-34,-24L-8,-28L0,-48L8,-28L34,-24L12,-33L30,-44Z" fill="url(#gL)"/>
+<path d="M0,-42Q2,-52 7,-58" stroke="#2E7D32" stroke-width="4" fill="none" stroke-linecap="round"/>
+</g>
+<g id="scut">
+<path d="M0,-38C28,-46 50,-22 42,10C34,40 12,58 0,62C-12,58 -34,40 -42,10C-50,-22 -28,-46 0,-38Z" fill="#C9102B"/>
+<path d="M0,-38C28,-46 50,-22 42,10C34,40 12,58 0,62C-12,58 -34,40 -42,10C-50,-22 -28,-46 0,-38Z" transform="translate(0,3) scale(.86)" fill="url(#gSc)"/>
+<path d="M0,-24C9,-8 9,22 0,44C-9,22 -9,-8 0,-24Z" fill="#FFFBF7" opacity=".9"/>
+<g stroke="#FFF6F6" stroke-width="2" fill="none" opacity=".75" stroke-linecap="round"><path d="M-3,-10Q-16,-22 -30,-26"/><path d="M3,-10Q16,-22 30,-26"/><path d="M-5,6Q-22,2 -36,6"/><path d="M5,6Q22,2 36,6"/><path d="M-4,22Q-16,30 -26,36"/><path d="M4,22Q16,30 26,36"/></g>
+<g fill="#FFE7A0"><circle cx="-34" cy="-14" r="1.6"/><circle cx="34" cy="-14" r="1.6"/><circle cx="-38" cy="10" r="1.6"/><circle cx="38" cy="10" r="1.6"/><circle cx="-26" cy="36" r="1.6"/><circle cx="26" cy="36" r="1.6"/><circle cx="0" cy="56" r="1.6"/></g>
+<g fill="#fff" opacity=".4"><circle cx="-20" cy="-6" r="2"/><circle cx="18" cy="-2" r="1.5"/><circle cx="-14" cy="18" r="1.6"/><circle cx="16" cy="16" r="2.2"/><circle cx="-24" cy="-22" r="1.4"/><circle cx="22" cy="-20" r="1.8"/></g>
+<ellipse cx="-18" cy="-18" rx="8" ry="14" fill="#fff" opacity=".35" filter="url(#soft)"/>
+</g>
+<g id="flake" stroke="#00C2FF" stroke-width="4" stroke-linecap="round"><line x1="0" y1="-12" x2="0" y2="12"/><line x1="-10.4" y1="-6" x2="10.4" y2="6"/><line x1="-10.4" y1="6" x2="10.4" y2="-6"/></g>
+<path id="arr" d="M-24,-10H4V-22L28,0L4,22V10H-24Z"/>
+<path id="pouchTop" d="M0,26V6l8.5,-6l8.5,6l8.5,-6l8.5,6l8.5,-6l8.5,6l8.5,-6l8.5,6l8.5,-6l8.5,6l8.5,-6l8.5,6l8.5,-6l8.5,6l8.5,-6l8.5,6l8.5,-6l8.5,6l8.5,-6l8.5,6V26Z"/>
+<clipPath id="win"><circle cx="175" cy="742" r="53"/></clipPath>
+</defs>
+
+<rect width="750" height="1000" fill="#00C2FF"/>
+<rect width="750" height="1000" fill="url(#bBlue)" opacity=".35"/>
+
+<!-- 标题 -->
+<g font-family="Source Han Sans SC, sans-serif" font-weight="900" font-size="84" text-anchor="middle">
+<text x="383" y="128" fill="#111">-40℃冻干工艺</text>
+<text x="375" y="120" fill="#fff" stroke="#111" stroke-width="12" stroke-linejoin="round" paint-order="stroke"><tspan fill="#FFC300">-40℃</tspan>冻干工艺</text>
+</g>
+<rect x="195" y="152" width="360" height="50" rx="25" fill="#111"/>
+<text x="375" y="187" text-anchor="middle" font-family="Source Han Sans SC, sans-serif" font-weight="800" font-size="28" fill="#fff">从水果到果脆 · 4步看懂</text>
+
+<!-- 面板底 -->
+<g>
+<rect x="38" y="238" width="330" height="330" rx="14" fill="#111"/>
+<rect x="30" y="230" width="330" height="330" rx="14" fill="#fff" stroke="#111" stroke-width="6"/>
+<rect x="33" y="233" width="324" height="324" rx="12" fill="url(#pDot)" opacity=".16"/>
+<rect x="398" y="238" width="330" height="330" rx="14" fill="#111"/>
+<rect x="390" y="230" width="330" height="330" rx="14" fill="#fff" stroke="#111" stroke-width="6"/>
+<rect x="393" y="233" width="324" height="324" rx="12" fill="url(#pDot)" opacity=".16"/>
+<rect x="38" y="588" width="330" height="330" rx="14" fill="#111"/>
+<rect x="30" y="580" width="330" height="330" rx="14" fill="#fff" stroke="#111" stroke-width="6"/>
+<rect x="33" y="583" width="324" height="324" rx="12" fill="url(#pDot)" opacity=".16"/>
+<rect x="398" y="588" width="330" height="330" rx="14" fill="#111"/>
+<rect x="390" y="580" width="330" height="330" rx="14" fill="#fff" stroke="#111" stroke-width="6"/>
+<rect x="393" y="583" width="324" height="324" rx="12" fill="url(#pDot)" opacity=".16"/>
+</g>
+
+<!-- 步骤1 挑选切片 -->
+<rect x="85" y="420" width="220" height="38" rx="10" fill="#FFC300" stroke="#111" stroke-width="5"/>
+<use href="#straw" transform="translate(150,372) scale(1.1)" filter="url(#sh)"/>
+<use href="#scut" transform="translate(255,394) rotate(12) scale(.75)" filter="url(#sh)"/>
+<path d="M222,322L300,292L306,308L232,334Z" fill="#E9EDF3" stroke="#111" stroke-width="4" stroke-linejoin="round"/>
+<path d="M300,292L330,281L336,297L306,308Z" fill="#111" stroke="#111" stroke-width="4" stroke-linejoin="round"/>
+<text x="195" y="512" text-anchor="middle" font-family="Source Han Sans SC, sans-serif" font-weight="900" font-size="32" fill="#111">挑选 · 切片</text>
+<text x="195" y="544" text-anchor="middle" font-family="Source Han Sans SC, sans-serif" font-weight="500" font-size="22" fill="#333">水果清洗后切成片</text>
+
+<!-- 步骤2 -40℃冷冻 -->
+<rect x="455" y="300" width="160" height="155" rx="22" fill="#E4FBFF" stroke="#111" stroke-width="5"/>
+<use href="#scut" transform="translate(535,380) scale(1)"/>
+<rect x="455" y="300" width="160" height="155" rx="22" fill="#BFF5FF" opacity=".4"/>
+<path d="M472,330Q474,316 488,314M472,350V340" stroke="#fff" stroke-width="7" fill="none" stroke-linecap="round"/>
+<rect x="455" y="300" width="160" height="155" rx="22" fill="none" stroke="#111" stroke-width="5"/>
+<use href="#flake" transform="translate(432,425)"/>
+<use href="#flake" transform="translate(630,300) scale(.8)"/>
+<use href="#flake" transform="translate(600,470) scale(.7)"/>
+<rect x="652" y="300" width="22" height="122" rx="11" fill="#fff" stroke="#111" stroke-width="5"/>
+<rect x="658" y="392" width="10" height="40" fill="#00C2FF"/>
+<circle cx="663" cy="436" r="18" fill="#00C2FF" stroke="#111" stroke-width="5"/>
+<g stroke="#111" stroke-width="3"><line x1="676" y1="322" x2="686" y2="322"/><line x1="676" y1="346" x2="686" y2="346"/><line x1="676" y1="370" x2="686" y2="370"/><line x1="676" y1="394" x2="686" y2="394"/></g>
+<text x="555" y="512" text-anchor="middle" font-family="Source Han Sans SC, sans-serif" font-weight="900" font-size="32" fill="#111"><tspan fill="#2B47FF">-40℃</tspan> 冷冻</text>
+<text x="555" y="544" text-anchor="middle" font-family="Source Han Sans SC, sans-serif" font-weight="500" font-size="22" fill="#333">果肉里的水分冻成冰晶</text>
+
+<!-- 步骤3 真空低温干燥 -->
+<g stroke="#00C2FF" stroke-width="5" fill="none" stroke-linecap="round">
+<path d="M150,666q-9,-10 0,-20q9,-10 0,-20"/><path d="M190,666q-9,-10 0,-20q9,-10 0,-20q-9,-10 0,-20"/><path d="M230,666q-9,-10 0,-20q9,-10 0,-20"/>
+</g>
+<g fill="#00C2FF"><path d="M141,624L150,610L159,624Z"/><path d="M181,604L190,590L199,604Z"/><path d="M221,624L230,610L239,624Z"/></g>
+<rect x="96" y="808" width="26" height="16" fill="#111"/><rect x="268" y="808" width="26" height="16" fill="#111"/>
+<rect x="80" y="670" width="230" height="145" rx="22" fill="#DDE3EE" stroke="#111" stroke-width="6"/>
+<circle cx="175" cy="742" r="56" fill="#BFF5FF" stroke="#111" stroke-width="5"/>
+<g clip-path="url(#win)"><use href="#scut" transform="translate(175,738) rotate(-10) scale(.72)"/></g>
+<path d="M140,712A44,44 0 0 1 170,698" stroke="#fff" stroke-width="6" fill="none" stroke-linecap="round"/>
+<circle cx="268" cy="708" r="20" fill="#fff" stroke="#111" stroke-width="4"/>
+<line x1="268" y1="708" x2="279" y2="696" stroke="#FF3B5C" stroke-width="4" stroke-linecap="round"/>
+<rect x="240" y="752" width="56" height="30" rx="6" fill="#111"/>
+<text x="268" y="774" text-anchor="middle" font-family="Source Han Sans SC, sans-serif" font-weight="900" font-size="18" fill="#FFC300">真空</text>
+<text x="195" y="862" text-anchor="middle" font-family="Source Han Sans SC, sans-serif" font-weight="900" font-size="32" fill="#111">真空低温干燥</text>
+<text x="195" y="894" text-anchor="middle" font-family="Source Han Sans SC, sans-serif" font-weight="500" font-size="22" fill="#333">冰晶直接变成水汽被带走</text>
+
+<!-- 步骤4 称重分装 -->
+<g transform="translate(503,622) scale(.62)">
+<path d="M8,32H178V256Q178,268 166,268H20Q8,268 8,256Z" fill="#111"/>
+<path d="M0,24H170V248Q170,260 158,260H12Q0,260 0,248Z" fill="#FF3B5C" stroke="#111" stroke-width="6" stroke-linejoin="round"/>
+<path d="M3,27H167V248Q167,257 158,257H12Q3,257 3,248Z" fill="url(#dMint)" opacity=".55"/>
+<use href="#pouchTop" fill="#36E2B4" stroke="#111" stroke-width="5" stroke-linejoin="round"/>
+<text x="85" y="74" text-anchor="middle" font-family="Source Han Sans SC, sans-serif" font-weight="900" font-size="34" fill="#fff" stroke="#111" stroke-width="7" stroke-linejoin="round" paint-order="stroke">脆滋滋</text>
+<circle cx="85" cy="168" r="62" fill="#fff" stroke="#111" stroke-width="6"/>
+<use href="#straw" transform="translate(85,148) scale(.6)"/>
+<text x="85" y="218" text-anchor="middle" font-family="Source Han Sans SC, sans-serif" font-weight="900" font-size="30" fill="#111">草莓</text>
+</g>
+<rect x="470" y="788" width="170" height="12" rx="4" fill="#111"/>
+<path d="M462,800H648L640,826H470Z" fill="#FFC300" stroke="#111" stroke-width="5" stroke-linejoin="round"/>
+<ellipse cx="660" cy="668" rx="48" ry="33" fill="#fff" stroke="#111" stroke-width="5"/>
+<path d="M630,690L608,716L648,698Z" fill="#fff" stroke="#111" stroke-width="5" stroke-linejoin="round"/>
+<ellipse cx="660" cy="668" rx="45" ry="30" fill="#fff"/>
+<text x="660" y="680" text-anchor="middle" font-family="DIN Alternate, sans-serif" font-weight="700" font-size="32" fill="#FF3B5C">18g</text>
+<text x="555" y="862" text-anchor="middle" font-family="Source Han Sans SC, sans-serif" font-weight="900" font-size="32" fill="#111">称重 · 分装</text>
+<text x="555" y="894" text-anchor="middle" font-family="Source Han Sans SC, sans-serif" font-weight="500" font-size="22" fill="#333">每袋18g，封口装好</text>
+
+<!-- 序号 -->
+<g font-family="Futura, sans-serif" font-weight="700" font-size="34" text-anchor="middle" fill="#FFC300">
+<circle cx="72" cy="272" r="28" fill="#111"/><text x="72" y="284">1</text>
+<circle cx="432" cy="272" r="28" fill="#111"/><text x="432" y="284">2</text>
+<circle cx="72" cy="622" r="28" fill="#111"/><text x="72" y="634">3</text>
+<circle cx="432" cy="622" r="28" fill="#111"/><text x="432" y="634">4</text>
+</g>
+
+<!-- 箭头 -->
+<g fill="#FFC300" stroke="#111" stroke-width="4" stroke-linejoin="round">
+<use href="#arr" transform="translate(375,395)"/>
+<use href="#arr" transform="translate(375,570) rotate(150)"/>
+<use href="#arr" transform="translate(375,745)"/>
+</g>
+
+<!-- 底栏 -->
+<rect x="128" y="943" width="510" height="50" rx="8" fill="#111" opacity=".35"/>
+<rect x="120" y="935" width="510" height="50" rx="8" fill="#111"/>
+<text x="375" y="969" text-anchor="middle" font-family="Source Han Sans SC, sans-serif" font-weight="800" font-size="26" fill="#fff">全程<tspan fill="#FFC300">非油炸</tspan> · 流程图为示意</text>
+</svg>

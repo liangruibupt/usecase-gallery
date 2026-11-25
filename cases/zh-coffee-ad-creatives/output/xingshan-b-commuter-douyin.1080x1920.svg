@@ -1,0 +1,217 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920">
+  <style>
+    .cn{font-family:'Source Han Sans SC',sans-serif}
+    .fu{font-family:'Futura',sans-serif}
+    .av{font-family:'Avenir Next',sans-serif}
+  </style>
+  <defs>
+    <radialGradient id="flash" cx="420" cy="1060" r="780" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#77777C"/>
+      <stop offset="0.35" stop-color="#3C3C40"/>
+      <stop offset="1" stop-color="#0A0A0B"/>
+    </radialGradient>
+    <radialGradient id="vig" cx="540" cy="1000" r="1150" gradientUnits="userSpaceOnUse">
+      <stop offset="0.5" stop-color="#000" stop-opacity="0"/>
+      <stop offset="1" stop-color="#000" stop-opacity="0.8"/>
+    </radialGradient>
+    <linearGradient id="pole" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#1A1A1A"/>
+      <stop offset="0.25" stop-color="#6E6E70"/>
+      <stop offset="0.42" stop-color="#FFFFFF"/>
+      <stop offset="0.5" stop-color="#E6E6E6"/>
+      <stop offset="0.7" stop-color="#555555"/>
+      <stop offset="1" stop-color="#111111"/>
+    </linearGradient>
+    <linearGradient id="cof" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#9A6038"/>
+      <stop offset="0.3" stop-color="#5A3018"/>
+      <stop offset="1" stop-color="#241106"/>
+    </linearGradient>
+    <linearGradient id="cupShade" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#000" stop-opacity="0.35"/>
+      <stop offset="0.3" stop-color="#000" stop-opacity="0"/>
+      <stop offset="0.7" stop-color="#000" stop-opacity="0"/>
+      <stop offset="1" stop-color="#000" stop-opacity="0.45"/>
+    </linearGradient>
+    <linearGradient id="skin" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#FFE4D2"/>
+      <stop offset="0.5" stop-color="#F0BFA3"/>
+      <stop offset="1" stop-color="#C98A6E"/>
+    </linearGradient>
+    <linearGradient id="skinBack" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#D9A084"/>
+      <stop offset="1" stop-color="#A8684F"/>
+    </linearGradient>
+    <clipPath id="cupClip">
+      <path d="M170 160 L430 160 L405 590 Q403 606 387 606 L213 606 Q197 606 195 590 Z"/>
+    </clipPath>
+    <clipPath id="winClip">
+      <rect x="90" y="150" width="410" height="640" rx="36"/>
+      <rect x="580" y="150" width="410" height="640" rx="36"/>
+    </clipPath>
+    <filter id="grain" filterUnits="userSpaceOnUse" x="0" y="0" width="1080" height="1920">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="7"/>
+      <feColorMatrix type="matrix" values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  1.6 0 0 0 -0.7"/>
+    </filter>
+    <filter id="stampGlow" x="-10%" y="-60%" width="120%" height="220%">
+      <feGaussianBlur stdDeviation="2.5" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- backdrop: subway door lit by flash -->
+  <rect width="1080" height="1920" fill="#050505"/>
+  <rect width="1080" height="1920" fill="url(#flash)"/>
+  <rect x="90" y="150" width="410" height="640" rx="36" fill="#07080A" stroke="#000" stroke-width="10"/>
+  <rect x="580" y="150" width="410" height="640" rx="36" fill="#07080A" stroke="#000" stroke-width="10"/>
+  <g clip-path="url(#winClip)">
+    <g fill="#FFFFFF">
+      <rect x="60" y="232" width="320" height="4" opacity="0.18"/>
+      <rect x="200" y="300" width="420" height="3" opacity="0.12"/>
+      <rect x="640" y="262" width="300" height="5" opacity="0.16"/>
+      <rect x="560" y="610" width="380" height="3" opacity="0.1"/>
+      <rect x="100" y="660" width="260" height="3" opacity="0.1"/>
+    </g>
+    <rect x="610" y="420" width="260" height="6" fill="#C8FF00" opacity="0.18"/>
+    <polygon points="160,150 240,150 100,560 90,420" fill="#FFFFFF" opacity="0.05"/>
+    <polygon points="690,150 740,150 600,520 590,430" fill="#FFFFFF" opacity="0.05"/>
+  </g>
+  <rect x="532" y="0" width="16" height="1920" fill="#0C0C0D"/>
+  <rect x="548" y="0" width="2" height="1920" fill="#FFFFFF" opacity="0.12"/>
+  <rect x="0" y="1500" width="1080" height="6" fill="#000" opacity="0.5"/>
+
+  <!-- grab handles (occluded zone, decor) -->
+  <g>
+    <rect x="227" y="0" width="26" height="150" fill="#1C1C1E"/>
+    <path d="M240 150 L200 238 Q196 248 208 248 L272 248 Q284 248 280 238 Z" fill="none" stroke="#2C2C30" stroke-width="14" stroke-linejoin="round"/>
+    <rect x="707" y="0" width="26" height="120" fill="#1C1C1E"/>
+    <path d="M720 120 L680 208 Q676 218 688 218 L752 218 Q764 218 760 208 Z" fill="none" stroke="#2C2C30" stroke-width="14" stroke-linejoin="round"/>
+  </g>
+
+  <!-- pole (right icon-bar zone, decor only) -->
+  <rect x="986" y="0" width="34" height="1920" fill="#000" opacity="0.45"/>
+  <rect x="950" y="0" width="36" height="1920" fill="url(#pole)"/>
+
+  <!-- occluded-zone decor -->
+  <text x="540" y="1800" text-anchor="middle" class="fu" font-weight="700" font-size="300" fill="none" stroke="#FFFFFF" stroke-opacity="0.07" stroke-width="3">07:58</text>
+
+  <!-- SCENE -->
+  <g transform="translate(170 830) scale(0.76)">
+    <g transform="translate(36 24)" fill="#000" fill-opacity="0.6">
+      <path d="M170 160 L430 160 L405 590 Q403 606 387 606 L213 606 Q197 606 195 590 Z"/>
+      <path d="M252 330 Q224 330 226 360 L228 560 Q230 596 262 596 L716 640 L700 262 L560 300 Z"/>
+      <path d="M384 40 L408 46 L362 300 L338 294 Z"/>
+      <path d="M212 48 L288 48 L282 110 L218 110 Z" transform="rotate(-18 250 79)"/>
+    </g>
+    <line x1="352" y1="300" x2="396" y2="46" stroke="#0E0E10" stroke-width="18" stroke-linecap="round"/>
+    <line x1="347" y1="292" x2="389" y2="52" stroke="#FFFFFF" stroke-opacity="0.55" stroke-width="3" stroke-linecap="round"/>
+    <g clip-path="url(#cupClip)">
+      <rect x="160" y="150" width="280" height="470" fill="#FFFFFF" fill-opacity="0.12"/>
+      <rect x="160" y="250" width="280" height="370" fill="url(#cof)"/>
+      <rect x="160" y="250" width="280" height="370" fill="url(#cupShade)"/>
+      <ellipse cx="300" cy="250" rx="128" ry="12" fill="#B9845B"/>
+      <ellipse cx="285" cy="360" rx="70" ry="120" fill="#FFFFFF" fill-opacity="0.1"/>
+      <g fill="#FFFFFF" fill-opacity="0.35" stroke="#FFFFFF" stroke-opacity="0.95" stroke-width="2.5">
+        <rect x="196" y="224" width="70" height="62" rx="10" transform="rotate(-12 231 255)"/>
+        <rect x="276" y="230" width="64" height="58" rx="10" transform="rotate(8 308 259)"/>
+        <rect x="344" y="226" width="58" height="56" rx="9" transform="rotate(-5 373 254)"/>
+      </g>
+      <g fill="#FFFFFF" fill-opacity="0.6">
+        <circle cx="230" cy="320" r="4"/><circle cx="382" cy="402" r="3"/><circle cx="250" cy="560" r="4"/>
+        <circle cx="360" cy="330" r="3"/>
+      </g>
+    </g>
+    <path d="M170 160 L430 160 L405 590 Q403 606 387 606 L213 606 Q197 606 195 590 Z" fill="none" stroke="#FFFFFF" stroke-opacity="0.55" stroke-width="3"/>
+    <ellipse cx="300" cy="160" rx="130" ry="14" fill="#FFFFFF" fill-opacity="0.15" stroke="#FFFFFF" stroke-opacity="0.95" stroke-width="4"/>
+    <path d="M196 185 L214 575" stroke="#FFFFFF" stroke-width="16" stroke-linecap="round" opacity="0.85"/>
+    <path d="M412 190 L398 560" stroke="#FFFFFF" stroke-width="5" stroke-linecap="round" opacity="0.5"/>
+    <circle cx="214" cy="196" r="9" fill="#FFFFFF"/>
+    <path d="M214 170 V222 M188 196 H240" stroke="#FFFFFF" stroke-width="2.5" opacity="0.9"/>
+    <!-- hand -->
+    <path d="M392 318 C450 296 520 300 566 326 L580 590 C520 606 452 604 402 584 C420 500 420 400 392 318 Z" fill="url(#skinBack)"/>
+    <g stroke="#9A5E46" stroke-width="2">
+      <rect x="250" y="492" width="176" height="50" rx="25" fill="url(#skin)"/>
+      <rect x="232" y="440" width="196" height="54" rx="27" fill="url(#skin)"/>
+      <rect x="226" y="386" width="200" height="56" rx="28" fill="url(#skin)"/>
+      <rect x="238" y="332" width="190" height="56" rx="28" fill="url(#skin)"/>
+    </g>
+    <g fill="#FFFFFF" opacity="0.55">
+      <ellipse cx="318" cy="348" rx="60" ry="8"/><ellipse cx="306" cy="402" rx="62" ry="8"/>
+      <ellipse cx="312" cy="456" rx="60" ry="8"/><ellipse cx="326" cy="506" rx="54" ry="7"/>
+    </g>
+    <g fill="#FBE3D8" stroke="#D9A896" stroke-width="1.5">
+      <ellipse cx="266" cy="360" rx="16" ry="18"/><ellipse cx="254" cy="414" rx="16" ry="18"/>
+      <ellipse cx="260" cy="467" rx="16" ry="17"/><ellipse cx="276" cy="517" rx="15" ry="16"/>
+    </g>
+    <g fill="none" stroke="#A86A52" stroke-width="2" opacity="0.7">
+      <path d="M360 340 Q366 360 360 380"/><path d="M356 394 Q362 414 356 434"/>
+      <path d="M360 448 Q366 467 360 486"/><path d="M366 499 Q372 517 366 535"/>
+    </g>
+    <path d="M546 312 L584 302 C604 410 604 520 588 616 L552 608 C568 512 566 410 546 312 Z" fill="#F4F4F4" stroke="#BBBBBB" stroke-width="2"/>
+    <path d="M578 290 L700 262 L716 640 L584 624 C602 520 602 400 578 290 Z" fill="#1B1C21"/>
+    <path d="M590 300 C606 400 606 520 594 620" fill="none" stroke="#5A5C66" stroke-width="4" opacity="0.8"/>
+    <!-- falling pod -->
+    <g stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" opacity="0.7">
+      <line x1="236" y1="-40" x2="228" y2="14"/><line x1="262" y1="-60" x2="254" y2="4"/><line x1="288" y1="-36" x2="282" y2="12"/>
+    </g>
+    <g transform="rotate(-18 250 79)">
+      <path d="M212 48 L288 48 L282 102 Q281 110 273 110 L227 110 Q219 110 218 102 Z" fill="#F5F5F0" stroke="#000" stroke-width="3"/>
+      <rect x="208" y="38" width="84" height="14" rx="4" fill="#C8FF00" stroke="#000" stroke-width="3"/>
+      <rect x="218" y="64" width="64" height="22" fill="#0A0A0A"/>
+      <text x="250" y="81" text-anchor="middle" class="cn" font-weight="900" font-size="15" fill="#C8FF00">醒山</text>
+      <rect x="224" y="52" width="8" height="54" fill="#FFFFFF" opacity="0.8"/>
+    </g>
+    <g fill="#3A1D0C">
+      <rect x="262" y="124" width="9" height="9" transform="rotate(20 266 128)"/>
+      <rect x="282" y="140" width="7" height="7" transform="rotate(-15 285 143)"/>
+      <rect x="250" y="146" width="8" height="8" transform="rotate(35 254 150)"/>
+    </g>
+    <g fill="#FFFFFF" opacity="0.85">
+      <ellipse cx="258" cy="136" rx="4" ry="6"/><ellipse cx="300" cy="128" rx="3" ry="5"/><ellipse cx="318" cy="146" rx="3" ry="4"/>
+    </g>
+  </g>
+
+  <rect width="1080" height="1920" fill="url(#vig)"/>
+  <rect width="1080" height="1920" fill="#FFFFFF" filter="url(#grain)" opacity="0.22"/>
+
+  <!-- logo -->
+  <g transform="translate(72 312)">
+    <rect width="56" height="56" rx="10" fill="#C8FF00"/>
+    <path d="M10 40 L22 26 L29 33 L38 20 L48 40" stroke="#0A0A0A" stroke-width="4" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+    <circle cx="40" cy="14" r="4" fill="#0A0A0A"/>
+    <text x="70" y="36" class="cn" font-size="36" font-weight="900" fill="#FFFFFF" letter-spacing="2">醒山</text>
+    <text x="70" y="54" class="fu" font-size="11" font-weight="700" fill="#FFFFFF" fill-opacity="0.6" letter-spacing="3">XINGSHAN</text>
+  </g>
+  <path d="M610 330 L596 354 H608 L602 374 L622 346 H610 L616 330 Z" fill="#C8FF00"/>
+  <text x="920" y="352" text-anchor="end" class="cn" font-size="22" font-weight="700" fill="#CFCFCF" letter-spacing="2">AM 07:58 · 2 号线早高峰</text>
+
+  <!-- headline -->
+  <text transform="translate(62 548) scale(0.9 1)" class="cn" font-size="150" font-weight="900" fill="#FFFFFF">早八续命，</text>
+  <text transform="translate(60 712) scale(0.9 1)" class="cn" font-size="150" font-weight="900" fill="#FFFFFF"><tspan class="fu" font-weight="700" font-size="190" fill="#C8FF00">3</tspan><tspan fill="#C8FF00"> 秒</tspan>到位</text>
+
+  <!-- selling point tape -->
+  <g transform="translate(72 766) rotate(-2)">
+    <rect width="500" height="64" fill="#FFFFFF"/>
+    <text x="22" y="46" class="cn" font-size="38" font-weight="900" fill="#0A0A0A">3 秒冷水速溶<tspan font-weight="500" fill="#555555"> · 0 糖 0 脂</tspan></text>
+  </g>
+
+  <!-- price badge -->
+  <g transform="translate(790 905) rotate(10)">
+    <polygon transform="translate(10 10)" fill="#000" opacity="0.6" points="118,0 96.6,25.9 102.2,59 70.7,70.7 59,102.2 25.9,96.6 0,118 -25.9,96.6 -59,102.2 -70.7,70.7 -102.2,59 -96.6,25.9 -118,0 -96.6,-25.9 -102.2,-59 -70.7,-70.7 -59,-102.2 -25.9,-96.6 0,-118 25.9,-96.6 59,-102.2 70.7,-70.7 102.2,-59 96.6,-25.9"/>
+    <polygon fill="#C8FF00" stroke="#000" stroke-width="4" stroke-linejoin="round" points="118,0 96.6,25.9 102.2,59 70.7,70.7 59,102.2 25.9,96.6 0,118 -25.9,96.6 -59,102.2 -70.7,70.7 -102.2,59 -96.6,25.9 -118,0 -96.6,-25.9 -102.2,-59 -70.7,-70.7 -59,-102.2 -25.9,-96.6 0,-118 25.9,-96.6 59,-102.2 70.7,-70.7 102.2,-59 96.6,-25.9"/>
+    <text y="-44" text-anchor="middle" class="cn" font-size="28" font-weight="900" fill="#0A0A0A" letter-spacing="3">首单</text>
+    <text y="32" text-anchor="middle" fill="#0A0A0A"><tspan class="fu" font-weight="700" font-size="88">9.9</tspan><tspan class="cn" font-size="30" font-weight="900">元</tspan></text>
+    <text y="72" text-anchor="middle" class="cn" font-size="28" font-weight="900" fill="#0A0A0A">6 颗</text>
+  </g>
+
+  <!-- date stamp -->
+  <text x="900" y="1292" text-anchor="end" class="av" font-weight="600" font-size="30" fill="#FF8A2A" letter-spacing="4" filter="url(#stampGlow)">07:58  ’25 3 17</text>
+
+  <text x="72" y="1322" class="cn" font-size="18" fill="#A0A0A0">* 冷水搅拌后速溶，图示为示意。</text>
+
+  <!-- CTA -->
+  <rect x="72" y="1338" width="848" height="84" fill="#FFFFFF"/>
+  <text x="104" y="1395" class="cn" font-size="42" font-weight="900" fill="#0A0A0A">立即抢购 · 首单 <tspan class="fu" font-weight="700" font-size="50">9.9</tspan> 元 6 颗</text>
+  <rect x="836" y="1338" width="84" height="84" fill="#C8FF00"/>
+  <path d="M862 1380 H894 M880 1366 L894 1380 L880 1394" stroke="#0A0A0A" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

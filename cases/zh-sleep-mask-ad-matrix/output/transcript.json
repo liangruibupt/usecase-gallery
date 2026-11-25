@@ -1,0 +1,162 @@
+{
+  "provider": "bedrock",
+  "model": "us.anthropic.claude-opus-5-5",
+  "started": "2026-11-25T06:00:55+00:00",
+  "finished": "2026-11-25T06:21:47+00:00",
+  "inputs": [],
+  "turns": [
+    {
+      "label": "Prompt · D-01 and D-02",
+      "prompt": "Put together a Meta ad test matrix for Dusk, a weighted sleep mask. The USP is \"Fall asleep 2× faster: gentle 0.5lb pressure, total blackout.\"\nI want six variants, each in 1080×1350 for feed and 1080×1920 for Stories/Reels. Keep one fixed brand frame across all of them (logo bottom-left, a \"Shop Dusk, 30-night trial\" CTA, midnight plum #2B1B3D and moonlight cream #F3EBDD) and change only the creative hook:\nD-01 UGC: a candid iPhone-style selfie with a handwritten overlay, \"ok this thing is actually insane\".\nD-02 Review card: a 5-star customer quote set large in serif as the hero, with \"Verified buyer\".\nD-03 Us vs. Them: a checklist comparison against a regular sleep mask.\nD-04 Data: a huge \"2×\" with a simple bar chart, 24 min → 12 min, labeled \"user survey, n=312 (placeholder)\".\nD-05 Problem: a clock glowing 3:07 AM, phone light on a face, and the line \"Still scrolling?\".\nD-06 Product hero: a macro shot of the fabric texture under soft studio light, with minimal copy.\nLabel each asset with its ID, hook, hypothesis and primary metric. Keep text under 20% of the image, keep Reels text out of the top 14% and bottom 35%, and make sure the six variants are clearly distinguishable even as thumbnails. Deliver one contact sheet with all 12 assets, plus every asset on its own.\n\nDeliver D-01 and D-02, feed and story, in this reply. I will ask for the other variants and the contact sheet next.",
+      "attached_inputs": [],
+      "attached_images": 0,
+      "reply": "Here are D-01 (UGC) and D-02 (Review card), each in feed and Stories/Reels. All four sit in the same brand frame, which stays fixed for D-03 to D-06.\n\n**Brand frame (fixed across all 12 assets)**\n- **Feed:** a midnight plum #2B1B3D bar across the bottom 144 px. The Dusk crescent and wordmark sit at bottom-left, and a moonlight cream #F3EBDD pill reading \"Shop Dusk, 30-night trial\" sits at bottom-right.\n- **Story:** the same logo and pill sit just above the Reels safe line (they end at y=1244, and the safe line is y=1248). The art fades into plum underneath. The bottom 35% is decorative only.\n- **Story safe zones:** in both story files, every piece of text sits between y≈300 and y=1244, so it clears the top 14% (269 px). Text also stays left of x≈900, which keeps it clear of the Reels action icons.\n- **Text area:** D-01 is about 11% (feed) and 8% (story). D-02 is about 16% (feed) and 11% (story). All four are under 20%.\n\n**Labels:** each SVG carries its ID, hook, hypothesis and primary metric in `<title>`/`<desc>`. The same labels will appear as captions on the contact sheet, so the ad images stay clean.\n\n| ID | Hook | Hypothesis | Primary metric |\n|---|---|---|---|\n| D-01 | UGC selfie | Creator-native content dodges ad-blindness and earns trust | Link CTR |\n| D-02 | Review card | Large, specific social proof lowers purchase risk | Purchase CVR (purchases / link clicks) |\n| D-03 | Us vs. Them | A direct comparison justifies a premium over a regular mask | Add-to-cart rate |\n| D-04 | Data \"2×\" | A concrete number makes the USP credible | Link CTR |\n| D-05 | Problem 3:07 AM | Naming the pain creates recognition | Thumb-stop / hook rate |\n| D-06 | Product macro | Tactile craft signals premium quality | Cost per purchase |\n\n**Thumbnail distinctiveness:** D-01 is dark with warm lamp light and a face in the center. D-02 is a big cream card with gold stars on plum. The next four will each get their own dominant shape and colour field.\n\n**Flags**\n- **D-02 quote and name are placeholders.** \"Maya R.\" and the quote need to be replaced with a real verified review before launch.\n- **The \"2×\" claim needs evidence.** The USP will appear in the ad copy around these images, so you'll need documented support for \"2× faster\" before running it.\n\n[[file:dusk-d01-ugc-feed.1080x1350.svg]]\n\n[[file:dusk-d01-ugc-story.1080x1920.svg]]\n\n[[file:dusk-d02-review-feed.1080x1350.svg]]\n\n[[file:dusk-d02-review-story.1080x1920.svg]]",
+      "files": [
+        "dusk-d01-ugc-feed.1080x1350.svg",
+        "dusk-d01-ugc-feed.png",
+        "dusk-d01-ugc-story.1080x1920.svg",
+        "dusk-d01-ugc-story.png",
+        "dusk-d02-review-feed.1080x1350.svg",
+        "dusk-d02-review-feed.png",
+        "dusk-d02-review-story.1080x1920.svg",
+        "dusk-d02-review-story.png"
+      ],
+      "usage": {
+        "input": 1339,
+        "output": 37976
+      },
+      "seconds": 354.7
+    },
+    {
+      "label": "Self-check",
+      "prompt": "Here are the images rendered from the files you just delivered (SVGs via librsvg, HTML as a browser screenshot of the top of the page), downscaled. Check them as a designer would before a client review: clipped or overlapping text, text that renders as boxes or in a fallback font, broken layout, empty areas, anything that breaks the brief's rules. If something needs fixing, deliver the corrected files under the same names. If everything is ready, say so in one or two sentences and deliver nothing.",
+      "attached_inputs": [],
+      "attached_images": 4,
+      "reply": "I found three problems in the renders:\n\n1. **D-02 quote mark (feed and story):** the oversized quote mark ran past the top edge of the card, so it looked cut off flat, and it collided with the stars.\n2. **D-01 story, bottom half:** the artwork faded into flat plum by about y≈1000, leaving roughly half the frame empty.\n3. **D-01 story, brand frame contrast:** if the image simply ran full bleed, the cream logo and pill would sit on the cream duvet and lose contrast.\n\nFixes:\n\n- **D-02:** the quote mark now sits fully inside the card, to the left of the stars, in both D-02 files.\n- **D-01 story:** the bedroom scene now runs full bleed. A plum band sits behind the brand frame to keep it legible. Below the safe line, the duvet and arm stay visible but dimmed, and that area still has no text.\n\nD-01 feed was fine and is unchanged.\n\n[[file:dusk-d01-ugc-story.1080x1920.svg]]\n\n[[file:dusk-d02-review-feed.1080x1350.svg]]\n\n[[file:dusk-d02-review-story.1080x1920.svg]]",
+      "files": [
+        "dusk-d01-ugc-story.1080x1920.svg",
+        "dusk-d01-ugc-story.png",
+        "dusk-d02-review-feed.1080x1350.svg",
+        "dusk-d02-review-feed.png",
+        "dusk-d02-review-story.1080x1920.svg",
+        "dusk-d02-review-story.png"
+      ],
+      "usage": {
+        "input": 27258,
+        "output": 13867
+      },
+      "seconds": 110.7
+    },
+    {
+      "label": "D-03 and D-04",
+      "prompt": "Now deliver D-03 and D-04, feed and story, in the same brand frame.",
+      "attached_inputs": [],
+      "attached_images": 0,
+      "reply": "D-03 (Us vs. Them) and D-04 (Data), in feed and Stories/Reels, are below. All four use the same brand frame as D-01 and D-02. The Stories copy sits between y≈310 and y=1244 and stays left of x=900.\n\n**How each reads as a thumbnail**\n- **D-03** is the only light variant: a full-bleed cream field with a tall plum \"Dusk\" column of cream checks next to a pale grey column of crosses. In the story version, the cream ends in a curved plum horizon so the cream logo and pill stay legible.\n- **D-04** is dark plum with a single huge gold \"2×\" and two horizontal bars, one full length and one half length. It doesn't look like D-02's cream card or D-01's warm photo.\n\n**Text area**\n\n| Asset | Text area | Notes |\n|---|---|---|\n| D-03 feed | ≈8% | |\n| D-03 story | ≈6% | |\n| D-04 feed | ≈15% | The \"2×\" is sized at 460 px so the total stays under 20% |\n| D-04 story | ≈11% | |\n\n**Labels (also stored in each SVG's `<desc>`)**\n\n| ID | Hook | Hypothesis | Primary metric |\n|---|---|---|---|\n| D-03 | Us vs. Them checklist | A direct side-by-side shows why Dusk is worth more than a regular mask | Add-to-cart rate |\n| D-04 | Data \"2×\" | A concrete, quantified result makes the USP credible | Link CTR |\n\n**Flags before launch**\n- **D-04 data:** the survey figures (24 → 12 min, n=312) are placeholders and stay labelled that way. They need a real study behind them.\n- **D-03 rows:** the \"Fall asleep 2× faster\" row depends on that same evidence. The crosses for a \"regular mask\" are a general comparison, so legal should check them before launch.\n\n[[file:dusk-d03-vs-feed.1080x1350.svg]]\n\n[[file:dusk-d03-vs-story.1080x1920.svg]]\n\n[[file:dusk-d04-data-feed.1080x1350.svg]]\n\n[[file:dusk-d04-data-story.1080x1920.svg]]",
+      "files": [
+        "dusk-d03-vs-feed.1080x1350.svg",
+        "dusk-d03-vs-feed.png",
+        "dusk-d03-vs-story.1080x1920.svg",
+        "dusk-d03-vs-story.png",
+        "dusk-d04-data-feed.1080x1350.svg",
+        "dusk-d04-data-feed.png",
+        "dusk-d04-data-story.1080x1920.svg",
+        "dusk-d04-data-story.png"
+      ],
+      "usage": {
+        "input": 38315,
+        "output": 22192
+      },
+      "seconds": 204.2
+    },
+    {
+      "label": "Self-check",
+      "prompt": "Here are the images rendered from the files you just delivered (SVGs via librsvg, HTML as a browser screenshot of the top of the page), downscaled. Check them as a designer would before a client review: clipped or overlapping text, text that renders as boxes or in a fallback font, broken layout, empty areas, anything that breaks the brief's rules. If something needs fixing, deliver the corrected files under the same names. If everything is ready, say so in one or two sentences and deliver nothing.",
+      "attached_inputs": [],
+      "attached_images": 4,
+      "reply": "I found four problems in the renders and fixed them in three files:\n\n1. **D-04 story, crowded top:** the \"TIME TO FALL ASLEEP\" eyebrow sat almost on top of the \"2×\". I reduced the \"2×\" from 460 to 420 px and opened up the spacing.\n2. **D-04 story, stray lines:** two faint lines below the safe line looked like broken empty bars. I removed them, and the gold horizon glow remains.\n3. **D-04 copy, feed and story:** \"time to fall asleep / faster to fall asleep / minutes to fall asleep\" said the same thing three times. The eyebrow now carries the USP mechanism instead: \"0.5 LB PRESSURE · TOTAL BLACKOUT\".\n4. **D-03 story, mask and label:** the Dusk mask illustration almost touched the \"Dusk\" label. I made the mask slightly smaller and moved it up.\n\nD-03 feed is unchanged.\n\n[[file:dusk-d03-vs-story.1080x1920.svg]]\n\n[[file:dusk-d04-data-feed.1080x1350.svg]]\n\n[[file:dusk-d04-data-story.1080x1920.svg]]",
+      "files": [
+        "dusk-d03-vs-story.1080x1920.svg",
+        "dusk-d03-vs-story.png",
+        "dusk-d04-data-feed.1080x1350.svg",
+        "dusk-d04-data-feed.png",
+        "dusk-d04-data-story.1080x1920.svg",
+        "dusk-d04-data-story.png"
+      ],
+      "usage": {
+        "input": 58731,
+        "output": 9736
+      },
+      "seconds": 77.4
+    },
+    {
+      "label": "D-05 and D-06",
+      "prompt": "Now deliver D-05 and D-06, feed and story, in the same brand frame.",
+      "attached_inputs": [],
+      "attached_images": 0,
+      "reply": "D-05 (Problem) and D-06 (Product hero), feed and Stories/Reels, are below. They use the same brand frame as the first four variants. In both story files, all copy sits between y≈290 and y=1244 and stays left of x=900.\n\n**How each reads as a thumbnail**\n- **D-05** is the only cold, near-black variant: a red-orange \"3:07\" clock in the top-left and a blue phone glow on a face. It doesn't look like D-01's warm amber selfie.\n- **D-06** is the only patterned variant: a diagonal lavender-plum quilted fabric that fills the whole frame. A soft studio highlight sits top-right, and an embroidered crescent is the sharp point of focus. The edges are blurred to read as a macro shot.\n\n**Text area**\n\n| Asset | Text area |\n|---|---|\n| D-05 feed | ≈7% |\n| D-05 story | ≈5% |\n| D-06 feed | ≈6% |\n| D-06 story | ≈4% |\n\n**Labels (also stored in each SVG's `<desc>`)**\n\n| ID | Hook | Hypothesis | Primary metric |\n|---|---|---|---|\n| D-05 | Problem: 3:07 AM, \"Still scrolling?\" | Naming a familiar late-night pain creates instant recognition and stops the scroll | Thumb-stop / hook rate (3-s views ÷ impressions) |\n| D-06 | Product macro, fabric texture | A tactile, crafted close-up signals premium quality and pulls in higher-intent buyers | Cost per purchase |\n\n**Flag:** D-06 shows a quilted, embroidered surface. Check it against the real product finish before launch.\n\nNext I can deliver the contact sheet with all 12 assets.\n\n[[file:dusk-d05-problem-feed.1080x1350.svg]]\n\n[[file:dusk-d05-problem-story.1080x1920.svg]]\n\n[[file:dusk-d06-product-feed.1080x1350.svg]]\n\n[[file:dusk-d06-product-story.1080x1920.svg]]",
+      "files": [
+        "dusk-d05-problem-feed.1080x1350.svg",
+        "dusk-d05-problem-feed.png",
+        "dusk-d05-problem-story.1080x1920.svg",
+        "dusk-d05-problem-story.png",
+        "dusk-d06-product-feed.1080x1350.svg",
+        "dusk-d06-product-feed.png",
+        "dusk-d06-product-story.1080x1920.svg",
+        "dusk-d06-product-story.png"
+      ],
+      "usage": {
+        "input": 66826,
+        "output": 36126
+      },
+      "seconds": 344.8
+    },
+    {
+      "label": "Self-check",
+      "prompt": "Here are the images rendered from the files you just delivered (SVGs via librsvg, HTML as a browser screenshot of the top of the page), downscaled. Check them as a designer would before a client review: clipped or overlapping text, text that renders as boxes or in a fallback font, broken layout, empty areas, anything that breaks the brief's rules. If something needs fixing, deliver the corrected files under the same names. If everything is ready, say so in one or two sentences and deliver nothing.",
+      "attached_inputs": [],
+      "attached_images": 4,
+      "reply": "The D-05 feed and story renders are ready. D-06 has one defect in both sizes: the depth-of-field blur faded out at the canvas edges, which left a whitish haze along the top and sides. That looks like a rendering artifact rather than studio light.\n\nFix, in both D-06 files:\n- **Blur area:** the blur now extends past the canvas.\n- **Base layer:** a solid plum layer sits underneath, so the edges stay dark fabric.\n\nNothing else has changed.\n\n[[file:dusk-d06-product-feed.1080x1350.svg]]\n\n[[file:dusk-d06-product-story.1080x1920.svg]]",
+      "files": [
+        "dusk-d06-product-feed.1080x1350.svg",
+        "dusk-d06-product-feed.png",
+        "dusk-d06-product-story.1080x1920.svg",
+        "dusk-d06-product-story.png"
+      ],
+      "usage": {
+        "input": 93726,
+        "output": 7783
+      },
+      "seconds": 71.6
+    },
+    {
+      "label": "Contact sheet",
+      "prompt": "Now deliver the contact sheet with all 12 assets, each labeled with its ID, hook, hypothesis and primary metric.",
+      "attached_inputs": [],
+      "attached_images": 0,
+      "reply": "The contact sheet is a single HTML page. It shows all 12 delivered SVGs in a 3×2 grid, with one card per variant. Each card holds the feed and story thumbnails side by side, followed by the variant's ID, hook, hypothesis, primary metric and any pre-launch flag. Thumbnails are about 280 px tall, which is close to their real size in a feed, so you can check that the six variants are easy to tell apart at a glance.\n\n- **Layout:** the whole sheet fits inside the 1440×1800 review window, so nothing important is below the fold.\n- **Safe-zone toggle:** a button in the header shades the Reels no-text zones (the top 14% and bottom 35%) on all six story thumbnails, so you can confirm the copy clears them. The toggle is off by default.\n- **Files:** the page references the 12 SVGs by relative path, so keep it in the same folder as them.\n\n[[file:dusk-contact-sheet.html]]",
+      "files": [
+        "dusk-contact-sheet.html",
+        "dusk-contact-sheet.shot.png"
+      ],
+      "usage": {
+        "input": 100407,
+        "output": 6917
+      },
+      "seconds": 75.7
+    },
+    {
+      "label": "Self-check",
+      "prompt": "Here are the images rendered from the files you just delivered (SVGs via librsvg, HTML as a browser screenshot of the top of the page), downscaled. Check them as a designer would before a client review: clipped or overlapping text, text that renders as boxes or in a fallback font, broken layout, empty areas, anything that breaks the brief's rules. If something needs fixing, deliver the corrected files under the same names. If everything is ready, say so in one or two sentences and deliver nothing.",
+      "attached_inputs": [],
+      "attached_images": 1,
+      "reply": "The contact sheet is ready for client review. All 12 assets load, every card shows its ID, hook, hypothesis, primary metric and pre-launch flag, and nothing is clipped, overlapping or falling back to a substitute font.",
+      "files": [],
+      "usage": {
+        "input": 108723,
+        "output": 326
+      },
+      "seconds": 11.8
+    }
+  ]
+}

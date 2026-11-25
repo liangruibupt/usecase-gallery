@@ -1,0 +1,233 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080">
+  <defs>
+    <!-- 清晨 -->
+    <linearGradient id="wallM" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#E9E8E2"/>
+      <stop offset="1" stop-color="#E2DFD7"/>
+    </linearGradient>
+    <linearGradient id="floorM" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#D0BA98"/>
+      <stop offset="1" stop-color="#C3A881"/>
+    </linearGradient>
+    <linearGradient id="skyM" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#E8EEEE"/>
+      <stop offset="1" stop-color="#F6EEE2"/>
+    </linearGradient>
+    <!-- 午后 -->
+    <linearGradient id="wallN" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#F1EBDF"/>
+      <stop offset="1" stop-color="#EAE2D4"/>
+    </linearGradient>
+    <linearGradient id="floorN" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#D8BB91"/>
+      <stop offset="1" stop-color="#C9A77A"/>
+    </linearGradient>
+    <linearGradient id="skyN" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFFDF6"/>
+      <stop offset="1" stop-color="#F1F3EA"/>
+    </linearGradient>
+    <!-- 傍晚 -->
+    <linearGradient id="wallE" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#B3A390"/>
+      <stop offset="1" stop-color="#C3B39E"/>
+    </linearGradient>
+    <linearGradient id="floorE" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#9E8264"/>
+      <stop offset="1" stop-color="#8A6F54"/>
+    </linearGradient>
+    <linearGradient id="skyE" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#6E7785"/>
+      <stop offset="1" stop-color="#C79F80"/>
+    </linearGradient>
+    <filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="10"/>
+    </filter>
+    <filter id="glow" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="18"/>
+    </filter>
+    <filter id="line" x="-10%" y="-200%" width="120%" height="500%">
+      <feGaussianBlur stdDeviation="5"/>
+    </filter>
+    <clipPath id="p1"><rect x="720" y="96" width="340" height="524"/></clipPath>
+    <clipPath id="p2"><rect x="1090" y="96" width="340" height="524"/></clipPath>
+    <clipPath id="p3"><rect x="1460" y="96" width="340" height="524"/></clipPath>
+  </defs>
+
+  <rect width="1920" height="1080" fill="#FBFAF7"/>
+
+  <!-- 左栏 -->
+  <text x="120" y="150" font-family="'Avenir Next', sans-serif" font-size="16" letter-spacing="6" fill="#8A8278">06 — LIGHT &amp; MOOD</text>
+  <rect x="120" y="178" width="40" height="1.5" fill="#2A2826"/>
+  <text x="118" y="262" font-family="'Source Han Sans SC', sans-serif" font-weight="300" font-size="56" letter-spacing="6" fill="#2A2826">光影情绪</text>
+
+  <text font-family="'Songti SC', serif" font-size="44" fill="#2A2826" letter-spacing="2">
+    <tspan x="120" y="400">让光决定</tspan>
+    <tspan x="120" y="466">一天的节奏。</tspan>
+  </text>
+  <rect x="120" y="524" width="60" height="1.5" fill="#A88660"/>
+
+  <text font-family="'Source Han Sans SC', sans-serif" font-weight="300" font-size="18" fill="#5E574F">
+    <tspan x="120" y="586">设计之初，我们会在现场待上一整天，</tspan>
+    <tspan x="120" y="618">记下每个时段光落在哪里。</tspan>
+    <tspan x="120" y="650">白天靠自然光组织动线与停留，</tspan>
+    <tspan x="120" y="682">入夜后用三层灯光延续同样的情绪——</tspan>
+    <tspan x="120" y="714">不追求亮，只追求刚好。</tspan>
+  </text>
+
+  <text x="120" y="828" font-family="'Avenir Next', sans-serif" font-size="13" letter-spacing="4" fill="#9A9288">LIGHTING LAYERS · 灯光层次</text>
+  <g font-family="'Source Han Sans SC', sans-serif" font-weight="400" font-size="17" fill="#2A2826">
+    <text x="120" y="864"><tspan font-family="Didot, serif" fill="#A88660">01</tspan>　隐藏式线性灯带 · 环境光</text>
+    <text x="120" y="896"><tspan font-family="Didot, serif" fill="#A88660">02</tspan>　黄铜壁灯 · 氛围光</text>
+    <text x="120" y="928"><tspan font-family="Didot, serif" fill="#A88660">03</tspan>　手工陶瓷吊灯 · 重点光</text>
+  </g>
+
+  <!-- 08:00 清晨 -->
+  <g clip-path="url(#p1)">
+    <g transform="translate(720,96)">
+      <rect width="340" height="400" fill="url(#wallM)"/>
+      <rect y="18" width="340" height="6" fill="#DCD8CF"/>
+      <rect y="400" width="340" height="124" fill="url(#floorM)"/>
+      <line x1="0" y1="400" x2="340" y2="400" stroke="#D6D0C5" stroke-width="3"/>
+      <rect x="36" y="80" width="120" height="260" fill="#D6CFC3"/>
+      <rect x="44" y="88" width="104" height="244" fill="url(#skyM)"/>
+      <rect x="44" y="88" width="104" height="244" fill="none" stroke="#B89A74" stroke-width="6"/>
+      <line x1="96" y1="88" x2="96" y2="332" stroke="#B89A74" stroke-width="5"/>
+      <line x1="44" y1="180" x2="148" y2="180" stroke="#B89A74" stroke-width="5"/>
+      <rect x="30" y="338" width="132" height="8" fill="#E7E3DA"/>
+      <line x1="24" y1="70" x2="190" y2="70" stroke="#8B7B66" stroke-width="2"/>
+      <rect x="156" y="72" width="18" height="276" fill="#F4F1EA" opacity="0.8"/>
+      <!-- 晨光 -->
+      <polygon points="148,110 148,332 340,300 340,170" fill="#FFFFFF" opacity="0.18" filter="url(#soft)"/>
+      <polygon points="44,402 148,402 330,524 130,524" fill="#FFF8EA" opacity="0.6" filter="url(#soft)"/>
+      <polygon points="190,250 300,236 300,300 190,312" fill="#FFFBF2" opacity="0.4" filter="url(#soft)"/>
+      <!-- 沙发 -->
+      <ellipse cx="260" cy="396" rx="96" ry="8" fill="#7A6A55" opacity="0.2" filter="url(#soft)"/>
+      <rect x="190" y="300" width="160" height="70" rx="14" fill="#D8CEBD"/>
+      <rect x="182" y="350" width="170" height="40" rx="10" fill="#D0C5B2"/>
+      <rect x="176" y="330" width="24" height="62" rx="10" fill="#C9BDA9"/>
+      <rect x="190" y="390" width="6" height="12" fill="#8B6B4A"/>
+      <!-- 壁灯（熄） -->
+      <circle cx="196" cy="236" r="5" fill="#B8935A"/>
+      <line x1="196" y1="236" x2="208" y2="240" stroke="#B8935A" stroke-width="2"/>
+      <path d="M200,240 L216,240 L220,256 L196,256 Z" fill="#E9E1D3"/>
+      <!-- 吊灯（熄） -->
+      <line x1="250" y1="0" x2="250" y2="146" stroke="#6E655B" stroke-width="1.2"/>
+      <path d="M222,170 C222,152 234,144 250,144 C266,144 278,152 278,170 Z" fill="#F1ECE2"/>
+      <ellipse cx="250" cy="170" rx="28" ry="3" fill="#D7CDBD"/>
+    </g>
+  </g>
+
+  <!-- 14:00 午后 -->
+  <g clip-path="url(#p2)">
+    <g transform="translate(1090,96)">
+      <rect width="340" height="400" fill="url(#wallN)"/>
+      <rect y="18" width="340" height="6" fill="#E2DACC"/>
+      <rect y="400" width="340" height="124" fill="url(#floorN)"/>
+      <line x1="0" y1="400" x2="340" y2="400" stroke="#DDD3C3" stroke-width="3"/>
+      <ellipse cx="96" cy="200" rx="130" ry="150" fill="#FFFCF2" opacity="0.5" filter="url(#glow)"/>
+      <rect x="36" y="80" width="120" height="260" fill="#DCD1C0"/>
+      <rect x="44" y="88" width="104" height="244" fill="url(#skyN)"/>
+      <rect x="44" y="88" width="104" height="244" fill="none" stroke="#B89A74" stroke-width="6"/>
+      <line x1="96" y1="88" x2="96" y2="332" stroke="#B89A74" stroke-width="5"/>
+      <line x1="44" y1="180" x2="148" y2="180" stroke="#B89A74" stroke-width="5"/>
+      <rect x="30" y="338" width="132" height="8" fill="#EEE8DD"/>
+      <line x1="24" y1="70" x2="190" y2="70" stroke="#8B7B66" stroke-width="2"/>
+      <!-- 纱帘 -->
+      <path d="M90,72 L176,72 L178,350 L84,350 C92,260 86,160 90,72 Z" fill="#FFFFFF" opacity="0.5"/>
+      <g stroke="#FFFFFF" stroke-width="2" opacity="0.7">
+        <line x1="112" y1="74" x2="110" y2="348"/>
+        <line x1="140" y1="74" x2="142" y2="348"/>
+      </g>
+      <!-- 午后光斑 -->
+      <polygon points="40,402 150,402 170,456 30,456" fill="#FFFAEC" opacity="0.8" filter="url(#soft)"/>
+      <!-- 沙发 -->
+      <ellipse cx="260" cy="396" rx="96" ry="8" fill="#7A6A55" opacity="0.22" filter="url(#soft)"/>
+      <rect x="190" y="300" width="160" height="70" rx="14" fill="#DCD1BF"/>
+      <rect x="182" y="350" width="170" height="40" rx="10" fill="#D3C7B3"/>
+      <rect x="176" y="330" width="24" height="62" rx="10" fill="#CCBFAA"/>
+      <rect x="190" y="390" width="6" height="12" fill="#8B6B4A"/>
+      <circle cx="196" cy="236" r="5" fill="#B8935A"/>
+      <line x1="196" y1="236" x2="208" y2="240" stroke="#B8935A" stroke-width="2"/>
+      <path d="M200,240 L216,240 L220,256 L196,256 Z" fill="#EDE5D7"/>
+      <line x1="250" y1="0" x2="250" y2="146" stroke="#6E655B" stroke-width="1.2"/>
+      <path d="M222,170 C222,152 234,144 250,144 C266,144 278,152 278,170 Z" fill="#F3EEE4"/>
+      <ellipse cx="250" cy="170" rx="28" ry="3" fill="#D7CDBD"/>
+    </g>
+  </g>
+
+  <!-- 19:00 傍晚 -->
+  <g clip-path="url(#p3)">
+    <g transform="translate(1460,96)">
+      <rect width="340" height="400" fill="url(#wallE)"/>
+      <rect y="400" width="340" height="124" fill="url(#floorE)"/>
+      <line x1="0" y1="400" x2="340" y2="400" stroke="#A8957E" stroke-width="3"/>
+      <!-- 线性灯带 -->
+      <rect y="18" width="340" height="6" fill="#A29380"/>
+      <rect y="22" width="340" height="40" fill="#FFE6BC" opacity="0.5" filter="url(#line)"/>
+      <line x1="0" y1="25" x2="340" y2="25" stroke="#FFF0D2" stroke-width="2.5"/>
+      <rect x="36" y="80" width="120" height="260" fill="#9C8B76"/>
+      <rect x="44" y="88" width="104" height="244" fill="url(#skyE)"/>
+      <rect x="44" y="88" width="104" height="244" fill="none" stroke="#8E7658" stroke-width="6"/>
+      <line x1="96" y1="88" x2="96" y2="332" stroke="#8E7658" stroke-width="5"/>
+      <line x1="44" y1="180" x2="148" y2="180" stroke="#8E7658" stroke-width="5"/>
+      <rect x="30" y="338" width="132" height="8" fill="#B8A893"/>
+      <line x1="24" y1="70" x2="190" y2="70" stroke="#6E6050" stroke-width="2"/>
+      <rect x="156" y="72" width="18" height="276" fill="#CDBFAB" opacity="0.8"/>
+      <!-- 灯光 -->
+      <polygon points="222,172 278,172 330,400 170,400" fill="#FFE6B8" opacity="0.22" filter="url(#soft)"/>
+      <ellipse cx="250" cy="196" rx="90" ry="60" fill="#FFE3B3" opacity="0.55" filter="url(#glow)"/>
+      <ellipse cx="206" cy="260" rx="40" ry="56" fill="#FFDDA6" opacity="0.6" filter="url(#glow)"/>
+      <ellipse cx="250" cy="452" rx="110" ry="30" fill="#E6C08E" opacity="0.5" filter="url(#glow)"/>
+      <!-- 沙发 -->
+      <ellipse cx="260" cy="396" rx="96" ry="8" fill="#3E3428" opacity="0.3" filter="url(#soft)"/>
+      <rect x="190" y="300" width="160" height="70" rx="14" fill="#B8A78F"/>
+      <rect x="182" y="350" width="170" height="40" rx="10" fill="#AE9C83"/>
+      <rect x="176" y="330" width="24" height="62" rx="10" fill="#A6947C"/>
+      <rect x="190" y="390" width="6" height="12" fill="#5E4A36"/>
+      <!-- 壁灯（亮） -->
+      <circle cx="196" cy="236" r="5" fill="#C9A066"/>
+      <line x1="196" y1="236" x2="208" y2="240" stroke="#C9A066" stroke-width="2"/>
+      <path d="M200,240 L216,240 L220,256 L196,256 Z" fill="#FFEBC6"/>
+      <!-- 吊灯（亮） -->
+      <line x1="250" y1="0" x2="250" y2="146" stroke="#4E463E" stroke-width="1.2"/>
+      <path d="M222,170 C222,152 234,144 250,144 C266,144 278,152 278,170 Z" fill="#F4E6CC"/>
+      <ellipse cx="250" cy="170" rx="28" ry="3.5" fill="#FFF3D9"/>
+    </g>
+  </g>
+
+  <text x="720" y="650" font-family="'Source Han Sans SC', sans-serif" font-weight="300" font-size="13" fill="#9A9288">示意插画 · 同一客厅在一天中的三种光线</text>
+
+  <!-- 时段说明 -->
+  <g font-family="'Source Han Sans SC', sans-serif">
+    <text x="720" y="720" font-family="Didot, serif" font-size="40" fill="#2A2826">08:00</text>
+    <text x="1060" y="716" text-anchor="end" font-weight="400" font-size="18" fill="#5E574F">清晨 <tspan font-family="'Avenir Next', sans-serif" font-size="12" letter-spacing="3" fill="#9A9288">MORNING</tspan></text>
+    <line x1="720" y1="744" x2="1060" y2="744" stroke="#E2DCD2" stroke-width="1"/>
+    <text font-weight="300" font-size="16" fill="#5E574F">
+      <tspan x="720" y="786">东窗的光斜斜铺进客厅，</tspan>
+      <tspan x="720" y="814">微水泥墙面泛起一层冷白，</tspan>
+      <tspan x="720" y="842">适合一杯咖啡的安静。</tspan>
+    </text>
+
+    <text x="1090" y="720" font-family="Didot, serif" font-size="40" fill="#2A2826">14:00</text>
+    <text x="1430" y="716" text-anchor="end" font-weight="400" font-size="18" fill="#5E574F">午后 <tspan font-family="'Avenir Next', sans-serif" font-size="12" letter-spacing="3" fill="#9A9288">AFTERNOON</tspan></text>
+    <line x1="1090" y1="744" x2="1430" y2="744" stroke="#E2DCD2" stroke-width="1"/>
+    <text font-weight="300" font-size="16" fill="#5E574F">
+      <tspan x="1090" y="786">日光升高，光斑收在窗下，</tspan>
+      <tspan x="1090" y="814">白橡木地板被晒得温暖，</tspan>
+      <tspan x="1090" y="842">纱帘把直射滤成漫射。</tspan>
+    </text>
+
+    <text x="1460" y="720" font-family="Didot, serif" font-size="40" fill="#2A2826">19:00</text>
+    <text x="1800" y="716" text-anchor="end" font-weight="400" font-size="18" fill="#5E574F">傍晚 <tspan font-family="'Avenir Next', sans-serif" font-size="12" letter-spacing="3" fill="#9A9288">EVENING</tspan></text>
+    <line x1="1460" y1="744" x2="1800" y2="744" stroke="#E2DCD2" stroke-width="1"/>
+    <text font-weight="300" font-size="16" fill="#5E574F">
+      <tspan x="1460" y="786">自然光退场，灯光接手：</tspan>
+      <tspan x="1460" y="814">陶瓷吊灯、黄铜壁灯，</tspan>
+      <tspan x="1460" y="842">还有藏在顶部的线性灯带。</tspan>
+    </text>
+  </g>
+
+  <!-- 页脚 -->
+  <text x="120" y="1010" font-family="Didot, serif" font-size="18" fill="#2A2826">06 <tspan fill="#B0A89D">/ 09</tspan></text>
+  <text x="1800" y="1010" text-anchor="end" font-family="'Avenir Next', sans-serif" font-size="13" letter-spacing="4" fill="#9A9288">MUYU DESIGN STUDIO</text>
+</svg>

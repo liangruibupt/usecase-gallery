@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1350" viewBox="0 0 1080 1350">
+  <title>D-02 · Review card · Feed 1080×1350</title>
+  <desc>ID: D-02 | Hook: Review card – 5-star customer quote set large in serif as the hero, "Verified buyer" (QUOTE AND NAME ARE PLACEHOLDERS – replace with a real verified review before launch) | Hypothesis: Large, specific social proof from a verified buyer lowers perceived purchase risk, lifting conversion among people who click | Primary metric: Purchase CVR (purchases / link clicks) | Placement: Feed</desc>
+  <defs>
+    <radialGradient id="bg" cx="540" cy="300" r="1000" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#3f2858"/>
+      <stop offset="1" stop-color="#2B1B3D"/>
+    </radialGradient>
+    <linearGradient id="maskg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#4a3166"/>
+      <stop offset="1" stop-color="#2B1B3D"/>
+    </linearGradient>
+    <filter id="cardShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur stdDeviation="22"/>
+    </filter>
+    <path id="star" d="M0,-28 L6.76,-9.3 L26.63,-8.65 L10.94,3.55 L16.46,22.65 L0,11.5 L-16.46,22.65 L-10.94,3.55 L-26.63,-8.65 L-6.76,-9.3 Z"/>
+  </defs>
+
+  <rect x="0" y="0" width="1080" height="1350" fill="url(#bg)"/>
+
+  <!-- Review card -->
+  <rect x="82" y="116" width="936" height="1040" rx="36" fill="#0f0816" opacity=".45" filter="url(#cardShadow)"/>
+  <rect x="72" y="96" width="936" height="1040" rx="36" fill="#F3EBDD"/>
+
+  <!-- decorative opening quote mark (shape, not text), fully inside card, clear of stars -->
+  <g transform="translate(150 240) scale(1.4) rotate(180)" fill="#2B1B3D" opacity=".08">
+    <circle cx="0" cy="0" r="34"/>
+    <path d="M 34 0 C 34 54 -7 82 -37 88 L -34 75 C -7 65 10 44 7 27 Z"/>
+    <g transform="translate(-95 0)">
+      <circle cx="0" cy="0" r="34"/>
+      <path d="M 34 0 C 34 54 -7 82 -37 88 L -34 75 C -7 65 10 44 7 27 Z"/>
+    </g>
+  </g>
+
+  <g fill="#C9A15B">
+    <use href="#star" x="388" y="230"/>
+    <use href="#star" x="464" y="230"/>
+    <use href="#star" x="540" y="230"/>
+    <use href="#star" x="616" y="230"/>
+    <use href="#star" x="692" y="230"/>
+  </g>
+
+  <g font-family="Didot, Baskerville, Georgia, serif" font-style="italic" font-size="82" fill="#2B1B3D" text-anchor="middle">
+    <text x="540" y="400">“I was out before</text>
+    <text x="540" y="505">my podcast finished</text>
+    <text x="540" y="610">the intro.”</text>
+  </g>
+
+  <line x1="500" y1="680" x2="580" y2="680" stroke="#2B1B3D" stroke-opacity=".3" stroke-width="2"/>
+  <text x="540" y="750" text-anchor="middle" font-family="'Avenir Next', 'Gill Sans', sans-serif" font-size="34" font-weight="600" fill="#2B1B3D">Maya R.</text>
+  <g transform="translate(434 791)">
+    <circle cx="0" cy="0" r="15" fill="#2B1B3D"/>
+    <path d="M -6 0 L -2 5 L 7 -5" stroke="#F3EBDD" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <text x="461" y="800" font-family="'Avenir Next', 'Gill Sans', sans-serif" font-size="26" font-weight="500" letter-spacing="1" fill="#2B1B3D" fill-opacity=".78">Verified buyer</text>
+
+  <!-- product illustration: Dusk mask lying flat -->
+  <ellipse cx="540" cy="1090" rx="210" ry="14" fill="#2B1B3D" opacity=".14"/>
+  <path d="M 362 1000 C 280 1000 200 1012 150 1034 M 718 1000 C 800 1000 880 1012 930 1034" stroke="#2B1B3D" stroke-opacity=".85" stroke-width="14" fill="none" stroke-linecap="round"/>
+  <path d="M 360 990 C 360 950 430 935 540 945 C 650 935 720 950 720 990 L 720 1030 C 720 1070 660 1080 610 1068 C 580 1060 560 1045 540 1045 C 520 1045 500 1060 470 1068 C 420 1080 360 1070 360 1030 Z" fill="url(#maskg)"/>
+  <path d="M 376 1012 C 460 1003 620 1003 704 1012 M 450 952 C 442 990 442 1030 455 1068 M 630 952 C 638 990 638 1030 625 1068" stroke="#F3EBDD" stroke-opacity=".3" stroke-width="3" stroke-dasharray="8 8" fill="none"/>
+  <ellipse cx="630" cy="960" rx="60" ry="9" fill="#ffffff" opacity=".12"/>
+  <path transform="translate(410 980) scale(.5)" d="M6,-17 A18,18 0 1 0 6,17 A20,20 0 0 1 6,-17 Z" fill="#F3EBDD" opacity=".8"/>
+
+  <!-- BRAND FRAME (fixed) -->
+  <g id="brand-frame">
+    <rect x="0" y="1206" width="1080" height="144" fill="#2B1B3D"/>
+    <g transform="translate(84 1278)">
+      <path d="M6,-17 A18,18 0 1 0 6,17 A20,20 0 0 1 6,-17 Z" fill="#F3EBDD"/>
+      <text x="32" y="15" font-family="Futura, 'Avenir Next', sans-serif" font-size="46" font-weight="500" letter-spacing="3" fill="#F3EBDD">dusk</text>
+    </g>
+    <rect x="556" y="1240" width="460" height="76" rx="38" fill="#F3EBDD"/>
+    <text x="786" y="1288" text-anchor="middle" font-family="'Avenir Next', 'Gill Sans', sans-serif" font-size="28" font-weight="600" fill="#2B1B3D">Shop Dusk, 30-night trial</text>
+  </g>
+</svg>

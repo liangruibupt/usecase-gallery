@@ -1,0 +1,508 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1600" height="2000" viewBox="0 0 1600 2000">
+  <defs>
+    <!-- ===== Shared lighting rig (table plane raised for the still-life camera) ===== -->
+    <radialGradient id="bgPool" gradientUnits="userSpaceOnUse" cx="520" cy="700" r="1150">
+      <stop offset="0" stop-color="#53392a"/>
+      <stop offset="0.3" stop-color="#33241a"/>
+      <stop offset="0.65" stop-color="#1a120d"/>
+      <stop offset="1" stop-color="#0c0806"/>
+    </radialGradient>
+    <linearGradient id="rightDark" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="1600" y2="0">
+      <stop offset="0" stop-color="#000" stop-opacity="0"/>
+      <stop offset="0.45" stop-color="#000" stop-opacity="0.12"/>
+      <stop offset="1" stop-color="#000" stop-opacity="0.6"/>
+    </linearGradient>
+    <linearGradient id="tableGrad" gradientUnits="userSpaceOnUse" x1="0" y1="1120" x2="0" y2="2000">
+      <stop offset="0" stop-color="#33251b"/>
+      <stop offset="0.45" stop-color="#1c130e"/>
+      <stop offset="1" stop-color="#0c0806"/>
+    </linearGradient>
+    <radialGradient id="tableLight" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#8a6242" stop-opacity="0.6"/>
+      <stop offset="1" stop-color="#8a6242" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="tableEdge" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="1600" y2="0">
+      <stop offset="0" stop-color="#9a6e4c" stop-opacity="0.4"/>
+      <stop offset="0.55" stop-color="#8c6446" stop-opacity="0.12"/>
+      <stop offset="1" stop-color="#8c6446" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="beam" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="900" y2="1500">
+      <stop offset="0" stop-color="#e8d2aa" stop-opacity="0.16"/>
+      <stop offset="1" stop-color="#e8d2aa" stop-opacity="0"/>
+    </linearGradient>
+    <radialGradient id="vignette" gradientUnits="userSpaceOnUse" cx="720" cy="980" r="1300">
+      <stop offset="0.45" stop-color="#000" stop-opacity="0"/>
+      <stop offset="1" stop-color="#000" stop-opacity="0.66"/>
+    </radialGradient>
+    <filter id="mottle" filterUnits="userSpaceOnUse" x="0" y="0" width="1600" height="2000">
+      <feTurbulence type="fractalNoise" baseFrequency="0.004 0.006" numOctaves="3" seed="11"/>
+      <feColorMatrix type="matrix" values="0 0 0 0 0.36  0 0 0 0 0.25  0 0 0 0 0.17  1.1 0 0 0 -0.45"/>
+    </filter>
+    <filter id="grain" filterUnits="userSpaceOnUse" x="0" y="0" width="1600" height="2000">
+      <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" seed="7"/>
+      <feColorMatrix type="matrix" values="0 0 0 0 0.91  0 0 0 0 0.88  0 0 0 0 0.82  0 0 0 1.4 -0.55"/>
+    </filter>
+    <filter id="b1" filterUnits="userSpaceOnUse" x="-2000" y="-2000" width="6000" height="6000"><feGaussianBlur stdDeviation="1"/></filter>
+    <filter id="b3" filterUnits="userSpaceOnUse" x="-2000" y="-2000" width="6000" height="6000"><feGaussianBlur stdDeviation="3"/></filter>
+    <filter id="b6" filterUnits="userSpaceOnUse" x="-2000" y="-2000" width="6000" height="6000"><feGaussianBlur stdDeviation="6"/></filter>
+    <filter id="b12" filterUnits="userSpaceOnUse" x="-2000" y="-2000" width="6000" height="6000"><feGaussianBlur stdDeviation="12"/></filter>
+    <filter id="b16" filterUnits="userSpaceOnUse" x="-2000" y="-2000" width="6000" height="6000"><feGaussianBlur stdDeviation="16"/></filter>
+    <filter id="b32" filterUnits="userSpaceOnUse" x="-2000" y="-2000" width="6000" height="6000"><feGaussianBlur stdDeviation="32"/></filter>
+    <filter id="b48" filterUnits="userSpaceOnUse" x="-2000" y="-2000" width="6000" height="6000"><feGaussianBlur stdDeviation="48"/></filter>
+
+    <!-- ===== Bottle (identical to front view) ===== -->
+    <linearGradient id="liquidFront" gradientUnits="userSpaceOnUse" x1="578" y1="0" x2="1022" y2="0">
+      <stop offset="0" stop-color="#a3633a"/>
+      <stop offset="0.18" stop-color="#86472c"/>
+      <stop offset="0.45" stop-color="#5a2a24"/>
+      <stop offset="0.8" stop-color="#2f1517"/>
+      <stop offset="1" stop-color="#1f0e10"/>
+    </linearGradient>
+    <linearGradient id="frontGlass" gradientUnits="userSpaceOnUse" x1="540" y1="0" x2="1060" y2="0">
+      <stop offset="0" stop-color="#e8e0d2" stop-opacity="0.18"/>
+      <stop offset="0.15" stop-color="#e8e0d2" stop-opacity="0.05"/>
+      <stop offset="0.65" stop-color="#e8e0d2" stop-opacity="0"/>
+      <stop offset="1" stop-color="#000" stop-opacity="0.32"/>
+    </linearGradient>
+    <linearGradient id="topGlass" gradientUnits="userSpaceOnUse" x1="540" y1="0" x2="1060" y2="0">
+      <stop offset="0" stop-color="#e8e0d2" stop-opacity="0.55"/>
+      <stop offset="0.4" stop-color="#e8e0d2" stop-opacity="0.22"/>
+      <stop offset="1" stop-color="#e8e0d2" stop-opacity="0.05"/>
+    </linearGradient>
+    <linearGradient id="baseGlass" gradientUnits="userSpaceOnUse" x1="0" y1="1525" x2="0" y2="1610">
+      <stop offset="0" stop-color="#c4834d" stop-opacity="0.5"/>
+      <stop offset="0.3" stop-color="#7a4a30" stop-opacity="0.4"/>
+      <stop offset="1" stop-color="#120a07" stop-opacity="0.75"/>
+    </linearGradient>
+    <linearGradient id="baseShade" gradientUnits="userSpaceOnUse" x1="540" y1="0" x2="1060" y2="0">
+      <stop offset="0" stop-color="#000" stop-opacity="0"/>
+      <stop offset="0.5" stop-color="#000" stop-opacity="0.1"/>
+      <stop offset="1" stop-color="#000" stop-opacity="0.55"/>
+    </linearGradient>
+    <linearGradient id="etch" gradientUnits="userSpaceOnUse" x1="-220" y1="0" x2="220" y2="0">
+      <stop offset="0" stop-color="#efe7d9" stop-opacity="0.78"/>
+      <stop offset="0.5" stop-color="#e8e0d2" stop-opacity="0.5"/>
+      <stop offset="1" stop-color="#e8e0d2" stop-opacity="0.26"/>
+    </linearGradient>
+    <clipPath id="liqClip"><rect x="578" y="912" width="444" height="613" rx="8"/></clipPath>
+    <linearGradient id="brass" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#4a361d"/>
+      <stop offset="0.08" stop-color="#9a7744"/>
+      <stop offset="0.19" stop-color="#f1d9a0"/>
+      <stop offset="0.27" stop-color="#d4b072"/>
+      <stop offset="0.45" stop-color="#9a7744"/>
+      <stop offset="0.7" stop-color="#5b4224"/>
+      <stop offset="0.9" stop-color="#261a0e"/>
+      <stop offset="1" stop-color="#3a2a16"/>
+    </linearGradient>
+    <linearGradient id="brassTop" x1="0" y1="0" x2="1" y2="0.3">
+      <stop offset="0" stop-color="#e9cf93"/>
+      <stop offset="0.35" stop-color="#b08d57"/>
+      <stop offset="1" stop-color="#3f2d17"/>
+    </linearGradient>
+    <linearGradient id="capShade" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#000" stop-opacity="0.35"/>
+      <stop offset="0.16" stop-color="#000" stop-opacity="0"/>
+      <stop offset="0.6" stop-color="#000" stop-opacity="0.15"/>
+      <stop offset="1" stop-color="#000" stop-opacity="0.6"/>
+    </linearGradient>
+    <linearGradient id="rimLight" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#ffe9b8" stop-opacity="0.8"/>
+      <stop offset="0.5" stop-color="#ffe9b8" stop-opacity="0.15"/>
+      <stop offset="1" stop-color="#ffe9b8" stop-opacity="0"/>
+    </linearGradient>
+    <pattern id="knurl" patternUnits="userSpaceOnUse" width="10" height="20">
+      <rect x="0" y="0" width="3" height="20" fill="#1c1209" opacity="0.55"/>
+      <rect x="4.5" y="0" width="1.5" height="20" fill="#ffe9b8" opacity="0.35"/>
+    </pattern>
+
+    <!-- ===== Fig ===== -->
+    <path id="figShape" d="M0,-240 C40,-235 60,-180 90,-130 C150,-90 170,-20 165,40 C155,130 80,175 0,175 C-80,175 -155,130 -165,40 C-170,-20 -150,-90 -90,-130 C-60,-180 -40,-235 0,-240 Z"/>
+    <radialGradient id="figSkin" cx="0.3" cy="0.38" r="0.8">
+      <stop offset="0" stop-color="#7d3e57"/>
+      <stop offset="0.35" stop-color="#5b2a3c"/>
+      <stop offset="0.75" stop-color="#2c121c"/>
+      <stop offset="1" stop-color="#12070b"/>
+    </radialGradient>
+    <radialGradient id="figSkinDark" cx="0.3" cy="0.3" r="0.8">
+      <stop offset="0" stop-color="#4a2030"/>
+      <stop offset="1" stop-color="#0e0508"/>
+    </radialGradient>
+    <radialGradient id="greenSkin" cx="0.3" cy="0.38" r="0.8">
+      <stop offset="0" stop-color="#7f7a43"/>
+      <stop offset="0.35" stop-color="#5a582c"/>
+      <stop offset="0.75" stop-color="#2a2a12"/>
+      <stop offset="1" stop-color="#0f0f06"/>
+    </radialGradient>
+    <radialGradient id="figPith" cx="0.4" cy="0.45" r="0.6">
+      <stop offset="0" stop-color="#e2cfae"/>
+      <stop offset="0.7" stop-color="#cdb08a"/>
+      <stop offset="1" stop-color="#8e6f52"/>
+    </radialGradient>
+    <radialGradient id="figFlesh" cx="0.5" cy="0.5" r="0.55">
+      <stop offset="0" stop-color="#6e1a22"/>
+      <stop offset="0.4" stop-color="#9e3336"/>
+      <stop offset="0.78" stop-color="#c3634f"/>
+      <stop offset="1" stop-color="#d9967a"/>
+    </radialGradient>
+    <linearGradient id="figCutShade" x1="0" y1="0" x2="1" y2="0.2">
+      <stop offset="0" stop-color="#ffdcb4" stop-opacity="0.16"/>
+      <stop offset="0.45" stop-color="#000" stop-opacity="0"/>
+      <stop offset="1" stop-color="#000" stop-opacity="0.6"/>
+    </linearGradient>
+
+    <!-- ===== Fig leaf ===== -->
+    <path id="leaf" d="M0,0 C-20,-30 -60,-40 -110,-30 C-170,-20 -220,-60 -200,-110 C-185,-150 -140,-140 -120,-170 C-110,-220 -150,-260 -110,-300 C-70,-330 -40,-290 -20,-320 C-10,-360 10,-360 20,-320 C40,-290 70,-330 110,-300 C150,-260 110,-220 120,-170 C140,-140 185,-150 200,-110 C220,-60 170,-20 110,-30 C60,-40 20,-30 0,0 Z"/>
+    <radialGradient id="leafGrad" cx="0.35" cy="0.3" r="0.8">
+      <stop offset="0" stop-color="#5e5c30"/>
+      <stop offset="0.5" stop-color="#3a3a1c"/>
+      <stop offset="1" stop-color="#161608"/>
+    </radialGradient>
+
+    <!-- ===== Birch bark ===== -->
+    <linearGradient id="barkRoll" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#e3d9c7"/>
+      <stop offset="0.35" stop-color="#c6b69c"/>
+      <stop offset="0.7" stop-color="#857560"/>
+      <stop offset="1" stop-color="#352b22"/>
+    </linearGradient>
+    <linearGradient id="barkShadeH" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#000" stop-opacity="0"/>
+      <stop offset="0.6" stop-color="#000" stop-opacity="0.14"/>
+      <stop offset="1" stop-color="#000" stop-opacity="0.55"/>
+    </linearGradient>
+    <linearGradient id="barkInner" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#b8845a"/>
+      <stop offset="1" stop-color="#6e4a30"/>
+    </linearGradient>
+
+    <!-- ===== Orris (iris root) ===== -->
+    <path id="rhizome" d="M-240,20 C-250,-10 -230,-40 -190,-42 C-160,-44 -140,-30 -110,-34 C-80,-38 -70,-60 -40,-64 C-10,-68 10,-50 30,-40 C50,-52 70,-90 105,-104 C135,-116 165,-100 168,-74 C172,-50 150,-36 140,-20 C160,-18 200,-26 222,-6 C244,14 234,44 204,50 C170,58 140,40 110,46 C80,52 60,62 20,58 C-20,54 -40,40 -80,46 C-120,52 -150,60 -190,56 C-225,52 -236,40 -240,20 Z"/>
+    <radialGradient id="orris" cx="0.3" cy="0.25" r="0.85">
+      <stop offset="0" stop-color="#d8c4a0"/>
+      <stop offset="0.4" stop-color="#ae916c"/>
+      <stop offset="0.8" stop-color="#665036"/>
+      <stop offset="1" stop-color="#36281a"/>
+    </radialGradient>
+    <linearGradient id="orrisShade" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#000" stop-opacity="0"/>
+      <stop offset="0.55" stop-color="#000" stop-opacity="0"/>
+      <stop offset="1" stop-color="#000" stop-opacity="0.55"/>
+    </linearGradient>
+    <linearGradient id="orrisBelly" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#000" stop-opacity="0"/>
+      <stop offset="0.6" stop-color="#000" stop-opacity="0.05"/>
+      <stop offset="1" stop-color="#000" stop-opacity="0.5"/>
+    </linearGradient>
+    <radialGradient id="orrisCut" cx="0.4" cy="0.4" r="0.6">
+      <stop offset="0" stop-color="#efe4cc"/>
+      <stop offset="0.7" stop-color="#dccaa8"/>
+      <stop offset="1" stop-color="#b59a74"/>
+    </radialGradient>
+  </defs>
+
+  <!-- ===== Wall ===== -->
+  <rect width="1600" height="2000" fill="url(#bgPool)"/>
+  <rect width="1600" height="1120" fill="#000" filter="url(#mottle)" opacity="0.28"/>
+  <ellipse cx="430" cy="640" rx="420" ry="560" fill="#6a4a33" opacity="0.28" filter="url(#b48)"/>
+
+  <!-- ===== Table ===== -->
+  <rect x="0" y="1120" width="1600" height="880" fill="url(#tableGrad)"/>
+  <ellipse cx="600" cy="1520" rx="860" ry="380" fill="url(#tableLight)"/>
+  <rect x="0" y="1116" width="1600" height="7" fill="url(#tableEdge)" filter="url(#b3)"/>
+  <rect x="0" y="1120" width="1600" height="2" fill="#0a0604" opacity="0.5"/>
+
+  <rect width="1600" height="2000" fill="url(#rightDark)"/>
+  <polygon points="-100,-100 700,-100 1150,1500 250,1500" fill="url(#beam)" filter="url(#b48)"/>
+
+  <!-- ===== Bottle, back right (front view at 85%) ===== -->
+  <g transform="translate(1110,1330) scale(0.85) translate(-800,-1610)">
+    <ellipse cx="800" cy="1608" rx="300" ry="26" fill="#050302" opacity="0.6" filter="url(#b16)"/>
+    <polygon points="1040,1614 1060,1566 1450,1540 1520,1568 1100,1622" fill="#050302" opacity="0.85" filter="url(#b16)"/>
+    <ellipse cx="1190" cy="1590" rx="120" ry="14" fill="#c47a3e" opacity="0.38" filter="url(#b12)"/>
+    <ellipse cx="1170" cy="1592" rx="52" ry="5" fill="#e0a060" opacity="0.4" filter="url(#b3)"/>
+    <line x1="540" y1="1611" x2="1060" y2="1611" stroke="#000" stroke-width="8" opacity="0.8" filter="url(#b3)"/>
+
+    <rect x="578" y="912" width="444" height="613" rx="8" fill="url(#liquidFront)"/>
+    <g clip-path="url(#liqClip)">
+      <ellipse cx="690" cy="1120" rx="160" ry="380" fill="#e0985a" opacity="0.28" filter="url(#b32)"/>
+      <rect x="578" y="912" width="444" height="613" rx="8" fill="none" stroke="#000" stroke-width="10" opacity="0.35"/>
+    </g>
+    <line x1="580" y1="912" x2="1020" y2="912" stroke="#e8b27a" stroke-width="2" opacity="0.55"/>
+    <rect x="540" y="1525" width="520" height="85" fill="url(#baseGlass)"/>
+    <rect x="540" y="1525" width="520" height="85" fill="url(#baseShade)"/>
+    <line x1="578" y1="1525" x2="1022" y2="1525" stroke="#f0b880" stroke-width="2" opacity="0.5"/>
+    <rect x="540" y="870" width="520" height="740" fill="url(#frontGlass)"/>
+    <rect x="578" y="870" width="444" height="42" fill="#e8e0d2" opacity="0.07"/>
+    <rect x="540" y="870" width="38" height="740" fill="#e8e0d2" opacity="0.14"/>
+    <rect x="1022" y="870" width="38" height="740" fill="#000" opacity="0.45"/>
+    <polygon points="552,860 1048,860 1060,870 540,870" fill="url(#topGlass)"/>
+    <rect x="590" y="925" width="20" height="580" rx="10" fill="#e8e0d2" opacity="0.32" filter="url(#b6)"/>
+    <line x1="622" y1="930" x2="622" y2="1505" stroke="#e8e0d2" stroke-width="3" opacity="0.18"/>
+    <line x1="543" y1="871" x2="543" y2="1608" stroke="#f4ecdf" stroke-width="10" opacity="0.25" filter="url(#b6)"/>
+    <line x1="543" y1="871" x2="543" y2="1608" stroke="#f4ecdf" stroke-width="3" opacity="0.85"/>
+    <line x1="1057" y1="871" x2="1057" y2="1608" stroke="#e8e0d2" stroke-width="1.5" opacity="0.14"/>
+    <line x1="540" y1="870" x2="1060" y2="870" stroke="#f4ecdf" stroke-width="2" opacity="0.45"/>
+    <line x1="540" y1="1609" x2="1060" y2="1609" stroke="#e8e0d2" stroke-width="2" opacity="0.22"/>
+    <rect x="540" y="870" width="520" height="740" rx="5" fill="none" stroke="#e8e0d2" stroke-width="1.5" opacity="0.12"/>
+
+    <g transform="translate(800,0)">
+      <g fill="#0d0705" opacity="0.55" transform="translate(1.5,2)">
+        <text x="4.5" y="1062" font-family="Gill Sans, sans-serif" font-size="24" letter-spacing="9" text-anchor="middle">ATELIER OUBLI</text>
+        <text x="0" y="1258" font-family="Didot, serif" font-size="168" text-anchor="middle">Nº 7</text>
+        <text x="0" y="1338" font-family="Didot, serif" font-style="italic" font-size="58" text-anchor="middle">Fig &amp; Smoke</text>
+        <text x="3.5" y="1420" font-family="Gill Sans, sans-serif" font-size="19" letter-spacing="7" text-anchor="middle">EAU DE PARFUM</text>
+        <text x="2.5" y="1462" font-family="Gill Sans, sans-serif" font-size="16" letter-spacing="5" text-anchor="middle">50 ML · 1.7 FL OZ</text>
+      </g>
+      <g fill="url(#etch)">
+        <text x="4.5" y="1062" font-family="Gill Sans, sans-serif" font-size="24" letter-spacing="9" text-anchor="middle">ATELIER OUBLI</text>
+        <text x="0" y="1258" font-family="Didot, serif" font-size="168" text-anchor="middle">Nº 7</text>
+        <text x="0" y="1338" font-family="Didot, serif" font-style="italic" font-size="58" text-anchor="middle">Fig &amp; Smoke</text>
+        <text x="3.5" y="1420" font-family="Gill Sans, sans-serif" font-size="19" letter-spacing="7" text-anchor="middle">EAU DE PARFUM</text>
+        <text x="2.5" y="1462" font-family="Gill Sans, sans-serif" font-size="16" letter-spacing="5" text-anchor="middle">50 ML · 1.7 FL OZ</text>
+      </g>
+      <line x1="-60" y1="1095" x2="60" y2="1095" stroke="url(#etch)" stroke-width="1.5"/>
+      <line x1="-40" y1="1378" x2="40" y2="1378" stroke="url(#etch)" stroke-width="1.5"/>
+    </g>
+
+    <g transform="translate(800,0)">
+      <rect x="-70" y="824" width="140" height="44" fill="url(#brass)"/>
+      <rect x="-70" y="824" width="140" height="44" fill="url(#capShade)"/>
+      <line x1="-70" y1="838" x2="70" y2="838" stroke="#000" stroke-opacity="0.4" stroke-width="2"/>
+      <line x1="-70" y1="854" x2="70" y2="854" stroke="#000" stroke-opacity="0.4" stroke-width="2"/>
+      <ellipse cx="0" cy="826" rx="128" ry="13" fill="#000" opacity="0.55" filter="url(#b3)"/>
+      <rect x="-130" y="590" width="260" height="236" fill="url(#brass)"/>
+      <rect x="-130" y="612" width="260" height="150" fill="url(#knurl)" opacity="0.6"/>
+      <rect x="-130" y="590" width="260" height="236" fill="url(#capShade)"/>
+      <line x1="-130" y1="764" x2="130" y2="764" stroke="#1a1008" stroke-width="3" opacity="0.7"/>
+      <line x1="-130" y1="768" x2="130" y2="768" stroke="url(#rimLight)" stroke-width="1.5"/>
+      <line x1="-130" y1="610" x2="130" y2="610" stroke="#1a1008" stroke-width="2" opacity="0.6"/>
+      <rect x="-82" y="600" width="18" height="220" fill="#fff4d6" opacity="0.22" filter="url(#b6)"/>
+      <path d="M-130,826 A130,13 0 0 0 130,826" fill="none" stroke="url(#rimLight)" stroke-width="2"/>
+      <ellipse cx="0" cy="590" rx="130" ry="15" fill="url(#brassTop)"/>
+      <ellipse cx="0" cy="590" rx="112" ry="12" fill="none" stroke="#000" stroke-opacity="0.3" stroke-width="2"/>
+      <path d="M-130,590 A130,15 0 0 0 130,590" fill="none" stroke="url(#rimLight)" stroke-width="2.5"/>
+    </g>
+  </g>
+
+  <!-- ===== Birch bark roll, back left ===== -->
+  <ellipse cx="420" cy="1322" rx="320" ry="18" fill="#050302" opacity="0.75" filter="url(#b12)"/>
+  <ellipse cx="680" cy="1320" rx="250" ry="13" fill="#050302" opacity="0.45" filter="url(#b12)"/>
+  <g transform="translate(400,1262) scale(1.15) rotate(-3)">
+    <path d="M-240,-50 C-120,-53 60,-47 230,-50 A26,50 0 0 1 230,50 C60,47 -120,53 -240,50 Z" fill="url(#barkRoll)"/>
+    <!-- papery striations -->
+    <g fill="none" stroke="#8f7f66" stroke-width="1" opacity="0.35">
+      <path d="M-236,-36 C-120,-38 40,-33 222,-36"/>
+      <path d="M-236,-20 C-140,-18 20,-23 226,-20"/>
+      <path d="M-236,-4 C-100,-6 60,-2 228,-5"/>
+      <path d="M-236,14 C-120,12 40,16 226,13"/>
+      <path d="M-236,30 C-140,32 20,28 222,31"/>
+    </g>
+    <!-- lenticels: straight, irregular dashes -->
+    <g stroke="#2b211a" stroke-linecap="round" opacity="0.75">
+      <line x1="-206" y1="-29" x2="-180" y2="-29" stroke-width="2.5"/>
+      <line x1="-196" y1="-25" x2="-186" y2="-25" stroke-width="1.5"/>
+      <line x1="-152" y1="-9" x2="-140" y2="-9" stroke-width="2"/>
+      <line x1="-118" y1="20" x2="-86" y2="21" stroke-width="3"/>
+      <line x1="-58" y1="-33" x2="-44" y2="-33" stroke-width="2"/>
+      <line x1="-24" y1="6" x2="-2" y2="5" stroke-width="2.5"/>
+      <line x1="-14" y1="10" x2="-6" y2="10" stroke-width="1.5"/>
+      <line x1="28" y1="-22" x2="60" y2="-22" stroke-width="3"/>
+      <line x1="74" y1="27" x2="86" y2="27" stroke-width="2"/>
+      <line x1="108" y1="-7" x2="140" y2="-8" stroke-width="2.5"/>
+      <line x1="164" y1="-34" x2="176" y2="-34" stroke-width="1.8"/>
+      <line x1="186" y1="15" x2="214" y2="14" stroke-width="2.5"/>
+      <line x1="-172" y1="33" x2="-160" y2="33" stroke-width="1.8"/>
+      <line x1="4" y1="37" x2="20" y2="37" stroke-width="2"/>
+      <line x1="-80" y1="-12" x2="-72" y2="-12" stroke-width="1.5"/>
+      <line x1="150" y1="34" x2="160" y2="34" stroke-width="1.5"/>
+    </g>
+    <!-- black bark patches: flat and ragged -->
+    <path d="M-100,-14 L-82,-17 L-70,-15 L-64,-9 L-78,-6 L-96,-7 Z" fill="#17100b" opacity="0.8"/>
+    <path d="M118,10 L136,8 L150,11 L146,17 L128,18 L116,15 Z" fill="#17100b" opacity="0.75"/>
+    <path d="M-240,-50 C-120,-53 60,-47 230,-50 A26,50 0 0 1 230,50 C60,47 -120,53 -240,50 Z" fill="url(#barkShadeH)"/>
+    <path d="M-236,-47 C-120,-50 60,-44 226,-47" fill="none" stroke="#f4ecdf" stroke-width="2.5" opacity="0.6"/>
+    <!-- peeling flap -->
+    <path d="M60,-49 C100,-57 150,-70 205,-92 C214,-80 210,-66 200,-60 C160,-52 110,-46 70,-44 Z" fill="url(#barkInner)"/>
+    <path d="M60,-49 C100,-57 150,-70 205,-92" fill="none" stroke="#ece3d3" stroke-width="3" opacity="0.8"/>
+    <!-- scrolled end -->
+    <ellipse cx="-240" cy="0" rx="24" ry="50" fill="#9c6a46"/>
+    <ellipse cx="-240" cy="0" rx="24" ry="50" fill="none" stroke="#e0d5c1" stroke-width="2"/>
+    <ellipse cx="-238" cy="2" rx="17" ry="37" fill="none" stroke="#5a3a24" stroke-width="2.5"/>
+    <ellipse cx="-236" cy="4" rx="10" ry="23" fill="none" stroke="#5a3a24" stroke-width="2.2"/>
+    <ellipse cx="-235" cy="5" rx="4.5" ry="10" fill="#2e1c10"/>
+    <path d="M-252,-36 C-262,-14 -260,20 -248,38" fill="none" stroke="#e8c49a" stroke-width="1.5" opacity="0.6"/>
+  </g>
+
+  <!-- ===== Fig leaf ===== -->
+  <g transform="translate(480,1560) scale(1.25,0.55) rotate(-40)">
+    <use xlink:href="#leaf" transform="translate(10,14)" fill="#050302" opacity="0.6" filter="url(#b6)"/>
+    <use xlink:href="#leaf" fill="url(#leafGrad)"/>
+    <g fill="none" stroke="#8a8a52" stroke-width="3" stroke-linecap="round" opacity="0.4">
+      <path d="M0,-10 L0,-320"/>
+      <path d="M0,-30 L-170,-110"/>
+      <path d="M0,-30 L170,-110"/>
+      <path d="M0,-60 L-115,-280"/>
+      <path d="M0,-60 L115,-280"/>
+      <path d="M-80,-64 L-110,-150"/>
+      <path d="M80,-64 L110,-150"/>
+      <path d="M0,-180 L-50,-230"/>
+      <path d="M0,-180 L50,-230"/>
+    </g>
+    <use xlink:href="#leaf" fill="none" stroke="#8e8c55" stroke-width="2" opacity="0.3"/>
+    <path d="M0,0 C2,20 6,40 4,60" fill="none" stroke="#4a4526" stroke-width="8" stroke-linecap="round"/>
+  </g>
+
+  <!-- ===== Whole green fig ===== -->
+  <ellipse cx="285" cy="1702" rx="145" ry="16" fill="#050302" opacity="0.75" filter="url(#b12)"/>
+  <ellipse cx="410" cy="1700" rx="150" ry="12" fill="#050302" opacity="0.45" filter="url(#b12)"/>
+  <g transform="translate(270,1562) rotate(6) scale(0.8)">
+    <use xlink:href="#figShape" fill="url(#greenSkin)"/>
+    <path d="M-60,-150 C-110,-60 -120,60 -70,160" fill="none" stroke="#000" stroke-opacity="0.2" stroke-width="4"/>
+    <path d="M10,-200 C20,-80 30,60 20,170" fill="none" stroke="#000" stroke-opacity="0.16" stroke-width="4"/>
+    <path d="M70,-140 C120,-60 130,60 90,150" fill="none" stroke="#000" stroke-opacity="0.22" stroke-width="4"/>
+    <ellipse cx="50" cy="110" rx="80" ry="50" fill="#5b2a3c" opacity="0.3" filter="url(#b12)"/>
+    <ellipse cx="-80" cy="-10" rx="48" ry="105" fill="#d8d3a0" opacity="0.16" filter="url(#b12)"/>
+    <ellipse cx="-92" cy="-30" rx="14" ry="50" fill="#f0ecd0" opacity="0.2" filter="url(#b6)"/>
+    <path d="M-14,-238 C-12,-262 -6,-282 6,-286 C14,-282 16,-262 14,-238 Z" fill="#4b3a22"/>
+  </g>
+
+  <!-- ===== Halved fig ===== -->
+  <ellipse cx="590" cy="1832" rx="175" ry="19" fill="#050302" opacity="0.78" filter="url(#b12)"/>
+  <ellipse cx="720" cy="1830" rx="160" ry="13" fill="#050302" opacity="0.45" filter="url(#b12)"/>
+  <g transform="translate(580,1700) rotate(-10) scale(0.85,0.7)">
+    <use xlink:href="#figShape" transform="translate(0,30)" fill="url(#figSkinDark)"/>
+    <use xlink:href="#figShape" fill="url(#figSkin)"/>
+    <use xlink:href="#figShape" transform="scale(0.93)" fill="url(#figPith)"/>
+    <use xlink:href="#figShape" transform="translate(0,4) scale(0.84)" fill="url(#figFlesh)"/>
+    <g stroke="#e3a48c" stroke-width="2.2" stroke-linecap="round" fill="none" opacity="0.4">
+      <path d="M0,-20 C2,-90 -2,-140 0,-185"/>
+      <path d="M0,-20 C14,-90 26,-130 35,-165"/>
+      <path d="M0,-20 C28,-70 48,-100 62,-120"/>
+      <path d="M0,-20 C40,-50 76,-72 100,-90"/>
+      <path d="M0,-20 C50,-30 96,-40 122,-45"/>
+      <path d="M0,-20 C50,-12 100,-4 130,0"/>
+      <path d="M0,-20 C50,4 100,24 128,40"/>
+      <path d="M0,-20 C40,20 86,60 112,85"/>
+      <path d="M0,-20 C30,30 60,90 80,118"/>
+      <path d="M0,-20 C16,40 30,100 40,135"/>
+      <path d="M0,-20 C0,40 -2,100 0,140"/>
+      <path d="M0,-20 C-16,40 -30,100 -40,135"/>
+      <path d="M0,-20 C-30,30 -60,90 -80,118"/>
+      <path d="M0,-20 C-40,20 -86,60 -112,85"/>
+      <path d="M0,-20 C-50,4 -100,24 -128,40"/>
+      <path d="M0,-20 C-50,-12 -100,-4 -130,0"/>
+      <path d="M0,-20 C-50,-30 -96,-40 -122,-45"/>
+      <path d="M0,-20 C-40,-50 -76,-72 -100,-90"/>
+      <path d="M0,-20 C-28,-70 -48,-100 -62,-120"/>
+      <path d="M0,-20 C-14,-90 -26,-130 -35,-165"/>
+    </g>
+    <path d="M0,-112 C20,-96 40,-50 44,-6 C48,34 26,66 2,70 C-24,72 -44,44 -46,6 C-48,-32 -26,-84 0,-112 Z" fill="#4a0f18"/>
+    <path d="M0,-112 C20,-96 40,-50 44,-6 C48,34 26,66 2,70 C-24,72 -44,44 -46,6 C-48,-32 -26,-84 0,-112 Z" fill="none" stroke="#2a060c" stroke-width="5" opacity="0.6"/>
+    <g fill="#e6c58f" opacity="0.85">
+      <circle cx="-60" cy="-120" r="4"/><circle cx="-30" cy="-150" r="3.5"/><circle cx="10" cy="-160" r="4"/>
+      <circle cx="40" cy="-135" r="3.5"/><circle cx="70" cy="-100" r="4"/><circle cx="95" cy="-60" r="3.5"/>
+      <circle cx="110" cy="-20" r="4"/><circle cx="105" cy="25" r="3.5"/><circle cx="95" cy="65" r="4"/>
+      <circle cx="70" cy="95" r="3.5"/><circle cx="35" cy="115" r="4"/><circle cx="0" cy="120" r="3.5"/>
+      <circle cx="-35" cy="115" r="4"/><circle cx="-70" cy="95" r="3.5"/><circle cx="-95" cy="65" r="4"/>
+      <circle cx="-108" cy="25" r="3.5"/><circle cx="-112" cy="-20" r="4"/><circle cx="-95" cy="-60" r="3.5"/>
+      <circle cx="-75" cy="-95" r="4"/>
+      <circle cx="-45" cy="-90" r="3.5"/><circle cx="-20" cy="-125" r="4"/><circle cx="20" cy="-118" r="3.5"/>
+      <circle cx="50" cy="-80" r="4"/><circle cx="70" cy="-40" r="3.5"/><circle cx="75" cy="10" r="4"/>
+      <circle cx="65" cy="50" r="3.5"/><circle cx="40" cy="85" r="4"/><circle cx="0" cy="95" r="3.5"/>
+      <circle cx="-40" cy="85" r="4"/><circle cx="-65" cy="50" r="3.5"/><circle cx="-78" cy="10" r="4"/>
+      <circle cx="-72" cy="-40" r="3.5"/><circle cx="-55" cy="-62" r="3"/><circle cx="58" cy="-55" r="3"/>
+      <circle cx="56" cy="22" r="3"/><circle cx="-58" cy="28" r="3"/><circle cx="24" cy="-140" r="3"/>
+      <circle cx="-86" cy="-8" r="3"/><circle cx="88" cy="-6" r="3"/>
+    </g>
+    <use xlink:href="#figShape" transform="scale(0.93)" fill="url(#figCutShade)"/>
+    <path d="M-150,-40 C-155,-100 -110,-150 -80,-170" fill="none" stroke="#f4e6cc" stroke-width="4" opacity="0.35" filter="url(#b3)"/>
+    <path d="M-14,-238 C-12,-262 -6,-280 6,-284 C14,-282 16,-262 14,-238 Z" fill="#4b3a22"/>
+  </g>
+
+  <!-- ===== Orris root (irregular rhizome) ===== -->
+  <g transform="translate(1080,1640) rotate(-5) scale(1.1)">
+    <ellipse cx="10" cy="62" rx="255" ry="15" fill="#050302" opacity="0.75" filter="url(#b12)"/>
+    <ellipse cx="130" cy="64" rx="240" ry="11" fill="#050302" opacity="0.45" filter="url(#b12)"/>
+    <!-- fine root hairs, short and irregular -->
+    <g fill="none" stroke="#6e573e" stroke-width="0.9" stroke-linecap="round" opacity="0.5">
+      <path d="M-200,54 l-4,9"/><path d="M-186,56 l2,8"/><path d="M-150,57 l-6,6"/>
+      <path d="M-112,50 l1,9"/><path d="M-96,48 l5,7"/><path d="M-50,44 l-3,8"/>
+      <path d="M-8,52 l3,9"/><path d="M14,57 l-5,7"/><path d="M48,58 l4,6"/>
+      <path d="M92,50 l-2,9"/><path d="M128,44 l6,6"/><path d="M176,54 l-3,8"/>
+      <path d="M196,50 l5,7"/><path d="M-226,46 l-7,5"/>
+    </g>
+    <use xlink:href="#rhizome" fill="url(#orris)"/>
+    <!-- uneven ring scars -->
+    <g fill="none" stroke="#3d2c1d" stroke-width="1.6" opacity="0.4">
+      <path d="M-182,-40 C-190,-6 -188,28 -178,55"/>
+      <path d="M-106,-34 C-118,-2 -114,28 -100,49"/>
+      <path d="M-34,-62 C-44,-18 -40,22 -28,52"/>
+      <path d="M58,-62 C46,-26 54,20 66,56"/>
+      <path d="M96,-96 C112,-84 136,-74 150,-46"/>
+      <path d="M172,-20 C164,4 166,32 178,54"/>
+    </g>
+    <g fill="none" stroke="#5a4430" stroke-width="1" opacity="0.3">
+      <path d="M-150,-22 C-138,-26 -126,-24 -118,-20"/>
+      <path d="M-70,-40 C-58,-46 -46,-44 -40,-38"/>
+      <path d="M10,-30 C24,-34 36,-28 42,-22"/>
+      <path d="M110,-72 C120,-80 134,-80 144,-74"/>
+      <path d="M190,-4 C202,-8 212,-4 218,2"/>
+    </g>
+    <!-- bud scars -->
+    <ellipse cx="-62" cy="-56" rx="9" ry="4.5" fill="#d8c6a4" stroke="#6e573e" stroke-width="1.2" transform="rotate(-8 -62 -56)"/>
+    <ellipse cx="196" cy="-18" rx="7" ry="3.5" fill="#d0bd99" stroke="#6e573e" stroke-width="1.2"/>
+    <g fill="#3d2c1d" opacity="0.5">
+      <circle cx="-190" cy="30" r="2.6"/><circle cx="-130" cy="38" r="2.2"/><circle cx="-60" cy="30" r="2.8"/>
+      <circle cx="10" cy="40" r="2.2"/><circle cx="90" cy="32" r="2.6"/><circle cx="150" cy="26" r="2.2"/>
+    </g>
+    <ellipse cx="-110" cy="-30" rx="110" ry="12" fill="#f0e2c4" opacity="0.22" filter="url(#b6)"/>
+    <use xlink:href="#rhizome" fill="url(#orrisBelly)"/>
+    <use xlink:href="#rhizome" fill="url(#orrisShade)"/>
+    <!-- pale cut tip on the branch -->
+    <ellipse cx="140" cy="-100" rx="24" ry="11" fill="url(#orrisCut)" stroke="#6e573e" stroke-width="1.5" transform="rotate(14 140 -100)"/>
+    <ellipse cx="140" cy="-100" rx="12" ry="5" fill="none" stroke="#b39a74" stroke-width="1.2" transform="rotate(14 140 -100)"/>
+  </g>
+
+  <!-- orris slices -->
+  <g transform="translate(880,1802) rotate(-4) scale(1.15)">
+    <ellipse cx="14" cy="10" rx="56" ry="14" fill="#050302" opacity="0.7" filter="url(#b6)"/>
+    <ellipse cx="0" cy="3" rx="50" ry="21" fill="#6e573e"/>
+    <ellipse cx="0" cy="-3" rx="47" ry="18" fill="url(#orrisCut)"/>
+    <ellipse cx="0" cy="-3" rx="30" ry="11" fill="none" stroke="#b39a74" stroke-width="1.5" opacity="0.7"/>
+    <g fill="#9c8260" opacity="0.7">
+      <circle cx="-14" cy="-6" r="1.6"/><circle cx="8" cy="-8" r="1.6"/><circle cx="18" cy="0" r="1.6"/>
+      <circle cx="-6" cy="3" r="1.6"/><circle cx="0" cy="-3" r="2.2"/><circle cx="-22" cy="1" r="1.4"/>
+    </g>
+  </g>
+  <g transform="translate(1004,1836) rotate(6) scale(1.15)">
+    <ellipse cx="14" cy="10" rx="52" ry="13" fill="#050302" opacity="0.7" filter="url(#b6)"/>
+    <ellipse cx="0" cy="3" rx="46" ry="19" fill="#6e573e"/>
+    <ellipse cx="0" cy="-3" rx="43" ry="16" fill="url(#orrisCut)"/>
+    <ellipse cx="0" cy="-3" rx="27" ry="10" fill="none" stroke="#b39a74" stroke-width="1.5" opacity="0.7"/>
+    <g fill="#9c8260" opacity="0.7">
+      <circle cx="-12" cy="-6" r="1.6"/><circle cx="10" cy="-7" r="1.6"/><circle cx="16" cy="1" r="1.6"/>
+      <circle cx="-5" cy="3" r="1.6"/><circle cx="0" cy="-3" r="2.2"/>
+    </g>
+  </g>
+
+  <!-- ===== Finish ===== -->
+  <rect width="1600" height="2000" fill="url(#vignette)"/>
+
+  <!-- ===== Specimen labels, tiny italic serif, each tied to its object ===== -->
+  <g font-family="Baskerville, Georgia, serif" font-style="italic" fill="#e8e0d2">
+    <line x1="156" y1="1180" x2="156" y2="1202" stroke="#e8e0d2" stroke-width="1" opacity="0.5"/>
+    <text x="150" y="1140" font-size="28" opacity="0.82">Betula pendula</text>
+    <text x="150" y="1170" font-size="22" opacity="0.65">birch tar · base</text>
+
+    <line x1="156" y1="1712" x2="156" y2="1742" stroke="#e8e0d2" stroke-width="1" opacity="0.5"/>
+    <text x="150" y="1776" font-size="28" opacity="0.82">Ficus carica</text>
+    <text x="150" y="1806" font-size="22" opacity="0.65">green fig · top</text>
+
+    <line x1="1136" y1="1736" x2="1136" y2="1814" stroke="#e8e0d2" stroke-width="1" opacity="0.5"/>
+    <text x="1130" y="1848" font-size="28" opacity="0.82">Iris pallida</text>
+    <text x="1130" y="1878" font-size="22" opacity="0.65">orris root · heart</text>
+  </g>
+
+  <rect width="1600" height="2000" fill="#000" filter="url(#grain)" opacity="0.22"/>
+</svg>

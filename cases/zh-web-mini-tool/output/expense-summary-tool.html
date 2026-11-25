@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>报销合计</title>
+<style>
+  :root{
+    --bg:#f4f5f7; --card:#fff; --text:#1f2329; --muted:#8a9099; --line:#e5e7eb;
+    --primary:#2f6feb; --primary-soft:#eaf1ff; --danger:#d93025; --danger-soft:#fdecea;
+    --ok:#1e8e3e;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:var(--bg); color:var(--text);
+    font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    font-size:15px; line-height:1.5;
+  }
+  .wrap{max-width:760px; margin:0 auto; padding:32px 16px 48px}
+  h1{font-size:22px; margin:0 0 4px}
+  .sub{color:var(--muted); margin:0 0 20px; font-size:13px}
+  .card{background:var(--card); border-radius:12px; padding:20px; box-shadow:0 1px 3px rgba(0,0,0,.06); margin-bottom:16px}
+  .card h2{font-size:16px; margin:0 0 14px; display:flex; align-items:center; justify-content:space-between; gap:8px; flex-wrap:wrap}
+  .card h2 small{font-weight:normal; color:var(--muted); font-size:13px}
+
+  .head,.row{display:grid; grid-template-columns:32px 120px 150px 1fr 36px; gap:10px; align-items:center}
+  .head{color:var(--muted); font-size:12px; padding:0 0 6px; border-bottom:1px solid var(--line)}
+  .row{padding:10px 0; border-bottom:1px dashed var(--line); position:relative}
+  .row .idx{color:var(--muted); font-size:13px; text-align:center}
+  select,input{
+    width:100%; height:36px; border:1px solid #d0d4da; border-radius:8px; padding:0 10px;
+    font:inherit; color:inherit; background:#fff; outline:none; min-width:0;
+  }
+  select:focus,input:focus{border-color:var(--primary); box-shadow:0 0 0 3px var(--primary-soft)}
+  .amount-box{position:relative}
+  .amount-box span{position:absolute; left:10px; top:50%; transform:translateY(-50%); color:var(--muted); pointer-events:none}
+  .amount-box input{padding-left:24px; font-family:"SF Mono",Menlo,monospace; text-align:right}
+  .row.over,.row.bad{border-radius:8px; margin:0 -8px; padding-left:8px; padding-right:8px}
+  .row.over{background:var(--danger-soft)}
+  .row.bad{background:#fff6e5}
+  .row.over .amount-box input{border-color:var(--danger); color:var(--danger); font-weight:600}
+  .row.bad .amount-box input{border-color:#e8a33d}
+  .warn{grid-column:2 / -1; color:var(--danger); font-size:12px; margin-top:-4px; display:none}
+  .row.over .warn{display:block}
+  .row.bad .warn{display:block; color:#b26a00}
+  .del{
+    width:32px; height:32px; border:none; border-radius:8px; background:transparent; color:var(--muted);
+    font-size:20px; cursor:pointer; line-height:1;
+  }
+  .del:hover{background:var(--danger-soft); color:var(--danger)}
+
+  .actions{display:flex; gap:10px; margin-top:14px; flex-wrap:wrap}
+  .btn{
+    height:38px; padding:0 16px; border-radius:8px; border:1px solid #d0d4da; background:#fff;
+    font:inherit; cursor:pointer; color:var(--text);
+  }
+  .btn:hover{border-color:var(--primary); color:var(--primary)}
+  .btn.primary{background:var(--primary); color:#fff; border-color:var(--primary)}
+  .btn.primary:hover{filter:brightness(1.08); color:#fff}
+  .btn.ghost{color:var(--muted)}
+
+  table{width:100%; border-collapse:collapse}
+  th,td{padding:10px 8px; border-bottom:1px solid var(--line); text-align:left}
+  th{color:var(--muted); font-weight:normal; font-size:13px}
+  td.num,th.num{text-align:right; font-family:"SF Mono",Menlo,monospace}
+  th.num{font-family:inherit}
+  tr.total td{font-weight:700; font-size:17px; border-bottom:none; border-top:2px solid var(--text)}
+  .tag{display:inline-block; width:8px; height:8px; border-radius:50%; margin-right:8px; vertical-align:middle}
+  .over-list{margin-top:14px; padding:10px 12px; background:var(--danger-soft); color:var(--danger); border-radius:8px; font-size:13px; display:none}
+  .over-list.show{display:block}
+  .toast{
+    position:fixed; left:50%; bottom:28px; transform:translateX(-50%) translateY(20px);
+    background:#1f2329; color:#fff; padding:10px 18px; border-radius:999px; font-size:14px;
+    opacity:0; transition:.25s; pointer-events:none;
+  }
+  .toast.show{opacity:1; transform:translateX(-50%) translateY(0)}
+
+  @media (max-width:600px){
+    .wrap{padding:20px 10px 40px}
+    .card{padding:14px}
+    .head{display:none}
+    .row{grid-template-columns:28px 1fr 1fr 32px; row-gap:8px}
+    .row .idx{grid-column:1; grid-row:1}
+    .row .cat{grid-column:2; grid-row:1}
+    .row .amount-box{grid-column:3; grid-row:1}
+    .row .del{grid-column:4; grid-row:1}
+    .row .note{grid-column:2 / -1; grid-row:2}
+    .row .warn{grid-column:2 / -1; grid-row:3; margin-top:0}
+    th,td{padding:9px 4px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>报销合计</h1>
+  <p class="sub">逐行填写类别和金额，下方自动按类别小计并算总计。数据自动保存在本机浏览器里。</p>
+
+  <div class="card">
+    <h2>费用明细 <small id="countInfo"></small></h2>
+    <div class="head"><div style="text-align:center">#</div><div>类别</div><div>金额（元）</div><div>说明（可不填）</div><div></div></div>
+    <div id="rows"></div>
+    <div class="actions">
+      <button class="btn primary" id="addBtn">＋ 添加一行</button>
+      <button class="btn ghost" id="clearBtn">清空全部</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>合计表 <button class="btn primary" id="copyBtn">一键复制</button></h2>
+    <table>
+      <thead><tr><th>类别</th><th class="num">笔数</th><th class="num">小计（元）</th></tr></thead>
+      <tbody id="sumBody"></tbody>
+    </table>
+    <div class="over-list" id="overList"></div>
+  </div>
+</div>
+<div class="toast" id="toast">已复制</div>
+
+<script>
+const CATS = [
+  {name:"餐饮", color:"#f59e0b"},
+  {name:"交通", color:"#2f6feb"},
+  {name:"住宿", color:"#10b981"}
+];
+const LIMIT = 1000;
+const KEY = "expense-summary-tool-v1";
+const rowsEl = document.getElementById("rows");
+
+let data;
+try { data = JSON.parse(localStorage.getItem(KEY)); } catch(e) { data = null; }
+if (!Array.isArray(data) || data.length === 0) {
+  data = [
+    {cat:"交通", amount:"568", note:"往返高铁"},
+    {cat:"住宿", amount:"1280", note:"酒店 2 晚"},
+    {cat:"餐饮", amount:"86.5", note:"工作餐"}
+  ];
+}
+data.forEach(r => { if (!CATS.some(c => c.name === r.cat)) r.cat = "餐饮"; });
+
+function toCents(v){
+  const s = String(v == null ? "" : v).trim().replace(/[,，¥￥\s]/g,"");
+  if (s === "") return {empty:true, cents:0};
+  if (!/^\d+(\.\d{0,2})?$/.test(s)) return {bad:true, cents:0};
+  return {cents: Math.round(parseFloat(s) * 100)};
+}
+function fmt(c){
+  return (c/100).toLocaleString("zh-CN",{minimumFractionDigits:2, maximumFractionDigits:2});
+}
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify(data)); }catch(e){} }
+function esc(s){ return String(s).replace(/[&<>"]/g, m => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m])); }
+
+function render(){
+  rowsEl.innerHTML = "";
+  data.forEach((r,i) => {
+    const div = document.createElement("div");
+    div.className = "row";
+    div.innerHTML = `
+      <div class="idx">${i+1}</div>
+      <select class="cat" aria-label="类别">${CATS.map(c=>`<option ${c.name===r.cat?"selected":""}>${c.name}</option>`).join("")}</select>
+      <div class="amount-box"><span>¥</span><input class="amt" inputmode="decimal" placeholder="0.00" value="${esc(r.amount||"")}" aria-label="金额"></div>
+      <input class="note" placeholder="如：出租车" value="${esc(r.note||"")}" aria-label="说明">
+      <button class="del" title="删除这一行" aria-label="删除">×</button>
+      <div class="warn"></div>`;
+    div.querySelector(".cat").addEventListener("change", e => { r.cat = e.target.value; update(); });
+    div.querySelector(".amt").addEventListener("input", e => { r.amount = e.target.value; update(); });
+    div.querySelector(".note").addEventListener("input", e => { r.note = e.target.value; update(); });
+    div.querySelector(".del").addEventListener("click", () => {
+      data.splice(i,1);
+      if (data.length === 0) data.push({cat:"餐饮", amount:"", note:""});
+      render();
+    });
+    rowsEl.appendChild(div);
+  });
+  update();
+}
+
+let lastText = "";
+function update(){
+  const sums = {}; CATS.forEach(c => sums[c.name] = {n:0, c:0});
+  let total = 0, valid = 0; const overs = [];
+  [...rowsEl.children].forEach((el,i) => {
+    const r = data[i], v = toCents(r.amount);
+    const warn = el.querySelector(".warn");
+    el.classList.remove("over","bad");
+    warn.textContent = "";
+    if (v.bad) { el.classList.add("bad"); warn.textContent = "金额格式不对，请只填数字（最多两位小数），这一行暂不计入"; return; }
+    if (v.empty) return;
+    sums[r.cat].n++; sums[r.cat].c += v.cents; total += v.cents; valid++;
+    if (v.cents > LIMIT*100) {
+      el.classList.add("over");
+      warn.textContent = `⚠ 单项超过 ${LIMIT} 元，请确认并备好审批或发票`;
+      overs.push(`第 ${i+1} 行 ${r.cat} ¥${fmt(v.cents)}${r.note ? "（"+r.note+"）" : ""}`);
+    }
+  });
+
+  document.getElementById("countInfo").textContent = `共 ${data.length} 行，有效 ${valid} 笔`;
+  const body = document.getElementById("sumBody");
+  body.innerHTML = CATS.map(c => `<tr><td><span class="tag" style="background:${c.color}"></span>${c.name}</td><td class="num">${sums[c.name].n}</td><td class="num">${fmt(sums[c.name].c)}</td></tr>`).join("")
+    + `<tr class="total"><td>总计</td><td class="num">${valid}</td><td class="num">¥ ${fmt(total)}</td></tr>`;
+
+  const ol = document.getElementById("overList");
+  ol.classList.toggle("show", overs.length > 0);
+  ol.innerHTML = overs.length ? `超过 ${LIMIT} 元的单项（${overs.length} 笔）：<br>` + overs.map(esc).join("<br>") : "";
+
+  const lines = ["报销合计", "类别\t笔数\t小计（元）"];
+  CATS.forEach(c => lines.push(`${c.name}\t${sums[c.name].n}\t${fmt(sums[c.name].c)}`));
+  lines.push(`总计\t${valid}\t${fmt(total)}`);
+  if (overs.length) { lines.push("", `超过 ${LIMIT} 元的单项：`); overs.forEach(o => lines.push(o)); }
+  lastText = lines.join("\n");
+  save();
+}
+
+document.getElementById("addBtn").addEventListener("click", () => {
+  const last = data[data.length-1];
+  data.push({cat: last ? last.cat : "餐饮", amount:"", note:""});
+  render();
+  const inputs = rowsEl.querySelectorAll(".amt");
+  inputs[inputs.length-1].focus();
+});
+document.getElementById("clearBtn").addEventListener("click", () => {
+  if (!confirm("确定清空所有行吗？")) return;
+  data = [{cat:"餐饮", amount:"", note:""}];
+  render();
+});
+
+function toast(msg){
+  const t = document.getElementById("toast");
+  t.textContent = msg; t.classList.add("show");
+  clearTimeout(toast.timer); toast.timer = setTimeout(() => t.classList.remove("show"), 1600);
+}
+function fallbackCopy(text){
+  const ta = document.createElement("textarea");
+  ta.value = text; ta.style.position = "fixed"; ta.style.opacity = "0";
+  document.body.appendChild(ta); ta.select();
+  let ok = false; try { ok = document.execCommand("copy"); } catch(e) {}
+  document.body.removeChild(ta);
+  toast(ok ? "已复制，可直接粘贴到微信、邮件或 Excel" : "复制失败，请手动选中表格复制");
+}
+document.getElementById("copyBtn").addEventListener("click", () => {
+  if (navigator.clipboard && window.isSecureContext) {
+    navigator.clipboard.writeText(lastText)
+      .then(() => toast("已复制，可直接粘贴到微信、邮件或 Excel"))
+      .catch(() => fallbackCopy(lastText));
+  } else fallbackCopy(lastText);
+});
+
+render();
+</script>
+</body>
+</html>

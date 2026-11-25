@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Aero 1 OOH: Concept comparison</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1c1a17;
+    --muted: #6b655d;
+    --line: #ddd7ce;
+    --paper: #f4f1ec;
+    --card: #ffffff;
+    --lime: #D4FF3A;
+    --strong: #1c1a17;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: Futura, "Avenir Next", "Helvetica Neue", Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .page {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 48px 56px 64px;
+  }
+  .display {
+    font-family: Anton, "Futura", "Avenir Next", Impact, sans-serif;
+    font-weight: 400;
+    letter-spacing: 0.01em;
+    text-transform: uppercase;
+  }
+
+  /* Header */
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    border-bottom: 3px solid var(--ink);
+    padding-bottom: 20px;
+  }
+  header h1 {
+    margin: 0;
+    font-size: 64px;
+    line-height: 1.08;
+  }
+  header h1 .hl {
+    display: inline-block;
+    text-transform: none;
+    background: var(--lime);
+    line-height: 1;
+    padding: 4px 12px 2px;
+    margin-bottom: 6px;
+  }
+  header .meta {
+    text-align: right;
+    font-size: 15px;
+    line-height: 1.5;
+    color: var(--muted);
+  }
+  header .meta strong { color: var(--ink); }
+
+  /* Section titles */
+  .section-title {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin: 36px 0 18px;
+  }
+  .section-title h2 {
+    margin: 0;
+    font-size: 30px;
+    line-height: 1;
+  }
+  .section-title p {
+    margin: 0;
+    font-size: 14px;
+    color: var(--muted);
+  }
+
+  /* Placement strips */
+  .strip {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 28px;
+    align-items: start;
+    padding: 20px 0;
+    border-top: 1px solid var(--line);
+  }
+  .strip:first-of-type { border-top: none; padding-top: 0; }
+  .concept {
+    padding-top: 2px;
+  }
+  .badge {
+    display: inline-block;
+    width: 44px;
+    height: 44px;
+    line-height: 44px;
+    text-align: center;
+    font-size: 26px;
+    background: var(--ink);
+    color: var(--lime);
+    margin-bottom: 12px;
+  }
+  .concept h3 {
+    margin: 0 0 8px;
+    font-size: 34px;
+    line-height: 1;
+  }
+  .concept .idea {
+    margin: 0 0 12px;
+    font-size: 16px;
+    line-height: 1.4;
+  }
+  .concept .argues {
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.45;
+    color: var(--muted);
+  }
+  .concept .argues b {
+    color: var(--ink);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-size: 12px;
+  }
+  .placements {
+    display: flex;
+    gap: 20px;
+  }
+  figure {
+    margin: 0;
+  }
+  figure img {
+    display: block;
+    height: 240px;
+    width: auto;
+    background: #ccc;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.12), 0 8px 20px rgba(28,26,23,0.12);
+  }
+  figcaption {
+    margin-top: 8px;
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* Matrix */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--card);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.08);
+  }
+  th, td {
+    text-align: left;
+    vertical-align: top;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--line);
+    font-size: 13.5px;
+    line-height: 1.4;
+  }
+  thead th {
+    background: var(--ink);
+    color: #fff;
+    font-family: Anton, Futura, "Avenir Next", Impact, sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    padding: 12px 16px;
+    border-bottom: none;
+  }
+  thead th:first-child { width: 22%; }
+  thead th.c { width: 26%; }
+  td.ctx b {
+    display: block;
+    font-size: 15px;
+    margin-bottom: 2px;
+  }
+  td.ctx span { color: var(--muted); font-size: 12.5px; }
+  .fit {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    margin-right: 6px;
+    border: 1.5px solid var(--ink);
+    vertical-align: 1px;
+  }
+  .fit.strong { background: var(--lime); }
+  .fit.good { background: #fff; }
+  .fit.weak { background: #fff; color: var(--muted); border-color: #b9b2a8; border-style: dashed; }
+  td.best { background: #fbffe6; }
+
+  /* Recommendation */
+  .reco {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr) 1.15fr;
+    gap: 16px;
+    margin-top: 20px;
+  }
+  .reco .card {
+    background: var(--card);
+    padding: 18px 20px;
+    border-top: 6px solid var(--ink);
+  }
+  .reco .card.verdict {
+    background: var(--ink);
+    color: #fff;
+    border-top-color: var(--lime);
+  }
+  .reco h4 {
+    margin: 0 0 6px;
+    font-family: Anton, Futura, "Avenir Next", Impact, sans-serif;
+    font-weight: 400;
+    font-size: 22px;
+    text-transform: uppercase;
+    line-height: 1.05;
+  }
+  .reco .role {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+  .reco .verdict .role { color: var(--lime); }
+  .reco p {
+    margin: 0;
+    font-size: 13.5px;
+    line-height: 1.45;
+  }
+  .footnote {
+    margin-top: 18px;
+    font-size: 12px;
+    line-height: 1.5;
+    color: var(--muted);
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header>
+    <h1 class="display">Aero 1 <span class="hl">182g.</span><br>Lighter than your phone.</h1>
+    <div class="meta">
+      <strong>Out-of-home pitch: concept comparison</strong><br>
+      3 concepts × 48-sheet 2:1 · 6-sheet 2:3 · Instagram 1:1<br>
+      Brand mark fixed bottom-right on all 9 placements
+    </div>
+  </header>
+
+  <div class="section-title">
+    <h2 class="display">The nine placements</h2>
+    <p>Shown at equal height. All are illustrated comps that lock composition and light for the shoot.</p>
+  </div>
+
+  <section>
+    <div class="strip">
+      <div class="concept">
+        <div class="badge display">A</div>
+        <h3 class="display">Scale</h3>
+        <p class="idea">A brass balance scale gives the verdict: the shoe rides higher than the phone.</p>
+        <p class="argues"><b>Argues: proof.</b><br>The claim shown as evidence you can see. It rewards a second look.</p>
+      </div>
+      <div class="placements">
+        <figure><img src="aero1-a-scale-billboard.2x1.svg" alt="Concept A Scale, 48-sheet billboard"><figcaption>48-sheet · 2:1</figcaption></figure>
+        <figure><img src="aero1-a-scale-shelter.2x3.svg" alt="Concept A Scale, bus shelter"><figcaption>6-sheet · 2:3</figcaption></figure>
+        <figure><img src="aero1-a-scale-instagram.1x1.svg" alt="Concept A Scale, Instagram"><figcaption>Instagram · 1:1</figcaption></figure>
+      </div>
+    </div>
+
+    <div class="strip">
+      <div class="concept">
+        <div class="badge display">B</div>
+        <h3 class="display">Type only</h3>
+        <p class="idea">The number is the product: "182g" set so large and cropped so hard that no picture is needed.</p>
+        <p class="argues"><b>Argues: fact as icon.</b><br>Each placement crops the number differently, so it works as a collectible series.</p>
+      </div>
+      <div class="placements">
+        <figure><img src="aero1-b-type-billboard.2x1.svg" alt="Concept B Type only, 48-sheet billboard"><figcaption>48-sheet · 2:1</figcaption></figure>
+        <figure><img src="aero1-b-type-shelter.2x3.svg" alt="Concept B Type only, bus shelter"><figcaption>6-sheet · 2:3</figcaption></figure>
+        <figure><img src="aero1-b-type-instagram.1x1.svg" alt="Concept B Type only, Instagram"><figcaption>Instagram · 1:1</figcaption></figure>
+      </div>
+    </div>
+
+    <div class="strip">
+      <div class="concept">
+        <div class="badge display">C</div>
+        <h3 class="display">Gone</h3>
+        <p class="idea">Lightness shown as disappearance: the runner dissolves into a blur, and only the shoe stays in focus.</p>
+        <p class="argues"><b>Argues: sensation.</b><br>Shows what 182g feels like, not what it weighs. The runner is anonymous, so no endorsement.</p>
+      </div>
+      <div class="placements">
+        <figure><img src="aero1-c-gone-billboard.2x1.svg" alt="Concept C Gone, 48-sheet billboard"><figcaption>48-sheet · 2:1</figcaption></figure>
+        <figure><img src="aero1-c-gone-shelter.2x3.svg" alt="Concept C Gone, bus shelter"><figcaption>6-sheet · 2:3</figcaption></figure>
+        <figure><img src="aero1-c-gone-instagram.1x1.svg" alt="Concept C Gone, Instagram"><figcaption>Instagram · 1:1</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-title">
+    <h2 class="display">Which concept fits which city context</h2>
+    <p>The lime cell marks the best fit for each context.</p>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>City context</th>
+        <th class="c">A · Scale</th>
+        <th class="c">B · Type only</th>
+        <th class="c">C · Gone</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="ctx"><b>Arterial and ring roads</b><span>48-sheet · 3–5 s at speed · read from 50 m+</span></td>
+        <td><span class="fit good">Good</span>The number reads, and the scale reads as a silhouette. The joke needs a second glance that drivers don't have.</td>
+        <td class="best"><span class="fit strong">Strong</span>One number at maximum contrast. It reads in a single glance from 100 m, and the crop is the whole message.</td>
+        <td><span class="fit weak">Weak</span>The dark dawn image and fine blur are lost at speed. Only the headline carries.</td>
+      </tr>
+      <tr>
+        <td class="ctx"><b>Bus shelters and transit stops</b><span>6-sheet · 30 s+ dwell · 2–10 m · phone in hand</span></td>
+        <td class="best"><span class="fit strong">Strong</span>The dwell time lets the joke land, and the viewer is holding the very object being out-weighed.</td>
+        <td><span class="fit good">Good</span>Bold, with less reward on a long look. The changing crops pay off along a run of panels.</td>
+        <td><span class="fit good">Good</span>The backlit dawn glows, and the runner stands at near human scale beside the people waiting.</td>
+      </tr>
+      <tr>
+        <td class="ctx"><b>Running routes</b><span>Riverside paths, bridges, parks · early morning</span></td>
+        <td><span class="fit weak">Weak</span>A studio still life feels out of place outdoors, and it speaks to buyers rather than runners.</td>
+        <td><span class="fit good">Good</span>Reads at running pace, and the lime matches the gear runners notice.</td>
+        <td class="best"><span class="fit strong">Strong</span>The ad shows the place it stands in. Book bridge-approach sites and dawn digital slots.</td>
+      </tr>
+      <tr>
+        <td class="ctx"><b>High streets near stockists</b><span>Retail districts · purchase intent · walking pace</span></td>
+        <td class="best"><span class="fit strong">Strong</span>Shows the product clearly and proves the claim. It is the closest to a reason to buy.</td>
+        <td><span class="fit good">Good</span>Builds memory of the number, but you can't see the shoe you're about to buy.</td>
+        <td><span class="fit weak">Weak</span>The shoe is small in frame, so it builds mood rather than recognition at the shelf.</td>
+      </tr>
+      <tr>
+        <td class="ctx"><b>Creative and nightlife districts</b><span>Cluttered streets · wild posting · dense signage</span></td>
+        <td><span class="fit weak">Weak</span>The warm grey and brass get lost among louder neighbours.</td>
+        <td class="best"><span class="fit strong">Strong</span>Acid lime cuts through clutter, and repeated posters with different crops become a pattern people photograph.</td>
+        <td><span class="fit good">Good</span>Atmospheric and distinctive, but it needs space around it to read.</td>
+      </tr>
+      <tr>
+        <td class="ctx"><b>Night and low-light sites</b><span>Unlit paper · street lighting · winter afternoons</span></td>
+        <td><span class="fit good">Good</span>The mid-tone backdrop holds up, and the brass keeps some warmth under LED light.</td>
+        <td class="best"><span class="fit strong">Strong</span>Black on lime survives any light source and stays legible at dusk.</td>
+        <td><span class="fit weak">Weak</span>It goes muddy on unlit paper. Use backlit or digital sites only.</td>
+      </tr>
+      <tr>
+        <td class="ctx"><b>Instagram feed</b><span>1:1 · thumbnail first · scroll speed</span></td>
+        <td><span class="fit good">Good</span>Works as a carousel: show the phone first, then the reveal.</td>
+        <td class="best"><span class="fit strong">Strong</span>The lime square stops the thumb, even at thumbnail size.</td>
+        <td class="best"><span class="fit strong">Strong</span>The most saveable image, with the mood of a running photo rather than an ad.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="reco">
+    <div class="card">
+      <div class="role">Reach · roadside, clutter, night</div>
+      <h4>B carries the campaign</h4>
+      <p>It has no weak rating in any context. Run it on 48-sheets and wild posting so "182g" becomes the asset people remember.</p>
+    </div>
+    <div class="card">
+      <div class="role">Persuasion · dwell and retail</div>
+      <h4>A where people stop</h4>
+      <p>Shelters, transit and high streets near stockists give the scale joke the seconds it needs to land.</p>
+    </div>
+    <div class="card">
+      <div class="role">Relevance · running routes and social</div>
+      <h4>C, booked site by site</h4>
+      <p>Bridges, riverside paths and dawn digital slots, plus the feed. Backlit or digital sites only.</p>
+    </div>
+    <div class="card verdict">
+      <div class="role">If the client buys one</div>
+      <h4>Buy B, keep A in reserve</h4>
+      <p>B does the 50 m job everywhere and works at every size. A is the strongest second burst once the number is known.</p>
+    </div>
+  </div>
+
+  <p class="footnote">
+    Before launch: confirm the size that weighs 182g (for example, a men's US 9) and name a heavier reference phone for legal substantiation.
+    Concept B's production font is Anton. These comps use Futura Bold compressed horizontally as a stand-in.
+  </p>
+
+</div>
+</body>
+</html>

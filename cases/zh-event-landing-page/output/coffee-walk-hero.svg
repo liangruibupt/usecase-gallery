@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 600" role="img" aria-labelledby="t d">
+  <title id="t">周末咖啡漫游 · 示例路线插画</title>
+  <desc id="d">一张抽象的城市街区示意图，橙色虚线串起四个示例站点，左下角是一杯带拉花的咖啡。非真实地图。</desc>
+  <defs>
+    <pattern id="dots" width="18" height="18" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1.2" fill="#D9C6AA"/>
+    </pattern>
+  </defs>
+  <rect width="520" height="600" rx="28" fill="#EFE3D1"/>
+  <rect x="20" y="20" width="480" height="560" rx="20" fill="url(#dots)" opacity=".7"/>
+
+  <!-- streets -->
+  <g fill="none" stroke="#F8F1E6" stroke-linecap="round">
+    <path d="M-10 230 L530 170" stroke-width="22"/>
+    <path d="M-10 360 L530 320" stroke-width="16"/>
+    <path d="M150 -10 L210 610" stroke-width="18"/>
+    <path d="M360 -10 L330 610" stroke-width="14"/>
+    <path d="M-10 90 C 120 110, 300 60, 530 80" stroke-width="10"/>
+  </g>
+  <!-- river -->
+  <path d="M-10 470 C 90 430, 200 500, 300 460 S 460 420, 530 450" fill="none" stroke="#D8C4A6" stroke-width="30" stroke-linecap="round" opacity=".55"/>
+  <!-- parks -->
+  <rect x="390" y="190" width="90" height="70" rx="16" fill="#E3D3B5"/>
+  <circle cx="420" cy="215" r="10" fill="#C9B48E"/>
+  <circle cx="450" cy="232" r="13" fill="#C9B48E"/>
+  <rect x="40" y="250" width="80" height="70" rx="14" fill="#E3D3B5"/>
+
+  <!-- route -->
+  <path d="M90 140 C 170 120, 200 215, 280 195 S 420 150, 440 265 S 340 345, 380 410"
+        fill="none" stroke="#C96F4A" stroke-width="5" stroke-dasharray="2 11" stroke-linecap="round"/>
+
+  <!-- pins -->
+  <g font-family="Georgia, 'Songti SC', serif" font-size="17" font-weight="700" text-anchor="middle" fill="#FBF6EE">
+    <g><circle cx="90" cy="140" r="19" fill="#4A3428"/><text x="90" y="146">1</text></g>
+    <g><circle cx="280" cy="195" r="19" fill="#4A3428"/><text x="280" y="201">2</text></g>
+    <g><circle cx="440" cy="265" r="19" fill="#4A3428"/><text x="440" y="271">3</text></g>
+    <g><circle cx="380" cy="410" r="22" fill="#C96F4A"/><text x="380" y="416">4</text></g>
+  </g>
+
+  <!-- tag -->
+  <g transform="translate(270 34)">
+    <rect width="220" height="34" rx="17" fill="#FBF6EE" stroke="#4A3428" stroke-width="1.5"/>
+    <text x="110" y="22" text-anchor="middle" font-family="'PingFang SC','Hiragino Sans GB','Source Han Sans SC',sans-serif" font-size="12" fill="#4A3428" letter-spacing=".5">SAMPLE ROUTE · 示例路线</text>
+  </g>
+
+  <!-- coffee cup -->
+  <g>
+    <ellipse cx="170" cy="532" rx="128" ry="24" fill="#4A3428" opacity=".18"/>
+    <ellipse cx="170" cy="522" rx="120" ry="22" fill="#FBF6EE" stroke="#4A3428" stroke-width="4"/>
+    <path d="M254 418 c46 -8 50 58 2 62" fill="none" stroke="#4A3428" stroke-width="11" stroke-linecap="round"/>
+    <path d="M80 402 h180 c0 74 -30 112 -90 112 s-90 -38 -90 -112z" fill="#FBF6EE" stroke="#4A3428" stroke-width="4" stroke-linejoin="round"/>
+    <path d="M96 440 h148" stroke="#D9825B" stroke-width="6" stroke-linecap="round" opacity=".8"/>
+    <ellipse cx="170" cy="402" rx="90" ry="17" fill="#8A5A3C" stroke="#4A3428" stroke-width="4"/>
+    <path d="M170 410 c-20 -8 -26 -20 -14 -24 c6 -2 11 1 14 6 c3 -5 8 -8 14 -6 c12 4 6 16 -14 24z" fill="#F3E4CC"/>
+    <!-- steam -->
+    <g fill="none" stroke="#8A5A3C" stroke-width="3.5" stroke-linecap="round" opacity=".55">
+      <path d="M140 370 c-12 -16 12 -24 0 -42 s10 -24 0 -38"/>
+      <path d="M172 362 c-12 -16 12 -24 0 -42 s10 -24 0 -40"/>
+      <path d="M204 370 c-12 -16 12 -24 0 -42 s10 -24 0 -38"/>
+    </g>
+  </g>
+
+  <!-- leaf sprig (moved clear of pin 4) -->
+  <g transform="translate(462 572) rotate(-14)" fill="#B98A5E">
+    <path d="M0 0 C 10 -40, 6 -70, 0 -100" fill="none" stroke="#8A5A3C" stroke-width="3"/>
+    <ellipse cx="-12" cy="-30" rx="12" ry="6" transform="rotate(-30 -12 -30)"/>
+    <ellipse cx="12" cy="-50" rx="12" ry="6" transform="rotate(30 12 -50)"/>
+    <ellipse cx="-10" cy="-72" rx="11" ry="5.5" transform="rotate(-30 -10 -72)"/>
+    <ellipse cx="9" cy="-92" rx="10" ry="5" transform="rotate(30 9 -92)"/>
+  </g>
+  <!-- beans -->
+  <g fill="#4A3428">
+    <g transform="translate(320 540) rotate(25)"><ellipse rx="13" ry="9"/><path d="M-11 0 C -3 -4, 3 4, 11 0" stroke="#EFE3D1" stroke-width="2" fill="none"/></g>
+    <g transform="translate(352 556) rotate(-20)"><ellipse rx="11" ry="8"/><path d="M-9 0 C -3 -3, 3 3, 9 0" stroke="#EFE3D1" stroke-width="2" fill="none"/></g>
+  </g>
+</svg>

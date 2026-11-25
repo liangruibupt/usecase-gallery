@@ -1,0 +1,36 @@
+{
+  "slug": "zh-html-web-game",
+  "lang": "zh",
+  "title": "单文件 HTML 跑酷小游戏 Puffy Cat",
+  "summary": "把操作、得分、风险和结束条件写清楚，交付一个包豪斯风格的 Canvas 屋顶跑酷：跳跃与二段跳、毛线球和猫罐头、越吃越蓬松的 Fluff 槽、按下键减负冲刺，两种结束条件。",
+  "tags": [
+    "Game",
+    "Web",
+    "Design"
+  ],
+  "source": {
+    "site": "AutoClaw 博客",
+    "category": "Tutorial",
+    "title": "AI 生成网页游戏怎么做？AutoClaw 单文件 2D 跑酷",
+    "url": "https://autoclaw.z.ai/cn/blog/tutorial/ai-generate-html-web-game/",
+    "published": "2026-10-29",
+    "original_setup": "AutoClaw（原文未注明专家与模型），交付 43,116 字节单文件 HTML",
+    "notes": "提示词由原文的英文需求原句加上原文“这次给 AutoClaw 什么”一节列出的中文数值约束组成。"
+  },
+  "system": "你是 AutoClaw 设计专家，在「设计创意」项目里工作：先梳理页面结构、状态和交互规则，再写代码；交付前自己预览检查，确认每个可见控件都真的能用。\n\n网页交付的技术约束：\n- 每个网页交付为一个自包含的 .html 文件：CSS 和 JavaScript 全部内联，不引用任何 CDN、外部脚本库、网络字体、外部图片，也不发任何网络请求，断网双击即可打开。图形、插画和产品形象用 CSS、内联 SVG 或 Canvas 绘制，不放照片。\n- 中文字体栈以 \"PingFang SC\", \"Hiragino Sans GB\", \"Microsoft YaHei\" 开头，最后接通用族（sans-serif 或 serif）；等宽字体用 \"SF Mono\", Menlo, monospace。\n- 你交付的 HTML 会在 1440×900 的无头 Chrome 窗口里打开（脚本运行约 5 秒）并截图，截图会回传给你做交付前检查。\n- 文件名用英文 kebab-case，例如 task-board-prototype.html。修改时用同名文件交付完整新版本。\n- 游戏打开时先显示标题和操作说明，玩家按空格或点击开始；截图检查看到的是这一屏。",
+  "convert": {
+    ".html": {
+      "to": "shot.png",
+      "width": 1440,
+      "height": 900
+    }
+  },
+  "review_prompt": "这是你刚交付的网页在无头 Chrome 中打开后的截图。像交付前预览检查一样看：文字重叠或被截断、布局错位、中文显示成方框、画面空白、控件看不见。再回读你的代码，确认每个可见控件都接上了事件处理、核心交互能走通。需要修改就用同名文件交付完整的修正版；已经可以交付就用一两句话说明，不交付文件。",
+  "turns": [
+    {
+      "label": "游戏需求",
+      "review": true,
+      "prompt": "Build a playable minimalist Bauhaus 2D rooftop runner game called Puffy Cat in a single HTML Canvas file. The player taps or presses Space to jump or double-jump, collects yarn balls and cat cans, and manages a Fluff gauge. Press Down to shake off 20% fluff for a dash. End the game if the cat falls into a gap or reaches 100% fluff.\n\n制作一个巴豪斯风格的 2D 屋顶跑酷，使用暖燕麦白天空和灰色建筑轮廓；点击或空格键跳跃，支持二段跳；收集毛线球增加 5% Fluff 和 10 分，收集猫罐头增加 15% Fluff 和 50 分；掉入缺口或 Fluff 达到 100% 时结束。"
+    }
+  ]
+}

@@ -1,0 +1,142 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="750" height="1000" viewBox="0 0 750 1000">
+<defs>
+<filter id="soft" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="2.5"/></filter>
+<filter id="sh" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur in="SourceAlpha" stdDeviation="5"/><feOffset dy="7"/><feComponentTransfer><feFuncA type="linear" slope=".4"/></feComponentTransfer><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+<pattern id="dMint" width="14" height="14" patternUnits="userSpaceOnUse"><circle cx="7" cy="7" r="3.2" fill="#36E2B4"/></pattern>
+<pattern id="dPurple" width="14" height="14" patternUnits="userSpaceOnUse"><circle cx="7" cy="7" r="3.2" fill="#7B4DFF"/></pattern>
+<pattern id="dCyan" width="14" height="14" patternUnits="userSpaceOnUse"><circle cx="7" cy="7" r="3.2" fill="#00C2FF"/></pattern>
+<pattern id="dLime" width="14" height="14" patternUnits="userSpaceOnUse"><circle cx="7" cy="7" r="3.2" fill="#C6FF3A"/></pattern>
+<pattern id="bMint" width="24" height="24" patternUnits="userSpaceOnUse"><circle cx="12" cy="12" r="5.5" fill="#36E2B4"/></pattern>
+<radialGradient id="rf" cx="50%" cy="50%" r="62%"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".45" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#fff"/></radialGradient>
+<mask id="mEdge"><rect width="750" height="1000" fill="url(#rf)"/></mask>
+<radialGradient id="gS" cx="38%" cy="32%" r="70%"><stop offset="0" stop-color="#FF8F9C"/><stop offset=".45" stop-color="#E5162F"/><stop offset="1" stop-color="#8A0014"/></radialGradient>
+<radialGradient id="gL" cx="40%" cy="30%" r="80%"><stop offset="0" stop-color="#7EDC6E"/><stop offset="1" stop-color="#1D7A32"/></radialGradient>
+<radialGradient id="gSc" cx="50%" cy="45%" r="60%"><stop offset="0" stop-color="#FFF4F4"/><stop offset=".55" stop-color="#FF9DAD"/><stop offset="1" stop-color="#EE3352"/></radialGradient>
+<radialGradient id="gM" cx="38%" cy="30%" r="75%"><stop offset="0" stop-color="#FFF4A8"/><stop offset=".5" stop-color="#FFC21A"/><stop offset="1" stop-color="#E67E00"/></radialGradient>
+<linearGradient id="gP" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFE7A6"/><stop offset=".6" stop-color="#FFB341"/><stop offset="1" stop-color="#F08A1C"/></linearGradient>
+<radialGradient id="gB" cx="35%" cy="30%" r="75%"><stop offset="0" stop-color="#9AA3F0"/><stop offset=".4" stop-color="#3D44B0"/><stop offset="1" stop-color="#14154A"/></radialGradient>
+<g id="straw">
+<path d="M0,-38C28,-46 50,-22 42,10C34,40 12,58 0,62C-12,58 -34,40 -42,10C-50,-22 -28,-46 0,-38Z" fill="url(#gS)"/>
+<g fill="#FFE08A" stroke="#9E0A1E" stroke-width=".8"><ellipse cx="-22" cy="-14" rx="1.8" ry="3"/><ellipse cx="-4" cy="-22" rx="1.8" ry="3"/><ellipse cx="16" cy="-18" rx="1.8" ry="3"/><ellipse cx="30" cy="-4" rx="1.8" ry="3"/><ellipse cx="-32" cy="2" rx="1.8" ry="3"/><ellipse cx="-14" cy="-2" rx="1.8" ry="3"/><ellipse cx="6" cy="-6" rx="1.8" ry="3"/><ellipse cx="22" cy="8" rx="1.8" ry="3"/><ellipse cx="-24" cy="20" rx="1.8" ry="3"/><ellipse cx="-6" cy="14" rx="1.8" ry="3"/><ellipse cx="12" cy="22" rx="1.8" ry="3"/><ellipse cx="28" cy="24" rx="1.8" ry="3"/><ellipse cx="-14" cy="34" rx="1.8" ry="3"/><ellipse cx="4" cy="36" rx="1.8" ry="3"/><ellipse cx="18" cy="40" rx="1.8" ry="3"/><ellipse cx="-4" cy="50" rx="1.8" ry="3"/></g>
+<ellipse cx="-17" cy="-10" rx="9" ry="20" fill="#fff" opacity=".45" filter="url(#soft)" transform="rotate(20 -17 -10)"/>
+<path d="M0,-34L-30,-44L-12,-33L-34,-24L-8,-28L0,-48L8,-28L34,-24L12,-33L30,-44Z" fill="url(#gL)"/>
+<path d="M0,-42Q2,-52 7,-58" stroke="#2E7D32" stroke-width="4" fill="none" stroke-linecap="round"/>
+</g>
+<g id="scut">
+<path d="M0,-38C28,-46 50,-22 42,10C34,40 12,58 0,62C-12,58 -34,40 -42,10C-50,-22 -28,-46 0,-38Z" fill="#C9102B"/>
+<path d="M0,-38C28,-46 50,-22 42,10C34,40 12,58 0,62C-12,58 -34,40 -42,10C-50,-22 -28,-46 0,-38Z" transform="translate(0,3) scale(.86)" fill="url(#gSc)"/>
+<path d="M0,-24C9,-8 9,22 0,44C-9,22 -9,-8 0,-24Z" fill="#FFFBF7" opacity=".9"/>
+<g stroke="#FFF6F6" stroke-width="2" fill="none" opacity=".75" stroke-linecap="round"><path d="M-3,-10Q-16,-22 -30,-26"/><path d="M3,-10Q16,-22 30,-26"/><path d="M-5,6Q-22,2 -36,6"/><path d="M5,6Q22,2 36,6"/><path d="M-4,22Q-16,30 -26,36"/><path d="M4,22Q16,30 26,36"/></g>
+<g fill="#FFE7A0"><circle cx="-34" cy="-14" r="1.6"/><circle cx="34" cy="-14" r="1.6"/><circle cx="-38" cy="10" r="1.6"/><circle cx="38" cy="10" r="1.6"/><circle cx="-26" cy="36" r="1.6"/><circle cx="26" cy="36" r="1.6"/><circle cx="0" cy="56" r="1.6"/></g>
+<g fill="#fff" opacity=".4"><circle cx="-20" cy="-6" r="2"/><circle cx="18" cy="-2" r="1.5"/><circle cx="-14" cy="18" r="1.6"/><circle cx="16" cy="16" r="2.2"/><circle cx="-24" cy="-22" r="1.4"/><circle cx="22" cy="-20" r="1.8"/></g>
+<ellipse cx="-18" cy="-18" rx="8" ry="14" fill="#fff" opacity=".35" filter="url(#soft)"/>
+</g>
+<g id="mango">
+<path d="M-40,-26C-20,-40 26,-40 42,-22C52,-2 46,24 32,36C8,46 -24,42 -40,28C-52,8 -50,-12 -40,-26Z" fill="url(#gM)"/>
+<g stroke="#EE9A00" stroke-width="1.6" fill="none" opacity=".55"><path d="M-30,-20Q0,-28 34,-14"/><path d="M-38,0Q0,-8 42,6"/><path d="M-32,20Q0,14 34,26"/></g>
+<g fill="#FFF6C8" opacity=".75"><circle cx="-18" cy="-10" r="2.4"/><circle cx="10" cy="-16" r="1.8"/><circle cx="22" cy="10" r="2.6"/><circle cx="-6" cy="12" r="2"/><circle cx="-26" cy="14" r="1.6"/><circle cx="6" cy="28" r="1.8"/></g>
+<ellipse cx="-16" cy="-18" rx="16" ry="7" fill="#fff" opacity=".5" filter="url(#soft)"/>
+</g>
+<g id="peach">
+<path d="M-46,22C-46,-20 -10,-46 40,-40C46,-38 48,-30 42,-26C6,-20 -18,2 -24,34C-26,42 -46,40 -46,22Z" fill="url(#gP)"/>
+<path d="M-44,22C-44,-18 -10,-43 40,-38" stroke="#FF4F3A" stroke-width="6" fill="none" stroke-linecap="round" opacity=".85"/>
+<path d="M-38,22C-38,-12 -8,-35 34,-33" stroke="#FF8A3D" stroke-width="3" fill="none" opacity=".5" filter="url(#soft)"/>
+<g fill="#FFF1C8" opacity=".7"><circle cx="-28" cy="2" r="2"/><circle cx="-10" cy="-18" r="1.6"/><circle cx="12" cy="-26" r="1.8"/><circle cx="-32" cy="20" r="1.5"/></g>
+<ellipse cx="-20" cy="-10" rx="5" ry="16" fill="#fff" opacity=".5" filter="url(#soft)" transform="rotate(35 -20 -10)"/>
+</g>
+<g id="bb">
+<circle r="22" fill="url(#gB)"/>
+<circle r="22" fill="#C9D0FF" opacity=".14"/>
+<path d="M0,-6L1.8,-2L6,-2L2.6,1L3.8,5.5L0,3L-3.8,5.5L-2.6,1L-6,-2L-1.8,-2Z" fill="#20214F" transform="translate(3,-11)"/>
+<ellipse cx="-8" cy="-7" rx="5" ry="8" fill="#fff" opacity=".45" filter="url(#soft)"/>
+</g>
+<g id="bb3"><use href="#bb" x="-20" y="12"/><use href="#bb" x="21" y="14"/><use href="#bb" x="0" y="-16"/></g>
+<path id="pouchTop" d="M0,26V6l8.5,-6l8.5,6l8.5,-6l8.5,6l8.5,-6l8.5,6l8.5,-6l8.5,6l8.5,-6l8.5,6l8.5,-6l8.5,6l8.5,-6l8.5,6l8.5,-6l8.5,6l8.5,-6l8.5,6l8.5,-6l8.5,6V26Z"/>
+<path id="pouchBody" d="M0,24H170V248Q170,260 158,260H12Q0,260 0,248Z"/>
+<path id="pouchSh" d="M8,32H178V256Q178,268 166,268H20Q8,268 8,256Z"/>
+<path id="pouchDot" d="M3,27H167V248Q167,257 158,257H12Q3,257 3,248Z"/>
+<polygon id="burst16" points="64,0 42.5,17.6 45.3,45.3 17.6,42.5 0,64 -17.6,42.5 -45.3,45.3 -42.5,17.6 -64,0 -42.5,-17.6 -45.3,-45.3 -17.6,-42.5 0,-64 17.6,-42.5 45.3,-45.3 42.5,-17.6"/>
+</defs>
+
+<!-- 背景：放射线 + 网点 -->
+<rect width="750" height="1000" fill="#FF3B5C"/>
+<g fill="#FF5C78">
+<polygon points="375,520 1275,520 1244,753"/><polygon points="375,520 1154,970 1011,1156"/><polygon points="375,520 825,1299 608,1389"/><polygon points="375,520 375,1420 142,1389"/><polygon points="375,520 -75,1299 -261,1156"/><polygon points="375,520 -404,970 -494,753"/><polygon points="375,520 -525,520 -494,287"/><polygon points="375,520 -404,70 -261,-116"/><polygon points="375,520 -75,-259 142,-349"/><polygon points="375,520 375,-380 608,-349"/><polygon points="375,520 825,-259 1011,-116"/><polygon points="375,520 1154,70 1244,287"/>
+</g>
+<rect width="750" height="1000" fill="url(#bMint)" opacity=".6" mask="url(#mEdge)"/>
+
+<!-- 角落真实水果 & 拟声贴纸 -->
+<use href="#straw" transform="translate(70,112) rotate(-20) scale(1.1)" filter="url(#sh)"/>
+<g transform="translate(680,150) rotate(12)">
+<use href="#burst16" transform="translate(6,6)" fill="#111"/>
+<use href="#burst16" fill="#FFC300" stroke="#111" stroke-width="5" stroke-linejoin="round"/>
+<text x="0" y="9" text-anchor="middle" font-family="Source Han Sans SC, sans-serif" font-weight="900" font-size="26" fill="#FF3B5C" stroke="#111" stroke-width="3" paint-order="stroke">咔嚓！</text>
+</g>
+
+<!-- 品牌 -->
+<text x="383" y="206" text-anchor="middle" font-family="Source Han Sans SC, sans-serif" font-weight="900" font-size="140" fill="#111">脆滋滋</text>
+<text x="375" y="198" text-anchor="middle" font-family="Source Han Sans SC, sans-serif" font-weight="900" font-size="140" fill="#fff" stroke="#111" stroke-width="13" stroke-linejoin="round" paint-order="stroke">脆滋滋</text>
+<text x="375" y="248" text-anchor="middle" font-family="Futura, sans-serif" font-weight="700" font-size="26" letter-spacing="12" fill="#111">CUIZIZI</text>
+
+<!-- 飘带 -->
+<polygon points="130,278 630,266 620,330 120,342" fill="#111" transform="translate(7,7)"/>
+<polygon points="130,278 630,266 620,330 120,342" fill="#36E2B4" stroke="#111" stroke-width="6" stroke-linejoin="round"/>
+<text x="375" y="317" text-anchor="middle" transform="rotate(-1.4 375 304)" font-family="Source Han Sans SC, sans-serif" font-weight="900" font-size="36" fill="#111">冻干水果脆 · 四种口味</text>
+
+<!-- 四袋 -->
+<g transform="translate(30,415) scale(.95) rotate(-7 85 130)">
+<use href="#pouchSh" fill="#111"/><use href="#pouchBody" fill="#FF3B5C" stroke="#111" stroke-width="6" stroke-linejoin="round"/><use href="#pouchDot" fill="url(#dMint)" opacity=".55"/>
+<use href="#pouchTop" fill="#36E2B4" stroke="#111" stroke-width="5" stroke-linejoin="round"/>
+<text x="85" y="74" text-anchor="middle" font-family="Source Han Sans SC, sans-serif" font-weight="900" font-size="34" fill="#fff" stroke="#111" stroke-width="7" stroke-linejoin="round" paint-order="stroke">脆滋滋</text>
+<circle cx="85" cy="168" r="62" fill="#fff" stroke="#111" stroke-width="6"/>
+<use href="#straw" transform="translate(85,148) scale(.6)"/>
+<text x="85" y="218" text-anchor="middle" font-family="Source Han Sans SC, sans-serif" font-weight="900" font-size="30" fill="#111">草莓</text>
+</g>
+<g transform="translate(206,395) scale(.95) rotate(-2 85 130)">
+<use href="#pouchSh" fill="#111"/><use href="#pouchBody" fill="#FFC300" stroke="#111" stroke-width="6" stroke-linejoin="round"/><use href="#pouchDot" fill="url(#dPurple)" opacity=".5"/>
+<use href="#pouchTop" fill="#7B4DFF" stroke="#111" stroke-width="5" stroke-linejoin="round"/>
+<text x="85" y="74" text-anchor="middle" font-family="Source Han Sans SC, sans-serif" font-weight="900" font-size="34" fill="#fff" stroke="#111" stroke-width="7" stroke-linejoin="round" paint-order="stroke">脆滋滋</text>
+<circle cx="85" cy="168" r="62" fill="#fff" stroke="#111" stroke-width="6"/>
+<use href="#mango" transform="translate(85,150) scale(.62)"/>
+<text x="85" y="218" text-anchor="middle" font-family="Source Han Sans SC, sans-serif" font-weight="900" font-size="30" fill="#111">芒果</text>
+</g>
+<g transform="translate(382,395) scale(.95) rotate(2 85 130)">
+<use href="#pouchSh" fill="#111"/><use href="#pouchBody" fill="#FF7A2F" stroke="#111" stroke-width="6" stroke-linejoin="round"/><use href="#pouchDot" fill="url(#dCyan)" opacity=".55"/>
+<use href="#pouchTop" fill="#00C2FF" stroke="#111" stroke-width="5" stroke-linejoin="round"/>
+<text x="85" y="74" text-anchor="middle" font-family="Source Han Sans SC, sans-serif" font-weight="900" font-size="34" fill="#fff" stroke="#111" stroke-width="7" stroke-linejoin="round" paint-order="stroke">脆滋滋</text>
+<circle cx="85" cy="168" r="62" fill="#fff" stroke="#111" stroke-width="6"/>
+<use href="#peach" transform="translate(88,152) scale(.62)"/>
+<text x="85" y="218" text-anchor="middle" font-family="Source Han Sans SC, sans-serif" font-weight="900" font-size="30" fill="#111">黄桃</text>
+</g>
+<g transform="translate(558,415) scale(.95) rotate(7 85 130)">
+<use href="#pouchSh" fill="#111"/><use href="#pouchBody" fill="#2B47FF" stroke="#111" stroke-width="6" stroke-linejoin="round"/><use href="#pouchDot" fill="url(#dLime)" opacity=".5"/>
+<use href="#pouchTop" fill="#C6FF3A" stroke="#111" stroke-width="5" stroke-linejoin="round"/>
+<text x="85" y="74" text-anchor="middle" font-family="Source Han Sans SC, sans-serif" font-weight="900" font-size="34" fill="#fff" stroke="#111" stroke-width="7" stroke-linejoin="round" paint-order="stroke">脆滋滋</text>
+<circle cx="85" cy="168" r="62" fill="#fff" stroke="#111" stroke-width="6"/>
+<use href="#bb3" transform="translate(85,150) scale(.72)"/>
+<text x="85" y="218" text-anchor="middle" font-family="Source Han Sans SC, sans-serif" font-weight="900" font-size="30" fill="#111">蓝莓</text>
+</g>
+
+<!-- 前景水果 -->
+<use href="#straw" transform="translate(70,748) rotate(-18) scale(1.15)" filter="url(#sh)"/>
+<use href="#scut" transform="translate(178,792) rotate(15) scale(.95)" filter="url(#sh)"/>
+<use href="#mango" transform="translate(278,752) rotate(-10) scale(1.1)" filter="url(#sh)"/>
+<use href="#bb3" transform="translate(378,792) scale(1.05)" filter="url(#sh)"/>
+<use href="#peach" transform="translate(478,752) rotate(10) scale(1.15)" filter="url(#sh)"/>
+<use href="#straw" transform="translate(585,790) rotate(22) scale(1)" filter="url(#sh)"/>
+<use href="#bb3" transform="translate(684,744) scale(.95)" filter="url(#sh)"/>
+
+<!-- 卖点胶囊 -->
+<g font-family="Source Han Sans SC, sans-serif" font-weight="900" font-size="38" text-anchor="middle">
+<rect x="48" y="870" width="210" height="64" rx="32" fill="#111"/>
+<rect x="40" y="862" width="210" height="64" rx="32" fill="#fff" stroke="#111" stroke-width="6"/>
+<text x="145" y="907" fill="#FF3B5C">0添加糖</text>
+<rect x="278" y="870" width="210" height="64" rx="32" fill="#111"/>
+<rect x="270" y="862" width="210" height="64" rx="32" fill="#FFE14D" stroke="#111" stroke-width="6"/>
+<text x="375" y="907" fill="#111">非油炸</text>
+<rect x="508" y="870" width="210" height="64" rx="32" fill="#111"/>
+<rect x="500" y="862" width="210" height="64" rx="32" fill="#fff" stroke="#111" stroke-width="6"/>
+<text x="605" y="907" fill="#111">每袋18g</text>
+</g>
+<text x="375" y="976" text-anchor="middle" font-family="Futura, sans-serif" font-weight="700" font-size="18" letter-spacing="6" fill="#111">FREEZE-DRIED FRUIT CRISPS</text>
+</svg>

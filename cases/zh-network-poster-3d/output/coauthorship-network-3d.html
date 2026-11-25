@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mapping collaboration · 3D Co-authorship Network</title>
+<style>
+  :root{
+    --ink:#1d1d1f; --muted:#8b8b90; --line:#ececee; --accent:#E8174F;
+    --sans:"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;
+    --mono:"SF Mono",Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%;background:#fff;color:var(--ink);font-family:var(--sans);overflow:hidden;-webkit-font-smoothing:antialiased}
+  canvas#c{position:fixed;inset:0;width:100vw;height:100vh;display:block;cursor:grab;touch-action:none}
+  canvas#c.dragging{cursor:grabbing}
+  canvas#c.onnode{cursor:pointer}
+
+  .head{position:fixed;left:44px;top:34px;max-width:420px;pointer-events:none}
+  .kicker{font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:8px}
+  .kicker i{width:7px;height:7px;border-radius:50%;background:var(--accent);display:inline-block}
+  .head h1{font-size:19px;font-weight:600;margin:10px 0 6px;letter-spacing:-.01em}
+  .head .stats{font-family:var(--mono);font-size:11px;color:#555}
+  .head .hint{font-size:11.5px;color:var(--muted);margin-top:10px;line-height:1.6}
+  .head .check{font-family:var(--mono);font-size:10.5px;color:#9a9a9f;margin-top:6px}
+  .head .check b{color:#2f9e5b;font-weight:600}
+  .head .check b.fail{color:var(--accent)}
+
+  .side{position:fixed;right:32px;top:28px;bottom:150px;width:272px;display:flex;flex-direction:column;gap:10px;pointer-events:none}
+  .panel,.info{pointer-events:auto;background:rgba(255,255,255,.92);border:1px solid var(--line);border-radius:10px;backdrop-filter:blur(6px)}
+  .panel{flex:none;padding:14px 16px}
+  .info{flex:0 1 auto;min-height:0;overflow:auto;padding:14px 16px;font-size:12px}
+  .panel h3,.info h3{margin:0 0 10px;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:600}
+  .ctl{margin-bottom:11px}
+  .ctl .row{display:flex;justify-content:space-between;align-items:baseline;font-size:12px}
+  .ctl .row span:first-child b{font-weight:600}
+  .ctl .row span:first-child em{font-style:normal;color:var(--muted);margin-left:5px;font-size:11px}
+  .ctl .val{font-family:var(--mono);font-size:11px;color:#444}
+  .ctl .sub{font-family:var(--mono);font-size:10px;color:var(--muted);margin-top:2px}
+  input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:18px;background:transparent;margin:3px 0 0}
+  input[type=range]::-webkit-slider-runnable-track{height:2px;background:linear-gradient(to right,var(--accent) 0 var(--p,50%),#e4e4e7 var(--p,50%) 100%);border-radius:2px}
+  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:13px;height:13px;border-radius:50%;background:#fff;border:2px solid var(--accent);margin-top:-5.5px;cursor:pointer}
+  input[type=range]::-moz-range-track{height:2px;background:#e4e4e7}
+  input[type=range]::-moz-range-progress{height:2px;background:var(--accent)}
+  input[type=range]::-moz-range-thumb{width:10px;height:10px;border-radius:50%;background:#fff;border:2px solid var(--accent)}
+  .btns{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:4px}
+  button{font-family:var(--sans);font-size:12px;border:1px solid #dcdce0;background:#fff;color:var(--ink);border-radius:6px;padding:6px 8px;cursor:pointer;transition:background .15s,border-color .15s;line-height:1.25}
+  .btns button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;white-space:nowrap}
+  .btns button b{font-weight:600;font-size:12px}
+  .btns button small{font-size:10px;opacity:.72}
+  button:hover{border-color:#bdbdc2;background:#fafafa}
+  button.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+  button.primary:hover{background:#d4123f}
+  button.toggle.on{border-color:var(--accent);color:var(--accent)}
+  .zoomread{font-family:var(--mono);font-size:10px;color:var(--muted);margin-top:9px;display:flex;justify-content:space-between}
+
+  .info p{margin:0 0 10px;color:#555;line-height:1.55}
+  .legend{display:flex;flex-direction:column;gap:7px;margin:4px 0 12px}
+  .legend div{display:flex;align-items:center;gap:8px;color:#444}
+  .sw{width:10px;height:10px;border-radius:50%;display:inline-block;flex:none}
+  .sws{display:flex;gap:3px}
+  .chips{display:flex;flex-wrap:wrap;gap:5px}
+  .chip{font-family:var(--mono);font-size:10.5px;padding:3px 7px;border-radius:20px;border:1px solid #e3e3e6;background:#fff;cursor:pointer;color:#333}
+  .chip:hover{border-color:var(--accent);color:var(--accent)}
+  .nid{font-family:var(--mono);font-size:26px;font-weight:600;letter-spacing:-.02em;margin:2px 0 2px}
+  .meta{color:var(--muted);font-size:11.5px;margin-bottom:12px}
+  .kv{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+  .kv div{border-top:1px solid var(--line);padding-top:6px}
+  .kv label{display:block;font-size:10px;color:var(--muted);letter-spacing:.04em}
+  .kv span{font-family:var(--mono);font-size:15px}
+  .coords{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:12px}
+  .coords div{background:#f7f7f8;border-radius:6px;padding:5px 7px}
+  .coords label{font-size:9.5px;color:var(--muted);font-family:var(--mono)}
+  .coords span{display:block;font-family:var(--mono);font-size:12.5px}
+  .back{width:100%;margin-top:12px}
+
+  .focusbar{position:fixed;top:24px;left:47%;transform:translateX(-50%);display:flex;align-items:center;gap:12px;background:#1d1d1f;color:#fff;border-radius:30px;padding:6px 6px 6px 16px;font-size:12px;transition:opacity .2s;white-space:nowrap}
+  .focusbar.hidden{opacity:0;pointer-events:none}
+  .focusbar b{font-family:var(--mono)}
+  .focusbar button{background:#fff;border:none;border-radius:20px;padding:5px 12px;font-size:11.5px}
+  .focusbar kbd{font-family:var(--mono);font-size:10px;border:1px solid #bbb;border-radius:3px;padding:0 4px;margin-left:4px;color:#555}
+
+  .tip{position:fixed;pointer-events:none;background:rgba(255,255,255,.96);border:1px solid #e2e2e5;border-radius:6px;padding:7px 9px;font-size:11.5px;line-height:1.5;box-shadow:0 4px 14px rgba(0,0,0,.06);display:none;white-space:nowrap}
+  .tip b{font-family:var(--mono)}
+  .tip .m{font-family:var(--mono);color:#666;font-size:10.5px}
+
+  .editorial{position:fixed;left:44px;bottom:40px;width:340px;pointer-events:none;color:#262628}
+  .editorial h2{font-size:14.5px;font-weight:700;margin:0 0 6px;letter-spacing:-.005em}
+  .editorial p{margin:0;font-size:12.3px;line-height:1.55;color:#333}
+
+  .logos{position:fixed;right:40px;bottom:30px;display:flex;align-items:flex-end;gap:26px;pointer-events:none}
+  .logo{display:flex;flex-direction:column;align-items:center;gap:6px;font-size:12px;font-weight:600}
+  .toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(20px);background:#1d1d1f;color:#fff;font-size:12px;padding:8px 14px;border-radius:20px;opacity:0;transition:all .25s;pointer-events:none}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+
+<div class="head">
+  <div class="kicker"><i></i>Northfield Lab · Research Graphics</div>
+  <h1>Co-authorship network, in three dimensions</h1>
+  <div class="stats" id="stats">—</div>
+  <div class="hint">拖动旋转 · 滚轮缩放 · 悬停查看连接<br>点击节点进入局部视图 · <span style="font-family:var(--mono)">Esc</span> 返回全局</div>
+  <div class="check" id="check">self-check …</div>
+</div>
+
+<div class="side">
+<aside class="panel" id="panel">
+  <h3>Controls</h3>
+  <div class="ctl">
+    <div class="row"><span><b>Bundling</b><em>边线聚合</em></span><span class="val" id="vBundling">0.45</span></div>
+    <input type="range" id="sBundling" min="0" max="1" step="0.01" value="0.45">
+  </div>
+  <div class="ctl">
+    <div class="row"><span><b>Density</b><em>密度</em></span><span class="val" id="vDensity">75%</span></div>
+    <input type="range" id="sDensity" min="0.05" max="1" step="0.01" value="0.75">
+    <div class="sub" id="vDensitySub">—</div>
+  </div>
+  <div class="ctl">
+    <div class="row"><span><b>Line Opacity</b><em>透明度</em></span><span class="val" id="vOpacity">0.14</span></div>
+    <input type="range" id="sOpacity" min="0.02" max="0.5" step="0.01" value="0.14">
+  </div>
+  <div class="btns">
+    <button class="primary" id="bRegen"><b>Regenerate</b><small>重新生成</small></button>
+    <button id="bExport"><b>Export PNG</b><small>导出图片</small></button>
+    <button id="bReset"><b>Reset View</b><small>重置视角</small></button>
+    <button class="toggle on" id="bAuto"><b>Auto-rotate</b><small>自动旋转 · 开</small></button>
+  </div>
+  <div class="zoomread"><span id="zoomRead">zoom 1.00×</span><span id="viewRead">全局视图</span></div>
+</aside>
+
+<aside class="info" id="info"></aside>
+</div>
+
+<div class="focusbar hidden" id="focusbar">
+  <span>局部视图 · <b id="fbId">#0000</b> · <span id="fbDeg">0</span> connections</span>
+  <button id="bBackTop">← 返回全局<kbd>Esc</kbd></button>
+</div>
+
+<div class="tip" id="tip"></div>
+
+<section class="editorial">
+  <h2>Mapping collaboration.</h2>
+  <p>Northfield Lab is exploring how ideas travel between researchers. This graphic shows a co-authorship network for one research topic over five years. Each spot is a single author, and the lines represent co-authorship relationships. Influential authors are bigger.</p>
+</section>
+
+<footer class="logos">
+  <div class="logo">
+    <svg width="64" height="64" viewBox="0 0 64 64" aria-hidden="true">
+      <g fill="none" stroke="#9fd09a" stroke-width="0.9">
+        <circle cx="32" cy="32" r="30"/><circle cx="32" cy="32" r="26.5"/><circle cx="32" cy="32" r="23"/>
+        <circle cx="32" cy="32" r="19.5"/><circle cx="32" cy="32" r="16"/><circle cx="32" cy="32" r="12.5"/>
+        <circle cx="32" cy="32" r="9"/><circle cx="32" cy="32" r="5.5"/><circle cx="32" cy="32" r="2"/>
+      </g>
+    </svg>
+    <div><span style="color:#6f8a72">Northfield</span> <span style="color:#36b84a">Lab</span></div>
+  </div>
+  <div class="logo">
+    <svg width="64" height="64" viewBox="0 0 64 64" aria-hidden="true">
+      <circle cx="32" cy="32" r="31" fill="#0e5c5a"/>
+      <text x="32" y="35.5" text-anchor="middle" font-size="9.5" font-weight="700" fill="#fff" font-family="PingFang SC, Hiragino Sans GB, Microsoft YaHei, sans-serif">Studio Arc</text>
+    </svg>
+    <div style="visibility:hidden">.</div>
+  </div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+(function(){
+"use strict";
+const $=id=>document.getElementById(id);
+const canvas=$('c'), ctx=canvas.getContext('2d');
+let W=0,H=0,DPR=1;
+
+const MAG=['#E8174F','#EC2A62','#F0407A','#E51E5A','#EE3570','#E8235A','#F24B82'];
+const FRINGE=['#18B7D9','#2A7FD4','#8B4FD6','#A6C832','#F2892B','#16A79A'];
+const PALETTE=MAG.concat(FRINGE);
+const NM=MAG.length;
+const R=100, D=3.2*R, NTOTAL=1500;
+
+const state={bundling:.45,density:.75,opacity:.14,auto:true,seed:20481,focus:-1,hover:-1};
+const cam={yaw:-.5,pitch:.28,zoom:1,cx:0,cy:0,cz:0};
+let tween=null, dirty=true;
+
+// ---------- data ----------
+let rnd;
+function mulberry32(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
+function gauss(){let u=0;while(u===0)u=rnd();const v=rnd();return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v);}
+
+let N=0,E=0,comms=[],px,py,pz,ncomm,weight,baseR,deg,visDeg,adj,rankOf,rankOrder;
+let ea,eb,erank,ecol,etx,ety,etz,ecx,ecy,ecz,vis,groups,visibleCount=0;
+let sx,sy,sd,sr,order,ep,ebin,mark;
+
+function generate(seed){
+  rnd=mulberry32(seed);
+  comms=[];
+  const base=[ // x,y,z, size, sigma, hub
+    [-.45,.42,.12,250,.26,true],[-.52,-.08,-.22,190,.24,false],[-.05,.08,.18,230,.25,true],
+    [.55,.12,-.12,170,.22,false],[.05,-.52,.08,180,.23,false],[.08,.25,-.5,140,.22,false],[.38,-.38,.32,110,.2,false]];
+  base.forEach((b,i)=>{
+    comms.push({id:i,kind:'core',name:'Core cluster '+'ABCDEFG'[i],x:b[0]*R*.78+gauss()*5,y:b[1]*R*.78+gauss()*5,z:b[2]*R*.78+gauss()*5,
+      sigma:b[4]*R,size:b[3],hub:b[5],color:i%NM,members:[]});
+  });
+  const nF=14, fTotal=NTOTAL-base.reduce((s,b)=>s+b[3],0);
+  const fw=[];for(let i=0;i<nF;i++)fw.push(.6+rnd());
+  const fws=fw.reduce((a,b)=>a+b,0);let acc=0;
+  for(let i=0;i<nF;i++){
+    let s=i===nF-1?fTotal-acc:Math.max(5,Math.floor(fTotal*fw[i]/fws));acc+=s;
+    let dx=gauss(),dy=gauss()*.85,dz=gauss();const L=Math.hypot(dx,dy,dz)||1;dx/=L;dy/=L;dz/=L;
+    const c={id:comms.length,kind:'fringe',name:'Peripheral cluster '+(i+1),x:dx*R*1.04,y:dy*R*1.04,z:dz*R*1.04,dx,dy,dz,
+      sigma:R*(.035+.03*rnd()),size:s,hub:false,color:NM+(i%FRINGE.length),members:[]};
+    let best=0,bd=1e18;for(let k=0;k<7;k++){const q=comms[k];const d=(q.x-c.x)**2+(q.y-c.y)**2+(q.z-c.z)**2;if(d<bd){bd=d;best=k;}}
+    c.anchor=best;comms.push(c);
+  }
+  const P=[];
+  comms.forEach(c=>{
+    for(let k=0;k<c.size;k++){
+      let w=Math.min(12,Math.pow(1-rnd(),-1/1.7));
+      let x,y,z;
+      if(c.kind==='core'){
+        let sig=c.sigma;
+        if(c.hub&&k<6){w=18+rnd()*26;sig*=.35;}
+        else if(k<2){w=8+rnd()*6;sig*=.5;}
+        if(k>=6&&rnd()<.08){
+          let a=gauss(),b=gauss(),d=gauss();const L=Math.hypot(a,b,d)||1;const rr=R*Math.cbrt(rnd())*.95;
+          x=a/L*rr;y=b/L*rr;z=d/L*rr;
+        }else{x=c.x+gauss()*sig;y=c.y+gauss()*sig;z=c.z+gauss()*sig;}
+        const L=Math.hypot(x,y,z);if(L>R*.97){const f=R*(.86+.11*rnd())/L;x*=f;y*=f;z*=f;}
+      }else{
+        w=Math.min(w,6);const out=rnd()*R*.07;
+        x=c.x+gauss()*c.sigma+c.dx*out;y=c.y+gauss()*c.sigma+c.dy*out;z=c.z+gauss()*c.sigma+c.dz*out;
+      }
+      c.members.push(P.length);P.push([x,y,z,c.id,w]);
+    }
+  });
+  N=P.length;
+  px=new Float32Array(N);py=new Float32Array(N);pz=new Float32Array(N);ncomm=new Int16Array(N);weight=new Float32Array(N);
+  P.forEach((p,i)=>{px[i]=p[0];py[i]=p[1];pz[i]=p[2];ncomm[i]=p[3];weight[i]=p[4];});
+
+  function cumOf(list){const cum=new Float64Array(list.length);let s=0;for(let i=0;i<list.length;i++){s+=weight[list[i]];cum[i]=s;}return{list,cum,total:s};}
+  function sample(cw){const r=rnd()*cw.total;let lo=0,hi=cw.cum.length-1;while(lo<hi){const m=(lo+hi)>>1;if(cw.cum[m]<r)lo=m+1;else hi=m;}return cw.list[lo];}
+  const d2=(a,b)=>(px[a]-px[b])**2+(py[a]-py[b])**2+(pz[a]-pz[b])**2;
+  const coreList=[];for(let k=0;k<7;k++)coreList.push(...comms[k].members);
+  const coreCum=cumOf(coreList), commCum=comms.map(c=>cumOf(c.members));
+
+  const EA=[],EB=[],EC=[],ET=[],seen=new Set();
+  function add(a,b,col,tx,ty,tz){if(a===b)return false;const k=a<b?a*4096+b:b*4096+a;if(seen.has(k))return false;seen.add(k);EA.push(a);EB.push(b);EC.push(col);ET.push(tx,ty,tz);return true;}
+  const TARGET=4700;let att=0,coreE=0;
+  while(coreE<TARGET&&att++<80000){
+    const a=sample(coreCum),ca=ncomm[a];let b=-1;
+    if(rnd()<.84){
+      let bd=1e18;for(let t=0;t<4;t++){const c=sample(commCum[ca]);if(c===a)continue;const d=d2(a,c);if(d<bd){bd=d;b=c;}}
+      if(b>=0){const C=comms[ca];if(add(a,b,C.color,C.x,C.y,C.z))coreE++;}
+    }else{
+      let o1=(ca+1+Math.floor(rnd()*6))%7,o2=(ca+1+Math.floor(rnd()*6))%7;
+      const A=comms[ca];const dd=o=>(comms[o].x-A.x)**2+(comms[o].y-A.y)**2+(comms[o].z-A.z)**2;
+      const oc=dd(o1)<dd(o2)?o1:o2;let bd=1e18;
+      for(let t=0;t<3;t++){const c=sample(commCum[oc]);const d=d2(a,c);if(d<bd){bd=d;b=c;}}
+      const B=comms[oc];
+      if(add(a,b,A.color,(A.x+B.x)*.5*.35,(A.y+B.y)*.5*.35,(A.z+B.z)*.5*.35))coreE++;
+    }
+  }
+  for(let f=7;f<comms.length;f++){
+    const c=comms[f],m=c.members,s=m.length;
+    for(let k=1;k<s;k++)add(m[k],m[Math.floor(rnd()*k)],c.color,c.x*.92,c.y*.92,c.z*.92);
+    for(let k=0;k<Math.round(s*.6);k++)add(m[Math.floor(rnd()*s)],m[Math.floor(rnd()*s)],c.color,c.x*.92,c.y*.92,c.z*.92);
+    const A=comms[c.anchor],links=2+Math.floor(rnd()*3);
+    for(let k=0;k<links;k++){
+      const a=m[Math.floor(rnd()*s)];let b=-1,bd=1e18;
+      for(let t=0;t<5;t++){const q=sample(commCum[c.anchor]);const d=d2(a,q);if(d<bd){bd=d;b=q;}}
+      add(a,b,c.color,(c.x+A.x)*.5*.7,(c.y+A.y)*.5*.7,(c.z+A.z)*.5*.7);
+    }
+  }
+  E=EA.length;
+  ea=Int32Array.from(EA);eb=Int32Array.from(EB);ecol=Int16Array.from(EC);
+  etx=new Float32Array(E);ety=new Float32Array(E);etz=new Float32Array(E);
+  erank=new Float32Array(E);
+  for(let e=0;e<E;e++){etx[e]=ET[e*3];ety[e]=ET[e*3+1];etz[e]=ET[e*3+2];erank[e]=ecol[e]>=NM?rnd()*.5:rnd();}
+  ecx=new Float32Array(E);ecy=new Float32Array(E);ecz=new Float32Array(E);vis=new Uint8Array(E);
+  deg=new Int32Array(N);visDeg=new Int32Array(N);
+  const adjL=Array.from({length:N},()=>[]);
+  for(let e=0;e<E;e++){deg[ea[e]]++;deg[eb[e]]++;adjL[ea[e]].push(e);adjL[eb[e]].push(e);}
+  adj=adjL;
+  baseR=new Float32Array(N);for(let i=0;i<N;i++)baseR[i]=.9+.22*Math.pow(deg[i],.78);
+  rankOrder=Array.from({length:N},(_,i)=>i).sort((a,b)=>deg[b]-deg[a]);
+  rankOf=new Int32Array(N);rankOrder.forEach((n,i)=>rankOf[n]=i+1);
+  const g=PALETTE.map(()=>[]);for(let e=0;e<E;e++)g[ecol[e]].push(e);groups=g.map(a=>Int32Array.from(a));
+  sx=new Float32Array(N);sy=new Float32Array(N);sd=new Float32Array(N);sr=new Float32Array(N);
+  order=new Int32Array(N);for(let i=0;i<N;i++)order[i]=i;
+  ep=new Float32Array(E*6);ebin=new Int8Array(E);mark=new Uint8Array(N);
+  updateBundling();updateDensity();
+}
+
+function updateBundling(){
+  const k=.1+.8*state.bundling;
+  for(let e=0;e<E;e++){
+    const a=ea[e],b=eb[e];
+    const mx=(px[a]+px[b])*.5,my=(py[a]+py[b])*.5,mz=(pz[a]+pz[b])*.5;
+    ecx[e]=mx+(etx[e]-mx)*k;ecy[e]=my+(ety[e]-my)*k;ecz[e]=mz+(etz[e]-mz)*k;
+  }
+  dirty=true;
+}
+function updateDensity(){
+  visDeg.fill(0);visibleCount=0;
+  for(let e=0;e<E;e++){const v=erank[e]<state.density?1:0;vis[e]=v;if(v){visibleCount++;visDeg[ea[e]]++;visDeg[eb[e]]++;}}
+  dirty=true;
+}
+
+// ---------- render ----------
+function render(g,W,H){
+  g.globalAlpha=1;g.fillStyle='#fff';g.fillRect(0,0,W,H);
+  const F=Math.min(W*.7,H)*.31*(D/R)*cam.zoom, ox=W*.47, oy=H*.46;
+  const cY=Math.cos(cam.yaw),sY=Math.sin(cam.yaw),cP=Math.cos(cam.pitch),sP=Math.sin(cam.pitch);
+  const cx=cam.cx,cy=cam.cy,cz=cam.cz,zp=Math.pow(cam.zoom,.6);
+  const near=D-R*1.15,span=R*2.3;
+  for(let i=0;i<N;i++){
+    const x=px[i]-cx,y=py[i]-cy,z=pz[i]-cz;
+    const x1=x*cY+z*sY,z1=-x*sY+z*cY,y2=y*cP-z1*sP,z2=y*sP+z1*cP;
+    const d=Math.max(1,z2+D),s=F/d;
+    sd[i]=d;sx[i]=ox+x1*s;sy[i]=oy-y2*s;sr[i]=baseR[i]*zp*(D/d);
+  }
+  const act=state.focus>=0?state.focus:state.hover;
+  for(let e=0;e<E;e++){
+    const a=ea[e],b=eb[e];
+    if(!vis[e]&&!(act>=0&&(a===act||b===act))){ebin[e]=-1;continue;}
+    const x=ecx[e]-cx,y=ecy[e]-cy,z=ecz[e]-cz;
+    const x1=x*cY+z*sY,z1=-x*sY+z*cY,y2=y*cP-z1*sP,z2=y*sP+z1*cP;
+    const s=F/Math.max(1,z2+D),o=e*6;
+    ep[o]=sx[a];ep[o+1]=sy[a];ep[o+2]=ox+x1*s;ep[o+3]=oy-y2*s;ep[o+4]=sx[b];ep[o+5]=sy[b];
+    const t=((sd[a]+sd[b])*.5-near)/span;ebin[e]=t<.36?0:t<.64?1:2;
+  }
+  const dim=state.focus>=0?.22:(state.hover>=0?.5:1);
+  const binA=[1,.72,.45];
+  g.lineWidth=.6;g.lineCap='round';
+  for(let bin=2;bin>=0;bin--){
+    for(let ci=0;ci<groups.length;ci++){
+      const grp=groups[ci];if(!grp.length)continue;
+      g.strokeStyle=PALETTE[ci];
+      g.globalAlpha=Math.min(1,state.opacity*(ci>=NM?1.8:1)*binA[bin]*dim);
+      g.beginPath();
+      for(let j=0;j<grp.length;j++){const e=grp[j];if(!vis[e]||ebin[e]!==bin)continue;const o=e*6;g.moveTo(ep[o],ep[o+1]);g.quadraticCurveTo(ep[o+2],ep[o+3],ep[o+4],ep[o+5]);}
+      g.stroke();
+    }
+  }
+  mark.fill(0);
+  if(act>=0){
+    mark[act]=1;
+    g.lineWidth=state.focus>=0?1.15:.95;
+    const L=adj[act];
+    for(let j=0;j<L.length;j++){
+      const e=L[j];mark[ea[e]]=1;mark[eb[e]]=1;if(ebin[e]<0)continue;const o=e*6;
+      g.strokeStyle=PALETTE[ecol[e]];g.globalAlpha=.8;
+      g.beginPath();g.moveTo(ep[o],ep[o+1]);g.quadraticCurveTo(ep[o+2],ep[o+3],ep[o+4],ep[o+5]);g.stroke();
+    }
+  }
+  order.sort((a,b)=>sd[b]-sd[a]);
+  const TAU=Math.PI*2;
+  for(let k=0;k<N;k++){
+    const i=order[k];const t=Math.min(1,Math.max(0,(sd[i]-near)/span));
+    let a=.9*(1-.45*t);
+    if(act>=0){if(mark[i])a=1;else a*=state.focus>=0?.2:.45;}
+    const r=Math.max(.6,sr[i]);
+    g.globalAlpha=a;g.fillStyle=PALETTE[comms[ncomm[i]].color];
+    g.beginPath();g.arc(sx[i],sy[i],r,0,TAU);g.fill();
+    if(r>4){g.globalAlpha=a*.85;g.strokeStyle='#fff';g.lineWidth=.8;g.stroke();}
+  }
+  if(act>=0){
+    g.globalAlpha=1;g.strokeStyle='#1d1d1f';g.lineWidth=1.4;
+    g.beginPath();g.arc(sx[act],sy[act],Math.max(.6,sr[act])+4,0,TAU);g.stroke();
+    g.font='600 11px "SF Mono", Menlo, monospace';g.fillStyle='#1d1d1f';
+    g.fillText('#'+pad(act),sx[act]+sr[act]+8,sy[act]-sr[act]-4);
+    if(state.focus>=0){
+      const nb=neighbors(act).slice(0,8);
+      g.font='10px "SF Mono", Menlo, monospace';g.fillStyle='#55555a';
+      nb.forEach(n=>g.fillText('#'+pad(n),sx[n]+sr[n]+4,sy[n]+3));
+    }
+  }
+  g.globalAlpha=1;
+}
+
+function pad(n){return String(n).padStart(4,'0');}
+function neighbors(i){const s=new Set();adj[i].forEach(e=>s.add(ea[e]===i?eb[e]:ea[e]));return[...s].sort((a,b)=>deg[b]-deg[a]);}
+function pick(mx,my){
+  let best=-1,bs=1e18;
+  for(let i=0;i<N;i++){const dx=sx[i]-mx,dy=sy[i]-my,d2=dx*dx+dy*dy,hr=Math.max(sr[i]+3,6);
+    if(d2<hr*hr){const sc=Math.sqrt(d2)+sd[i]*.01;if(sc<bs){bs=sc;best=i;}}}
+  return best;
+}
+
+// ---------- UI ----------
+function resize(){
+  DPR=Math.min(2,window.devicePixelRatio||1);W=window.innerWidth;H=window.innerHeight;
+  canvas.width=Math.round(W*DPR);canvas.height=Math.round(H*DPR);dirty=true;
+}
+function fmt(n){return n.toLocaleString('en-US');}
+function updateStats(){
+  $('stats').textContent=fmt(N)+' authors · '+fmt(E)+' links · '+comms.length+' communities · seed '+state.seed;
+  $('vDensitySub').textContent='显示 '+fmt(visibleCount)+' / '+fmt(E)+' 条连线';
+}
+function setP(el){const p=(el.value-el.min)/(el.max-el.min)*100;el.style.setProperty('--p',p+'%');}
+function bindSlider(id,key,fmtv,after){
+  const el=$('s'+id),out=$('v'+id);
+  const upd=()=>{state[key]=parseFloat(el.value);out.textContent=fmtv(state[key]);setP(el);after&&after();dirty=true;};
+  el.addEventListener('input',upd);upd();
+}
+bindSlider('Bundling','bundling',v=>v.toFixed(2),()=>{if(N)updateBundling();});
+bindSlider('Density','density',v=>Math.round(v*100)+'%',()=>{if(N){updateDensity();updateStats();if(state.focus>=0)updateInfo();}});
+bindSlider('Opacity','opacity',v=>v.toFixed(2));
+
+function updateInfo(){
+  const el=$('info');const f=state.focus;
+  if(f<0){
+    const top=rankOrder.slice(0,8);
+    el.innerHTML='<h3>Node detail · 节点详情</h3><p>悬停节点查看其连接；点击节点进入局部视图，查看编号、连接数量与三维坐标。</p>'+
+      '<div class="legend"><div><span class="sw" style="background:#E8174F"></span>核心社区 Core communities (7)</div>'+
+      '<div><span class="sws">'+FRINGE.map(c=>'<span class="sw" style="background:'+c+'"></span>').join('')+'</span>外围小簇 (14)</div>'+
+      '<div><span class="sw" style="background:#E8174F;width:16px;height:16px"></span>越大 = 合作者越多</div></div>'+
+      '<h3>Top authors · 最具影响力</h3><div class="chips">'+top.map(n=>'<span class="chip" data-id="'+n+'">#'+pad(n)+' · '+deg[n]+'</span>').join('')+'</div>';
+    return;
+  }
+  const c=comms[ncomm[f]],nb=neighbors(f),show=nb.slice(0,16);
+  el.innerHTML='<h3>Author · 作者节点</h3><div class="nid">#'+pad(f)+'</div>'+
+    '<div class="meta">'+c.name+' · 影响力排名 '+rankOf[f]+' / '+fmt(N)+'</div>'+
+    '<div class="kv"><div><label>连接数量 Connections</label><span>'+deg[f]+'</span></div><div><label>当前密度可见</label><span>'+visDeg[f]+'</span></div></div>'+
+    '<h3>三维坐标 3D coordinates</h3><div class="coords">'+
+    ['x','y','z'].map((k,j)=>'<div><label>'+k+'</label><span>'+[px,py,pz][j][f].toFixed(1)+'</span></div>').join('')+'</div>'+
+    '<h3>Co-authors · 合作者 ('+nb.length+')</h3><div class="chips">'+show.map(n=>'<span class="chip" data-id="'+n+'">#'+pad(n)+' · '+deg[n]+'</span>').join('')+
+    (nb.length>show.length?'<span class="chip" style="cursor:default">+'+(nb.length-show.length)+'</span>':'')+'</div>'+
+    '<button class="back" id="bBackPanel">← 返回全局视图 (Esc)</button>';
+  $('bBackPanel').addEventListener('click',unfocus);
+  el.scrollTop=0;
+}
+$('info').addEventListener('click',e=>{const t=e.target.closest('[data-id]');if(t)focusNode(parseInt(t.dataset.id,10));});
+
+function startTween(to,dur){
+  const keys=Object.keys(to),from={};keys.forEach(k=>from[k]=cam[k]);
+  tween={keys,from,to,t0:performance.now(),dur:dur||700};
+}
+function focusNode(i){
+  if(i<0||i>=N)return;
+  state.focus=i;
+  startTween({cx:px[i],cy:py[i],cz:pz[i],zoom:Math.max(cam.zoom,2.4)});
+  $('fbId').textContent='#'+pad(i);$('fbDeg').textContent=deg[i];
+  $('focusbar').classList.remove('hidden');$('viewRead').textContent='局部视图 #'+pad(i);
+  updateInfo();dirty=true;
+}
+function unfocus(){
+  if(state.focus<0)return;
+  state.focus=-1;startTween({cx:0,cy:0,cz:0,zoom:1});
+  $('focusbar').classList.add('hidden');$('viewRead').textContent='全局视图';
+  updateInfo();dirty=true;
+}
+function resetView(){
+  state.focus=-1;$('focusbar').classList.add('hidden');$('viewRead').textContent='全局视图';updateInfo();
+  cam.yaw=Math.atan2(Math.sin(cam.yaw),Math.cos(cam.yaw));
+  startTween({yaw:-.5,pitch:.28,zoom:1,cx:0,cy:0,cz:0},800);
+}
+$('bBackTop').addEventListener('click',unfocus);
+$('bReset').addEventListener('click',resetView);
+$('bAuto').addEventListener('click',()=>{
+  state.auto=!state.auto;const b=$('bAuto');b.classList.toggle('on',state.auto);
+  b.innerHTML='<b>Auto-rotate</b><small>自动旋转 · '+(state.auto?'开':'关')+'</small>';
+});
+$('bRegen').addEventListener('click',()=>{
+  state.seed=1+Math.floor(Math.random()*99999);
+  state.focus=-1;state.hover=-1;tween=null;cam.cx=cam.cy=cam.cz=0;cam.zoom=1;
+  $('focusbar').classList.add('hidden');$('viewRead').textContent='全局视图';$('tip').style.display='none';
+  generate(state.seed);updateStats();updateInfo();dirty=true;toast('已重新生成 · seed '+state.seed);
+});
+$('bExport').addEventListener('click',exportPNG);
+window.addEventListener('keydown',e=>{if(e.key==='Escape'){unfocus();}});
+
+let toastT=0;
+function toast(msg){const t=$('toast');t.textContent=msg;t.classList.add('show');clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('show'),1800);}
+
+const drag={active:false,moved:false,x:0,y:0};
+const mouse={x:0,y:0,in:false};
+const tip=$('tip');
+function setHover(i){
+  if(i!==state.hover){state.hover=i;dirty=true;}
+  canvas.classList.toggle('onnode',i>=0);
+  if(i<0){tip.style.display='none';return;}
+  const c=comms[ncomm[i]];
+  tip.innerHTML='<b>#'+pad(i)+'</b> · '+c.name+'<br>'+deg[i]+' connections <span class="m">('+visDeg[i]+' visible)</span><br><span class="m">x '+px[i].toFixed(1)+' · y '+py[i].toFixed(1)+' · z '+pz[i].toFixed(1)+'</span>';
+  tip.style.display='block';
+  const tw=tip.offsetWidth,th=tip.offsetHeight;
+  let lx=mouse.x+16,ly=mouse.y+14;if(lx+tw>W-8)lx=mouse.x-tw-16;if(ly+th>H-8)ly=mouse.y-th-14;
+  tip.style.left=lx+'px';tip.style.top=ly+'px';
+}
+canvas.addEventListener('pointerdown',e=>{drag.active=true;drag.moved=false;drag.x=e.clientX;drag.y=e.clientY;try{canvas.setPointerCapture(e.pointerId);}catch(_){}});
+canvas.addEventListener('pointermove',e=>{
+  mouse.x=e.clientX;mouse.y=e.clientY;mouse.in=true;
+  if(drag.active){
+    const dx=e.clientX-drag.x,dy=e.clientY-drag.y;
+    if(!drag.moved&&Math.abs(dx)+Math.abs(dy)>4){drag.moved=true;canvas.classList.add('dragging');setHover(-1);}
+    if(drag.moved){
+      cam.yaw+=dx*.006;cam.pitch=Math.max(-1.45,Math.min(1.45,cam.pitch+dy*.006));
+      drag.x=e.clientX;drag.y=e.clientY;dirty=true;
+    }
+  }else setHover(pick(mouse.x,mouse.y));
+});
+canvas.addEventListener('pointerup',e=>{
+  if(drag.active&&!drag.moved){const i=pick(e.clientX,e.clientY);if(i>=0)focusNode(i);}
+  drag.active=false;canvas.classList.remove('dragging');
+});
+canvas.addEventListener('pointercancel',()=>{drag.active=false;canvas.classList.remove('dragging');});
+canvas.addEventListener('pointerleave',()=>{mouse.in=false;if(!drag.active)setHover(-1);});
+canvas.addEventListener('wheel',e=>{
+  e.preventDefault();
+  cam.zoom=Math.max(.45,Math.min(8,cam.zoom*Math.exp(-e.deltaY*.0012)));
+  if(tween){tween.keys=tween.keys.filter(k=>k!=='zoom');}
+  dirty=true;
+},{passive:false});
+window.addEventListener('resize',resize);
+
+function wrap(g,text,x,y,maxW,lh){
+  const words=text.split(' ');let line='';
+  for(const w of words){const t=line?line+' '+w:w;if(g.measureText(t).width>maxW&&line){g.fillText(line,x,y);y+=lh;line=w;}else line=t;}
+  if(line)g.fillText(line,x,y);return y;
+}
+function drawPosterText(g,W,H){
+  const sans='"PingFang SC","Hiragino Sans GB","Microsoft YaHei",Arial,sans-serif';
+  g.globalAlpha=1;g.fillStyle='#262628';
+  g.font='700 14.5px '+sans;g.fillText('Mapping collaboration.',44,H-128);
+  g.font='12.3px '+sans;g.fillStyle='#333';
+  wrap(g,'Northfield Lab is exploring how ideas travel between researchers. This graphic shows a co-authorship network for one research topic over five years. Each spot is a single author, and the lines represent co-authorship relationships. Influential authors are bigger.',44,H-106,340,19);
+  const lx=W-40-64-26-64+32,ly=H-30-24-32;
+  g.strokeStyle='#9fd09a';g.lineWidth=.9;
+  for(let r=30;r>1;r-=3.5){g.beginPath();g.arc(lx,ly,r,0,Math.PI*2);g.stroke();}
+  g.font='600 12px '+sans;g.textAlign='left';
+  const w1=g.measureText('Northfield ').width,w2=g.measureText('Lab').width,tx=lx-(w1+w2)/2;
+  g.fillStyle='#6f8a72';g.fillText('Northfield ',tx,ly+50);g.fillStyle='#36b84a';g.fillText('Lab',tx+w1,ly+50);
+  const rx=W-40-32;g.fillStyle='#0e5c5a';g.beginPath();g.arc(rx,ly,31,0,Math.PI*2);g.fill();
+  g.fillStyle='#fff';g.font='700 9.5px '+sans;g.textAlign='center';g.fillText('Studio Arc',rx,ly+3.5);g.textAlign='left';
+  g.fillStyle='#8b8b90';g.font='10.5px "SF Mono", Menlo, monospace';
+  g.fillText('NORTHFIELD LAB · CO-AUTHORSHIP NETWORK · '+fmt(N)+' AUTHORS · '+fmt(visibleCount)+' LINKS · SEED '+state.seed,44,44);
+}
+function exportPNG(){
+  try{
+    const S=2,off=document.createElement('canvas');off.width=W*S;off.height=H*S;
+    const g=off.getContext('2d');g.setTransform(S,0,0,S,0,0);
+    render(g,W,H);drawPosterText(g,W,H);dirty=true;
+    const name='northfield-network-seed-'+state.seed+'.png';
+    const done=url=>{const a=document.createElement('a');a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();toast('已导出 '+name);};
+    if(off.toBlob)off.toBlob(b=>{if(!b){done(off.toDataURL('image/png'));return;}const u=URL.createObjectURL(b);done(u);setTimeout(()=>URL.revokeObjectURL(u),4000);},'image/png');
+    else done(off.toDataURL('image/png'));
+  }catch(err){toast('导出失败：'+err.message);}
+}
+
+let last=performance.now();
+function frame(now){
+  const dt=Math.min(50,now-last);last=now;
+  if(tween){
+    let t=Math.min(1,(now-tween.t0)/tween.dur);const k=t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
+    tween.keys.forEach(key=>cam[key]=tween.from[key]+(tween.to[key]-tween.from[key])*k);
+    if(t>=1)tween=null;dirty=true;
+  }
+  if(state.auto&&state.focus<0&&!drag.active){cam.yaw+=dt*.00008;dirty=true;}
+  if(dirty){
+    ctx.setTransform(DPR,0,0,DPR,0,0);render(ctx,W,H);dirty=false;
+    $('zoomRead').textContent='zoom '+cam.zoom.toFixed(2)+'×';
+    if(mouse.in&&!drag.active){const i=pick(mouse.x,mouse.y);if(i!==state.hover)setHover(i);}
+  }
+  requestAnimationFrame(frame);
+}
+
+function selfTest(){
+  const res=[];const T=(name,ok)=>res.push({name,ok:!!ok});
+  T('node count = 1500',N===1500);
+  T('edges in range',E>4000&&E<7000);
+  let s=0;for(let i=0;i<N;i++)s+=deg[i];T('degree sum = 2E',s===2*E);
+  const keep=state.seed,sig=()=>{let a=0;for(let i=0;i<N;i+=37)a+=px[i]+py[i]*2+pz[i]*3;return a.toFixed(4)+'/'+E;};
+  generate(777);const s1=sig();generate(777);const s2=sig();T('deterministic seed',s1===s2);generate(keep);
+  const d0=state.density;state.density=.3;updateDensity();const c1=visibleCount;state.density=.9;updateDensity();const c2=visibleCount;
+  state.density=d0;updateDensity();T('density monotonic',c2>=c1&&c1>0);
+  ctx.setTransform(DPR,0,0,DPR,0,0);render(ctx,W,H);
+  const k=rankOrder[0];T('picking top hub',pick(sx[k],sy[k])>=0);
+  const pass=res.filter(r=>r.ok).length;
+  window.__selfTest=res;console.log('[self-check]',pass+'/'+res.length,res);
+  $('check').innerHTML='self-check <b class="'+(pass===res.length?'':'fail')+'">'+pass+'/'+res.length+' passed</b>';
+}
+
+resize();
+generate(state.seed);
+updateStats();updateInfo();
+selfTest();updateStats();
+requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>

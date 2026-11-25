@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1080">
+<title>Low Tide: Instagram, overheard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Gloock&family=Work+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#14213D; --oyster:#EDE6DA; --kelp:#4E6E4E; --coral:#F2795B;
+    --display:'Gloock', Georgia, 'Times New Roman', serif;
+    --text:'Work Sans', system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    --mono:'DM Mono', ui-monospace, Menlo, Consolas, monospace;
+    --l:30px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:var(--navy);color:var(--oyster)}
+  body{width:1080px;height:1350px;overflow:hidden;position:relative;font-family:var(--text);-webkit-font-smoothing:antialiased}
+  .disp{font-family:var(--display);font-weight:400}
+  .eyebrow{font-family:var(--mono);font-size:15px;letter-spacing:.08em;text-transform:uppercase}
+
+  .logo{position:absolute;display:inline-flex;flex-direction:column;padding:var(--l);margin:calc(-1 * var(--l));color:inherit;text-decoration:none}
+  .logo .word{font-family:var(--display);font-size:40px;line-height:1;letter-spacing:-.005em}
+  .logo svg{display:block;width:100%;height:10px;margin-top:5px;overflow:visible}
+
+  .topright{position:absolute;right:80px;top:86px}
+  .who{position:absolute;left:80px;font-family:var(--mono);font-size:15px;letter-spacing:.1em;text-transform:uppercase;display:flex;align-items:center;gap:12px}
+  .who::before{content:"";display:block;width:28px;height:1.5px;background:var(--oyster)}
+  .q1{position:absolute;left:80px;top:284px;font-size:92px;line-height:1;letter-spacing:-.015em;text-indent:-.4em}
+  .q2{position:absolute;left:80px;top:574px;font-size:156px;line-height:1;letter-spacing:-.02em;text-indent:-.4em}
+  .attr{position:absolute;left:80px;top:800px;width:560px;padding-top:18px;border-top:1.5px solid var(--oyster);font-family:var(--mono);font-size:17px;line-height:1.6}
+  .sun{position:absolute;left:700px;top:978px;width:180px;height:180px;border-radius:50%;background:var(--coral);z-index:1}
+  .sea{position:absolute;left:0;top:1050px;width:1080px;height:300px;z-index:2}
+  .sea svg.crest{display:block;width:1080px;height:20px}
+  .deep{width:1080px;height:280px;background:var(--navy)}
+  .deep svg{display:block;width:1080px;height:270px}
+
+  .toggle{position:absolute;top:14px;right:14px;z-index:60;font:500 11px var(--mono);letter-spacing:.06em;text-transform:uppercase;padding:8px 10px;background:var(--oyster);color:var(--navy);border:1.5px solid var(--navy);cursor:pointer;opacity:0;transition:opacity .15s}
+  .toggle:hover,.toggle:focus-visible,body.notes .toggle{opacity:1}
+  #notes-layer{position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:none;z-index:50;display:none}
+  body.notes #notes-layer{display:block}
+  body.notes [data-note]{outline:1.5px dashed currentColor;outline-offset:6px}
+  body.notes .logo[data-note]{outline-offset:0}
+  #leaders{position:absolute;left:0;top:0}
+  #notes-layer .ann{position:absolute;width:240px;background:var(--oyster);color:var(--navy);border:1.5px solid var(--navy);padding:10px 13px 12px;font:13px/1.42 var(--text)}
+  #notes-layer .ann .k{display:flex;gap:8px;align-items:center;font:500 11px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--kelp);margin-bottom:7px}
+  #notes-layer .ann .num{flex:none;width:20px;height:20px;border-radius:50%;background:var(--navy);color:var(--oyster);display:inline-flex;align-items:center;justify-content:center;font-size:10px;letter-spacing:0}
+  #notes-layer .ann.sum{width:420px;padding:14px 16px}
+  #notes-layer .swatches{display:flex;flex-wrap:wrap;gap:6px;margin:9px 0}
+  #notes-layer .sw{display:flex;align-items:center;gap:6px;font:11px var(--mono);border:1.5px solid var(--navy);padding:3px 7px 3px 3px}
+  #notes-layer .sw i{display:block;width:14px;height:14px;border:1.5px solid var(--navy)}
+  #notes-layer .meter{display:flex;align-items:center;gap:10px;font:11px var(--mono);margin-top:8px}
+  #notes-layer .track{width:150px;height:10px;border:1.5px solid var(--navy);position:relative}
+  #notes-layer .fill{position:absolute;left:0;top:0;bottom:0;background:var(--coral)}
+</style>
+</head>
+<body>
+<button class="toggle" id="toggle" aria-pressed="false">Notes · off</button>
+
+<a class="logo" href="low-tide-homepage.page.html" style="left:80px;top:72px" data-note="logo" aria-label="low tide">
+  <span class="word">low tide</span>
+  <svg viewBox="0 0 100 8" preserveAspectRatio="none" aria-hidden="true"><path d="M0 4 Q6.25 0 12.5 4 T25 4 T37.5 4 T50 4 T62.5 4 T75 4 T87.5 4 T100 4" fill="none" stroke="#EDE6DA" stroke-width="2" vector-effect="non-scaling-stroke" stroke-linecap="round"/></svg>
+</a>
+<div class="eyebrow topright">Overheard · No. 12</div>
+
+<div class="who" style="top:246px" data-note="who">Guest</div>
+<p class="q1 disp" data-note="q1">“I only drink<br>natural wine.”</p>
+<div class="who" style="top:540px">Bartender</div>
+<p class="q2 disp" data-note="q2">“So, wine?”</p>
+
+<p class="attr" data-note="attr">Overheard at the bar · Friday, 11:48pm<br>No names. We're not monsters.</p>
+
+<div class="sun" data-coral="0.32" aria-hidden="true"></div>
+<span data-note="sun" style="position:absolute;left:700px;top:990px;width:180px;height:56px;z-index:3"></span>
+<div class="sea" data-note="sea">
+  <svg class="crest" data-amp="6" data-len="160" data-fill="#14213D" aria-hidden="true"></svg>
+  <div class="deep"><svg class="tide" data-n="15" data-r="0.88" data-amp="4" data-len="130" data-sw="1.25" data-stroke="#EDE6DA" aria-hidden="true"></svg></div>
+</div>
+
+<div id="notes-layer" aria-hidden="true"><svg id="leaders" width="1080" height="1350"></svg></div>
+
+<script>
+window.PIECE={
+  W:1080,H:1350,SUM:[580,1160],
+  NOTES:[
+    {id:'logo', a:[1,.5], at:[300,56], rule:'Logo', t:`Wordmark in Oyster on Tide Navy, with clear space equal to the height of the “l” ({L}px).`},
+    {id:'who',  a:[1,.5], at:[300,180], rule:'Type · labels', t:`The speaker labels are DM Mono, small and uppercase, like stage directions.`},
+    {id:'q1',   a:[.95,.5], at:[640,300], rule:'Display · sentence case', t:`The setup is set in Gloock, sentence case. The quote marks hang in the margin so the text aligns flush left.`},
+    {id:'q2',   a:[.96,.5], at:[808,470], rule:'Voice', t:`The punchline is set bigger than the setup. Dry, witty and three syllables long.`},
+    {id:'attr', a:[1,.5], at:[700,780], rule:'Type · labels', t:`The attribution is DM Mono, with one more dry line underneath.`},
+    {id:'sun',  a:[.5,.4], at:[740,900], rule:'Accent ≤ 10%', t:`The same setting coral sun as the homepage and menu, under 1% of the post.`},
+    {id:'sea',  a:[.15,.5], at:[80,1120], rule:'Graphic device', t:`Horizontal tide lines that tighten toward the bottom. A wavy crest cuts the sun, and nothing is rotated.`}
+  ]
+};
+</script>
+<script>
+(function(){
+  const P=window.PIECE, W=P.W, H=P.H;
+  function tidePaths(w,h,o){
+    const n=Math.max(2,o.n), ratio=o.r, sw=o.sw, pad=o.amp+sw, usable=h-2*pad;
+    const g=[]; let sum=0;
+    for(let i=0;i<n-1;i++){const v=Math.pow(ratio,i); g.push(v); sum+=v;}
+    const ys=[pad]; let y=pad; g.forEach(v=>{y+=v/sum*usable; ys.push(y);});
+    let out='';
+    ys.forEach((y0,i)=>{
+      const near=Math.min(g[Math.max(0,i-1)], g[Math.min(i,g.length-1)])/sum*usable;
+      const a=Math.min(o.amp*(0.7+0.3*Math.sin(i*1.9+0.4)), near*0.42);
+      const L=o.len*(1+0.15*Math.sin(i*2.7)), ph=i*0.85;
+      let d='';
+      for(let x=-6;x<=w+6;x+=4){ d+=(d?'L':'M')+x+' '+(y0+a*Math.sin(2*Math.PI*x/L+ph)).toFixed(2); }
+      out+=`<path d="${d}" fill="none" stroke="${o.stroke}" stroke-width="${sw}" stroke-linecap="round"/>`;
+    });
+    return out;
+  }
+  function crest(w,h,amp,len,fill){
+    let d=`M0 ${h}`;
+    for(let x=0;x<=w;x+=4){ d+=` L${x} ${(amp+amp*Math.sin(2*Math.PI*x/len+0.6)).toFixed(2)}`; }
+    return `<path d="${d} L${w} ${h} Z" fill="${fill}"/>`;
+  }
+  function draw(){
+    document.querySelectorAll('svg.tide').forEach(svg=>{
+      const r=svg.getBoundingClientRect(), w=Math.round(r.width), h=Math.round(r.height), d=svg.dataset;
+      svg.setAttribute('viewBox',`0 0 ${w} ${h}`);
+      svg.innerHTML=tidePaths(w,h,{n:+d.n,r:+d.r,amp:+d.amp,len:+d.len,sw:+d.sw,stroke:d.stroke});
+    });
+    document.querySelectorAll('svg.crest').forEach(svg=>{
+      const r=svg.getBoundingClientRect(), w=Math.round(r.width), h=Math.round(r.height), d=svg.dataset;
+      svg.setAttribute('viewBox',`0 0 ${w} ${h}`);
+      svg.innerHTML=crest(w,h,+d.amp,+d.len,d.fill);
+    });
+    if(P.draw) P.draw();
+  }
+  function measureL(){
+    const word=document.querySelector('.logo .word');
+    const fs=parseFloat(getComputedStyle(word).fontSize);
+    const c=document.createElement('canvas').getContext('2d');
+    c.font=`${fs}px Gloock, Georgia, serif`;
+    const m=c.measureText('l');
+    const lh=Math.round(m.actualBoundingBoxAscent+m.actualBoundingBoxDescent)||Math.round(fs*.75);
+    document.documentElement.style.setProperty('--l',lh+'px');
+    return lh;
+  }
+  function coralShare(){
+    let area=0;
+    document.querySelectorAll('[data-coral]').forEach(el=>{const r=el.getBoundingClientRect(); area+=r.width*r.height*(+el.dataset.coral||1);});
+    return area/(W*H)*100;
+  }
+  function build(lh){
+    const layer=document.getElementById('notes-layer'), svg=document.getElementById('leaders');
+    layer.querySelectorAll('.ann').forEach(n=>n.remove());
+    const hidden=!document.body.classList.contains('notes');
+    if(hidden) layer.style.display='block';
+    const placed=[]; let lines='', pins='';
+    const share=coralShare();
+    const s=document.createElement('div');
+    s.className='ann sum'; s.style.left=P.SUM[0]+'px'; s.style.top=P.SUM[1]+'px';
+    s.innerHTML=`<div class="k">Annotations · ${P.NOTES.length} notes · press N</div>
+      <div>Only the guideline palette and type are used.</div>
+      <div class="swatches">
+        <span class="sw"><i style="background:#14213D"></i>Tide Navy #14213D</span>
+        <span class="sw"><i style="background:#EDE6DA"></i>Oyster #EDE6DA</span>
+        <span class="sw"><i style="background:#4E6E4E"></i>Kelp #4E6E4E</span>
+        <span class="sw"><i style="background:#F2795B"></i>Sunset Coral #F2795B</span>
+      </div>
+      <div style="font:11px var(--mono)">Gloock display · Work Sans text · DM Mono prices &amp; labels</div>
+      <div class="meter"><span>Coral ≈ ${share.toFixed(2)}%</span><span class="track"><span class="fill" style="width:${Math.min(100,share*10)}%"></span></span><span>10% cap</span></div>`;
+    layer.appendChild(s);
+    placed.push({x:P.SUM[0],y:P.SUM[1],w:s.offsetWidth,h:s.offsetHeight});
+    P.NOTES.forEach((n,i)=>{
+      const el=document.querySelector(`[data-note="${n.id}"]`);
+      if(!el) return;
+      const r=el.getBoundingClientRect();
+      const ax=r.left+n.a[0]*r.width, ay=r.top+n.a[1]*r.height;
+      const card=document.createElement('div');
+      card.className='ann';
+      card.innerHTML=`<div class="k"><span class="num">${i+1}</span>${n.rule}</div>${n.t.replace('{L}',lh)}`;
+      layer.appendChild(card);
+      const w=card.offsetWidth, h=card.offsetHeight;
+      let x=Math.max(12,Math.min(W-w-12,n.at[0])), y=n.at[1];
+      let moved=true, guard=0;
+      while(moved && guard++<30){
+        moved=false;
+        for(const p of placed){
+          if(x<p.x+p.w+8 && x+w+8>p.x && y<p.y+p.h+8 && y+h+8>p.y){ y=p.y+p.h+10; moved=true; }
+        }
+      }
+      y=Math.min(y,H-h-12);
+      card.style.left=x+'px'; card.style.top=y+'px';
+      placed.push({x,y,w,h});
+      const cx=Math.max(x,Math.min(x+w,ax)), cy=Math.max(y,Math.min(y+h,ay));
+      lines+=`<line x1="${ax}" y1="${ay}" x2="${cx}" y2="${cy}" stroke="#EDE6DA" stroke-width="4"/><line x1="${ax}" y1="${ay}" x2="${cx}" y2="${cy}" stroke="#14213D" stroke-width="1.5"/>`;
+      pins+=`<circle cx="${ax}" cy="${ay}" r="10" fill="#14213D" stroke="#EDE6DA" stroke-width="2"/><text x="${ax}" y="${ay+3.5}" text-anchor="middle" font-family="DM Mono, monospace" font-size="10" fill="#EDE6DA">${i+1}</text>`;
+    });
+    svg.innerHTML=lines+pins;
+    if(hidden) layer.style.display='';
+  }
+  function setNotes(on){
+    document.body.classList.toggle('notes',on);
+    const b=document.getElementById('toggle');
+    b.setAttribute('aria-pressed',on?'true':'false');
+    b.textContent=on?'Notes · on':'Notes · off';
+  }
+  function init(){ const lh=measureL(); draw(); requestAnimationFrame(()=>build(lh)); }
+  document.getElementById('toggle').addEventListener('click',()=>setNotes(!document.body.classList.contains('notes')));
+  document.addEventListener('keydown',e=>{ if(e.key==='n'||e.key==='N') setNotes(!document.body.classList.contains('notes')); });
+  if(location.hash==='#notes') setNotes(true);
+  draw();
+  if(document.fonts && document.fonts.ready){ document.fonts.ready.then(init); } else { init(); }
+  setTimeout(init,1500);
+})();
+</script>
+</body>
+</html>

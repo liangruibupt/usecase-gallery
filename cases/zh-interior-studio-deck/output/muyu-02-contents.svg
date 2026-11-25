@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080">
+  <defs>
+    <linearGradient id="wall" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#E7E0D4"/>
+      <stop offset="1" stop-color="#EFEAE1"/>
+    </linearGradient>
+    <linearGradient id="beyond" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#F6F2EA"/>
+      <stop offset="1" stop-color="#FFFDF7"/>
+    </linearGradient>
+    <filter id="soft" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="8"/>
+    </filter>
+    <clipPath id="vig"><rect x="120" y="560" width="400" height="320"/></clipPath>
+  </defs>
+
+  <rect width="1920" height="1080" fill="#FBFAF7"/>
+
+  <!-- 左栏 -->
+  <text x="120" y="150" font-family="'Avenir Next', sans-serif" font-size="16" letter-spacing="6" fill="#8A8278">CONTENTS</text>
+  <rect x="120" y="178" width="40" height="1.5" fill="#2A2826"/>
+  <text x="116" y="290" font-family="'Source Han Sans SC', sans-serif" font-weight="300" font-size="80" letter-spacing="8" fill="#2A2826">目录</text>
+  <text x="120" y="360" font-family="'Source Han Sans SC', sans-serif" font-weight="300" font-size="22" letter-spacing="2" fill="#5E574F">从理念到细节，</text>
+  <text x="120" y="396" font-family="'Source Han Sans SC', sans-serif" font-weight="300" font-size="22" letter-spacing="2" fill="#5E574F">九页认识木屿设计。</text>
+
+  <!-- 小幅示意：玄关拱门 -->
+  <g clip-path="url(#vig)">
+    <rect x="120" y="560" width="400" height="320" fill="url(#wall)"/>
+    <rect x="120" y="830" width="400" height="50" fill="#E1D7C5"/>
+    <line x1="120" y1="830" x2="520" y2="830" stroke="#D3C8B6" stroke-width="2"/>
+    <path d="M250,830 L250,690 A70,70 0 0 1 390,690 L390,830 Z" fill="url(#beyond)"/>
+    <path d="M250,830 L250,690 A70,70 0 0 1 390,690 L390,830" fill="none" stroke="#D8CFC0" stroke-width="6"/>
+    <polygon points="252,832 388,832 450,880 200,880" fill="#FFFFFF" opacity="0.6" filter="url(#soft)"/>
+    <rect x="420" y="790" width="80" height="44" fill="#DCCFB8"/>
+    <line x1="424" y1="802" x2="496" y2="802" stroke="#C9BBA2" stroke-width="1"/>
+    <line x1="424" y1="816" x2="490" y2="816" stroke="#C9BBA2" stroke-width="1"/>
+    <rect x="418" y="786" width="84" height="6" fill="#E6DBC7"/>
+    <path d="M452,786 C446,770 448,760 458,754 L466,754 C476,760 478,770 472,786 Z" fill="#B8A588"/>
+  </g>
+  <text x="120" y="914" font-family="'Source Han Sans SC', sans-serif" font-weight="300" font-size="13" fill="#9A9288">示意插画 · 玄关，石灰涂料与洞石</text>
+
+  <!-- 右栏：目录列表 -->
+  <line x1="720" y1="140" x2="1800" y2="140" stroke="#2A2826" stroke-width="1.5"/>
+  <g font-family="'Source Han Sans SC', sans-serif">
+    <g>
+      <text x="720" y="198" font-family="Didot, serif" font-size="34" fill="#A88660">01</text>
+      <text x="840" y="196" font-weight="400" font-size="28" fill="#2A2826">封面</text>
+      <text x="1200" y="194" font-family="'Avenir Next', sans-serif" font-size="15" letter-spacing="2" fill="#9A9288">COVER</text>
+      <text x="1800" y="194" text-anchor="end" font-weight="300" font-size="16" fill="#7D756B">木屿设计 · 杭州</text>
+      <line x1="720" y1="228" x2="1800" y2="228" stroke="#E2DCD2" stroke-width="1"/>
+    </g>
+    <g>
+      <text x="720" y="286" font-family="Didot, serif" font-size="34" fill="#A88660">02</text>
+      <text x="840" y="284" font-weight="400" font-size="28" fill="#2A2826">目录</text>
+      <text x="1200" y="282" font-family="'Avenir Next', sans-serif" font-size="15" letter-spacing="2" fill="#9A9288">CONTENTS</text>
+      <text x="1800" y="282" text-anchor="end" font-weight="300" font-size="16" fill="#7D756B">九页导览</text>
+      <line x1="720" y1="316" x2="1800" y2="316" stroke="#E2DCD2" stroke-width="1"/>
+    </g>
+    <g>
+      <text x="720" y="374" font-family="Didot, serif" font-size="34" fill="#A88660">03</text>
+      <text x="840" y="372" font-weight="400" font-size="28" fill="#2A2826">设计理念</text>
+      <text x="1200" y="370" font-family="'Avenir Next', sans-serif" font-size="15" letter-spacing="2" fill="#9A9288">PHILOSOPHY</text>
+      <text x="1800" y="370" text-anchor="end" font-weight="300" font-size="16" fill="#7D756B">留白、光与风</text>
+      <line x1="720" y1="404" x2="1800" y2="404" stroke="#E2DCD2" stroke-width="1"/>
+    </g>
+    <g>
+      <text x="720" y="462" font-family="Didot, serif" font-size="34" fill="#A88660">04</text>
+      <text x="840" y="460" font-weight="400" font-size="28" fill="#2A2826">团队</text>
+      <text x="1200" y="458" font-family="'Avenir Next', sans-serif" font-size="15" letter-spacing="2" fill="#9A9288">TEAM</text>
+      <text x="1800" y="458" text-anchor="end" font-weight="300" font-size="16" fill="#7D756B">四人小团队</text>
+      <line x1="720" y1="492" x2="1800" y2="492" stroke="#E2DCD2" stroke-width="1"/>
+    </g>
+    <g>
+      <text x="720" y="550" font-family="Didot, serif" font-size="34" fill="#A88660">05</text>
+      <text x="840" y="548" font-weight="400" font-size="28" fill="#2A2826">空间与材质</text>
+      <text x="1200" y="546" font-family="'Avenir Next', sans-serif" font-size="15" letter-spacing="2" fill="#9A9288">SPACE &amp; MATERIAL</text>
+      <text x="1800" y="546" text-anchor="end" font-weight="300" font-size="16" fill="#7D756B">原木 · 石灰 · 亚麻</text>
+      <line x1="720" y1="580" x2="1800" y2="580" stroke="#E2DCD2" stroke-width="1"/>
+    </g>
+    <g>
+      <text x="720" y="638" font-family="Didot, serif" font-size="34" fill="#A88660">06</text>
+      <text x="840" y="636" font-weight="400" font-size="28" fill="#2A2826">光影情绪</text>
+      <text x="1200" y="634" font-family="'Avenir Next', sans-serif" font-size="15" letter-spacing="2" fill="#9A9288">LIGHT &amp; MOOD</text>
+      <text x="1800" y="634" text-anchor="end" font-weight="300" font-size="16" fill="#7D756B">自然光的一天</text>
+      <line x1="720" y1="668" x2="1800" y2="668" stroke="#E2DCD2" stroke-width="1"/>
+    </g>
+    <g>
+      <text x="720" y="726" font-family="Didot, serif" font-size="34" fill="#A88660">07</text>
+      <text x="840" y="724" font-weight="400" font-size="28" fill="#2A2826">空间清单</text>
+      <text x="1200" y="722" font-family="'Avenir Next', sans-serif" font-size="15" letter-spacing="2" fill="#9A9288">ROOM SCHEDULE</text>
+      <text x="1800" y="722" text-anchor="end" font-weight="300" font-size="16" fill="#7D756B">西溪 · 栖光住宅 123㎡</text>
+      <line x1="720" y1="756" x2="1800" y2="756" stroke="#E2DCD2" stroke-width="1"/>
+    </g>
+    <g>
+      <text x="720" y="814" font-family="Didot, serif" font-size="34" fill="#A88660">08</text>
+      <text x="840" y="812" font-weight="400" font-size="28" fill="#2A2826">灯具与材质细节</text>
+      <text x="1200" y="810" font-family="'Avenir Next', sans-serif" font-size="15" letter-spacing="2" fill="#9A9288">LIGHTING &amp; DETAILS</text>
+      <text x="1800" y="810" text-anchor="end" font-weight="300" font-size="16" fill="#7D756B">陶瓷 · 黄铜 · 藤编</text>
+      <line x1="720" y1="844" x2="1800" y2="844" stroke="#E2DCD2" stroke-width="1"/>
+    </g>
+    <g>
+      <text x="720" y="902" font-family="Didot, serif" font-size="34" fill="#A88660">09</text>
+      <text x="840" y="900" font-weight="400" font-size="28" fill="#2A2826">联系方式</text>
+      <text x="1200" y="898" font-family="'Avenir Next', sans-serif" font-size="15" letter-spacing="2" fill="#9A9288">CONTACT</text>
+      <text x="1800" y="898" text-anchor="end" font-weight="300" font-size="16" fill="#7D756B">地址与联络</text>
+      <line x1="720" y1="932" x2="1800" y2="932" stroke="#2A2826" stroke-width="1.5"/>
+    </g>
+  </g>
+
+  <!-- 页脚 -->
+  <text x="120" y="1010" font-family="Didot, serif" font-size="18" fill="#2A2826">02 <tspan fill="#B0A89D">/ 09</tspan></text>
+  <text x="1800" y="1010" text-anchor="end" font-family="'Avenir Next', sans-serif" font-size="13" letter-spacing="4" fill="#9A9288">MUYU DESIGN STUDIO</text>
+</svg>

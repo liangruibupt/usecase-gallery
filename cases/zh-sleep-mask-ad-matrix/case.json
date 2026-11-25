@@ -1,0 +1,60 @@
+{
+  "slug": "zh-sleep-mask-ad-matrix",
+  "lang": "zh",
+  "title": "助眠眼罩 Meta 广告测试矩阵：六种创意钩子",
+  "summary": "为虚构加重助眠眼罩 Dusk 做六种创意钩子（UGC、评价卡、对比、数据、痛点、产品特写），每种出 Feed 1080×1350 和 Stories/Reels 1080×1920 两版，共 12 张，统一品牌框架，再交付一张标注编号、假设和指标的总览表。",
+  "tags": [
+    "Design",
+    "Marketing"
+  ],
+  "source": {
+    "site": "AutoClaw 博客",
+    "category": "Tutorial",
+    "title": "如何用 AutoClaw 设计专家制作助眠眼罩广告素材：六种创意钩子实战",
+    "url": "https://autoclaw.z.ai/cn/blog/tutorial/autoclaw-sleep-mask-ad-hooks/",
+    "published": "2026-11-21",
+    "original_setup": "AutoClaw 设计专家 · GLM-5.3-Flash",
+    "notes": "提示词用原文实际提交的英文版。原文 12 张是 AI 生成的摄影风格 JPG，复现时全部为 SVG 插画（自拍、凌晨刷手机、面料微距都是画出来的）；为控制单轮输出每轮两个变体、分四轮交付，总览表为引用这 12 张 SVG 的 HTML。"
+  },
+  "system": "You are AutoClaw's Design Expert: a senior performance-marketing designer who works in code and checks every asset before handing it over.\n\nTechnical constraints for every image:\n- Each image is one self-contained SVG whose width/height and viewBox equal the target pixel size. No external images, no web fonts, no <foreignObject>. Draw products, people and scenes with SVG shapes, gradients and filters as illustration; never pretend to be a photograph.\n- Keep text as real <text> elements so it stays editable.\n- SVGs are rendered with librsvg on macOS. Fonts that work there: Didot, Baskerville, Futura, Avenir Next, Gill Sans, Georgia, DIN Alternate, Bradley Hand (handwriting); for any Chinese text \"Source Han Sans SC\" (weights 300-900), \"Hiragino Sans GB\", \"PingFang SC\" or \"Songti SC\". Name one of these first in every font-family list, then a generic family. There are no condensed fonts; if you need a condensed look, compress text horizontally with a transform.\n- A PNG is exported automatically from every SVG, using the same base name, so deliver only the SVG.\n- Feed assets end in .1080x1350.svg (1080×1350); Stories/Reels assets end in .1080x1920.svg (1080×1920), and the base name must include the variant and placement, for example dusk-d01-ugc-feed.1080x1350.svg and dusk-d01-ugc-story.1080x1920.svg.\n\nTechnical constraints for HTML:\n- One self-contained HTML file per page: inline CSS and JS. You may load the Google Fonts the brief names with a <link>, always with a system-font fallback.\n- Images may only be SVG files you have delivered in this conversation, referenced by relative path (<img src=\"name.svg\">), or drawn inline with SVG/CSS. No external images.\n- For review the page is screenshotted in a 1440×1800 browser window (top of the page only). Do not size sections with vh units.",
+  "convert": {
+    ".html": {
+      "to": "shot.png",
+      "width": 1440,
+      "height": 1800
+    },
+    ".1080x1350.svg": {
+      "to": "png",
+      "width": 1080,
+      "height": 1350
+    },
+    ".1080x1920.svg": {
+      "to": "png",
+      "width": 1080,
+      "height": 1920
+    }
+  },
+  "review_prompt": "Here are the images rendered from the files you just delivered (SVGs via librsvg, HTML as a browser screenshot of the top of the page), downscaled. Check them as a designer would before a client review: clipped or overlapping text, text that renders as boxes or in a fallback font, broken layout, empty areas, anything that breaks the brief's rules. If something needs fixing, deliver the corrected files under the same names. If everything is ready, say so in one or two sentences and deliver nothing.",
+  "turns": [
+    {
+      "label": "Prompt · D-01 and D-02",
+      "review": true,
+      "prompt": "Put together a Meta ad test matrix for Dusk, a weighted sleep mask. The USP is \"Fall asleep 2× faster: gentle 0.5lb pressure, total blackout.\"\nI want six variants, each in 1080×1350 for feed and 1080×1920 for Stories/Reels. Keep one fixed brand frame across all of them (logo bottom-left, a \"Shop Dusk, 30-night trial\" CTA, midnight plum #2B1B3D and moonlight cream #F3EBDD) and change only the creative hook:\nD-01 UGC: a candid iPhone-style selfie with a handwritten overlay, \"ok this thing is actually insane\".\nD-02 Review card: a 5-star customer quote set large in serif as the hero, with \"Verified buyer\".\nD-03 Us vs. Them: a checklist comparison against a regular sleep mask.\nD-04 Data: a huge \"2×\" with a simple bar chart, 24 min → 12 min, labeled \"user survey, n=312 (placeholder)\".\nD-05 Problem: a clock glowing 3:07 AM, phone light on a face, and the line \"Still scrolling?\".\nD-06 Product hero: a macro shot of the fabric texture under soft studio light, with minimal copy.\nLabel each asset with its ID, hook, hypothesis and primary metric. Keep text under 20% of the image, keep Reels text out of the top 14% and bottom 35%, and make sure the six variants are clearly distinguishable even as thumbnails. Deliver one contact sheet with all 12 assets, plus every asset on its own.\n\nDeliver D-01 and D-02, feed and story, in this reply. I will ask for the other variants and the contact sheet next."
+    },
+    {
+      "label": "D-03 and D-04",
+      "review": true,
+      "prompt": "Now deliver D-03 and D-04, feed and story, in the same brand frame."
+    },
+    {
+      "label": "D-05 and D-06",
+      "review": true,
+      "prompt": "Now deliver D-05 and D-06, feed and story, in the same brand frame."
+    },
+    {
+      "label": "Contact sheet",
+      "review": true,
+      "prompt": "Now deliver the contact sheet with all 12 assets, each labeled with its ID, hook, hypothesis and primary metric."
+    }
+  ]
+}

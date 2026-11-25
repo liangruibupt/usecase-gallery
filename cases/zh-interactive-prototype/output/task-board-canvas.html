@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>设计画布 · 任务列表与详情 · v2.4</title>
+<style>
+:root{
+  --bg:#f4f6f8;--surface:#fff;--line:#e3e8ed;--line-2:#eef1f4;
+  --text:#1d2731;--text-2:#53606c;--text-3:#8693a0;
+  --accent:#0e8f84;--accent-600:#0b7a70;--accent-50:#ecf7f5;--accent-100:#d3ece8;
+  --danger:#c4553e;--warn:#b07a1a;
+  --radius:8px;--panel-w:440px;
+  --font:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",system-ui,sans-serif;
+  --mono:"SF Mono",Menlo,monospace;
+  --shadow:0 8px 28px rgba(22,36,48,.14),0 1px 3px rgba(22,36,48,.08);
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{font-family:var(--font);color:var(--text);background:#e9edf0;overflow:hidden;-webkit-font-smoothing:antialiased}
+.i{width:16px;height:16px;flex:none;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+
+/* ================= canvas chrome ================= */
+.cbar{position:fixed;top:0;left:0;right:0;height:52px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:12px;padding:0 16px;z-index:10}
+.cbar .ttl{font-weight:600;font-size:14px;display:flex;align-items:center;gap:8px;white-space:nowrap}
+.cbar .ttl .mk{width:22px;height:22px;border-radius:6px;background:var(--accent);color:#fff;display:grid;place-items:center}
+.cbar .ttl small{font-weight:400;color:var(--text-3);font-size:12px}
+.cbtn{height:30px;border:1px solid var(--line);background:#fff;border-radius:6px;padding:0 10px;font:inherit;font-size:12px;color:var(--text-2);cursor:pointer;display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
+.cbtn:hover{border-color:#cdd5dc;color:var(--text)}
+.cbtn.on{border-color:var(--accent);background:var(--accent-50);color:var(--accent-600)}
+.jump{display:flex;gap:4px;margin-left:12px}
+.zoom{margin-left:auto;display:flex;align-items:center;gap:4px}
+.zoom .zv{min-width:52px;text-align:center;font-family:var(--mono);font-size:12px;color:var(--text-2)}
+.hint{font-size:12px;color:var(--text-3);margin-right:8px;white-space:nowrap}
+.vp{position:fixed;top:52px;left:0;right:0;bottom:0;overflow:hidden;cursor:grab;background-color:#e9edf0;background-image:radial-gradient(#d2d9df 1px,transparent 1px);background-size:22px 22px;touch-action:none}
+.vp.dragging{cursor:grabbing}
+#stage{position:absolute;left:0;top:0;transform-origin:0 0;padding:80px;width:max-content}
+
+.cv-head{margin-bottom:80px}
+.cv-head h1{font-size:60px;margin:0 0 10px;font-weight:600;letter-spacing:1px}
+.cv-head p{font-size:24px;color:var(--text-2);margin:0}
+.cv-meta{display:flex;gap:12px;margin-top:22px;flex-wrap:wrap}
+.cv-meta span{font-size:20px;padding:6px 16px;background:#fff;border:1px solid var(--line);border-radius:999px;color:var(--text-2)}
+.cv-meta span.k{border-color:var(--accent);color:var(--accent-600);background:var(--accent-50)}
+.cv-sec{margin-bottom:130px}
+.cv-sec>h2{font-size:42px;margin:0 0 8px;display:flex;align-items:center;gap:18px;font-weight:600}
+.cv-sec>h2 .k{font-family:var(--mono);font-size:30px;width:56px;height:56px;border-radius:12px;background:var(--text);color:#fff;display:grid;place-items:center}
+.cv-sec>p{font-size:22px;color:var(--text-3);margin:0 0 40px 74px}
+.frames{display:flex;gap:80px;align-items:flex-start}
+.fw{flex:none}
+.fcap{display:flex;align-items:center;gap:12px;margin-bottom:18px;font-size:26px;font-weight:600;white-space:nowrap}
+.fcap .code{font-family:var(--mono);font-size:19px;background:var(--accent);color:#fff;border-radius:6px;padding:2px 10px}
+.fcap .tg{font-size:18px;font-weight:400;color:var(--text-3);overflow:hidden;text-overflow:ellipsis}
+.frame{position:relative;overflow:hidden;background:var(--bg);box-shadow:0 2px 6px rgba(20,32,44,.06),0 24px 56px rgba(20,32,44,.13)}
+.frame.fd{width:1280px;height:760px;border-radius:12px;border:1px solid #d3dae0}
+.frame.fm{width:387px;height:812px;border-radius:38px;border:6px solid #1f2a33}
+.frame.fm .ui{height:768px}
+.sbar{height:32px;display:flex;align-items:center;justify-content:space-between;padding:0 24px 0 28px;font-size:13px;font-weight:600;background:#fff;color:var(--text)}
+.fnotes{margin:22px 0 0;padding:0 0 0 24px;font-size:19px;line-height:1.65;color:var(--text-2)}
+.fnotes li{margin-bottom:4px}
+.fnotes b{color:var(--text);font-weight:600}
+
+/* ================= mock UI (desktop base) ================= */
+.ui{position:relative;font-family:var(--font);font-size:14px;line-height:1.5;color:var(--text);background:var(--bg);height:100%;overflow:hidden;cursor:inherit;user-select:none}
+.ui *{box-sizing:border-box}
+.ui .topbar{height:56px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:16px;padding:0 24px}
+.ui .brand{display:flex;align-items:center;gap:8px;font-weight:600;font-size:15px}
+.ui .brand-mark{width:24px;height:24px;border-radius:6px;background:var(--accent);display:grid;place-items:center;color:#fff}
+.ui .crumb{display:flex;align-items:center;gap:6px;color:var(--text-3);font-size:13px}
+.ui .crumb b{color:var(--text-2);font-weight:500}
+.ui .top-right{margin-left:auto;display:flex;align-items:center;gap:12px}
+.ui .view-label{font-size:12px;color:var(--text-3)}
+.ui .seg-role{display:flex;background:var(--bg);border:1px solid var(--line);border-radius:7px;padding:2px}
+.ui .seg-role span.sr{padding:4px 10px;border-radius:5px;font-size:13px;color:var(--text-2);display:flex;align-items:center;gap:6px;white-space:nowrap}
+.ui .seg-role span.sr.on{background:#fff;color:var(--text);box-shadow:0 1px 2px rgba(0,0,0,.08);font-weight:500}
+.ui .av{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;font-size:11px;font-weight:600;flex:none}
+.ui .av.xs{width:18px;height:18px;font-size:10px}
+.ui .av.lg{width:28px;height:28px;font-size:13px}
+.ui .main{padding:20px 24px 96px}
+.ui .page-head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:16px}
+.ui .page-head h1{margin:0;font-size:20px;font-weight:600}
+.ui .page-sub{margin-top:4px;color:var(--text-3);font-size:13px}
+.ui .stats{display:flex;background:#fff;border:1px solid var(--line);border-radius:var(--radius)}
+.ui .stat{padding:8px 16px;border-left:1px solid var(--line-2);min-width:84px}
+.ui .stat:first-child{border-left:0}
+.ui .stat .n{font-size:18px;font-weight:600;font-family:var(--mono);line-height:1.2}
+.ui .stat .l{font-size:12px;color:var(--text-3)}
+.ui .stat.alert .n{color:var(--danger)}
+.ui .toolbar{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:10px}
+.ui .search{position:relative;width:260px}
+.ui .search>.i{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--text-3)}
+.ui .search .input{height:34px;border:1px solid var(--line);border-radius:7px;background:#fff;padding:0 32px;font-size:13px;display:flex;align-items:center;white-space:nowrap;overflow:hidden}
+.ui .search .input.ph{color:var(--text-3)}
+.ui .search.focus .input{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-50)}
+.ui .search .caret{display:inline-block;width:1px;height:15px;background:var(--text);margin-left:1px}
+.ui .search .clear-q{position:absolute;right:5px;top:50%;transform:translateY(-50%);width:24px;height:24px;display:grid;place-items:center;color:var(--text-3)}
+.ui .btn{height:34px;border:1px solid var(--line);background:#fff;border-radius:7px;padding:0 12px;display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--text-2);white-space:nowrap}
+.ui .btn.on{border-color:var(--accent);color:var(--accent-600);background:var(--accent-50)}
+.ui .btn .val{color:var(--text);font-weight:500}
+.ui .btn.on .val{color:var(--accent-600)}
+.ui .btn.hover{border-color:#cdd5dc;color:var(--text)}
+.ui .btn-primary{background:var(--accent);border-color:var(--accent);color:#fff}
+.ui .btn-primary.dis{background:#b8d9d5;border-color:#b8d9d5}
+.ui .btn-ghost{border-color:transparent;background:transparent}
+.ui .divider{width:1px;height:20px;background:var(--line);margin:0 4px}
+.ui .dd{position:relative}
+.ui .menu{position:absolute;top:calc(100% + 6px);left:0;z-index:5;min-width:200px;background:#fff;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:4px}
+.ui .menu-item{display:flex;align-items:center;gap:8px;padding:7px 8px;border-radius:6px;font-size:13px}
+.ui .menu-item.hov{background:var(--bg)}
+.ui .menu-item .cnt{margin-left:auto;color:var(--text-3);font-family:var(--mono);font-size:12px}
+.ui .menu-item .tick{width:16px;color:var(--accent);display:grid}
+.ui .menu-item.sel{font-weight:500}
+.ui .seg{display:flex;background:#fff;border:1px solid var(--line);border-radius:7px;padding:2px;height:34px}
+.ui .seg .sb{padding:0 10px;border-radius:5px;font-size:13px;color:var(--text-2);display:flex;align-items:center;gap:5px;white-space:nowrap}
+.ui .seg .sb.on{background:var(--accent-50);color:var(--accent-600);font-weight:500}
+.ui .seg .cnt{font-family:var(--mono);font-size:11px;color:var(--text-3)}
+.ui .seg .sb.on .cnt{color:var(--accent-600)}
+.ui .spacer{flex:1}
+.ui .clear-all{color:var(--accent-600)}
+.ui .clear-all .badge{background:var(--accent);color:#fff;border-radius:9px;font-size:11px;padding:0 6px;line-height:16px;font-family:var(--mono)}
+.ui .list-meta{font-size:12px;color:var(--text-3);margin:0 2px 8px;display:flex;gap:6px;align-items:center}
+.ui .list-meta b{color:var(--text-2);font-weight:500;font-family:var(--mono)}
+.ui .list{--cols:44px minmax(220px,1fr) 128px 96px 72px 128px;background:#fff;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+.ui .list.no-select{--cols:minmax(220px,1fr) 128px 96px 72px 128px}
+.ui .list.no-select .c-chk{display:none}
+.ui .list.no-select .c-name{padding-left:16px}
+.ui .lh,.ui .row{display:grid;grid-template-columns:var(--cols);align-items:center}
+.ui .lh{height:40px;background:#f9fafb;border-bottom:1px solid var(--line);font-size:12px;color:var(--text-3);font-weight:500}
+.ui .lh>div{padding:0 10px}
+.ui .row{min-height:56px;border-bottom:1px solid var(--line-2);position:relative}
+.ui .row:last-child{border-bottom:0}
+.ui .row.sel{background:#f1f9f8}
+.ui .row.active{background:var(--accent-50)}
+.ui .row.active::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--accent)}
+.ui .row.flash{background:#dff1ee}
+.ui .row>div{padding:8px 10px;min-width:0}
+.ui .c-chk{display:flex;align-items:center;justify-content:center;align-self:stretch}
+.ui .hit{display:grid;place-items:center;width:32px;height:32px}
+.ui .cb{width:16px;height:16px;border:1.5px solid #b6c0c9;border-radius:4px;background:#fff;display:grid;place-content:center;flex:none}
+.ui .cb.on,.ui .cb.mixed{background:var(--accent);border-color:var(--accent)}
+.ui .cb.on::after{content:"";width:8px;height:4px;border-left:2px solid #fff;border-bottom:2px solid #fff;transform:translate(0,-1px) rotate(-45deg)}
+.ui .cb.mixed::after{content:"";width:8px;height:2px;background:#fff;border-radius:1px}
+.ui .t-title{font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ui .t-title mark{background:#fdf0c4;color:inherit;border-radius:2px;padding:0 1px}
+.ui .t-sub{display:flex;align-items:center;gap:8px;margin-top:2px;font-size:12px;color:var(--text-3)}
+.ui .tid{font-family:var(--mono);font-size:12px;color:var(--text-3)}
+.ui .tag{font-size:11px;padding:0 6px;border-radius:4px;background:var(--line-2);color:var(--text-2);line-height:18px}
+.ui .asg{display:flex;align-items:center;gap:8px;white-space:nowrap;font-size:13px}
+.ui .st{display:inline-flex;align-items:center;gap:6px;font-size:12px;line-height:22px;padding:0 8px;border-radius:11px;white-space:nowrap;font-weight:500}
+.ui .st .dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+.ui .st-todo{background:#eef1f4;color:#5f6b77}
+.ui .st-doing{background:var(--accent-50);color:var(--accent-600)}
+.ui .st-done{background:#f1f3f5;color:#8693a0}
+.ui .st-done .dot{display:none}
+.ui .pri{display:inline-flex;align-items:center;gap:5px;font-size:13px;white-space:nowrap}
+.ui .pri .bars{display:inline-flex;gap:2px;align-items:flex-end}
+.ui .pri .bars i{width:3px;border-radius:1px;background:#d6dde3}
+.ui .pri .bars i:nth-child(1){height:6px}.ui .pri .bars i:nth-child(2){height:9px}.ui .pri .bars i:nth-child(3){height:12px}
+.ui .pri-high{color:var(--danger)}.ui .pri-high .bars i{background:var(--danger)}
+.ui .pri-mid{color:var(--warn)}.ui .pri-mid .bars i:nth-child(-n+2){background:var(--warn)}
+.ui .pri-low{color:var(--text-2)}.ui .pri-low .bars i:nth-child(1){background:#8693a0}
+.ui .due{font-size:13px;white-space:nowrap}
+.ui .due-sub{font-size:12px;color:var(--text-3);white-space:nowrap}
+.ui .due-sub.over{color:var(--danger);font-weight:500}
+.ui .due-sub.soon{color:var(--warn)}
+.ui .row.is-done .t-title{color:var(--text-2)}
+.ui .empty{padding:56px 24px 64px;text-align:center}
+.ui .empty h3{margin:14px 0 6px;font-size:15px;font-weight:600}
+.ui .empty p{margin:0 auto 18px;color:var(--text-3);font-size:13px;max-width:420px}
+.ui .empty .cond{display:inline-flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-bottom:18px}
+.ui .empty .cond span{font-size:12px;background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:1px 10px;color:var(--text-2)}
+.ui .panel{position:absolute;top:56px;right:0;bottom:0;width:var(--panel-w);background:#fff;border-left:1px solid var(--line);display:flex;flex-direction:column;z-index:3}
+.ui .p-head{height:52px;display:flex;align-items:center;gap:8px;padding:0 12px 0 20px;border-bottom:1px solid var(--line);flex:none}
+.ui .p-head .pos{font-size:12px;color:var(--text-3);font-family:var(--mono);margin-left:4px}
+.ui .p-tools{margin-left:auto;display:flex;gap:2px}
+.ui .icon-btn{width:32px;height:32px;border-radius:6px;display:grid;place-items:center;color:var(--text-2)}
+.ui .icon-btn.dis{color:#c9d0d6}
+.ui .p-body{overflow:hidden;padding:18px 20px 40px;flex:1}
+.ui .p-body h2{margin:0 0 16px;font-size:18px;line-height:1.45;font-weight:600}
+.ui .fields{display:grid;grid-template-columns:76px 1fr;row-gap:10px;column-gap:12px;margin:0 0 20px;padding:14px 16px;background:#f9fafb;border:1px solid var(--line-2);border-radius:var(--radius);font-size:13px}
+.ui .fields dt{color:var(--text-3)}
+.ui .fields dd{margin:0;display:flex;align-items:center;gap:8px;min-height:22px;border-radius:4px}
+.ui .fields dd.flash{background:#dff1ee;box-shadow:0 0 0 4px #dff1ee}
+.ui .sec{margin-bottom:22px}
+.ui .sec h3{font-size:13px;font-weight:600;margin:0 0 8px;display:flex;align-items:center;gap:8px}
+.ui .sec h3 .muted{font-weight:400;color:var(--text-3);font-family:var(--mono);font-size:12px}
+.ui .sec p{margin:0;color:var(--text-2);font-size:13px;line-height:1.75}
+.ui .checks,.ui .files,.ui .acts{list-style:none;margin:0;padding:0}
+.ui .checks li{display:flex;gap:10px;align-items:flex-start;padding:6px 0;font-size:13px;color:var(--text-2)}
+.ui .checks .mk{width:16px;height:16px;border-radius:4px;border:1.5px solid #c3ccd4;flex:none;margin-top:2px;display:grid;place-items:center}
+.ui .checks li.ok .mk{background:var(--accent);border-color:var(--accent);color:#fff}
+.ui .checks li.ok .mk .i{width:12px;height:12px;stroke-width:2.4}
+.ui .checks li.ok span{color:var(--text-3);text-decoration:line-through}
+.ui .files li{display:flex;align-items:center;gap:10px;padding:8px 10px;border:1px solid var(--line-2);border-radius:6px;margin-bottom:6px;font-size:13px}
+.ui .files li .i{color:var(--text-3)}
+.ui .files li em{margin-left:auto;font-style:normal;color:var(--text-3);font-size:12px}
+.ui .acts li{position:relative;padding:0 0 12px 18px;font-size:13px;color:var(--text-2)}
+.ui .acts li::before{content:"";position:absolute;left:4px;top:7px;width:6px;height:6px;border-radius:50%;background:#c7d0d7}
+.ui .acts li::after{content:"";position:absolute;left:6.5px;top:16px;bottom:0;width:1px;background:var(--line)}
+.ui .acts li:last-child::after{display:none}
+.ui .acts li.new::before{background:var(--accent)}
+.ui .acts b{color:var(--text);font-weight:500}
+.ui .acts time{display:block;font-size:12px;color:var(--text-3)}
+.ui .batchbar{position:absolute;bottom:20px;transform:translateX(-50%);z-index:4;background:#fff;border:1px solid var(--line);border-radius:10px;box-shadow:var(--shadow);display:flex;align-items:center;gap:8px;padding:8px 8px 8px 16px;white-space:nowrap}
+.ui .bb-count{display:flex;align-items:center;gap:8px;font-size:13px}
+.ui .bb-num{min-width:22px;height:22px;padding:0 6px;border-radius:11px;background:var(--accent);color:#fff;font-family:var(--mono);font-size:12px;display:grid;place-items:center;font-weight:600}
+.ui .scrim{position:absolute;inset:0;z-index:5;background:rgba(20,30,40,.36)}
+.ui .assign{position:absolute;bottom:76px;transform:translateX(-50%);z-index:6;width:360px;background:#fff;border:1px solid var(--line);border-radius:10px;box-shadow:var(--shadow)}
+.ui .as-head{padding:14px 16px 10px;border-bottom:1px solid var(--line-2)}
+.ui .as-head h4{margin:0;font-size:14px;font-weight:600}
+.ui .as-head p{margin:2px 0 0;font-size:12px;color:var(--text-3)}
+.ui .as-list{padding:6px}
+.ui .as-item{border:1px solid transparent;display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:7px}
+.ui .as-item.on{border-color:var(--accent);background:var(--accent-50)}
+.ui .as-item .who{display:flex;flex-direction:column;line-height:1.35;font-size:13px}
+.ui .as-item .who small{color:var(--text-3);font-size:12px}
+.ui .as-item .load{margin-left:auto;font-size:12px;color:var(--text-3);text-align:right;line-height:1.4}
+.ui .radio{width:16px;height:16px;border-radius:50%;border:1.5px solid #c3ccd4;flex:none;display:grid;place-items:center}
+.ui .as-item.on .radio,.ui .radio.on{border-color:var(--accent)}
+.ui .as-item.on .radio::after,.ui .radio.on::after{content:"";width:8px;height:8px;border-radius:50%;background:var(--accent)}
+.ui .as-note{margin:0 16px;padding:8px 10px;border-radius:6px;background:var(--bg);font-size:12px;color:var(--text-2);min-height:34px;display:flex;align-items:center;flex-wrap:wrap}
+.ui .as-note b{margin:0 3px}
+.ui .as-foot{display:flex;justify-content:flex-end;gap:8px;padding:12px 16px 14px}
+.ui .toast{position:absolute;bottom:24px;transform:translateX(-50%);z-index:7;background:#1f2b35;color:#fff;border-radius:9px;padding:10px 10px 10px 14px;display:flex;align-items:center;gap:10px;font-size:13px;box-shadow:var(--shadow);white-space:nowrap}
+.ui .toast .ok{width:20px;height:20px;border-radius:50%;background:var(--accent);display:grid;place-items:center;flex:none}
+.ui .toast .ok .i{width:12px;height:12px;stroke-width:2.6}
+.ui .toast .act{color:#7fd6cc;padding:4px 8px;font-weight:500}
+.ui .toast .x{color:#a9b5bf;display:grid;place-items:center;padding:4px}
+
+/* ================= mock UI (mobile overrides) ================= */
+.ui.m .topbar{height:52px;padding:0 12px;gap:10px}
+.ui.m .m-title{font-weight:600;font-size:15px}
+.ui.m .main{padding:14px 12px 120px}
+.ui.m .page-head{flex-direction:column;align-items:stretch;gap:12px}
+.ui.m .stats{width:100%}
+.ui.m .stat{flex:1;min-width:0;padding:6px 10px}
+.ui.m .stat .n{font-size:16px}
+.ui.m .toolbar{flex-direction:column;align-items:stretch}
+.ui.m .search{width:100%}
+.ui.m .search .input{height:40px;font-size:15px}
+.ui.m .tb-row{display:flex;gap:8px;align-items:center}
+.ui.m .btn{height:36px}
+.ui.m .tb-row .clear-all{margin-left:auto;padding:0 6px}
+.ui.m .seg{width:100%;height:38px}
+.ui.m .seg .sb{flex:1;justify-content:center}
+.ui.m .lh{display:none}
+.ui.m .list{border-radius:10px}
+.ui.m .row{grid-template-columns:40px auto 1fr auto;grid-template-areas:"chk name name pri" "chk asg st due";padding:10px 12px 10px 4px;row-gap:6px;min-height:0}
+.ui.m .list.no-select .row{grid-template-columns:auto 1fr auto;grid-template-areas:"name name pri" "asg st due";padding-left:14px}
+.ui.m .row>div{padding:0}
+.ui.m .c-chk{grid-area:chk;align-self:start;justify-content:flex-start}
+.ui.m .hit{width:40px;height:40px;margin-top:-8px}
+.ui.m .c-name{grid-area:name;padding-right:8px}
+.ui.m .t-title{white-space:normal;font-size:15px}
+.ui.m .c-asg{grid-area:asg;padding-right:10px}
+.ui.m .c-st{grid-area:st}
+.ui.m .c-pri{grid-area:pri;align-self:start}
+.ui.m .c-due{grid-area:due;display:flex;gap:6px;align-items:center;justify-content:flex-end}
+.ui.m .empty{padding:44px 16px 48px}
+.ui.m .panel{top:0;width:100%;border-left:0;z-index:8}
+.ui.m .batchbar{left:0!important;right:0;bottom:0;transform:none;border-radius:14px 14px 0 0;padding:10px 12px 22px;justify-content:space-between}
+.ui.m .batchbar .btn-primary{height:40px;padding:0 16px}
+.ui.m .assign{left:0!important;right:0;bottom:0;width:auto;transform:none;border-radius:16px 16px 0 0;padding-bottom:12px}
+.ui.m .as-head{position:relative;padding-top:20px}
+.ui.m .as-head::before{content:"";position:absolute;top:8px;left:50%;width:36px;height:4px;margin-left:-18px;border-radius:2px;background:#d6dde3}
+.ui.m .as-item{padding:12px 10px}
+.ui.m .as-foot .btn{flex:1;justify-content:center;height:42px}
+.ui.m .toast{left:16px!important;right:16px;bottom:16px;transform:none;white-space:normal}
+
+/* ================= spec card ================= */
+.ui.spec{height:auto;background:#fff;border-radius:16px;border:1px solid #d3dae0;padding:44px 48px 48px;display:grid;grid-template-columns:1fr 1fr 1.25fr 1fr 1.05fr;gap:48px;box-shadow:0 2px 6px rgba(20,32,44,.06),0 24px 56px rgba(20,32,44,.1)}
+.spec h5{margin:0 0 18px;font-size:18px;font-weight:600;display:flex;align-items:center;gap:8px}
+.spec h5::before{content:"";width:4px;height:16px;border-radius:2px;background:var(--accent)}
+.spec .rule{font-size:13px;color:var(--text-3);margin:16px 0 0;line-height:1.7}
+.spec .sw{display:flex;align-items:center;gap:12px;margin-bottom:10px;font-size:13px}
+.spec .sw i{width:40px;height:28px;border-radius:6px;border:1px solid rgba(0,0,0,.06);flex:none}
+.spec .sw code{font-family:var(--mono);font-size:12px;color:var(--text-3);margin-left:auto}
+.spec .ty{display:flex;align-items:baseline;gap:14px;padding:9px 0;border-bottom:1px dashed var(--line)}
+.spec .ty span:first-child{flex:1}
+.spec .ty code{font-family:var(--mono);font-size:12px;color:var(--text-3);white-space:nowrap}
+.spec .cmp{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+.spec .cmp-l{font-size:12px;color:var(--text-3);margin:0 0 8px}
+.spec .kv{display:grid;grid-template-columns:1fr auto;gap:8px 16px;font-size:13px}
+.spec .kv code{font-family:var(--mono);color:var(--text-2)}
+.spec .space{display:flex;align-items:flex-end;gap:10px;margin:6px 0 16px}
+.spec .space div{background:var(--accent-100);border:1px solid var(--accent);border-radius:2px}
+.spec .space span{display:block;text-align:center;font-family:var(--mono);font-size:11px;color:var(--text-3);margin-top:4px}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+  <symbol id="i-down" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></symbol>
+  <symbol id="i-up" viewBox="0 0 24 24"><path d="M6 15l6-6 6 6"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.8"/><path d="M4.5 20c1.4-3.6 4.4-5.2 7.5-5.2s6.1 1.6 7.5 5.2"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8.5" r="3.3"/><path d="M3 19c1-3 3.4-4.4 6-4.4s5 1.4 6 4.4"/><path d="M15.5 5.6a3.2 3.2 0 010 5.9M17.5 14.9c1.6.6 2.8 1.9 3.5 4.1"/></symbol>
+  <symbol id="i-file" viewBox="0 0 24 24"><path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5"/></symbol>
+  <symbol id="i-frame" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M4 9h16M9 9v11"/></symbol>
+  <symbol id="i-minus" viewBox="0 0 24 24"><path d="M6 12h12"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M6 12h12M12 6v12"/></symbol>
+  <symbol id="i-fit" viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></symbol>
+</svg>
+
+<div class="cbar">
+  <div class="ttl"><span class="mk"><svg class="i" style="width:13px;height:13px;stroke-width:2.6"><use href="#i-check"/></svg></span>任务列表与详情 · 设计画布<small>v2.4 评审稿</small></div>
+  <div class="jump" id="jump">
+    <button class="cbtn" data-jump="all">全览</button>
+    <button class="cbtn" data-jump="s-list">A 桌面列表</button>
+    <button class="cbtn" data-jump="s-detail">B 详情与分配</button>
+    <button class="cbtn" data-jump="s-mobile">C 手机端</button>
+    <button class="cbtn" data-jump="s-spec">D 视角与规范</button>
+  </div>
+  <div class="zoom">
+    <span class="hint">拖拽平移 · 滚轮滚动 · Ctrl/⌘ + 滚轮缩放</span>
+    <button class="cbtn" id="zOut" title="缩小（-）"><svg class="i"><use href="#i-minus"/></svg></button>
+    <span class="zv" id="zv">100%</span>
+    <button class="cbtn" id="zIn" title="放大（+）"><svg class="i"><use href="#i-plus"/></svg></button>
+    <button class="cbtn" id="zFit" title="适应宽度（0）"><svg class="i"><use href="#i-fit"/></svg>适应宽度</button>
+    <button class="cbtn" id="z100" title="实际尺寸（1）">100%</button>
+  </div>
+</div>
+
+<div class="vp" id="vp"><div id="stage"></div></div>
+
+<script>
+(function(){
+/* ================= 数据（与原型一致） ================= */
+const TODAY = new Date(2025,5,13);
+const WEEK = ['周日','周一','周二','周三','周四','周五','周六'];
+const MEMBERS = [
+  {name:'林知',role:'产品负责人',ch:'知',c:'#0e8f84',bg:'#dff1ee'},
+  {name:'陈齐',role:'前端研发',ch:'齐',c:'#3b6a9a',bg:'#e3ecf5'},
+  {name:'周然',role:'交互设计',ch:'然',c:'#8a6a1f',bg:'#f3ecdc'},
+  {name:'许宁',role:'视觉设计',ch:'宁',c:'#6b5a9a',bg:'#ebe7f4'}
+];
+const STATUS = {todo:{l:'待开始',c:'st-todo'},doing:{l:'进行中',c:'st-doing'},done:{l:'已完成',c:'st-done'}};
+const PRI = {high:{l:'高',c:'pri-high'},mid:{l:'中',c:'pri-mid'},low:{l:'低',c:'pri-low'}};
+const TASKS = [
+ {id:'T-101',title:'梳理 v2.4 版本需求清单',cat:'需求',assignee:'林知',status:'done',pri:'high',due:'2025-06-10',creator:'林知',
+  desc:'汇总上一版本遗留问题、客户反馈与内部提案，按价值和成本排出 v2.4 的范围。重点覆盖任务列表筛选、批量分配和移动端查看三条主线，输出可供设计与研发共同引用的需求清单。',
+  checks:[['列出全部候选需求并标注来源',1],['完成优先级排序与范围裁剪',1],['与研发确认技术可行性',1]],
+  files:[['v2.4 需求清单.xlsx','表格'],['客户反馈汇总 0605','文档']],
+  acts:[{w:'林知',t:'将状态改为 已完成',d:'6月10日 18:20'},{w:'林知',t:'创建了任务',d:'6月3日 10:02'}]},
+ {id:'T-102',title:'任务列表页交互原型',cat:'原型',assignee:'周然',status:'doing',pri:'high',due:'2025-06-14',creator:'林知',
+  desc:'基于需求清单完成任务列表的可交互原型，包括搜索、负责人与状态组合筛选、一键清空、批量勾选与分配、空状态。桌面端以表格为主，需同时给出手机端卡片形态。',
+  checks:[['搜索与组合筛选可操作',1],['批量分配流程含确认与取消',1],['空状态提供清空入口',0],['手机端卡片布局',0]],
+  files:[['任务列表原型 v0.3','设计稿'],['交互说明 - 列表','文档']],
+  acts:[{w:'周然',t:'更新了原型至 v0.3',d:'6月12日 16:45'},{w:'林知',t:'将负责人设为 周然',d:'6月9日 09:30'}]},
+ {id:'T-103',title:'任务详情侧边面板原型',cat:'原型',assignee:'周然',status:'todo',pri:'mid',due:'2025-06-17',creator:'林知',
+  desc:'设计任务详情的侧边面板：展示完整说明、字段、验收要求与动态。面板打开时列表保持可见以便对照，关闭后保留筛选条件与滚动位置；手机端改为全屏页。',
+  checks:[['字段分组与信息层级',0],['上一条 / 下一条切换',0],['手机端全屏形态',0]],
+  files:[['详情面板参考截图','图片']],
+  acts:[{w:'林知',t:'创建了任务',d:'6月9日 09:34'}]},
+ {id:'T-104',title:'整理按钮与表单组件规范',cat:'规范',assignee:'许宁',status:'doing',pri:'mid',due:'2025-06-16',creator:'许宁',
+  desc:'统一按钮、输入框、下拉、复选框的尺寸、圆角、状态色与间距，形成可交付研发的组件规范。高度统一为 34 / 40 两档，强调色仅用于主操作与选中态。',
+  checks:[['按钮四种状态',1],['输入框与下拉规范',1],['复选框与单选',0],['标注与切图说明',0]],
+  files:[['组件规范 v2.4','设计稿'],['Design Tokens','表格']],
+  acts:[{w:'许宁',t:'上传了 组件规范 v2.4',d:'6月12日 11:08'},{w:'许宁',t:'将状态改为 进行中',d:'6月10日 14:00'}]},
+ {id:'T-105',title:'状态标签与图标规范',cat:'规范',assignee:'许宁',status:'todo',pri:'low',due:'2025-06-20',creator:'许宁',
+  desc:'定义任务状态（待开始、进行中、已完成）与优先级（高、中、低）的标签样式和图标，保证在色弱场景下也能通过形状与文字区分。',
+  checks:[['状态标签三种样式',0],['优先级图形与颜色',0],['色弱对比度检查',0]],
+  files:[],
+  acts:[{w:'许宁',t:'创建了任务',d:'6月10日 14:05'}]},
+ {id:'T-106',title:'准备版本评审材料',cat:'评审',assignee:'林知',status:'todo',pri:'high',due:'2025-06-18',creator:'林知',
+  desc:'整理评审会所需材料：版本目标、范围、原型演示路径、待决问题清单。提前一天发给产品、设计、研发三方预读，评审时按问题清单逐项确认。',
+  checks:[['版本目标与范围一页纸',0],['原型演示路径',0],['待决问题清单',0],['发送预读邮件',0]],
+  files:[['评审模板','文档']],
+  acts:[{w:'林知',t:'创建了任务',d:'6月11日 17:20'}]},
+ {id:'T-107',title:'移动端列表适配检查',cat:'测试',assignee:'陈齐',status:'doing',pri:'mid',due:'2025-06-12',creator:'林知',
+  desc:'在 375 / 390 / 414 宽度下检查任务卡片、筛选栏、批量操作栏与详情全屏页的显示和点击区域。点击目标不小于 40px，长任务名需完整换行。',
+  checks:[['375 宽度检查',1],['390 / 414 宽度检查',0],['批量操作栏遮挡检查',0]],
+  files:[['移动端检查记录','表格']],
+  acts:[{w:'陈齐',t:'记录了 3 个显示问题',d:'6月12日 19:12'},{w:'林知',t:'将负责人设为 陈齐',d:'6月9日 09:40'}]},
+ {id:'T-108',title:'整理上轮评审遗留问题',cat:'评审',assignee:'陈齐',status:'done',pri:'low',due:'2025-06-11',creator:'林知',
+  desc:'回顾 v2.3 评审纪要，梳理尚未关闭的问题，标注处理人和计划版本，并同步到本次评审的待决问题清单中。',
+  checks:[['逐条核对 v2.3 纪要',1],['标注处理人与计划版本',1]],
+  files:[['v2.3 评审纪要','文档']],
+  acts:[{w:'陈齐',t:'将状态改为 已完成',d:'6月11日 15:30'},{w:'林知',t:'创建了任务',d:'6月6日 10:10'}]}
+];
+/* 生成“批量分配之后”的数据副本 */
+function reassign(ids,to,by){
+  return TASKS.map(t=>{
+    const c=Object.assign({},t,{acts:t.acts.slice()});
+    if(ids.includes(t.id)&&t.assignee!==to){c.acts.unshift({w:by,t:`将负责人从 ${t.assignee} 改为 ${to}`,d:'刚刚',n:1});c.assignee=to}
+    return c;
+  });
+}
+const AFTER_B = reassign(['T-103','T-105','T-106'],'陈齐','林知');
+const AFTER_C = reassign(['T-104','T-105'],'周然','林知');
+
+/* ================= 工具函数 ================= */
+const esc = s => String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const mem = n => MEMBERS.find(m=>m.name===n);
+const ic = (id,st='') => `<svg class="i" style="${st}"><use href="#i-${id}"/></svg>`;
+const av = (n,cls='') => {const m=mem(n);return `<span class="av ${cls}" style="background:${m.bg};color:${m.c}">${m.ch}</span>`};
+const stTag = k => `<span class="st ${STATUS[k].c}"><span class="dot"></span>${STATUS[k].l}</span>`;
+const priTag = k => `<span class="pri ${PRI[k].c}"><span class="bars"><i></i><i></i><i></i></span>${PRI[k].l}</span>`;
+function dueInfo(t){
+  const d=new Date(t.due+'T00:00:00');const diff=Math.round((d-TODAY)/864e5);
+  let sub='',cls='';
+  if(t.status==='done'){sub='已完成'}
+  else if(diff<0){sub=`逾期 ${-diff} 天`;cls='over'}
+  else if(diff===0){sub='今天截止';cls='soon'}
+  else if(diff===1){sub='明天';cls='soon'}
+  else sub=`${diff} 天后`;
+  return {label:`${d.getMonth()+1}月${d.getDate()}日`,week:WEEK[d.getDay()],sub,cls,diff};
+}
+function hl(text,q){
+  if(!q) return esc(text);
+  const i=text.toLowerCase().indexOf(q.toLowerCase()); if(i<0) return esc(text);
+  return esc(text.slice(0,i))+'<mark>'+esc(text.slice(i,i+q.length))+'</mark>'+esc(text.slice(i+q.length));
+}
+function norm(o){return Object.assign({role:'lead',q:'',asg:'all',st:'all',sel:[],flash:[],active:null,tasks:TASKS},o)}
+const me = o => o.role==='lead'?'林知':'陈齐';
+function matches(o,t,ignoreSt){
+  return (!o.q||t.title.toLowerCase().includes(o.q.toLowerCase()))
+    && (o.asg==='all'||t.assignee===o.asg)
+    && (ignoreSt||o.st==='all'||t.status===o.st);
+}
+const activeN = o => (o.q?1:0)+(o.asg!=='all'?1:0)+(o.st!=='all'?1:0);
+
+/* ================= 组件片段 ================= */
+function topbar(o,mobile){
+  const roles=`<div class="seg-role"><span class="sr ${o.role==='lead'?'on':''}">${av('林知','xs')}林知${mobile?'':'<span>· 负责人</span>'}</span><span class="sr ${o.role!=='lead'?'on':''}">${av('陈齐','xs')}陈齐${mobile?'':'<span>· 成员</span>'}</span></div>`;
+  if(mobile) return `<header class="topbar"><div class="brand"><span class="brand-mark">${ic('check','width:14px;height:14px;stroke-width:2.6')}</span><span class="m-title">v2.4 版本迭代</span></div><div class="top-right">${roles}</div></header>`;
+  return `<header class="topbar"><div class="brand"><span class="brand-mark">${ic('check','width:14px;height:14px;stroke-width:2.6')}</span>协作台</div><nav class="crumb">产品团队<span>/</span><b>v2.4 版本迭代</b></nav><div class="top-right"><span class="view-label">演示视角</span>${roles}</div></header>`;
+}
+function stats(o,T){
+  if(o.role==='lead'){
+    const doing=T.filter(t=>t.status==='doing').length,done=T.filter(t=>t.status==='done').length;
+    const over=T.filter(t=>t.status!=='done'&&dueInfo(t).diff<0).length;
+    return `<div class="stat"><div class="n">${T.length}</div><div class="l">全部任务</div></div><div class="stat"><div class="n">${doing}</div><div class="l">进行中</div></div><div class="stat"><div class="n">${done}</div><div class="l">已完成</div></div><div class="stat ${over?'alert':''}"><div class="n">${over}</div><div class="l">已逾期</div></div>`;
+  }
+  const mine=T.filter(t=>t.assignee===me(o));
+  const open=mine.filter(t=>t.status!=='done').length,mo=mine.filter(t=>t.status!=='done'&&dueInfo(t).diff<0).length;
+  return `<div class="stat"><div class="n">${mine.length}</div><div class="l">我的任务</div></div><div class="stat"><div class="n">${open}</div><div class="l">未完成</div></div><div class="stat ${mo?'alert':''}"><div class="n">${mo}</div><div class="l">我的逾期</div></div>`;
+}
+function pageHead(o,T){
+  const sub=o.role==='lead'?'v2.4 版本迭代 · 6月9日 – 6月21日 · 今天 6月13日 周五':'你好，陈齐 · 成员视角下可查看全部任务，批量分配仅对负责人开放';
+  return `<div class="page-head"><div><h1>任务列表</h1><div class="page-sub">${sub}</div></div><div class="stats">${stats(o,T)}</div></div>`;
+}
+function asgMenu(o,T){
+  const items=[{k:'all',label:'全部成员',cnt:T.length,icon:`<span class="av" style="background:#eef1f4;color:#5f6b77">${ic('users','width:12px;height:12px')}</span>`}]
+    .concat(MEMBERS.map(m=>({k:m.name,label:m.name+(m.name===me(o)?'（我）':''),cnt:T.filter(t=>t.assignee===m.name).length,icon:av(m.name)})));
+  return `<div class="menu">${items.map(i=>`<div class="menu-item ${o.asg===i.k?'sel hov':''}"><span class="tick">${o.asg===i.k?ic('check'):''}</span>${i.icon}${i.label}<span class="cnt">${i.cnt}</span></div>`).join('')}</div>`;
+}
+function toolbar(o,T,mobile){
+  const base=T.filter(t=>matches(o,t,true));
+  const segs=[['all','全部',base.length]].concat(Object.keys(STATUS).map(k=>[k,STATUS[k].l,base.filter(t=>t.status===k).length]));
+  const n=activeN(o);
+  const search=`<div class="search ${o.focus?'focus':''}">${ic('search')}<div class="input ${o.q?'':'ph'}">${o.q?esc(o.q):'搜索任务名称'}${o.focus&&o.q?'<span class="caret"></span>':''}</div>${o.q?`<span class="clear-q">${ic('x')}</span>`:''}</div>`;
+  const mine=`<span class="btn ${o.asg===me(o)?'on':''}">${ic('user')}我的任务</span>`;
+  const asg=`<div class="dd"><span class="btn ${o.asg!=='all'?'on':''}">${ic('users')}负责人：<span class="val">${o.asg==='all'?'全部':o.asg}</span>${ic('down')}</span>${o.menu?asgMenu(o,T):''}</div>`;
+  const seg=`<div class="seg">${segs.map(([k,l,c])=>`<span class="sb ${o.st===k?'on':''}">${l}<span class="cnt">${c}</span></span>`).join('')}</div>`;
+  const clear=n?`<span class="btn btn-ghost clear-all">${ic('x')}清空筛选<span class="badge">${n}</span></span>`:'';
+  if(mobile) return `<div class="toolbar">${search}<div class="tb-row">${mine}${asg}${clear}</div>${seg}</div>`;
+  return `<div class="toolbar">${search}${mine}${asg}<span class="divider"></span>${seg}<span class="spacer"></span>${clear}</div>`;
+}
+function meta(o,T,list){
+  return `<div class="list-meta">${activeN(o)?`显示 <b>${list.length}</b> / ${T.length} 条任务`:`共 <b>${T.length}</b> 条任务 · 点击任务查看详情`}</div>`;
+}
+function row(t,o){
+  const d=dueInfo(t);
+  const cls=['row',o.sel.includes(t.id)?'sel':'',o.active===t.id?'active':'',o.flash.includes(t.id)?'flash':'',t.status==='done'?'is-done':''].join(' ');
+  return `<div class="${cls}"><div class="c-chk"><span class="hit"><span class="cb ${o.sel.includes(t.id)?'on':''}"></span></span></div>
+    <div class="c-name"><div class="t-title">${hl(t.title,o.q)}</div><div class="t-sub"><span class="tid">${t.id}</span><span class="tag">${t.cat}</span></div></div>
+    <div class="c-asg"><span class="asg">${av(t.assignee)}${t.assignee}</span></div>
+    <div class="c-st">${stTag(t.status)}</div>
+    <div class="c-pri">${priTag(t.pri)}</div>
+    <div class="c-due"><div class="due">${d.label}</div><div class="due-sub ${d.cls}">${d.sub}</div></div></div>`;
+}
+function emptyBox(o){
+  const c=[];
+  if(o.q) c.push(`关键词「${esc(o.q)}」`);
+  if(o.asg!=='all') c.push(`负责人：${o.asg}`);
+  if(o.st!=='all') c.push(`状态：${STATUS[o.st].l}`);
+  return `<div class="empty"><svg width="120" height="88" viewBox="0 0 120 88"><rect x="18" y="14" width="72" height="60" rx="8" fill="#f4f6f8" stroke="#dfe5ea"/><rect x="28" y="28" width="40" height="6" rx="3" fill="#dfe5ea"/><rect x="28" y="42" width="52" height="6" rx="3" fill="#e9edf1"/><rect x="28" y="56" width="30" height="6" rx="3" fill="#e9edf1"/><circle cx="86" cy="56" r="15" fill="#fff" stroke="#0e8f84" stroke-width="3"/><path d="M97 67l10 10" stroke="#0e8f84" stroke-width="4" stroke-linecap="round"/><path d="M81 51l10 10M91 51L81 61" stroke="#9fcfc9" stroke-width="2.4" stroke-linecap="round"/></svg>
+    <h3>没有匹配的任务</h3><p>当前条件下没有找到任务。可以换个关键词，或清空筛选查看全部任务。</p>
+    <div class="cond">${c.map(x=>`<span>${x}</span>`).join('')}</div><div><span class="btn btn-primary">清空筛选</span></div></div>`;
+}
+function table(o,T,list){
+  const lead=o.role==='lead';
+  const ids=list.map(t=>t.id),selVis=ids.filter(id=>o.sel.includes(id)).length;
+  const all=ids.length&&selVis===ids.length?'on':(selVis?'mixed':'');
+  const head=list.length?`<div class="lh"><div class="c-chk"><span class="hit"><span class="cb ${all}"></span></span></div><div>任务名称</div><div>负责人</div><div>状态</div><div>优先级</div><div>截止日期</div></div>`:'';
+  return `<div class="list ${lead?'':'no-select'}">${head}${list.map(t=>row(t,o)).join('')}${list.length?'':emptyBox(o)}</div>`;
+}
+function panel(o,T,list){
+  const p=o.panel,t=T.find(x=>x.id===p.id);
+  const d=dueInfo(t),idx=list.findIndex(x=>x.id===t.id),done=t.checks.filter(c=>c[1]).length;
+  return `<aside class="panel"><div class="p-head"><span class="tid">${t.id}</span><span class="tag">${t.cat}</span><span class="pos">${idx>=0?`${idx+1} / ${list.length}`:'不在当前结果中'}</span>
+    <div class="p-tools"><span class="icon-btn ${idx<=0?'dis':''}">${ic('up')}</span><span class="icon-btn ${idx<0||idx>=list.length-1?'dis':''}">${ic('down')}</span><span class="icon-btn">${ic('x')}</span></div></div>
+    <div class="p-body"><h2>${esc(t.title)}</h2>
+    <dl class="fields">
+      <dt>状态</dt><dd>${stTag(t.status)}</dd>
+      <dt>优先级</dt><dd>${priTag(t.pri)}</dd>
+      <dt>负责人</dt><dd class="${p.flash?'flash':''}">${av(t.assignee)}${t.assignee}<span style="color:var(--text-3)">· ${mem(t.assignee).role}</span></dd>
+      <dt>截止日期</dt><dd>${d.label} ${d.week}<span class="due-sub ${d.cls}">${d.sub}</span></dd>
+      <dt>创建人</dt><dd>${av(t.creator)}${t.creator}</dd>
+      <dt>所属迭代</dt><dd>v2.4 版本迭代</dd>
+    </dl>
+    <section class="sec"><h3>任务说明</h3><p>${esc(t.desc)}</p></section>
+    <section class="sec"><h3>验收要求 <span class="muted">${done}/${t.checks.length}</span></h3><ul class="checks">${t.checks.map(c=>`<li class="${c[1]?'ok':''}"><span class="mk">${c[1]?ic('check'):''}</span><span>${esc(c[0])}</span></li>`).join('')}</ul></section>
+    <section class="sec"><h3>相关资料 <span class="muted">${t.files.length}</span></h3>${t.files.length?`<ul class="files">${t.files.map(f=>`<li>${ic(f[1]==='设计稿'?'frame':'file')}${esc(f[0])}<em>${f[1]}</em></li>`).join('')}</ul>`:'<p style="color:var(--text-3)">暂无资料</p>'}</section>
+    <section class="sec"><h3>动态</h3><ol class="acts">${t.acts.map(a=>`<li class="${a.n?'new':''}"><b>${a.w}</b> ${esc(a.t)}<time>${a.d}</time></li>`).join('')}</ol></section>
+    </div></aside>`;
+}
+function batchbar(o,list,cx){
+  const vis=new Set(list.map(t=>t.id)),hidden=o.sel.filter(id=>!vis.has(id)).length;
+  return `<div class="batchbar" style="left:${cx}px"><div class="bb-count"><span class="bb-num">${o.sel.length}</span><span>项已选</span>${hidden?`<span style="font-size:12px;color:var(--text-3)">（${hidden} 项不在当前结果中）</span>`:''}</div><span class="btn btn-ghost">取消选择</span><span class="btn btn-primary">${ic('users')}分配给成员</span></div>`;
+}
+function assignPop(o,T,cx){
+  const pick=o.assign.pick;
+  const items=MEMBERS.map(m=>{
+    const load=T.filter(t=>t.assignee===m.name&&t.status!=='done').length;
+    return `<div class="as-item ${pick===m.name?'on':''}"><span class="radio"></span>${av(m.name,'lg')}<span class="who">${m.name}<small>${m.role}</small></span><span class="load">进行中/待开始<br>${load} 项</span></div>`}).join('');
+  let note='请选择一位成员';
+  if(pick){
+    const already=o.sel.filter(id=>T.find(t=>t.id===id).assignee===pick).length,change=o.sel.length-already;
+    note=change===0?`所选任务均已由 <b>${pick}</b> 负责，确认后不会产生变更`:`将把 <b>${change}</b> 条任务的负责人改为 <b>${pick}</b>${already?`，另有 ${already} 条原本就由其负责`:''}`;
+  }
+  return `<div class="assign" style="left:${cx}px"><div class="as-head"><h4>批量分配负责人</h4><p>将已选的 ${o.sel.length} 条任务统一分配给：</p></div><div class="as-list">${items}</div><div class="as-note">${note}</div><div class="as-foot"><span class="btn">取消</span><span class="btn btn-primary ${pick?'':'dis'}">确认分配</span></div></div>`;
+}
+function toast(tt,cx){
+  return `<div class="toast" style="left:${cx}px"><span class="ok">${ic('check')}</span><span>${tt.text}</span>${tt.undo?'<span class="act">撤销</span>':''}<span class="x">${ic('x','width:14px;height:14px')}</span></div>`;
+}
+
+/* ================= 整屏组装 ================= */
+function screen(raw,mobile){
+  const o=norm(raw),T=o.tasks,list=T.filter(t=>matches(o,t));
+  const W=mobile?375:1280,PW=440;
+  const cx=(W-(o.panel&&!mobile?PW:0))/2;
+  let h=`<div class="ui ${mobile?'m':'d'}">${topbar(o,mobile)}<div class="main"${o.panel&&!mobile?` style="margin-right:${PW}px"`:''}>${pageHead(o,T)}${toolbar(o,T,mobile)}${meta(o,T,list)}${table(o,T,list)}</div>`;
+  if(o.panel) h+=panel(o,T,list);
+  if(o.sel.length&&o.role==='lead') h+=batchbar(o,list,cx);
+  if(o.assign) h+=(mobile?'<div class="scrim"></div>':'')+assignPop(o,T,cx);
+  if(o.toast) h+=toast(o.toast,cx);
+  return h+'</div>';
+}
+const statusBar = () => `<div class="sbar"><span>9:41</span><svg width="62" height="12" viewBox="0 0 62 12"><rect x="0" y="8" width="3" height="4" rx="1" fill="#1d2731"/><rect x="5" y="6" width="3" height="6" rx="1" fill="#1d2731"/><rect x="10" y="3" width="3" height="9" rx="1" fill="#1d2731"/><rect x="15" y="0" width="3" height="12" rx="1" fill="#1d2731"/><rect x="34" y="1" width="23" height="10" rx="3" fill="none" stroke="#1d2731"/><rect x="36" y="3" width="16" height="6" rx="1.5" fill="#1d2731"/><rect x="58.5" y="4" width="2" height="4" rx="1" fill="#1d2731"/></svg></div>`;
+
+/* ================= 规范卡片 ================= */
+function specCard(){
+  const sw=(c,n,code)=>`<div class="sw"><i style="background:${c}"></i>${n}<code>${code}</code></div>`;
+  const ty=(st,txt,code)=>`<div class="ty"><span style="${st}">${txt}</span><code>${code}</code></div>`;
+  return `<div class="ui spec">
+  <div><h5>色彩</h5>
+    ${sw('#0e8f84','强调 · 主操作 / 选中','#0E8F84')}${sw('#0b7a70','强调深 · 悬停 / 选中文字','#0B7A70')}${sw('#ecf7f5','强调浅 · 选中底 / 进行中','#ECF7F5')}${sw('#d3ece8','强调描边 · 焦点环','#D3ECE8')}
+    ${sw('#1d2731','正文','#1D2731')}${sw('#53606c','次要文字','#53606C')}${sw('#8693a0','辅助文字','#8693A0')}${sw('#e3e8ed','分割线 / 描边','#E3E8ED')}${sw('#f4f6f8','页面底色','#F4F6F8')}
+    ${sw('#c4553e','高优先级 / 逾期','#C4553E')}${sw('#b07a1a','中优先级 / 临期','#B07A1A')}
+    <p class="rule">青绿只用于主操作、选中态和「进行中」状态，单屏面积控制在 5% 以内；红和黄只用来传达风险。</p></div>
+  <div><h5>字体</h5>
+    ${ty('font-size:20px;font-weight:600','页面标题','20 / 600')}
+    ${ty('font-size:18px;font-weight:600','详情标题','18 / 600')}
+    ${ty('font-size:15px;font-weight:600','空状态标题','15 / 600')}
+    ${ty('font-size:14px;font-weight:500','任务名称','14 / 500')}
+    ${ty('font-size:13px','正文 · 控件 · 说明','13 / 400')}
+    ${ty('font-size:12px;color:var(--text-3)','辅助信息 · 表头','12 / 400')}
+    ${ty('font-family:var(--mono);font-size:13px','T-102 · 2 / 8','Mono 12–18')}
+    <p class="rule">中文字体：PingFang SC → Hiragino Sans GB → Microsoft YaHei。编号与数量统一用等宽字体，方便纵向对齐。手机端任务名 15px，搜索框 15px（避免 iOS 聚焦时自动放大）。</p></div>
+  <div><h5>控件</h5>
+    <p class="cmp-l">按钮 · 默认 / 悬停 / 筛选生效 / 主操作 / 禁用 / 文字</p>
+    <div class="cmp"><span class="btn">${ic('user')}我的任务</span><span class="btn hover">${ic('user')}我的任务</span><span class="btn on">${ic('users')}负责人：<span class="val">周然</span>${ic('down')}</span></div>
+    <div class="cmp"><span class="btn btn-primary">确认分配</span><span class="btn btn-primary dis">确认分配</span><span class="btn btn-ghost clear-all">${ic('x')}清空筛选<span class="badge">2</span></span></div>
+    <p class="cmp-l">搜索框 · 默认 / 聚焦输入</p>
+    <div class="cmp"><div class="search" style="width:200px">${ic('search')}<div class="input ph">搜索任务名称</div></div><div class="search focus" style="width:200px">${ic('search')}<div class="input">原型<span class="caret"></span></div><span class="clear-q">${ic('x')}</span></div></div>
+    <p class="cmp-l">分段筛选（数量随其他条件联动）</p>
+    <div class="cmp"><div class="seg"><span class="sb on">全部<span class="cnt">8</span></span><span class="sb">待开始<span class="cnt">3</span></span><span class="sb">进行中<span class="cnt">3</span></span><span class="sb">已完成<span class="cnt">2</span></span></div></div>
+    <p class="cmp-l">复选 · 未选 / 已选 / 半选 · 单选</p>
+    <div class="cmp"><span class="cb"></span><span class="cb on"></span><span class="cb mixed"></span><span style="width:16px"></span><span class="radio"></span><span class="radio on"></span></div></div>
+  <div><h5>状态与优先级</h5>
+    <p class="cmp-l">任务状态</p><div class="cmp">${stTag('todo')}${stTag('doing')}${stTag('done')}</div>
+    <p class="cmp-l">优先级（柱形 + 文字，不只靠颜色区分）</p><div class="cmp">${priTag('high')}${priTag('mid')}${priTag('low')}</div>
+    <p class="cmp-l">截止提示</p><div class="cmp"><span class="due-sub over">逾期 1 天</span><span class="due-sub soon">今天截止</span><span class="due-sub soon">明天</span><span class="due-sub">4 天后</span><span class="due-sub">已完成</span></div>
+    <p class="cmp-l">成员头像（取名字末字，固定配色）</p><div class="cmp">${MEMBERS.map(m=>`<span class="asg">${av(m.name)}${m.name}</span>`).join('')}</div>
+    <p class="cmp-l">类别标签</p><div class="cmp">${['需求','原型','规范','评审','测试'].map(x=>`<span class="tag">${x}</span>`).join('')}</div></div>
+  <div><h5>尺寸与间距</h5>
+    <div class="space">${[4,8,12,16,24].map(n=>`<div style="width:${n*2}px;height:${n*2}px"></div>`).join('')}</div>
+    <div class="space" style="margin-top:-10px;gap:10px">${[4,8,12,16,24].map(n=>`<span style="width:${n*2}px">${n}</span>`).join('')}</div>
+    <div class="kv">
+      <span>控件高度 · 桌面</span><code>34</code><span>控件高度 · 手机</span><code>36 / 40</code>
+      <span>表格行高</span><code>≥ 56</code><span>手机点击区域</span><code>≥ 40</code>
+      <span>圆角 · 卡片 / 控件 / 标签</span><code>8 / 7 / 4</code><span>详情面板宽度</span><code>440</code>
+      <span>页面左右边距 · 桌面 / 手机</span><code>24 / 12</code><span>图标</span><code>16 · 线宽 1.7</code>
+      <span>断点 · 面板推开列表</span><code>≥ 1101</code><span>断点 · 面板浮层覆盖</span><code>761 – 1100</code>
+      <span>断点 · 手机卡片布局</span><code>≤ 760</code>
+    </div></div>
+  </div>`;
+}
+
+/* ================= 画布配置（新增画面只需在这里加一项） ================= */
+const SECTIONS = [
+ {id:'s-list',k:'A',title:'桌面端 · 任务列表',sub:'1280 × 760 · 以表格为主；搜索、负责人、状态三类条件叠加筛选，并可一键清空',frames:[
+  {code:'A1',name:'默认列表',tg:'负责人视角 · 林知',d:{},notes:[
+    '页头统计随视角切换，有逾期时数字标红',
+    '状态分段附带数量，数量随搜索和负责人条件联动',
+    '截止日期下方显示剩余或逾期天数，已完成任务的名称弱化显示',
+    '表头复选框只全选<b>当前结果</b>']},
+  {code:'A2',name:'搜索 + 负责人组合筛选',tg:'关键词「原型」· 负责人 周然',d:{q:'原型',asg:'周然',focus:true,menu:true},notes:[
+    '关键词、负责人、状态三类条件为「且」的关系，同时生效',
+    '有条件生效时出现「清空筛选」，徽标显示生效条件数',
+    '匹配的关键词高亮显示，列表上方显示「显示 2 / 8」',
+    '负责人下拉附各成员任务数，并标出当前用户（我）']},
+  {code:'A3',name:'空状态',tg:'关键词「接口」· 状态 进行中',d:{q:'接口',st:'doing'},notes:[
+    '隐藏表头，明确提示「没有匹配的任务」',
+    '列出当前生效的条件，方便判断是哪一项过严',
+    '主按钮「清空筛选」与工具栏入口行为一致，一键恢复全部任务']}
+ ]},
+ {id:'s-detail',k:'B',title:'桌面端 · 详情与批量分配',sub:'详情侧边面板宽 440，推开列表以便对照；批量分配依次为：勾选 → 选成员 → 确认 → 反馈 / 撤销',frames:[
+  {code:'B1',name:'任务详情侧边面板',tg:'点击 T-102',d:{active:'T-102',panel:{id:'T-102'}},notes:[
+    '列表保持可见，当前行显示左侧强调条',
+    '面板顶部显示「2 / 8」，上一条 / 下一条按当前筛选结果切换',
+    '信息顺序：字段 → 任务说明 → 验收要求（进度）→ 相关资料 → 动态',
+    '点 × 或按 Esc 关闭，筛选和滚动位置保留，焦点回到原来的行']},
+  {code:'B2',name:'批量分配 · 选择成员',tg:'已选 3 条，详情面板保持打开',d:{sel:['T-103','T-105','T-106'],active:'T-103',panel:{id:'T-103'},assign:{pick:'陈齐'}},notes:[
+    '勾选后，底部浮出操作栏并显示已选数量；表头复选框呈半选',
+    '选中成员后预告将变更的条数；未选成员时「确认分配」不可点',
+    '成员项显示其未完成任务数，辅助判断分工是否均衡',
+    '点取消、点空白处或按 Esc 均可关闭，不产生任何变更']},
+  {code:'B3',name:'分配完成 · 列表与详情同步',tg:'确认后 6 秒内可撤销',d:{tasks:AFTER_B,active:'T-103',flash:['T-103','T-105','T-106'],panel:{id:'T-103',flash:true},toast:{text:'已将 3 条任务分配给 陈齐',undo:true}},notes:[
+    '被改派的行短暂高亮，负责人列即时更新',
+    '打开中的详情同步更新负责人，并在动态顶部新增一条记录',
+    '底部提示写明变更条数，可撤销；撤销后数据恢复原样',
+    '改派后若有任务不再符合当前筛选，提示里会单独说明条数']}
+ ]},
+ {id:'s-mobile',k:'C',title:'手机端 · 375 宽',sub:'≤ 760 时表格改为卡片，详情改为全屏页，批量操作改为底部栏和底部弹层；点击区域不小于 40',frames:[
+  {code:'C1',name:'任务卡片列表',tg:'默认',m:true,d:{},notes:['任务名完整换行，优先级放在右上角','左侧整块 40 × 40 区域用于勾选，点卡片其他位置打开详情','搜索框高 40，字号 15']},
+  {code:'C2',name:'状态筛选',tg:'状态 进行中',m:true,d:{st:'doing'},notes:['状态分段独占一行，方便拇指点按','「清空筛选」与「我的任务」「负责人」放在同一行，随时可清空']},
+  {code:'C3',name:'空状态',tg:'关键词「接口」',m:true,d:{q:'接口',focus:true},notes:['说明文案与条件标签自动换行','清空入口直接放在提示下方']},
+  {code:'C4',name:'详情全屏页',tg:'T-107（已逾期）',m:true,d:{panel:{id:'T-107'}},notes:['全屏覆盖列表，顶部保留上一条 / 下一条和关闭按钮','关闭后回到列表原来的滚动位置']},
+  {code:'C5',name:'批量分配 · 底部弹层',tg:'已选 2 条',m:true,d:{sel:['T-104','T-105'],assign:{pick:'周然'}},notes:['操作栏贴底并预留安全区','成员项高 ≥ 56，「取消」「确认分配」两个按钮等宽、高 42']},
+  {code:'C6',name:'分配完成',tg:'提示 + 行高亮',m:true,d:{tasks:AFTER_C,flash:['T-104','T-105'],toast:{text:'已将 2 条任务分配给 周然',undo:true}},notes:['提示左右各留 16，横向铺满','被改派的卡片短暂高亮']}
+ ]},
+ {id:'s-spec',k:'D',title:'成员视角与组件规范',sub:'成员只读查看并快速找到自己的任务；组件规范与原型共用同一套样式变量',frames:[
+  {code:'D1',name:'成员视角',tg:'陈齐 · 点击「我的任务」',d:{role:'member',asg:'陈齐'},notes:[
+    '不显示勾选列和批量操作，避免误操作',
+    '统计区改为「我的任务 / 未完成 / 我的逾期」',
+    '「我的任务」本质是负责人筛选的快捷入口，两者状态同步']},
+  {code:'D2',name:'组件与样式规范',tg:'Design Tokens',custom:specCard,w:2640,notes:[]}
+ ]}
+];
+
+function renderCanvas(){
+  let h=`<div class="cv-head"><h1>任务列表与详情 · 设计画布</h1><p>协作台 · 产品团队 v2.4 版本迭代 · 面向 5–20 人团队的负责人与成员</p>
+   <div class="cv-meta"><span class="k">评审稿 · 2025-06-13</span><span>对应原型 task-board-prototype.html</span><span>画布内均为静态状态稿，交互请在原型中操作</span><span>13 个状态 · 桌面 7 + 手机 6</span></div></div>`;
+  SECTIONS.forEach(s=>{
+    h+=`<section class="cv-sec" id="${s.id}"><h2><span class="k">${s.k}</span>${s.title}</h2><p>${s.sub}</p><div class="frames">`;
+    s.frames.forEach(f=>{
+      const w=f.w||(f.m?387:1280);
+      let body;
+      if(f.custom) body=f.custom();
+      else if(f.m) body=`<div class="frame fm">${statusBar()}${screen(f.d,true)}</div>`;
+      else body=`<div class="frame fd">${screen(f.d,false)}</div>`;
+      h+=`<div class="fw" style="width:${w}px"><div class="fcap"><span class="code">${f.code}</span>${f.name}<span class="tg">${f.tg}</span></div>${body}${f.notes.length?`<ul class="fnotes">${f.notes.map(n=>`<li>${n}</li>`).join('')}</ul>`:''}</div>`;
+    });
+    h+=`</div></section>`;
+  });
+  $('stage').innerHTML=h;
+}
+
+/* ================= 平移与缩放 ================= */
+function $(id){return document.getElementById(id)}
+const vp=$('vp'),stage=$('stage');
+const V={x:0,y:0,s:.3};
+const clamp=s=>Math.min(2,Math.max(.08,s));
+function apply(){stage.style.transform=`translate(${V.x}px,${V.y}px) scale(${V.s})`;$('zv').textContent=Math.round(V.s*100)+'%'}
+function rect(){return vp.getBoundingClientRect()}
+function fitWidth(){const r=rect();V.s=clamp((r.width-48)/stage.offsetWidth);V.x=(r.width-stage.offsetWidth*V.s)/2;V.y=16;apply();mark('')}
+function fitAll(){const r=rect();V.s=clamp(Math.min((r.width-48)/stage.offsetWidth,(r.height-32)/stage.offsetHeight));V.x=(r.width-stage.offsetWidth*V.s)/2;V.y=(r.height-stage.offsetHeight*V.s)/2;apply();mark('all')}
+function zoomAt(f,cx,cy){const ns=clamp(V.s*f);V.x=cx-(cx-V.x)*ns/V.s;V.y=cy-(cy-V.y)*ns/V.s;V.s=ns;apply()}
+function zoomCenter(f){const r=rect();zoomAt(f,r.width/2,r.height/2)}
+function jump(id){
+  if(id==='all') return fitAll();
+  const el=$(id);if(!el) return;
+  const r=rect();
+  V.s=clamp(Math.min(1,(r.width-48)/el.offsetWidth));
+  V.x=24-el.offsetLeft*V.s;V.y=20-el.offsetTop*V.s;apply();mark(id);
+}
+function mark(id){document.querySelectorAll('[data-jump]').forEach(b=>b.classList.toggle('on',b.dataset.jump===id))}
+$('jump').addEventListener('click',e=>{const b=e.target.closest('[data-jump]');if(b) jump(b.dataset.jump)});
+$('zIn').addEventListener('click',()=>zoomCenter(1.25));
+$('zOut').addEventListener('click',()=>zoomCenter(.8));
+$('zFit').addEventListener('click',fitWidth);
+$('z100').addEventListener('click',()=>zoomCenter(1/V.s));
+vp.addEventListener('wheel',e=>{
+  e.preventDefault();
+  const r=rect();
+  if(e.ctrlKey||e.metaKey) zoomAt(Math.exp(-e.deltaY*.0025),e.clientX-r.left,e.clientY-r.top);
+  else {V.x-=e.shiftKey?e.deltaY:e.deltaX;V.y-=e.shiftKey?0:e.deltaY;apply()}
+},{passive:false});
+let drag=null;
+vp.addEventListener('pointerdown',e=>{if(e.button!==0) return;drag={x:e.clientX,y:e.clientY,ox:V.x,oy:V.y};vp.setPointerCapture(e.pointerId);vp.classList.add('dragging')});
+vp.addEventListener('pointermove',e=>{if(!drag) return;V.x=drag.ox+e.clientX-drag.x;V.y=drag.oy+e.clientY-drag.y;apply()});
+const endDrag=()=>{drag=null;vp.classList.remove('dragging')};
+vp.addEventListener('pointerup',endDrag);vp.addEventListener('pointercancel',endDrag);
+document.addEventListener('keydown',e=>{
+  if(e.key==='+'||e.key==='=') zoomCenter(1.25);
+  else if(e.key==='-') zoomCenter(.8);
+  else if(e.key==='0') fitWidth();
+  else if(e.key==='1') zoomCenter(1/V.s);
+});
+window.addEventListener('resize',fitWidth);
+
+renderCanvas();
+fitWidth();
+})();
+</script>
+</body>
+</html>

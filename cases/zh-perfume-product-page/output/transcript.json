@@ -1,0 +1,200 @@
+{
+  "provider": "bedrock",
+  "model": "us.anthropic.claude-opus-5-5",
+  "started": "2026-11-25T06:35:35+00:00",
+  "finished": "2026-11-25T07:45:05+00:00",
+  "inputs": [],
+  "turns": [
+    {
+      "label": "Prompt · hero and front view",
+      "prompt": "Design the Shopify product page and the full image set for Atelier Oubli Nº 7 \"Fig & Smoke\", a 50ml eau de parfum at $168. The notes are green fig and bergamot on top, iris and cedar in the heart, and birch tar and ambrette at the base.\nFor the images, start with a hero of the bottle at a three-quarter angle under a single Caravaggio-like side light on deep umber, with a halved fig and a wisp of smoke. Then shoot front, side, back and top-down views under exactly the same lighting, a macro of the engraved glass and heavy brass cap, a still life of the raw ingredients (fig, iris root, birch bark) labeled in tiny italic serif, a scene on a dark wooden nightstand with an open book and a burnt-out candle, and the black packaging box with a blind-embossed logo.\nThe page (desktop 1440 and mobile 390) needs a sticky gallery with zoom, a 50ml / 10ml travel size selector, a Discovery Set upsell, an interactive notes pyramid on hover, a \"How it wears\" timeline at 0h / 2h / 6h, reviews, and a shipping & returns accordion. Keep it dark, sensual and painterly: umber #2A1E17, fig #5B2A3C, brass #B08D57 and bone #E8E0D2, Cormorant Garamond italic for headlines and a small-caps grotesk for UI, with generous spacing and slow fades. No white backgrounds, pastels, sale badges or sparkles.\n\nDeliver the hero and the front view in this reply. I will ask for the other images and the page next.",
+      "attached_inputs": [],
+      "attached_images": 0,
+      "reply": "Below are the hero and the front view. Both use the same light: a single source from the upper left falling on a deep umber wall and table, the same eye height and table edge, and the same cast shadow with an amber caustic.\n\n[[file:fig-smoke-hero.svg]]\n\n[[file:fig-smoke-front.svg]]\n\n**How the two images work**\n\n- **Lighting kept constant across the series:** both images use the same light pool centred at (560, 760). The table edge sits at y 1440, and the haze, vignette and grain are identical. The bottle is lit from the upper left, and its shadow falls to the right with the same amber caustic in it. The side, back and top-down views will reuse this setup unchanged.\n- **Hero:** the bottle stands at a three-quarter angle. Its front face is lit, the side face falls into shadow, and the left glass edge catches a bright line of light.\n  - A whole fig sits near the light at back left.\n  - A halved fig in the foreground shows its seed rings and pith.\n  - The smoke rises from a smouldering curl of birch bark (a nod to the birch tar base) and drifts up past the cap.\n- **Front view:** the bottle is shown straight on with no props. The engraving (Atelier Oubli, Nº 7, *Fig & Smoke*, Eau de Parfum, 50 ml) uses real `<text>` elements, so it stays editable. It is drawn as frosted glass and brightens toward the lit side.\n- **Bottle and cap details:** both images share the same heavy knurled brass cap and collar, thick glass base and fig-amber juice, so the macro and the packaging shots will match.\n\nNext I can do the side, back and top-down views, the macro, the ingredient still life, the nightstand scene and the box, followed by the page.",
+      "files": [
+        "fig-smoke-hero.svg",
+        "fig-smoke-hero.png",
+        "fig-smoke-front.svg",
+        "fig-smoke-front.png"
+      ],
+      "usage": {
+        "input": 1264,
+        "output": 41033
+      },
+      "seconds": 381.9
+    },
+    {
+      "label": "Self-check",
+      "prompt": "Here are the images rendered from the files you just delivered (SVGs via librsvg, HTML as a browser screenshot of the top of the page), downscaled. Check them as a designer would before a client review: clipped or overlapping text, text that renders as boxes or in a fallback font, broken layout, empty areas, anything that breaks the brief's rules. If something needs fixing, deliver the corrected files under the same names. If everything is ready, say so in one or two sentences and deliver nothing.",
+      "attached_inputs": [],
+      "attached_images": 2,
+      "reply": "I reviewed both renders and found four problems, so I'm sending corrected versions of both files.\n\n1. **The burning bark looks like a cigarette.** In the hero, the small white rolled cylinder with an ember and smoke reads as a cigarette, which is wrong for this brand. I replaced it with a flat, ragged strip of birch bark with a charred, glowing end. The smoke now rises from that end and has a softer, more volumetric drift.\n2. **The halved fig looks like a target.** The concentric dotted rings didn't read as fruit. It now has a pith rim, red flesh with fibres radiating outward, scattered seeds and an irregular hollow at the centre. I also lowered it so it no longer covers the bottle's shadow.\n3. **The lighting isn't Caravaggio-like.** The wall's mottled texture was streaky and evenly lit, more like clouds than a single side light. I made the texture softer, added a stronger warm pool and a diagonal light shaft at upper left, and let the right side fall into deep dark. Both files use the same change.\n4. **The amber glint floats on its own.** In both views the warm spot of light on the table sat far from the bottle, with no visible shadow around it. The bottle now casts a clear shadow to the right, the table is brighter under the light, and the glint sits inside that shadow.\n\n[[file:fig-smoke-hero.svg]]\n\n[[file:fig-smoke-front.svg]]",
+      "files": [
+        "fig-smoke-hero.svg",
+        "fig-smoke-hero.png",
+        "fig-smoke-front.svg",
+        "fig-smoke-front.png"
+      ],
+      "usage": {
+        "input": 26349,
+        "output": 27863
+      },
+      "seconds": 229.9
+    },
+    {
+      "label": "Side, back, top-down",
+      "prompt": "Now deliver the side, back and top-down views under exactly the same lighting.",
+      "attached_inputs": [],
+      "attached_images": 0,
+      "reply": "The side, back and top-down views below use the same lighting as the front view: the same wall, table, haze and vignette, with a single source at upper left. The bottle's shadow falls to the right with the same amber glint inside it.\n\n[[file:fig-smoke-side.svg]]\n\n[[file:fig-smoke-back.svg]]\n\n[[file:fig-smoke-top.svg]]\n\n**What's in each view**\n\n- **Side view (`fig-smoke-side.svg`):**\n  - The bottle is 280 deep. I worked that out from how wide the side face looks in the hero, so the proportions match across the series.\n  - The narrow face carries no engraving, matching the dark side face in the hero.\n  - The cap and collar are identical to the front view, since both are cylinders.\n- **Back view (`fig-smoke-back.svg`):**\n  - The front's \"Nº 7 / *Fig & Smoke*\" shows faintly through the juice as a mirrored ghost.\n  - The back is etched with the brand, the line \"Nº 7 · Fig & Smoke\", an ingredient list, the size and a batch number. These are real `<text>` elements, so you can swap in the actual INCI list (the regulated ingredient list) and batch number.\n- **Top-down view (`fig-smoke-top.svg`):**\n  - The camera looks straight down at the same umber table, and the light still comes from the left.\n  - The cap's shadow falls across the glass shoulder.\n  - The cast shadow runs to the right with the amber glint inside it.\n  - The cap top shows lathe-turned rings, the same inner groove as in the front view, and a small engraved \"Nº 7\".\n\n**Before the macro shot**\n\nThe top-down view adds an engraved \"Nº 7\" to the cap top, which isn't in the brief. The macro shot will show it, so tell me before then if you'd rather keep the cap top plain.\n\nNext up are the macro of the glass and cap, the ingredient still life, the nightstand scene and the box.",
+      "files": [
+        "fig-smoke-side.svg",
+        "fig-smoke-side.png",
+        "fig-smoke-back.svg",
+        "fig-smoke-back.png",
+        "fig-smoke-top.svg",
+        "fig-smoke-top.png"
+      ],
+      "usage": {
+        "input": 48040,
+        "output": 30100
+      },
+      "seconds": 254.5
+    },
+    {
+      "label": "Self-check",
+      "prompt": "Here are the images rendered from the files you just delivered (SVGs via librsvg, HTML as a browser screenshot of the top of the page), downscaled. Check them as a designer would before a client review: clipped or overlapping text, text that renders as boxes or in a fallback font, broken layout, empty areas, anything that breaks the brief's rules. If something needs fixing, deliver the corrected files under the same names. If everything is ready, say so in one or two sentences and deliver nothing.",
+      "attached_inputs": [],
+      "attached_images": 3,
+      "reply": "I checked all three renders. The side view is ready, but the back and top-down views need fixing, so I'm sending both again under the same names.\n\n1. **Top-down: the shadow looks like a slab.** It rendered as a hard black block with a blurry amber oval floating in the middle of it. It now starts dark at the bottle's edge and fades softly to the right. A gentle lobe extends where the taller cap casts further, and the amber glint is now a narrow streak close to the glass, as in the other views.\n2. **Top-down: the bottle is too small for the frame.** It filled only a small part of the 4:5 frame and left a lot of empty dark. I scaled the bottle and cap up 25% with their proportions unchanged.\n3. **Back view: the mirrored ghost text is too legible.** The reversed \"Nº 7 / Fig & Smoke\" seen through the juice read as a printing error. It is now fainter and softer, so it reads as a glimpse through the glass rather than a second label.\n\n[[file:fig-smoke-top.svg]]\n\n[[file:fig-smoke-back.svg]]",
+      "files": [
+        "fig-smoke-top.svg",
+        "fig-smoke-top.png",
+        "fig-smoke-back.svg",
+        "fig-smoke-back.png"
+      ],
+      "usage": {
+        "input": 76147,
+        "output": 16489
+      },
+      "seconds": 144.8
+    },
+    {
+      "label": "Macro and ingredients",
+      "prompt": "Now deliver the macro of the engraved glass and brass cap, and the raw-ingredients still life. Keep the bottle and lighting identical to the earlier images.",
+      "attached_inputs": [],
+      "attached_images": 0,
+      "reply": "Below are the macro and the ingredients still life.\n\n- **Bottle:** both images reuse the front-view bottle exactly: the same glass, juice, engraving and knurled brass cap.\n- **Lighting:** the light setup is unchanged. There is one source at upper left, falling on the same umber wall and table, with the same haze and vignette. Shadows fall to the right with the amber glint inside them.\n\n[[file:fig-smoke-macro.svg]]\n\n[[file:fig-smoke-ingredients.svg]]\n\n**Macro (`fig-smoke-macro.svg`)**\n- This is a 2.6× crop of the front-view scene itself, so the bottle, cap and light are the same down to the gradients.\n- At this scale the knurled cap and collar have a fine vertical brushed grain, extra highlight lines on the turned grooves and a warm reflection of the collar in the glass shoulder.\n- The engraved \"ATELIER OUBLI\" and \"Nº 7\" have a light edge and a frosted texture inside the letters, so they read as cut into the glass rather than printed.\n\n**Ingredients still life (`fig-smoke-ingredients.svg`)**\n- The light is unchanged. The camera is higher, so the table edge sits at y 1240 instead of 1440, which gives the objects room.\n- The bottle stands at back right at 70% scale, and every object casts its shadow to the right.\n- **Birch bark:** a curled roll with dark horizontal marks, a scrolled end and a peeling strip showing the orange inner bark.\n- **Fig:** a whole green fig with a faint fig-coloured blush (for the \"green fig\" note), the halved fig from the hero, and a dark fig leaf lying underneath.\n- **Iris root:** a ringed, knobby root with a cut end and two pale slices in front.\n- **Labels:** each ingredient has a two-line tag in small italic Baskerville: the Latin name, then the ingredient and where it sits in the fragrance (top, heart or base). The tags are real `<text>` elements drawn above the vignette, so they stay readable in the dark foreground.\n\n**Open question:** the engraved \"Nº 7\" on the cap top can't be seen at this angle, so the macro doesn't settle whether to keep it. It will be clearly visible on the packaging and nightstand shots, so let me know before those whether to keep it.\n\nNext are the nightstand scene and the packaging box.",
+      "files": [
+        "fig-smoke-macro.svg",
+        "fig-smoke-macro.png",
+        "fig-smoke-ingredients.svg",
+        "fig-smoke-ingredients.png"
+      ],
+      "usage": {
+        "input": 89561,
+        "output": 41874
+      },
+      "seconds": 368.2
+    },
+    {
+      "label": "Self-check",
+      "prompt": "Here are the images rendered from the files you just delivered (SVGs via librsvg, HTML as a browser screenshot of the top of the page), downscaled. Check them as a designer would before a client review: clipped or overlapping text, text that renders as boxes or in a fallback font, broken layout, empty areas, anything that breaks the brief's rules. If something needs fixing, deliver the corrected files under the same names. If everything is ready, say so in one or two sentences and deliver nothing.",
+      "attached_inputs": [],
+      "attached_images": 2,
+      "reply": "I checked both renders. The macro is ready. The ingredients still life has four problems, so I'm sending it again under the same name.\n\n1. **The birch bark has smiling faces.** Its two curved dark marks read as little smiles, and the even white tube looked like a pipe. They are now flat, ragged black patches. The bark also has irregular dashed markings and fine papery streaks along its length.\n2. **The iris root looks like a grub.** Its even segments and leg-like rootlets made it read as a caterpillar. It is now an irregular, knobbly root with a branch, uneven ring scars, a pale cut tip and only very fine short root hairs.\n3. **The top of the frame is empty.** The top 60% was bare wall and the objects looked small. I raised the table edge to y 1120 and enlarged the bottle to 85%. The bark, figs and root are enlarged 10 to 25%, so the arrangement now fills the frame.\n4. **Two labels float away from their objects.** \"Ficus carica\" and \"Iris pallida\" sat far from what they name. Each label now sits directly by its object with a short connecting line. The second lines are a little larger and brighter, so they stay legible when the image is shrunk on the page.\n\n[[file:fig-smoke-ingredients.svg]]",
+      "files": [
+        "fig-smoke-ingredients.svg",
+        "fig-smoke-ingredients.png"
+      ],
+      "usage": {
+        "input": 119390,
+        "output": 21338
+      },
+      "seconds": 169.3
+    },
+    {
+      "label": "Nightstand and box",
+      "prompt": "Now deliver the nightstand scene and the black packaging box.",
+      "attached_inputs": [],
+      "attached_images": 0,
+      "reply": "Below are the nightstand scene and the packaging box. Both use the same light as the rest of the series: one source at upper left, the same umber wall, haze and vignette, and shadows falling to the right with the amber glint inside them. The bottle is the same model throughout: the front view at the nightstand and the hero's three-quarter view beside the box.\n\n[[file:fig-smoke-nightstand.svg]]\n\n[[file:fig-smoke-box.svg]]\n\n**Nightstand (`fig-smoke-nightstand.svg`)**\n- **Nightstand:** a dark walnut top with horizontal grain and a rounded front lip that catches the light. Below it is a drawer front with a brass knob. The nightstand ends before the right edge of the frame and casts a shadow onto the wall, so it reads as a piece of furniture rather than a generic tabletop.\n- **Bottle:** the front-view bottle at 72%. Its shadow and amber glint are clipped to the nightstand top so they never hang off the edge.\n- **Candle:** a burnt-out stub in a brass dish, with melted rim, drips, a hardened wax pool and a curled black wick. A single faint thread of smoke rises from the wick, echoing the hero without competing with it.\n- **Book:** an open book lying flat in fig-coloured cloth. It has bone-toned pages with lines of text, a shadowed gutter, an italic \"VII\" chapter mark and a fig ribbon marker trailing onto the wood.\n\n**Box (`fig-smoke-box.svg`)**\n- **Box:** a black rigid box with a lid, standing at the same three-quarter angle as the hero. It has a soft-touch paper texture, a lit top edge and a visible lid seam.\n- **Embossing:** everything on the box is blind-embossed, with no ink. That covers an \"AO\" monogram roundel, the ATELIER OUBLI wordmark, \"Nº 7\", *Fig & Smoke* and \"EAU DE PARFUM · 50 ML\". The relief comes only from light catching the upper-left edges and shadow on the lower right. Every element is real `<text>`, so it stays editable.\n- **Bottle:** the hero bottle stands in front of the box on the lit side at 74% scale. This shows the box's size against the bottle and keeps both on the same camera angle.\n\n**Two decisions for you**\n- **\"AO\" monogram:** the brief only asked for \"the logo\", so I designed this one. It can be swapped for your actual mark.\n- **Cap top:** I kept it plain in every angled view. That leaves the engraved \"Nº 7\" only in the top-down view. Tell me whether to keep it there or make that view plain too.\n\nThe image set is now complete. The product page comes next.",
+      "files": [
+        "fig-smoke-nightstand.svg",
+        "fig-smoke-nightstand.png",
+        "fig-smoke-box.svg",
+        "fig-smoke-box.png"
+      ],
+      "usage": {
+        "input": 137612,
+        "output": 46160
+      },
+      "seconds": 1605.8
+    },
+    {
+      "label": "Self-check",
+      "prompt": "Here are the images rendered from the files you just delivered (SVGs via librsvg, HTML as a browser screenshot of the top of the page), downscaled. Check them as a designer would before a client review: clipped or overlapping text, text that renders as boxes or in a fallback font, broken layout, empty areas, anything that breaks the brief's rules. If something needs fixing, deliver the corrected files under the same names. If everything is ready, say so in one or two sentences and deliver nothing.",
+      "attached_inputs": [],
+      "attached_images": 2,
+      "reply": "The box shot is ready. The nightstand scene has two problems, so I'm sending it again under the same name.\n\n1. **The left page of the book renders black.** A typo in that page's colour code made it fade from black to grey. The page is now bone, like the right one.\n2. **The candle reads as a tealight.** Next to the bottle the stub was too small to read as a burnt-out candle. It is now 40% larger and sits further left, clear of the bottle and the book. Its thread of smoke still rises from the wick.\n\n[[file:fig-smoke-nightstand.svg]]",
+      "files": [
+        "fig-smoke-nightstand.svg",
+        "fig-smoke-nightstand.png"
+      ],
+      "usage": {
+        "input": 166708,
+        "output": 14780
+      },
+      "seconds": 116.3
+    },
+    {
+      "label": "Product page · stylesheet and script",
+      "prompt": "Now build the product page for desktop 1440 and mobile 390, using the nine images you made. It is large, so split it: in this reply deliver only the stylesheet fig-smoke-page.css and the interaction script fig-smoke-page.js. I will ask for the HTML next.",
+      "attached_inputs": [],
+      "attached_images": 0,
+      "reply": "Here are the stylesheet and the interaction script. Next I'll write the HTML using the class names and `data-` attributes listed at the end of this reply. Nothing on the page uses `vh` units. Content that fits in the first 2,400 px appears straight away, and everything below fades in slowly as you scroll.\n\n[[file:fig-smoke-page.css]]\n\n[[file:fig-smoke-page.js]]\n\n**Hooks the HTML will use**\n\nThese names tie the HTML to the CSS and JS. I'll stick to them in the next reply.\n\n- **Page setup**\n  - `<html class=\"no-js\">`. The script swaps this to `js`, so with JavaScript off every section is still fully visible.\n  - A visually hidden `[data-live]` region announces cart changes to screen readers.\n- **Header**\n  - The header itself is `.site-header`, with the mobile menu button `[data-menu-toggle]`.\n  - The cart count is `[data-cart-count]`, and `.tool--hide-sm` marks links that are hidden on mobile.\n- **Gallery**\n  - The gallery is wrapped in `[data-gallery]`.\n  - Each thumbnail is a `.gallery__thumb` button carrying `data-src`, `data-alt` and `aria-current`.\n  - The main image area is `.gallery__stage[data-zoom]`, containing `.gallery__img`. The mobile arrows are `[data-gallery-prev/next]`.\n  - Below the image, `[data-gallery-count]` shows the position and `[data-zoom-toggle]` (with a `[data-zoom-label]` inside) switches zoom.\n- **Size selector**\n  - Each size is a `name=\"size\"` radio carrying `data-price` and `data-label`: 50 ml at $168, 10 ml travel at $48.\n  - The displayed price and size are `[data-price-display]` and `[data-size-display]`.\n- **Discovery Set and add-to-bag**\n  - The Discovery Set is a `[data-upsell]` checkbox with `data-price=\"32\"`, inside `.upsell`.\n  - Add-to-bag buttons are `[data-add-to-bag]` with a `[data-cta-label]` inside. The main one also has `[data-primary-cta]`, which triggers the mobile `[data-buy-bar]`.\n- **Notes pyramid**\n  - The section is `[data-pyramid]`.\n  - The tiers are `.tier` buttons with `data-tier=\"top|heart|base\"`, each with a matching `.tier-detail[data-tier-panel]` panel.\n- **How it wears**\n  - The section is `[data-wear]` on `.wear__timeline`, which contains `.wear__fill`.\n  - Each stop is an `li.wear__stop[data-stop]` with a `.wear__time` button inside. The projection meters use `--level`.\n- **Shipping & returns**: each item is a native `details.acc > summary + .acc__body > .acc__inner`, so it opens and closes even without JavaScript.\n- **Reviews**: extra reviews start as `.review[hidden]`, and the `[data-reviews-more]` button reveals them.\n- **Fade-ins**: elements marked `.reveal` fade in on scroll. They never go on the gallery's parent elements, because that would break the sticky gallery.\n\n**How the interactions behave**\n\n- **Zoom**: on desktop the image magnifies on hover and follows the cursor. On touch screens, tap to zoom, drag to pan, and swipe to change image.\n- **Fades**: image changes, the notes pyramid, the timeline and the accordion all use slow 0.6–1.6s transitions. Reduced-motion settings switch them off.\n- **\"How it wears\" timeline**: once it scrolls into view, it steps slowly from 0h to 2h to 6h on its own. Hovering or tapping any stop takes over from the automatic play.",
+      "files": [
+        "fig-smoke-page.css",
+        "fig-smoke-page.js"
+      ],
+      "usage": {
+        "input": 179707,
+        "output": 47367
+      },
+      "seconds": 400.8
+    },
+    {
+      "label": "Product page · HTML",
+      "prompt": "Now deliver fig-smoke-page.html, using that stylesheet, that script and the nine images.",
+      "attached_inputs": [],
+      "attached_images": 0,
+      "reply": "Here is `fig-smoke-page.html`. It uses the class names and `data-` hooks from the stylesheet and script exactly as listed, and all nine images.\n\n[[file:fig-smoke-page.html]]\n\n**How the page is laid out**\n\n- **Top of the page:**\n  - At 1440 the first screen holds the header, the sticky gallery (hero first, all nine images as thumbnails) and the full buy box.\n  - The buy box contains the price, notes summary, size selector, Discovery Set, add-to-bag button and the shipping & returns accordion.\n  - The notes section starts within the first 2,400 px.\n- **Section order:**\n  1. Notes pyramid, beside the ingredient still life.\n  2. \"How it wears\" at 0h, 2h and 6h.\n  3. The flacon, shown with the macro and the box.\n  4. The nightstand scene with a short wearing note.\n  5. Reviews, with three more loaded by \"Read more reviews\".\n- **Mobile 390:**\n  - The gallery goes full width, with a swipeable row of thumbnails and arrows.\n  - The pyramid and timeline stack vertically.\n  - A sticky buy bar appears once the main add-to-bag button scrolls out of view.\n- **Prices:** the button label updates with the selection, for example 50 ml + Discovery Set = $200. There are no sale badges or discount wording.\n\n**Two things to know**\n\n- **UI font:** I only load Cormorant Garamond from Google Fonts, because it's the only font the brief names. The small-caps UI text uses Avenir Next on Mac and Helvetica elsewhere, set in small caps. If you want a specific web grotesk such as Work Sans, I can add its link.\n- **Placeholder copy:** the review text, shipping prices, origins and the \"© 2025\" line are placeholders. Swap in your real figures before launch.",
+      "files": [
+        "fig-smoke-page.html",
+        "fig-smoke-page.shot.png"
+      ],
+      "usage": {
+        "input": 204437,
+        "output": 22279
+      },
+      "seconds": 220.6
+    },
+    {
+      "label": "Self-check",
+      "prompt": "Here are the images rendered from the files you just delivered (SVGs via librsvg, HTML as a browser screenshot of the top of the page), downscaled. Check them as a designer would before a client review: clipped or overlapping text, text that renders as boxes or in a fallback font, broken layout, empty areas, anything that breaks the brief's rules. If something needs fixing, deliver the corrected files under the same names. If everything is ready, say so in one or two sentences and deliver nothing.",
+      "attached_inputs": [],
+      "attached_images": 1,
+      "reply": "I found three problems in the page screenshot and am sending corrected `fig-smoke-hero.svg` and `fig-smoke-page.css`. The HTML and JS are unchanged.\n\n1. **The hero's birch bark still reads as a cigarette at gallery size.** The thin white strip with a single glowing tip and a rising thread of smoke looks like a cigarette once the image is shrunk. That is a real brand risk on the first image buyers see. It is now a broad curled sheet of bark: white outer face, tan inner face, a scrolled end, and a ragged charred edge glowing in several places rather than at one point.\n2. **The right half of the notes section is empty in the first 2,400 px.** The ingredients still life was vertically centred against the tall text column, so it started below the fold and left a dark void beside the headline. It now aligns to the top and sits beside the heading.\n3. **\"Green fig, bergamot\" wraps in the notes summary.** It broke onto two lines while \"Iris, cedar\" and \"Birch tar, ambrette\" stayed on one, so the row looked ragged. On desktop the three columns now size to their content and stay on one line. Narrower screens keep the wrapping grid.\n\nThe empty space under the gallery on the left is intentional. The gallery is sticky, and that space is the distance it travels down beside the buy box as you scroll. A static screenshot can't show it moving.\n\n[[file:fig-smoke-hero.svg]]\n\n[[file:fig-smoke-page.css]]",
+      "files": [
+        "fig-smoke-hero.svg",
+        "fig-smoke-hero.png",
+        "fig-smoke-page.css"
+      ],
+      "usage": {
+        "input": 220312,
+        "output": 35861
+      },
+      "seconds": 275.9
+    }
+  ]
+}

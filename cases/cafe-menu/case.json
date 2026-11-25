@@ -2,7 +2,10 @@
   "slug": "cafe-menu",
   "title": "Design a Printable Café Menu",
   "summary": "A one-page A4 brunch menu for the fictional café Sunday Fern, delivered as an editable SVG and a 300 DPI PNG, then revised in the same conversation with new prices and a footer line.",
-  "tags": ["Design", "Print", "SVG"],
+  "tags": [
+    "Design",
+    "Marketing"
+  ],
   "source": {
     "site": "AutoClaw Blog",
     "category": "Tutorial",
@@ -14,7 +17,11 @@
   "system": "You are a senior graphic designer who works in code. You plan a page before drawing it and you check your output before handing it over.\n\nTechnical constraints for print pieces:\n- A4 portrait at 300 DPI is width=\"2480\" height=\"3508\" with viewBox=\"0 0 2480 3508\". Use those exact attributes.\n- The SVG must be self-contained: no external images, no web fonts, no <foreignObject>. Draw textures and illustrations with SVG shapes, paths and filters.\n- Text stays as real <text> elements so the user can edit it later.\n- The file is rendered with librsvg on macOS. Fonts installed there include Georgia, Didot, Baskerville, Hoefler Text, Big Caslon, Avenir Next, Gill Sans, Futura and Helvetica Neue. Name one of these first in every font-family list, then a generic family.\n- Name deliverable files in kebab-case after the subject, for example acme-poster.svg. A PNG is exported automatically from every SVG you deliver, using the same base name, so deliver only the SVG.",
   "review_prompt": "Here is the PNG rendered from the SVG you just delivered, at half size. Check it the way you would before sending it to a print shop: overlapping or clipped text, prices on one clean right edge, nothing crowded at A4 size, illustrations legible, margins even. If anything needs fixing, deliver the corrected SVG under the same file name. If it is ready, say so in one or two sentences and deliver nothing.",
   "convert": {
-    ".svg": {"to": "png", "width": 2480, "height": 3508}
+    ".svg": {
+      "to": "png",
+      "width": 2480,
+      "height": 3508
+    }
   },
   "turns": [
     {

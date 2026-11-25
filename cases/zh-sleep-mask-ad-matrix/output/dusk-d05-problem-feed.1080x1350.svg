@@ -1,0 +1,152 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1350" viewBox="0 0 1080 1350">
+  <title>D-05 · Problem 3:07 AM · Feed 1080×1350</title>
+  <desc>ID: D-05 | Hook: Problem – bedside clock glowing 3:07 AM, phone light on a face, "Still scrolling?" | Hypothesis: Naming a familiar late-night pain (scrolling at 3 AM) triggers instant recognition and stops the scroll, earning attention for the solution | Primary metric: Thumb-stop / hook rate (3-second views ÷ impressions) | Placement: Feed</desc>
+  <defs>
+    <linearGradient id="wall" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#07080f"/>
+      <stop offset="1" stop-color="#131830"/>
+    </linearGradient>
+    <radialGradient id="clockGlow" cx="245" cy="280" r="430" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ff4a33" stop-opacity=".34"/>
+      <stop offset=".5" stop-color="#ff4a33" stop-opacity=".08"/>
+      <stop offset="1" stop-color="#ff4a33" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="phoneGlow" cx="760" cy="660" r="500" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#a8c8ff" stop-opacity=".5"/>
+      <stop offset=".45" stop-color="#5a7ed8" stop-opacity=".16"/>
+      <stop offset="1" stop-color="#5a7ed8" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="skin" cx=".8" cy=".48" r=".95">
+      <stop offset="0" stop-color="#eef3ff"/>
+      <stop offset=".3" stop-color="#aebbe0"/>
+      <stop offset=".62" stop-color="#5f6990"/>
+      <stop offset="1" stop-color="#262b46"/>
+    </radialGradient>
+    <linearGradient id="neck" x1="1" y1="0" x2="0" y2="0">
+      <stop offset="0" stop-color="#4c5680"/>
+      <stop offset="1" stop-color="#1f2440"/>
+    </linearGradient>
+    <linearGradient id="pillow" x1="1" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#4a5684"/>
+      <stop offset=".5" stop-color="#2a3152"/>
+      <stop offset="1" stop-color="#151a2e"/>
+    </linearGradient>
+    <linearGradient id="blanket" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#222a4d"/>
+      <stop offset="1" stop-color="#0a0c18"/>
+    </linearGradient>
+    <radialGradient id="vig" cx="560" cy="640" r="820" gradientUnits="userSpaceOnUse">
+      <stop offset=".5" stop-color="#03030a" stop-opacity="0"/>
+      <stop offset="1" stop-color="#03030a" stop-opacity=".7"/>
+    </radialGradient>
+    <filter id="glow" x="-30%" y="-60%" width="160%" height="220%">
+      <feGaussianBlur stdDeviation="10"/>
+    </filter>
+    <filter id="bigBlur" x="-80%" y="-80%" width="260%" height="260%">
+      <feGaussianBlur stdDeviation="30"/>
+    </filter>
+    <filter id="grain" filterUnits="userSpaceOnUse" x="0" y="0" width="1080" height="1206">
+      <feTurbulence type="fractalNoise" baseFrequency=".85" numOctaves="2" seed="11"/>
+      <feColorMatrix values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  .12 0 0 0 0"/>
+    </filter>
+    <filter id="tshadow" x="-10%" y="-40%" width="120%" height="180%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="8"/>
+      <feOffset dy="4" result="b"/>
+      <feFlood flood-color="#03030a" flood-opacity=".85"/>
+      <feComposite in2="b" operator="in" result="s"/>
+      <feMerge><feMergeNode in="s"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <clipPath id="photo"><rect x="0" y="0" width="1080" height="1206"/></clipPath>
+    <clipPath id="eyeL"><path d="M 462 630 Q 490 614 518 626 Q 492 642 462 630 Z"/></clipPath>
+    <clipPath id="eyeR"><path d="M 594 626 Q 622 610 650 622 Q 624 638 594 626 Z"/></clipPath>
+  </defs>
+
+  <g clip-path="url(#photo)">
+    <rect x="0" y="0" width="1080" height="1206" fill="url(#wall)"/>
+    <rect x="0" y="0" width="1080" height="1206" fill="url(#clockGlow)"/>
+
+    <!-- nightstand -->
+    <rect x="-10" y="372" width="470" height="520" fill="#11132a"/>
+    <rect x="-10" y="362" width="480" height="18" rx="4" fill="#1e2240"/>
+    <ellipse cx="250" cy="372" rx="220" ry="12" fill="#ff4a33" opacity=".35" filter="url(#glow)"/>
+
+    <!-- alarm clock -->
+    <rect x="76" y="362" width="40" height="8" rx="3" fill="#0a0b14"/>
+    <rect x="424" y="362" width="40" height="8" rx="3" fill="#0a0b14"/>
+    <rect x="50" y="190" width="440" height="176" rx="28" fill="#0c0d17" stroke="#262a44" stroke-width="2"/>
+    <rect x="74" y="212" width="392" height="132" rx="14" fill="#160a0e"/>
+    <text x="240" y="332" text-anchor="middle" font-family="'DIN Alternate', 'Avenir Next', sans-serif" font-size="150" font-weight="bold" fill="#ff3b2a" opacity=".85" filter="url(#glow)">3:07</text>
+    <text x="240" y="332" text-anchor="middle" font-family="'DIN Alternate', 'Avenir Next', sans-serif" font-size="150" font-weight="bold" fill="#ff6a4d">3:07</text>
+    <text x="452" y="250" text-anchor="end" font-family="'DIN Alternate', 'Avenir Next', sans-serif" font-size="28" font-weight="bold" fill="#ff6a4d">AM</text>
+
+    <!-- bed -->
+    <rect x="460" y="300" width="680" height="260" rx="36" fill="#171b31"/>
+    <rect x="360" y="760" width="760" height="460" fill="#151a30"/>
+    <rect x="330" y="470" width="640" height="400" rx="160" fill="url(#pillow)" transform="rotate(-4 650 670)"/>
+
+    <!-- person -->
+    <path d="M 510 790 L 610 790 L 625 930 L 495 930 Z" fill="url(#neck)"/>
+    <g transform="rotate(-6 560 640)">
+      <path d="M 395 620 C 380 470 480 410 570 410 C 680 410 752 480 740 620 C 752 700 770 800 745 870 L 390 870 C 360 800 392 720 395 620 Z" fill="#0d0c15"/>
+      <ellipse cx="560" cy="640" rx="140" ry="172" fill="url(#skin)"/>
+      <path d="M 418 610 C 410 490 495 452 568 452 C 648 452 712 505 706 612 C 688 545 640 515 590 520 C 552 552 500 566 446 574 C 432 586 424 598 418 610 Z" fill="#0d0c15"/>
+      <path d="M 455 590 Q 490 578 520 588 M 595 586 Q 625 576 655 584" stroke="#151526" stroke-width="7" fill="none" stroke-linecap="round"/>
+      <g clip-path="url(#eyeL)">
+        <rect x="455" y="605" width="70" height="45" fill="#b8c3e3"/>
+        <circle cx="500" cy="629" r="10" fill="#151726"/>
+        <circle cx="503" cy="626" r="3" fill="#ffffff"/>
+      </g>
+      <g clip-path="url(#eyeR)">
+        <rect x="588" y="600" width="70" height="45" fill="#e2eaff"/>
+        <circle cx="632" cy="625" r="10" fill="#151726"/>
+        <circle cx="635" cy="622" r="3" fill="#ffffff"/>
+      </g>
+      <path d="M 460 630 Q 490 612 520 626 M 592 626 Q 622 608 652 622" stroke="#10111d" stroke-width="5" fill="none" stroke-linecap="round"/>
+      <path d="M 466 646 Q 490 658 516 644 M 598 642 Q 622 654 648 640" stroke="#3e4570" stroke-width="4" fill="none" stroke-linecap="round" opacity=".7"/>
+      <path d="M 560 642 Q 552 690 545 702 Q 556 712 572 704" stroke="#3a4266" stroke-width="4" fill="none" stroke-linecap="round" opacity=".75"/>
+      <path d="M 525 752 Q 560 746 598 750" stroke="#2c2234" stroke-width="5" fill="none" stroke-linecap="round"/>
+      <path d="M 690 590 C 705 650 700 720 660 780" stroke="#dbe6ff" stroke-width="5" fill="none" stroke-linecap="round" opacity=".5"/>
+    </g>
+
+    <rect x="0" y="0" width="1080" height="1206" fill="url(#phoneGlow)" opacity=".7"/>
+
+    <!-- arm + phone (back of phone faces viewer) -->
+    <path d="M 860 800 C 900 860 930 940 950 1010 L 1110 1010 L 1110 900 C 1040 860 960 800 920 770 Z" fill="#2a3253"/>
+    <g transform="translate(840 690) rotate(-14)">
+      <ellipse cx="-100" cy="-10" rx="110" ry="180" fill="#b8d4ff" opacity=".45" filter="url(#bigBlur)"/>
+      <path d="M 72 -20 C 112 -10 122 110 84 160 L 30 150 C 60 110 72 60 72 -20 Z" fill="#2e3657"/>
+      <rect x="-72" y="-135" width="144" height="270" rx="22" fill="#101220"/>
+      <path d="M -72 -110 L -72 110" stroke="#c4daff" stroke-width="4" stroke-linecap="round" opacity=".9"/>
+      <path d="M -50 -135 L 50 -135" stroke="#c4daff" stroke-width="3" stroke-linecap="round" opacity=".45"/>
+      <rect x="18" y="-118" width="40" height="58" rx="12" fill="#1a1d30"/>
+      <circle cx="38" cy="-103" r="9" fill="#07080f" stroke="#2b3050" stroke-width="2"/>
+      <circle cx="38" cy="-76" r="9" fill="#07080f" stroke="#2b3050" stroke-width="2"/>
+      <ellipse cx="50" cy="0" rx="36" ry="13" fill="#39426a"/>
+      <ellipse cx="52" cy="30" rx="36" ry="13" fill="#363f66"/>
+      <ellipse cx="50" cy="60" rx="34" ry="13" fill="#333b60"/>
+      <ellipse cx="46" cy="88" rx="30" ry="12" fill="#30385b"/>
+    </g>
+
+    <!-- blanket -->
+    <path d="M -20 930 C 150 900 300 960 460 925 C 600 895 760 950 900 915 C 980 898 1040 910 1100 905 L 1100 1220 L -20 1220 Z" fill="url(#blanket)"/>
+    <path d="M 480 922 C 620 898 760 950 900 915" stroke="#7d96d6" stroke-opacity=".35" stroke-width="4" fill="none" stroke-linecap="round"/>
+    <path d="M 120 1010 C 220 990 300 1010 380 990 M 700 1030 C 790 1010 860 1040 960 1020" stroke="#2f3866" stroke-opacity=".6" stroke-width="6" fill="none" stroke-linecap="round"/>
+
+    <rect x="0" y="0" width="1080" height="1206" fill="url(#vig)"/>
+    <rect x="0" y="0" width="1080" height="1206" fill="#ffffff" filter="url(#grain)"/>
+  </g>
+
+  <!-- HOOK -->
+  <text x="80" y="1125" font-family="'Avenir Next', 'Gill Sans', sans-serif" font-size="104" font-weight="700" fill="#F3EBDD" filter="url(#tshadow)">Still scrolling?</text>
+
+  <!-- BRAND FRAME (fixed) -->
+  <g id="brand-frame">
+    <rect x="0" y="1206" width="1080" height="144" fill="#2B1B3D"/>
+    <g transform="translate(84 1278)">
+      <path d="M6,-17 A18,18 0 1 0 6,17 A20,20 0 0 1 6,-17 Z" fill="#F3EBDD"/>
+      <text x="32" y="15" font-family="Futura, 'Avenir Next', sans-serif" font-size="46" font-weight="500" letter-spacing="3" fill="#F3EBDD">dusk</text>
+    </g>
+    <rect x="556" y="1240" width="460" height="76" rx="38" fill="#F3EBDD"/>
+    <text x="786" y="1288" text-anchor="middle" font-family="'Avenir Next', 'Gill Sans', sans-serif" font-size="28" font-weight="600" fill="#2B1B3D">Shop Dusk, 30-night trial</text>
+  </g>
+</svg>

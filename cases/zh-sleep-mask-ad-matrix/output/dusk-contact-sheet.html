@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Dusk · Meta creative test matrix · Contact sheet</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root{
+    --plum:#2B1B3D;
+    --cream:#F3EBDD;
+    --paper:#FBF7F0;
+    --ink:#2B1B3D;
+    --muted:#6E6279;
+    --gold:#B08A45;
+    --line:rgba(43,27,61,.12);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    background:var(--cream);
+    color:var(--ink);
+    font-family:"Avenir Next","Gill Sans","Helvetica Neue",Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{width:1350px;margin:0 auto;padding:40px 0 48px}
+
+  /* header */
+  header{
+    display:flex;justify-content:space-between;align-items:flex-end;
+    padding-bottom:22px;border-bottom:2px solid var(--plum);margin-bottom:26px;
+  }
+  .brand{display:flex;align-items:center;gap:14px}
+  .brand svg{width:34px;height:40px}
+  .brand .word{font-family:Futura,"Avenir Next",sans-serif;font-size:34px;letter-spacing:3px;font-weight:500}
+  h1{font-size:30px;font-weight:700;letter-spacing:-.2px;margin-top:10px}
+  .usp{font-family:Didot,Baskerville,Georgia,serif;font-style:italic;font-size:20px;color:var(--muted);margin-top:4px}
+  .meta{text-align:right;font-size:13px;line-height:1.7;color:var(--muted)}
+  .meta b{color:var(--ink);font-weight:600}
+  .swatches{display:inline-flex;gap:6px;vertical-align:middle;margin-left:6px}
+  .sw{width:14px;height:14px;border-radius:50%;display:inline-block;border:1px solid var(--line)}
+  button.toggle{
+    margin-top:10px;font:600 13px "Avenir Next","Gill Sans",sans-serif;color:var(--cream);
+    background:var(--plum);border:0;border-radius:999px;padding:8px 16px;cursor:pointer;
+  }
+  button.toggle[aria-pressed="true"]{background:#B23A2E}
+
+  /* grid */
+  .grid{display:grid;grid-template-columns:repeat(3,434px);gap:24px}
+  .card{
+    background:var(--paper);border-radius:18px;padding:20px;
+    box-shadow:0 1px 0 rgba(43,27,61,.06),0 10px 30px -18px rgba(43,27,61,.45);
+    display:flex;flex-direction:column;
+  }
+  .thumbs{display:flex;gap:12px;align-items:flex-end}
+  .thumb{position:relative;flex:none}
+  .thumb img{
+    display:block;height:280px;border-radius:6px;
+    box-shadow:0 0 0 1px rgba(43,27,61,.18),0 6px 14px -8px rgba(43,27,61,.6);
+  }
+  .thumb.feed img{width:224px}
+  .thumb.story img{width:157.5px}
+  .cap{font-size:11px;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);margin-top:7px;font-weight:600}
+  .cap span{font-weight:500;letter-spacing:.4px;text-transform:none}
+
+  /* Reels safe-zone overlay */
+  .thumb.story .zone{display:none;position:absolute;left:0;right:0;pointer-events:none;
+    background:repeating-linear-gradient(45deg,rgba(178,58,46,.42) 0 4px,rgba(178,58,46,.18) 4px 8px);}
+  .thumb.story .zone.top{top:0;height:39.2px;border-radius:6px 6px 0 0;border-bottom:1px dashed #fff}
+  .thumb.story .zone.bot{top:182px;height:98px;border-radius:0 0 6px 6px;border-top:1px dashed #fff}
+  body.safe .thumb.story .zone{display:block}
+
+  /* labels */
+  .label{margin-top:16px;padding-top:14px;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:9px;flex:1}
+  .idrow{display:flex;align-items:center;gap:10px}
+  .id{background:var(--plum);color:var(--cream);font:700 13px "Avenir Next",sans-serif;letter-spacing:1px;
+      padding:4px 10px;border-radius:6px}
+  .hook{font-size:19px;font-weight:700}
+  .k{font-size:10.5px;letter-spacing:1.4px;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:2px}
+  .v{font-size:13.5px;line-height:1.45}
+  .metric{
+    display:inline-flex;align-items:center;gap:6px;align-self:flex-start;
+    background:rgba(176,138,69,.14);color:#6d5223;border:1px solid rgba(176,138,69,.45);
+    font-size:13px;font-weight:600;padding:4px 11px;border-radius:999px;
+  }
+  .metric::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--gold)}
+  .flag{margin-top:auto;font-size:12px;line-height:1.4;color:#8a3a2f}
+  .flag::before{content:"⚑ ";}
+  .flag.ok{color:var(--muted)}
+  .flag.ok::before{content:"✓ ";}
+
+  footer{margin-top:24px;display:flex;justify-content:space-between;font-size:12.5px;color:var(--muted);line-height:1.6}
+  footer b{color:var(--ink);font-weight:600}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div>
+      <div class="brand">
+        <svg viewBox="-20 -20 34 40" aria-hidden="true"><path d="M6,-17 A18,18 0 1 0 6,17 A20,20 0 0 1 6,-17 Z" fill="#2B1B3D"/></svg>
+        <span class="word">dusk</span>
+      </div>
+      <h1>Meta creative test matrix · 6 hooks × 2 placements</h1>
+      <p class="usp">“Fall asleep 2× faster: gentle 0.5lb pressure, total blackout.”</p>
+    </div>
+    <div class="meta">
+      <div><b>Fixed brand frame:</b> logo bottom-left · “Shop Dusk, 30-night trial” CTA</div>
+      <div><b>Palette:</b> midnight plum #2B1B3D · moonlight cream #F3EBDD
+        <span class="swatches"><i class="sw" style="background:#2B1B3D"></i><i class="sw" style="background:#F3EBDD"></i></span></div>
+      <div><b>Only variable:</b> the creative hook · Feed 1080×1350 · Stories/Reels 1080×1920</div>
+      <button class="toggle" id="safeBtn" aria-pressed="false">Show Reels no-text zones</button>
+    </div>
+  </header>
+
+  <main class="grid">
+
+    <article class="card">
+      <div class="thumbs">
+        <div class="thumb feed"><img src="dusk-d01-ugc-feed.1080x1350.svg" alt="D-01 UGC feed"><div class="cap">Feed <span>4:5</span></div></div>
+        <div class="thumb story"><img src="dusk-d01-ugc-story.1080x1920.svg" alt="D-01 UGC story"><i class="zone top"></i><i class="zone bot"></i><div class="cap">Story <span>9:16</span></div></div>
+      </div>
+      <div class="label">
+        <div class="idrow"><span class="id">D-01</span><span class="hook">UGC selfie</span></div>
+        <div><div class="k">Hypothesis</div><div class="v">Candid, creator-style content gets past ad blindness and borrows peer trust, so it earns more clicks than polished brand creative.</div></div>
+        <span class="metric">Link CTR</span>
+        <p class="flag ok">Ready. Handwritten overlay: “ok this thing is actually insane”.</p>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="thumbs">
+        <div class="thumb feed"><img src="dusk-d02-review-feed.1080x1350.svg" alt="D-02 Review feed"><div class="cap">Feed <span>4:5</span></div></div>
+        <div class="thumb story"><img src="dusk-d02-review-story.1080x1920.svg" alt="D-02 Review story"><i class="zone top"></i><i class="zone bot"></i><div class="cap">Story <span>9:16</span></div></div>
+      </div>
+      <div class="label">
+        <div class="idrow"><span class="id">D-02</span><span class="hook">Review card</span></div>
+        <div><div class="k">Hypothesis</div><div class="v">A large, specific 5-star quote from a verified buyer lowers perceived purchase risk, so more clickers go on to buy.</div></div>
+        <span class="metric">Purchase CVR (purchases ÷ link clicks)</span>
+        <p class="flag">Quote and “Maya R.” are placeholders. Replace with a real verified review.</p>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="thumbs">
+        <div class="thumb feed"><img src="dusk-d03-vs-feed.1080x1350.svg" alt="D-03 Us vs Them feed"><div class="cap">Feed <span>4:5</span></div></div>
+        <div class="thumb story"><img src="dusk-d03-vs-story.1080x1920.svg" alt="D-03 Us vs Them story"><i class="zone top"></i><i class="zone bot"></i><div class="cap">Story <span>9:16</span></div></div>
+      </div>
+      <div class="label">
+        <div class="idrow"><span class="id">D-03</span><span class="hook">Us vs. Them</span></div>
+        <div><div class="k">Hypothesis</div><div class="v">A side-by-side checklist against a regular mask makes the feature gap obvious and justifies Dusk’s premium price.</div></div>
+        <span class="metric">Add-to-cart rate</span>
+        <p class="flag">“2× faster” row needs evidence. Legal review of the comparison claims.</p>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="thumbs">
+        <div class="thumb feed"><img src="dusk-d04-data-feed.1080x1350.svg" alt="D-04 Data feed"><div class="cap">Feed <span>4:5</span></div></div>
+        <div class="thumb story"><img src="dusk-d04-data-story.1080x1920.svg" alt="D-04 Data story"><i class="zone top"></i><i class="zone bot"></i><div class="cap">Story <span>9:16</span></div></div>
+      </div>
+      <div class="label">
+        <div class="idrow"><span class="id">D-04</span><span class="hook">Data “2×”</span></div>
+        <div><div class="k">Hypothesis</div><div class="v">A concrete number (24 min → 12 min) makes the “2× faster” promise credible, so it earns more clicks than a vague claim.</div></div>
+        <span class="metric">Link CTR</span>
+        <p class="flag">Survey data (n=312) is a labelled placeholder. Needs a real study.</p>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="thumbs">
+        <div class="thumb feed"><img src="dusk-d05-problem-feed.1080x1350.svg" alt="D-05 Problem feed"><div class="cap">Feed <span>4:5</span></div></div>
+        <div class="thumb story"><img src="dusk-d05-problem-story.1080x1920.svg" alt="D-05 Problem story"><i class="zone top"></i><i class="zone bot"></i><div class="cap">Story <span>9:16</span></div></div>
+      </div>
+      <div class="label">
+        <div class="idrow"><span class="id">D-05</span><span class="hook">Problem · 3:07 AM</span></div>
+        <div><div class="k">Hypothesis</div><div class="v">Naming a familiar late-night pain (still scrolling at 3 AM) creates instant recognition and stops the scroll.</div></div>
+        <span class="metric">Thumb-stop rate (3-s views ÷ impressions)</span>
+        <p class="flag ok">Ready. Line: “Still scrolling?”</p>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="thumbs">
+        <div class="thumb feed"><img src="dusk-d06-product-feed.1080x1350.svg" alt="D-06 Product macro feed"><div class="cap">Feed <span>4:5</span></div></div>
+        <div class="thumb story"><img src="dusk-d06-product-story.1080x1920.svg" alt="D-06 Product macro story"><i class="zone top"></i><i class="zone bot"></i><div class="cap">Story <span>9:16</span></div></div>
+      </div>
+      <div class="label">
+        <div class="idrow"><span class="id">D-06</span><span class="hook">Product macro</span></div>
+        <div><div class="k">Hypothesis</div><div class="v">A tactile close-up of the fabric under studio light signals premium craft and attracts higher-intent buyers.</div></div>
+        <span class="metric">Cost per purchase</span>
+        <p class="flag">Check the quilting and embroidered crescent against the real product finish.</p>
+      </div>
+    </article>
+
+  </main>
+
+  <footer>
+    <div><b>Rules checked:</b> text under 20% of every image (4–16%) · Reels copy only between y 269 and 1248, left of x 900 · labels also stored in each SVG’s &lt;title&gt;/&lt;desc&gt;</div>
+    <div><b>Thumbnail cues:</b> D-01 warm amber selfie · D-02 cream card · D-03 light checklist · D-04 gold “2×” · D-05 cold blue night · D-06 lavender quilt</div>
+  </footer>
+
+</div>
+<script>
+  (function(){
+    var btn=document.getElementById('safeBtn');
+    btn.addEventListener('click',function(){
+      var on=document.body.classList.toggle('safe');
+      btn.setAttribute('aria-pressed',on?'true':'false');
+      btn.textContent=on?'Hide Reels no-text zones':'Show Reels no-text zones';
+    });
+  })();
+</script>
+</body>
+</html>

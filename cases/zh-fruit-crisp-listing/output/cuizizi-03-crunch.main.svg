@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="800" viewBox="0 0 800 800">
+<defs>
+<filter id="soft" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="2.5"/></filter>
+<filter id="sh" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur in="SourceAlpha" stdDeviation="6"/><feOffset dy="10"/><feComponentTransfer><feFuncA type="linear" slope=".4"/></feComponentTransfer><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+<pattern id="bPink" width="22" height="22" patternUnits="userSpaceOnUse"><circle cx="11" cy="11" r="5" fill="#FF3B5C"/></pattern>
+<radialGradient id="rf" cx="50%" cy="54%" r="55%"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#fff"/></radialGradient>
+<mask id="mEdge"><rect width="800" height="800" fill="url(#rf)"/></mask>
+<radialGradient id="gSc" cx="50%" cy="45%" r="60%"><stop offset="0" stop-color="#FFF4F4"/><stop offset=".55" stop-color="#FF9DAD"/><stop offset="1" stop-color="#EE3352"/></radialGradient>
+<g id="scut">
+<path d="M0,-38C28,-46 50,-22 42,10C34,40 12,58 0,62C-12,58 -34,40 -42,10C-50,-22 -28,-46 0,-38Z" fill="#C9102B"/>
+<path d="M0,-38C28,-46 50,-22 42,10C34,40 12,58 0,62C-12,58 -34,40 -42,10C-50,-22 -28,-46 0,-38Z" transform="translate(0,3) scale(.86)" fill="url(#gSc)"/>
+<path d="M0,-24C9,-8 9,22 0,44C-9,22 -9,-8 0,-24Z" fill="#FFFBF7" opacity=".9"/>
+<g stroke="#FFF6F6" stroke-width="2" fill="none" opacity=".75" stroke-linecap="round"><path d="M-3,-10Q-16,-22 -30,-26"/><path d="M3,-10Q16,-22 30,-26"/><path d="M-5,6Q-22,2 -36,6"/><path d="M5,6Q22,2 36,6"/><path d="M-4,22Q-16,30 -26,36"/><path d="M4,22Q16,30 26,36"/></g>
+<g fill="#FFE7A0"><circle cx="-34" cy="-14" r="1.6"/><circle cx="34" cy="-14" r="1.6"/><circle cx="-38" cy="10" r="1.6"/><circle cx="38" cy="10" r="1.6"/><circle cx="-26" cy="36" r="1.6"/><circle cx="26" cy="36" r="1.6"/><circle cx="0" cy="56" r="1.6"/></g>
+<g fill="#fff" opacity=".4"><circle cx="-20" cy="-6" r="2"/><circle cx="18" cy="-2" r="1.5"/><circle cx="-14" cy="18" r="1.6"/><circle cx="16" cy="16" r="2.2"/><circle cx="-24" cy="-22" r="1.4"/><circle cx="22" cy="-20" r="1.8"/></g>
+<ellipse cx="-18" cy="-18" rx="8" ry="14" fill="#fff" opacity=".35" filter="url(#soft)"/>
+</g>
+<clipPath id="cL"><path d="M-300,-300H0V-104L12,-60L-10,-20L14,20L-12,60L10,100L-6,140L4,170V300H-300Z"/></clipPath>
+<clipPath id="cR"><path d="M300,-300H0V-104L12,-60L-10,-20L14,20L-12,60L10,100L-6,140L4,170V300H300Z"/></clipPath>
+<clipPath id="cF"><path transform="scale(2.6)" d="M0,-38C28,-46 50,-22 42,10C34,40 12,58 0,62C-12,58 -34,40 -42,10C-50,-22 -28,-46 0,-38Z"/></clipPath>
+</defs>
+
+<rect width="800" height="800" fill="#7B4DFF"/>
+<g fill="#FFC300">
+<polygon points="400,430 1200,430 1173,637"/><polygon points="400,430 1093,830 966,996"/><polygon points="400,430 800,1123 607,1203"/><polygon points="400,430 400,1230 193,1203"/><polygon points="400,430 0,1123 -166,996"/><polygon points="400,430 -293,830 -373,637"/><polygon points="400,430 -400,430 -373,223"/><polygon points="400,430 -293,30 -166,-136"/><polygon points="400,430 0,-263 193,-343"/><polygon points="400,430 400,-370 607,-343"/><polygon points="400,430 800,-263 966,-136"/><polygon points="400,430 1093,30 1173,223"/>
+</g>
+<rect width="800" height="800" fill="url(#bPink)" opacity=".5" mask="url(#mEdge)"/>
+
+<!-- 闪光 -->
+<polygon points="400,318 424,398 478,362 446,430 512,450 444,472 478,540 422,502 400,584 378,502 322,540 356,472 288,450 356,430 322,362 376,398" fill="#fff" stroke="#111" stroke-width="5" stroke-linejoin="round"/>
+
+<!-- 断裂的冻干草莓片 -->
+<g transform="translate(352,470) rotate(-15)" filter="url(#sh)">
+<g clip-path="url(#cL)"><g clip-path="url(#cF)"><use href="#scut" transform="scale(2.6)"/><path d="M0,-104L12,-60L-10,-20L14,20L-12,60L10,100L-6,140L4,170" stroke="#FFE9EC" stroke-width="12" fill="none" stroke-linejoin="round"/></g></g>
+</g>
+<g transform="translate(450,458) rotate(15)" filter="url(#sh)">
+<g clip-path="url(#cR)"><g clip-path="url(#cF)"><use href="#scut" transform="scale(2.6)"/><path d="M0,-104L12,-60L-10,-20L14,20L-12,60L10,100L-6,140L4,170" stroke="#FFE9EC" stroke-width="12" fill="none" stroke-linejoin="round"/></g></g>
+</g>
+
+<!-- 碎屑 -->
+<g filter="url(#sh)">
+<path d="M0,0l14,-6 8,10 -12,9z" transform="translate(394,300) rotate(10)" fill="#E5162F"/>
+<path d="M0,0l10,-8 9,6 -6,10z" transform="translate(430,330) rotate(40)" fill="#FFC2CB"/>
+<path d="M0,0l18,-4 2,12 -14,6z" transform="translate(360,320) rotate(-30)" fill="#F23A57"/>
+<path d="M0,0l8,-6 8,4 -5,8z" transform="translate(470,300) rotate(20)" fill="#FFF1F3"/>
+<path d="M0,0l12,-10 10,8 -10,10z" transform="translate(320,280) rotate(-10)" fill="#C9102B"/>
+<path d="M0,0l14,-4 4,12 -12,4z" transform="translate(500,350) rotate(60)" fill="#FF9DAD"/>
+<path d="M0,0l9,-7 7,7 -8,6z" transform="translate(286,350) rotate(15)" fill="#FFE9EC"/>
+<path d="M0,0l16,-6 6,10 -14,8z" transform="translate(528,300) rotate(-25)" fill="#E5162F"/>
+<path d="M0,0l10,-6 8,8 -10,6z" transform="translate(262,300) rotate(45)" fill="#FF9DAD"/>
+<path d="M0,0l12,-8 6,10 -12,6z" transform="translate(580,400) rotate(10)" fill="#FFC2CB"/>
+<path d="M0,0l8,-6 6,6 -6,6z" transform="translate(222,420) rotate(-20)" fill="#C9102B"/>
+<path d="M0,0l14,-6 6,10 -12,8z" transform="translate(604,470) rotate(30)" fill="#F23A57"/>
+<path d="M0,0l10,-6 8,8 -10,6z" transform="translate(196,500) rotate(5)" fill="#FFF1F3"/>
+<path d="M0,0l6,-5 6,5 -5,5z" transform="translate(452,272) rotate(0)" fill="#E5162F"/>
+<path d="M0,0l6,-5 6,5 -5,5z" transform="translate(340,262) rotate(0)" fill="#FFC2CB"/>
+<path d="M0,0l7,-5 6,6 -6,5z" transform="translate(620,360) rotate(0)" fill="#FFE9EC"/>
+<path d="M0,0l7,-5 6,6 -6,5z" transform="translate(186,370) rotate(0)" fill="#F23A57"/>
+<path d="M0,0l12,-6 6,10 -12,6z" transform="translate(600,620) rotate(-40)" fill="#FF9DAD"/>
+<path d="M0,0l12,-6 6,10 -12,6z" transform="translate(210,628) rotate(40)" fill="#E5162F"/>
+<path d="M0,0l8,-6 6,6 -6,6z" transform="translate(398,640) rotate(20)" fill="#FFC2CB"/>
+</g>
+
+<!-- 动态线 -->
+<g stroke="#111" stroke-width="7" stroke-linecap="round">
+<line x1="222" y1="342" x2="182" y2="312"/><line x1="196" y1="460" x2="146" y2="460"/><line x1="226" y1="580" x2="186" y2="618"/>
+<line x1="582" y1="336" x2="622" y2="302"/><line x1="610" y1="440" x2="662" y2="434"/><line x1="584" y1="572" x2="626" y2="606"/>
+<line x1="400" y1="300" x2="400" y2="270"/>
+</g>
+
+<!-- 拟声字 -->
+<g transform="rotate(-8 400 170)" font-family="Source Han Sans SC, sans-serif" font-weight="900" font-size="180" text-anchor="middle">
+<text x="412" y="242" fill="#111">咔嚓！</text>
+<text x="400" y="230" fill="#fff" stroke="#fff" stroke-width="34" stroke-linejoin="round">咔嚓！</text>
+<text x="400" y="230" fill="#FF3B5C" stroke="#111" stroke-width="12" stroke-linejoin="round" paint-order="stroke">咔嚓！</text>
+</g>
+
+<!-- 小对话框 -->
+<ellipse cx="102" cy="560" rx="76" ry="52" fill="#fff" stroke="#111" stroke-width="6"/>
+<path d="M140,580L200,612L158,548Z" fill="#fff" stroke="#111" stroke-width="6" stroke-linejoin="round"/>
+<ellipse cx="102" cy="560" rx="73" ry="49" fill="#fff"/>
+<text x="102" y="576" text-anchor="middle" font-family="Source Han Sans SC, sans-serif" font-weight="900" font-size="46" fill="#111">听！</text>
+
+<!-- 底部说明 -->
+<polygon points="138,690 690,690 670,762 118,762" fill="#111" transform="translate(8,8)"/>
+<polygon points="138,690 690,690 670,762 118,762" fill="#111" stroke="#fff" stroke-width="4"/>
+<text x="404" y="740" text-anchor="middle" font-family="Source Han Sans SC, sans-serif" font-weight="900" font-size="40" fill="#fff"><tspan fill="#FFC300">-40℃</tspan>冻干 · 非油炸</text>
+</svg>

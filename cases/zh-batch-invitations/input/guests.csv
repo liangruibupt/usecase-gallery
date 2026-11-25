@@ -1,0 +1,87 @@
+序号,姓名,称谓,公司,职务,语言,桌号,是否携伴,邮箱,负责销售
+1,崔磊,,沐光照明,副总裁,中文,6,否,guest01@muguang.example.cn,许可
+2,Sophie Laurent,Ms.,Belmont Analytics,Head of Partnerships,英文,3,否,sophie.laurent@belmont.example.com,陈默
+3,龚思远,,衡石建设,技术总监,中文,4,否,guest03@hengshi.example.cn,周宁
+4,范敏,,松屿传媒,副总裁,中文,4,否,guest04@songyu.example.cn,许可
+5,Priya Raman,Dr.,Lumen Biotech,Chief Scientist,英文,8,否,priya.raman@lumen.example.com,许可
+6,邵敏,,沐光照明,总经理,中文,1,是,guest06@muguang.example.cn,陈默
+7,Lukas Becker,Mr.,Rhein Mobility,Managing Director,英文,8,否,lukas.becker@rhein.example.com,陈默
+8,Kenji Mori,Mr.,Aoba Instruments,VP Sales,英文,5,否,kenji.mori@aoba.example.com,许可
+9,郝海燕,女士,松屿传媒,财务总监,中文,6,是,guest09@songyu.example.cn,陈默
+10,张文博,女士,知行教育,IT 负责人,中文,2,否,guest10@zhixing.example.cn,林悦
+11,胡俊杰,先生,安和养老,总经理,中文,4,否,guest11@anhe.example.cn,许可
+12,何平,先生,蓝湾酒店管理,董事长,中文,6,否,guest12@lanwan.example.cn,陈默
+13,徐娟,女士,沐光照明,市场总监,中文,4,否,guest13@muguang.example.cn,陈默
+14,袁勇,女士,合泰化工,,中文,9,否,guest14@hetai.example.cn,周宁
+15,Daniel Hartley,Mr.,Northwind Freight,Regional Director,英文,1,否,daniel.hartley@northwind.example.com,陈默
+16,魏浩然,女士,瑞衡保险经纪,运营总监,中文,6,否,guest16@ruiheng.example.cn,周宁
+17,谢杰,先生,海纳医疗器械,运营总监,中文,1,否,,周宁
+18,贾天宇,先生,澄川物流,采购总监,中文,5,否,guest18@chengchuan.example.cn,周宁
+19,王杰,女士,蓝湾酒店管理,董事长,中文,6,是,guest19@lanwan.example.cn,许可
+20,邱雨桐,女士,安和养老,采购总监,中文,5,否,guest20@anhe.example.cn,林悦
+21,汤立新,先生,鼎盛家居,董事长,中文,3,否,guest21@dingsheng.example.cn,许可
+22,Emma Collins,Ms.,Harbor & Pine,Procurement Lead,英文,10,否,emma.collins@harbor.example.com,林悦
+23,姚洋,女士,岚山新能源,市场总监,中文,10,否,guest23@lanshan.example.cn,周宁
+24,唐敏,女士,北辰精密,运营总监,中文,2,是,guest24@beichen.example.cn,林悦
+25,胡子涵,女士,明势资本,技术总监,中文,3,否,guest25@mingshi.example.cn,林悦
+26,王秀兰,先生,青禾食品,采购总监,中文,2,否,guest26@qinghe.example.cn,林悦
+27,雷芳,先生,知行教育,副总裁,中文,3,是,guest27@zhixing.example.cn,陈默
+28,任杰,先生,安和养老,财务总监,中文,3,否,guest28@anhe.example.cn,许可
+29,吕佳琪,女士,安和养老,副总裁,中文,2,否,guest29@anhe.example.cn,许可
+30,金佳琪,先生,沐光照明,市场总监,中文,4,否,guest30@muguang.example.cn,陈默
+31,林洋,女士,海纳医疗器械,IT 负责人,中文,7,否,guest31@haina.example.cn,许可
+32,龚娟,女士,沐光照明,供应链经理,中文,7,是,guest32@muguang.example.cn,许可
+33,白嘉怡,先生,星衍半导体,采购总监,中文,9,否,guest33@xingyan.example.cn,林悦
+34,蒋军,先生,云帆跨境电商,财务总监,中文,10,否,guest34@yunfan.example.cn,陈默
+35,魏霞,女士,明势资本,供应链经理,中文,3,否,guest35@mingshi.example.cn,周宁
+36,雷明,女士,禾风农业,运营总监,中文,10,否,guest36@hefeng.example.cn,许可
+37,许宏宇,女士,禾风农业,市场总监,中文,10,否,guest37@hefeng.example.cn,周宁
+38,刘桂英,女士,澄川物流,市场总监,中文,10,否,guest38@chengchuan.example.cn,周宁
+39,龚欣然,女士,星衍半导体,IT 负责人,中文,8,否,guest39@xingyan.example.cn,陈默
+40,吕军,女士,知行教育,运营总监,中文,6,否,guest40@zhixing.example.cn,林悦
+41,石明,先生,禾风农业,IT 负责人,中文,10,否,guest41@hefeng.example.cn,许可
+42,侯国庆,先生,沐光照明,总经理,中文,9,否,guest42@muguang.example.cn,周宁
+43,陶军,女士,知行教育,副总裁,中文,8,是,guest43@zhixing.example.cn,周宁
+44,廖涛,女士,星衍半导体,董事长,中文,5,否,guest44@xingyan.example.cn,林悦
+45,严一鸣,女士,海纳医疗器械,市场总监,中文,10,否,guest45@haina.example.cn,陈默
+46,严娟,女士,海纳医疗器械,采购总监,中文,4,是,guest46@haina.example.cn,许可
+47,魏浩然,先生,澄川物流,市场总监,中文,3,否,guest47@chengchuan.example.cn,陈默
+48,闫佳琪,先生,安和养老,IT 负责人,中文,8,否,guest48@anhe.example.cn,周宁
+49,熊勇,先生,合泰化工,总经理,中文,5,否,guest49@hetai.example.cn,林悦
+50,白勇,先生,青禾食品,董事长,中文,1,否,guest50@qinghe.example.cn,许可
+51,刘刚,先生,星衍半导体,运营总监,中文,7,否,guest51@xingyan.example.cn,许可
+52,彭天宇,女士,云帆跨境电商,IT 负责人,中文,9,是,guest52@yunfan.example.cn,陈默
+53,崔勇,女士,合泰化工,总经理,中文,3,否,guest53@hetai.example.cn,林悦
+54,贺天宇,女士,鼎盛家居,供应链经理,中文,7,否,guest54@dingsheng.example.cn,周宁
+55,何晨曦,女士,云帆跨境电商,采购总监,中文,8,否,guest55@yunfan.example.cn,陈默
+56,汤涛,先生,鼎盛家居,技术总监,中文,1,否,guest56@dingsheng.example.cn,陈默
+57,石国庆,先生,远岸航运,副总裁,中文,5,否,guest57@yuanan.example.cn,陈默
+58,郝宏宇,先生,衡石建设,供应链经理,中文,7,否,guest58@hengshi.example.cn,陈默
+59,秦静,女士,青禾食品,运营总监,中文,5,否,guest59@qinghe.example.cn,许可
+60,杨洋,先生,锦程汽车零部件,供应链经理,中文,2,否,guest60@jincheng.example.cn,周宁
+61,袁勇,女士,合泰化工,董事长,中文,9,否,guest14@hetai.example.cn,周宁
+62,刘敏,女士,合泰化工,市场总监,中文,8,否,guest61@hetai.example.cn,陈默
+63,韦欣然,女士,安和养老,供应链经理,中文,5,否,guest62@anhe.example.cn,许可
+64,汪梦洁,先生,锦程汽车零部件,供应链经理,中文,7,是,guest63@jincheng.example.cn,陈默
+65,曾宏宇,女士,云帆跨境电商,财务总监,中文,9,否,guest64@yunfan.example.cn,许可
+66,高若曦,先生,鼎盛家居,副总裁,中文,7,否,guest65@dingsheng.example.cn,周宁
+67,余敏,女士,鼎盛家居,运营总监,中文,9,否,guest66@dingsheng.example.cn,陈默
+68,冯晓东,女士,海纳医疗器械,副总裁,中文,4,否,guest67@haina.example.cn,林悦
+69,林刚,先生,知行教育,采购总监,中文,1,否,guest68@zhixing.example.cn,周宁
+70,戴洋,女士,禾风农业,董事长,中文,7,否,guest69@hefeng.example.cn,林悦
+71,顾霞,女士,明势资本,采购总监,中文,7,否,guest70@mingshi.example.cn,陈默
+72,卢子涵,女士,云帆跨境电商,董事长,中文,2,否,guest71@yunfan.example.cn,许可
+73,余军,先生,知行教育,IT 负责人,中文,1,否,guest72@zhixing.example.cn,许可
+74,熊文博,先生,衡石建设,市场总监,中文,4,否,guest73@hengshi.example.cn,周宁
+75,叶宏宇,先生,岚山新能源,技术总监,中文,8,否,guest74@lanshan.example.cn,周宁
+76,吴艳,女士,云帆跨境电商,运营总监,中文,1,否,guest75@yunfan.example.cn,陈默
+77,田桂英,先生,海纳医疗器械,总经理,中文,9,否,guest76@haina.example.cn,周宁
+78,莫勇,先生,锦程汽车零部件,董事长,中文,6,否,guest77@jincheng.example.cn,许可
+79,罗晨曦,女士,岚山新能源,供应链经理,中文,2,否,guest78@lanshan.example.cn,林悦
+80,孙桂英,女士,衡石建设,总经理,中文,8,否,guest79@hengshi.example.cn,周宁
+81,周桂英,先生,瑞衡保险经纪,总经理,中文,2,是,guest80@ruiheng.example.cn,林悦
+82,徐欣然,先生,锦程汽车零部件,运营总监,中文,1,否,guest81@jincheng.example.cn,周宁
+83,郭文博,先生,锦程汽车零部件,总经理,中文,6,否,guest82@jincheng.example.cn,陈默
+84,崔桂英,女士,合泰化工,技术总监,中文,3,否,guest83@hetai.example.cn,陈默
+85,白平,先生,北辰精密,副总裁,中文,5,否,guest84@beichen.example.cn,许可
+86,谢杰,先生,海纳医疗器械,运营总监,中文,1,否,guest17@haina.example.cn,周宁

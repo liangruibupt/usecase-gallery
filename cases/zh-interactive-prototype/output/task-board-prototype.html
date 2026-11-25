@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>任务列表 · v2.4 版本迭代</title>
+<style>
+:root{
+  --bg:#f4f6f8;--surface:#fff;--line:#e3e8ed;--line-2:#eef1f4;
+  --text:#1d2731;--text-2:#53606c;--text-3:#8693a0;
+  --accent:#0e8f84;--accent-600:#0b7a70;--accent-50:#ecf7f5;--accent-100:#d3ece8;
+  --danger:#c4553e;--warn:#b07a1a;
+  --radius:8px;--panel-w:440px;
+  --font:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",system-ui,sans-serif;
+  --mono:"SF Mono",Menlo,monospace;
+  --shadow:0 8px 28px rgba(22,36,48,.14),0 1px 3px rgba(22,36,48,.08);
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{font-family:var(--font);font-size:14px;line-height:1.5;color:var(--text);background:var(--bg);-webkit-font-smoothing:antialiased;--cx:50vw}
+button{font:inherit;color:inherit;cursor:pointer}
+input{font:inherit;color:inherit}
+.i{width:16px;height:16px;flex:none;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+
+/* ---------- top bar ---------- */
+.topbar{position:sticky;top:0;z-index:30;height:56px;background:var(--surface);border-bottom:1px solid var(--line);display:flex;align-items:center;gap:16px;padding:0 24px}
+.brand{display:flex;align-items:center;gap:8px;font-weight:600;font-size:15px}
+.brand-mark{width:24px;height:24px;border-radius:6px;background:var(--accent);display:grid;place-items:center;color:#fff}
+.crumb{display:flex;align-items:center;gap:6px;color:var(--text-3);font-size:13px}
+.crumb b{color:var(--text-2);font-weight:500}
+.top-right{margin-left:auto;display:flex;align-items:center;gap:12px}
+.view-label{font-size:12px;color:var(--text-3)}
+.seg-role{display:flex;background:var(--bg);border:1px solid var(--line);border-radius:7px;padding:2px}
+.seg-role button{border:0;background:transparent;padding:4px 10px;border-radius:5px;font-size:13px;color:var(--text-2);display:flex;align-items:center;gap:6px}
+.seg-role button.on{background:var(--surface);color:var(--text);box-shadow:0 1px 2px rgba(0,0,0,.08);font-weight:500}
+
+/* ---------- avatar ---------- */
+.av{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;font-size:11px;font-weight:600;flex:none}
+.av.lg{width:28px;height:28px;font-size:13px}
+
+/* ---------- main ---------- */
+.main{padding:20px 24px 96px;transition:margin-right .22s ease;max-width:1600px}
+.page-head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:16px}
+.page-head h1{margin:0;font-size:20px;font-weight:600;letter-spacing:.2px}
+.page-sub{margin-top:4px;color:var(--text-3);font-size:13px}
+.stats{display:flex;gap:0;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius)}
+.stat{padding:8px 16px;border-left:1px solid var(--line-2);min-width:84px}
+.stat:first-child{border-left:0}
+.stat .n{font-size:18px;font-weight:600;font-family:var(--mono);line-height:1.2}
+.stat .l{font-size:12px;color:var(--text-3)}
+.stat.alert .n{color:var(--danger)}
+
+/* ---------- toolbar ---------- */
+.toolbar{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:10px}
+.search{position:relative;width:260px}
+.search .i{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--text-3)}
+.search input{width:100%;height:34px;border:1px solid var(--line);border-radius:7px;background:var(--surface);padding:0 32px 0 32px;outline:none;font-size:13px}
+.search input::placeholder{color:var(--text-3)}
+.search input:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-50)}
+.search .clear-q{position:absolute;right:5px;top:50%;transform:translateY(-50%);width:24px;height:24px;border:0;background:transparent;border-radius:5px;color:var(--text-3);display:none;place-items:center}
+.search .clear-q:hover{background:var(--bg);color:var(--text)}
+.search.has-q .clear-q{display:grid}
+.btn{height:34px;border:1px solid var(--line);background:var(--surface);border-radius:7px;padding:0 12px;display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--text-2);white-space:nowrap}
+.btn:hover{border-color:#cdd5dc;color:var(--text)}
+.btn.on{border-color:var(--accent);color:var(--accent-600);background:var(--accent-50)}
+.btn .val{color:var(--text);font-weight:500}
+.btn.on .val{color:var(--accent-600)}
+.btn-primary{background:var(--accent);border-color:var(--accent);color:#fff}
+.btn-primary:hover{background:var(--accent-600);border-color:var(--accent-600);color:#fff}
+.btn-primary:disabled{background:#b8d9d5;border-color:#b8d9d5;cursor:not-allowed}
+.btn-ghost{border-color:transparent;background:transparent}
+.btn-ghost:hover{background:var(--line-2);border-color:transparent}
+.divider{width:1px;height:20px;background:var(--line);margin:0 4px}
+.dd{position:relative}
+.menu{position:absolute;top:calc(100% + 6px);left:0;z-index:40;min-width:200px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:4px;display:none}
+.menu.open{display:block}
+.menu-item{width:100%;border:0;background:transparent;display:flex;align-items:center;gap:8px;padding:7px 8px;border-radius:6px;font-size:13px;text-align:left}
+.menu-item:hover{background:var(--bg)}
+.menu-item .cnt{margin-left:auto;color:var(--text-3);font-family:var(--mono);font-size:12px}
+.menu-item .tick{width:16px;color:var(--accent)}
+.menu-item.sel{font-weight:500}
+.seg{display:flex;background:var(--surface);border:1px solid var(--line);border-radius:7px;padding:2px;height:34px}
+.seg button{border:0;background:transparent;padding:0 10px;border-radius:5px;font-size:13px;color:var(--text-2);display:flex;align-items:center;gap:5px;white-space:nowrap}
+.seg button:hover{color:var(--text)}
+.seg button.on{background:var(--accent-50);color:var(--accent-600);font-weight:500}
+.seg .cnt{font-family:var(--mono);font-size:11px;color:var(--text-3)}
+.seg button.on .cnt{color:var(--accent-600)}
+.spacer{flex:1}
+.clear-all{color:var(--accent-600)}
+.clear-all .badge{background:var(--accent);color:#fff;border-radius:9px;font-size:11px;padding:0 6px;line-height:16px;font-family:var(--mono)}
+.list-meta{font-size:12px;color:var(--text-3);margin:0 2px 8px;display:flex;gap:6px;align-items:center}
+.list-meta b{color:var(--text-2);font-weight:500;font-family:var(--mono)}
+
+/* ---------- list ---------- */
+.list{--cols:44px minmax(220px,1fr) 128px 96px 72px 128px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+.list.no-select{--cols:minmax(220px,1fr) 128px 96px 72px 128px}
+.list.no-select .c-chk{display:none}
+.list.no-select .c-name{padding-left:16px}
+.lh,.row{display:grid;grid-template-columns:var(--cols);align-items:center}
+.lh{height:40px;background:#f9fafb;border-bottom:1px solid var(--line);font-size:12px;color:var(--text-3);font-weight:500}
+.lh>div{padding:0 10px}
+.row{min-height:56px;border-bottom:1px solid var(--line-2);cursor:pointer;position:relative;outline:none}
+.row:last-child{border-bottom:0}
+.row:hover{background:#f8fafb}
+.row:focus-visible{box-shadow:inset 0 0 0 2px var(--accent-100)}
+.row.sel{background:#f1f9f8}
+.row.active{background:var(--accent-50)}
+.row.active::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--accent)}
+.row.flash{animation:flash 1.6s ease}
+@keyframes flash{0%,30%{background:var(--accent-100)}100%{background:transparent}}
+.row>div{padding:8px 10px;min-width:0}
+.c-chk{display:flex;align-items:center;justify-content:center;align-self:stretch;cursor:default}
+.c-chk label{display:grid;place-items:center;width:32px;height:32px;cursor:pointer}
+.cb{appearance:none;-webkit-appearance:none;width:16px;height:16px;margin:0;border:1.5px solid #b6c0c9;border-radius:4px;background:#fff;cursor:pointer;display:grid;place-content:center;transition:background .12s}
+.cb:hover{border-color:var(--accent)}
+.cb:checked,.cb:indeterminate{background:var(--accent);border-color:var(--accent)}
+.cb:checked::after{content:"";width:8px;height:4px;border-left:2px solid #fff;border-bottom:2px solid #fff;transform:translate(0,-1px) rotate(-45deg)}
+.cb:indeterminate::after{content:"";width:8px;height:2px;background:#fff;border-radius:1px}
+.cb:focus-visible{outline:2px solid var(--accent-100);outline-offset:2px}
+.t-title{font-weight:500;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.t-title mark{background:#fdf0c4;color:inherit;border-radius:2px;padding:0 1px}
+.t-sub{display:flex;align-items:center;gap:8px;margin-top:2px;font-size:12px;color:var(--text-3)}
+.tid{font-family:var(--mono);font-size:12px;color:var(--text-3)}
+.tag{font-size:11px;padding:0 6px;border-radius:4px;background:var(--line-2);color:var(--text-2);line-height:18px}
+.asg{display:flex;align-items:center;gap:8px;white-space:nowrap;font-size:13px}
+.st{display:inline-flex;align-items:center;gap:6px;font-size:12px;line-height:22px;padding:0 8px;border-radius:11px;white-space:nowrap;font-weight:500}
+.st .dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+.st-todo{background:#eef1f4;color:#5f6b77}
+.st-doing{background:var(--accent-50);color:var(--accent-600)}
+.st-done{background:#f1f3f5;color:#8693a0}
+.st-done .dot{display:none}
+.pri{display:inline-flex;align-items:center;gap:5px;font-size:13px}
+.pri .bars{display:inline-flex;gap:2px;align-items:flex-end}
+.pri .bars i{width:3px;border-radius:1px;background:#d6dde3}
+.pri .bars i:nth-child(1){height:6px}.pri .bars i:nth-child(2){height:9px}.pri .bars i:nth-child(3){height:12px}
+.pri-high{color:var(--danger)}.pri-high .bars i{background:var(--danger)}
+.pri-mid{color:var(--warn)}.pri-mid .bars i:nth-child(-n+2){background:var(--warn)}
+.pri-low{color:var(--text-2)}.pri-low .bars i:nth-child(1){background:#8693a0}
+.due{font-size:13px;white-space:nowrap}
+.due-sub{font-size:12px;color:var(--text-3)}
+.due-sub.over{color:var(--danger);font-weight:500}
+.due-sub.soon{color:var(--warn)}
+.row.is-done .t-title{color:var(--text-2)}
+
+/* empty */
+.empty{display:none;padding:56px 24px 64px;text-align:center}
+.empty.show{display:block}
+.empty h3{margin:14px 0 6px;font-size:15px;font-weight:600}
+.empty p{margin:0 auto 18px;color:var(--text-3);font-size:13px;max-width:420px}
+.empty .cond{display:inline-flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-bottom:18px}
+.empty .cond span{font-size:12px;background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:1px 10px;color:var(--text-2)}
+
+/* ---------- side panel ---------- */
+.panel{position:fixed;top:56px;right:0;bottom:0;width:var(--panel-w);background:var(--surface);border-left:1px solid var(--line);z-index:25;transform:translateX(100%);transition:transform .22s ease,visibility .22s;visibility:hidden;display:flex;flex-direction:column}
+body.panel-open .panel{transform:none;visibility:visible}
+.p-head{height:52px;display:flex;align-items:center;gap:8px;padding:0 12px 0 20px;border-bottom:1px solid var(--line);flex:none}
+.p-head .pos{font-size:12px;color:var(--text-3);font-family:var(--mono);margin-left:4px}
+.p-tools{margin-left:auto;display:flex;gap:2px}
+.icon-btn{width:32px;height:32px;border:0;background:transparent;border-radius:6px;display:grid;place-items:center;color:var(--text-2)}
+.icon-btn:hover{background:var(--bg);color:var(--text)}
+.icon-btn:disabled{color:#c9d0d6;cursor:not-allowed;background:transparent}
+.p-body{overflow-y:auto;padding:18px 20px 40px;flex:1}
+.p-body h2{margin:0 0 16px;font-size:18px;line-height:1.45;font-weight:600}
+.fields{display:grid;grid-template-columns:76px 1fr;row-gap:10px;column-gap:12px;margin:0 0 20px;padding:14px 16px;background:#f9fafb;border:1px solid var(--line-2);border-radius:var(--radius);font-size:13px}
+.fields dt{color:var(--text-3)}
+.fields dd{margin:0;display:flex;align-items:center;gap:8px;min-height:22px;border-radius:4px}
+.fields dd.flash{animation:flash 1.6s ease}
+.sec{margin-bottom:22px}
+.sec h3{font-size:13px;font-weight:600;margin:0 0 8px;display:flex;align-items:center;gap:8px}
+.sec h3 .muted{font-weight:400;color:var(--text-3);font-family:var(--mono);font-size:12px}
+.sec p{margin:0;color:var(--text-2);font-size:13px;line-height:1.75}
+.checks,.files,.acts{list-style:none;margin:0;padding:0}
+.checks li{display:flex;gap:10px;align-items:flex-start;padding:6px 0;font-size:13px;color:var(--text-2)}
+.checks .mk{width:16px;height:16px;border-radius:4px;border:1.5px solid #c3ccd4;flex:none;margin-top:2px;display:grid;place-items:center}
+.checks li.ok .mk{background:var(--accent);border-color:var(--accent);color:#fff}
+.checks li.ok .mk .i{width:12px;height:12px;stroke-width:2.4}
+.checks li.ok span{color:var(--text-3);text-decoration:line-through}
+.files li{display:flex;align-items:center;gap:10px;padding:8px 10px;border:1px solid var(--line-2);border-radius:6px;margin-bottom:6px;font-size:13px}
+.files li .i{color:var(--text-3)}
+.files li em{margin-left:auto;font-style:normal;color:var(--text-3);font-size:12px}
+.acts li{position:relative;padding:0 0 12px 18px;font-size:13px;color:var(--text-2)}
+.acts li::before{content:"";position:absolute;left:4px;top:7px;width:6px;height:6px;border-radius:50%;background:#c7d0d7}
+.acts li::after{content:"";position:absolute;left:6.5px;top:16px;bottom:0;width:1px;background:var(--line)}
+.acts li:last-child::after{display:none}
+.acts li.new::before{background:var(--accent)}
+.acts b{color:var(--text);font-weight:500}
+.acts time{display:block;font-size:12px;color:var(--text-3)}
+
+/* ---------- batch bar ---------- */
+.batchbar{position:fixed;left:var(--cx);bottom:20px;transform:translate(-50%,16px);opacity:0;pointer-events:none;z-index:35;background:var(--surface);border:1px solid var(--line);border-radius:10px;box-shadow:var(--shadow);display:flex;align-items:center;gap:8px;padding:8px 8px 8px 16px;transition:transform .18s,opacity .18s;white-space:nowrap}
+.batchbar.show{opacity:1;transform:translate(-50%,0);pointer-events:auto}
+.bb-count{display:flex;align-items:center;gap:8px;font-size:13px}
+.bb-num{min-width:22px;height:22px;padding:0 6px;border-radius:11px;background:var(--accent);color:#fff;font-family:var(--mono);font-size:12px;display:grid;place-items:center;font-weight:600}
+.bb-hint{font-size:12px;color:var(--text-3)}
+
+/* ---------- assign popover ---------- */
+.scrim{position:fixed;inset:0;z-index:44;background:transparent;display:none}
+.scrim.show{display:block}
+.assign{position:fixed;left:var(--cx);bottom:76px;transform:translateX(-50%);z-index:45;width:360px;background:var(--surface);border:1px solid var(--line);border-radius:10px;box-shadow:var(--shadow);display:none}
+.assign.show{display:block}
+.as-head{padding:14px 16px 10px;border-bottom:1px solid var(--line-2)}
+.as-head h4{margin:0;font-size:14px;font-weight:600}
+.as-head p{margin:2px 0 0;font-size:12px;color:var(--text-3)}
+.as-list{padding:6px}
+.as-item{width:100%;border:1px solid transparent;background:transparent;display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:7px;text-align:left}
+.as-item:hover{background:var(--bg)}
+.as-item.on{border-color:var(--accent);background:var(--accent-50)}
+.as-item .who{display:flex;flex-direction:column;line-height:1.35}
+.as-item .who small{color:var(--text-3);font-size:12px}
+.as-item .load{margin-left:auto;font-size:12px;color:var(--text-3);text-align:right}
+.as-item .radio{width:16px;height:16px;border-radius:50%;border:1.5px solid #c3ccd4;flex:none;display:grid;place-items:center}
+.as-item.on .radio{border-color:var(--accent)}
+.as-item.on .radio::after{content:"";width:8px;height:8px;border-radius:50%;background:var(--accent)}
+.as-note{margin:0 16px;padding:8px 10px;border-radius:6px;background:var(--bg);font-size:12px;color:var(--text-2);min-height:34px;display:flex;align-items:center}
+.as-foot{display:flex;justify-content:flex-end;gap:8px;padding:12px 16px 14px}
+
+/* ---------- toast ---------- */
+.toast{position:fixed;left:var(--cx);bottom:24px;transform:translate(-50%,12px);opacity:0;pointer-events:none;z-index:50;background:#1f2b35;color:#fff;border-radius:9px;padding:10px 10px 10px 14px;display:flex;align-items:center;gap:10px;font-size:13px;box-shadow:var(--shadow);transition:opacity .18s,transform .18s;max-width:calc(100vw - 32px)}
+.toast.show{opacity:1;transform:translate(-50%,0);pointer-events:auto}
+.toast .ok{width:20px;height:20px;border-radius:50%;background:var(--accent);display:grid;place-items:center;flex:none}
+.toast .ok .i{width:12px;height:12px;stroke-width:2.6}
+.toast .sub{color:#a9b5bf}
+.toast button{border:0;background:transparent;color:#7fd6cc;padding:4px 8px;border-radius:5px;font-weight:500;white-space:nowrap}
+.toast button:hover{background:rgba(255,255,255,.08)}
+.toast .x{color:#a9b5bf;padding:4px;display:grid;place-items:center}
+
+/* ---------- responsive ---------- */
+@media (min-width:1101px){
+  body.panel-open .main{margin-right:var(--panel-w)}
+  body.panel-open{--cx:calc((100vw - var(--panel-w)) / 2)}
+}
+@media (max-width:1100px) and (min-width:761px){
+  .panel{box-shadow:var(--shadow)}
+}
+@media (max-width:760px){
+  .topbar{padding:0 12px;gap:10px;height:52px}
+  .crumb,.view-label,.brand-name{display:none}
+  .seg-role .nm-role{display:none}
+  .main{padding:14px 12px 120px}
+  .page-head{flex-direction:column;align-items:stretch;gap:12px}
+  .stats{width:100%}
+  .stat{flex:1;min-width:0;padding:6px 10px}
+  .stat .n{font-size:16px}
+  .toolbar{gap:8px}
+  .search{width:100%}
+  .search input{height:40px;font-size:15px}
+  .btn{height:36px}
+  .divider{display:none}
+  .seg{order:5;width:100%;overflow-x:auto;height:38px}
+  .seg button{flex:1;justify-content:center}
+  .spacer{display:none}
+  .lh{display:none}
+  .list{border-radius:10px}
+  .row{grid-template-columns:40px auto 1fr auto;grid-template-areas:"chk name name pri" "chk asg st due";padding:10px 12px 10px 4px;row-gap:6px;min-height:0}
+  .list.no-select .row{grid-template-columns:auto 1fr auto;grid-template-areas:"name name pri" "asg st due";padding-left:14px}
+  .row>div{padding:0}
+  .list.no-select .c-name{padding-left:0}
+  .c-chk{grid-area:chk;align-self:start;justify-content:flex-start}
+  .c-chk label{width:40px;height:40px;margin-top:-8px}
+  .c-name{grid-area:name;padding-right:8px!important}
+  .t-title{white-space:normal;font-size:15px}
+  .c-asg{grid-area:asg;padding-right:10px!important}
+  .c-st{grid-area:st}
+  .c-pri{grid-area:pri;align-self:start}
+  .c-due{grid-area:due;text-align:right;display:flex;gap:6px;align-items:center;justify-content:flex-end}
+  .due-sub{font-size:12px}
+  .panel{top:0;width:100%;z-index:60;border-left:0}
+  .p-head{height:52px}
+  body.panel-open{overflow:hidden}
+  .batchbar{left:0;right:0;bottom:0;transform:translateY(100%);border-radius:14px 14px 0 0;padding:10px 12px calc(10px + env(safe-area-inset-bottom));justify-content:space-between}
+  .batchbar.show{transform:none}
+  .batchbar .btn-primary{height:40px;padding:0 16px}
+  .scrim{background:rgba(20,30,40,.36)}
+  .assign{left:0;right:0;bottom:0;width:auto;transform:none;border-radius:16px 16px 0 0;padding-bottom:env(safe-area-inset-bottom)}
+  .as-item{padding:12px 10px}
+  .as-foot .btn{flex:1;justify-content:center;height:42px}
+  .toast{bottom:16px;left:16px;right:16px;transform:translateY(12px)}
+  .toast.show{transform:none}
+}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+  <symbol id="i-down" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></symbol>
+  <symbol id="i-up" viewBox="0 0 24 24"><path d="M6 15l6-6 6 6"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.8"/><path d="M4.5 20c1.4-3.6 4.4-5.2 7.5-5.2s6.1 1.6 7.5 5.2"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8.5" r="3.3"/><path d="M3 19c1-3 3.4-4.4 6-4.4s5 1.4 6 4.4"/><path d="M15.5 5.6a3.2 3.2 0 010 5.9M17.5 14.9c1.6.6 2.8 1.9 3.5 4.1"/></symbol>
+  <symbol id="i-file" viewBox="0 0 24 24"><path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5"/></symbol>
+  <symbol id="i-frame" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M4 9h16M9 9v11"/></symbol>
+  <symbol id="i-cal" viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4"/></symbol>
+</svg>
+
+<header class="topbar">
+  <div class="brand"><span class="brand-mark"><svg class="i" style="width:14px;height:14px;stroke-width:2.6"><use href="#i-check"/></svg></span><span class="brand-name">协作台</span></div>
+  <nav class="crumb" aria-label="位置">产品团队<span>/</span><b>v2.4 版本迭代</b></nav>
+  <div class="top-right">
+    <span class="view-label">演示视角</span>
+    <div class="seg-role" role="tablist" aria-label="切换演示视角">
+      <button class="on" data-role="lead"><span class="av" style="width:18px;height:18px;font-size:10px;background:#dff1ee;color:#0e8f84">知</span>林知<span class="nm-role">· 负责人</span></button>
+      <button data-role="member"><span class="av" style="width:18px;height:18px;font-size:10px;background:#e3ecf5;color:#3b6a9a">齐</span>陈齐<span class="nm-role">· 成员</span></button>
+    </div>
+  </div>
+</header>
+
+<main class="main" id="main">
+  <div class="page-head">
+    <div>
+      <h1>任务列表</h1>
+      <div class="page-sub" id="pageSub">v2.4 版本迭代 · 6月9日 – 6月21日 · 今天 6月13日 周五</div>
+    </div>
+    <div class="stats" id="stats"></div>
+  </div>
+
+  <div class="toolbar">
+    <div class="search" id="searchBox">
+      <svg class="i"><use href="#i-search"/></svg>
+      <input id="q" type="search" placeholder="搜索任务名称" autocomplete="off" aria-label="搜索任务名称">
+      <button class="clear-q" id="clearQ" aria-label="清除搜索词"><svg class="i"><use href="#i-x"/></svg></button>
+    </div>
+    <button class="btn" id="mineBtn"><svg class="i"><use href="#i-user"/></svg>我的任务</button>
+    <div class="dd">
+      <button class="btn" id="asgBtn" aria-haspopup="true"><svg class="i"><use href="#i-users"/></svg>负责人：<span class="val" id="asgVal">全部</span><svg class="i"><use href="#i-down"/></svg></button>
+      <div class="menu" id="asgMenu" role="menu"></div>
+    </div>
+    <span class="divider"></span>
+    <div class="seg" id="statusSeg" role="tablist" aria-label="按状态筛选"></div>
+    <span class="spacer"></span>
+    <button class="btn btn-ghost clear-all" id="clearAll" style="display:none"><svg class="i"><use href="#i-x"/></svg>清空筛选<span class="badge" id="clearCount">1</span></button>
+  </div>
+
+  <div class="list-meta" id="listMeta"></div>
+
+  <div class="list" id="list" role="table" aria-label="任务列表">
+    <div class="lh" role="row" id="listHead">
+      <div class="c-chk"><label title="全选当前结果"><input type="checkbox" class="cb" id="selAll" aria-label="全选当前结果"></label></div>
+      <div>任务名称</div><div>负责人</div><div>状态</div><div>优先级</div><div>截止日期</div>
+    </div>
+    <div id="rows"></div>
+    <div class="empty" id="empty">
+      <svg width="120" height="88" viewBox="0 0 120 88" aria-hidden="true">
+        <rect x="18" y="14" width="72" height="60" rx="8" fill="#f4f6f8" stroke="#dfe5ea"/>
+        <rect x="28" y="28" width="40" height="6" rx="3" fill="#dfe5ea"/>
+        <rect x="28" y="42" width="52" height="6" rx="3" fill="#e9edf1"/>
+        <rect x="28" y="56" width="30" height="6" rx="3" fill="#e9edf1"/>
+        <circle cx="86" cy="56" r="15" fill="#fff" stroke="#0e8f84" stroke-width="3"/>
+        <path d="M97 67l10 10" stroke="#0e8f84" stroke-width="4" stroke-linecap="round"/>
+        <path d="M81 51l10 10M91 51L81 61" stroke="#9fcfc9" stroke-width="2.4" stroke-linecap="round"/>
+      </svg>
+      <h3>没有匹配的任务</h3>
+      <p>当前条件下没有找到任务。可以换个关键词，或清空筛选查看全部任务。</p>
+      <div class="cond" id="emptyCond"></div>
+      <div><button class="btn btn-primary" id="emptyClear">清空筛选</button></div>
+    </div>
+  </div>
+</main>
+
+<aside class="panel" id="panel" role="dialog" aria-label="任务详情" aria-hidden="true">
+  <div class="p-head">
+    <span class="tid" id="pId"></span><span class="tag" id="pCat"></span><span class="pos" id="pPos"></span>
+    <div class="p-tools">
+      <button class="icon-btn" id="pPrev" title="上一条"><svg class="i"><use href="#i-up"/></svg></button>
+      <button class="icon-btn" id="pNext" title="下一条"><svg class="i"><use href="#i-down"/></svg></button>
+      <button class="icon-btn" id="pClose" title="关闭详情（Esc）"><svg class="i"><use href="#i-x"/></svg></button>
+    </div>
+  </div>
+  <div class="p-body" id="pBody"></div>
+</aside>
+
+<div class="batchbar" id="batchbar" role="region" aria-label="批量操作">
+  <div class="bb-count"><span class="bb-num" id="bbNum">0</span><span>项已选</span><span class="bb-hint" id="bbHint"></span></div>
+  <button class="btn btn-ghost" id="bbClear">取消选择</button>
+  <button class="btn btn-primary" id="bbAssign"><svg class="i"><use href="#i-users"/></svg>分配给成员</button>
+</div>
+
+<div class="scrim" id="scrim"></div>
+<div class="assign" id="assign" role="dialog" aria-label="批量分配负责人">
+  <div class="as-head"><h4>批量分配负责人</h4><p id="asSub"></p></div>
+  <div class="as-list" id="asList"></div>
+  <div class="as-note" id="asNote">请选择一位成员</div>
+  <div class="as-foot">
+    <button class="btn" id="asCancel">取消</button>
+    <button class="btn btn-primary" id="asOk" disabled>确认分配</button>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite">
+  <span class="ok"><svg class="i"><use href="#i-check"/></svg></span>
+  <span id="toastText"></span>
+  <button id="toastUndo">撤销</button>
+  <button class="x" id="toastClose" aria-label="关闭提示"><svg class="i" style="width:14px;height:14px"><use href="#i-x"/></svg></button>
+</div>
+
+<script>
+(function(){
+const TODAY = new Date(2025,5,13);
+const WEEK = ['周日','周一','周二','周三','周四','周五','周六'];
+const MEMBERS = [
+  {name:'林知',role:'产品负责人',ch:'知',c:'#0e8f84',bg:'#dff1ee'},
+  {name:'陈齐',role:'前端研发',ch:'齐',c:'#3b6a9a',bg:'#e3ecf5'},
+  {name:'周然',role:'交互设计',ch:'然',c:'#8a6a1f',bg:'#f3ecdc'},
+  {name:'许宁',role:'视觉设计',ch:'宁',c:'#6b5a9a',bg:'#ebe7f4'}
+];
+const ROLE_USER = {lead:'林知', member:'陈齐'};
+const STATUS = {todo:{l:'待开始',c:'st-todo'},doing:{l:'进行中',c:'st-doing'},done:{l:'已完成',c:'st-done'}};
+const PRI = {high:{l:'高',c:'pri-high'},mid:{l:'中',c:'pri-mid'},low:{l:'低',c:'pri-low'}};
+
+const tasks = [
+ {id:'T-101',title:'梳理 v2.4 版本需求清单',cat:'需求',assignee:'林知',status:'done',pri:'high',due:'2025-06-10',creator:'林知',
+  desc:'汇总上一版本遗留问题、客户反馈与内部提案，按价值和成本排出 v2.4 的范围。重点覆盖任务列表筛选、批量分配和移动端查看三条主线，输出可供设计与研发共同引用的需求清单。',
+  checks:[['列出全部候选需求并标注来源',1],['完成优先级排序与范围裁剪',1],['与研发确认技术可行性',1]],
+  files:[['v2.4 需求清单.xlsx','表格'],['客户反馈汇总 0605','文档']],
+  acts:[{w:'林知',t:'将状态改为 已完成',d:'6月10日 18:20'},{w:'林知',t:'创建了任务',d:'6月3日 10:02'}]},
+ {id:'T-102',title:'任务列表页交互原型',cat:'原型',assignee:'周然',status:'doing',pri:'high',due:'2025-06-14',creator:'林知',
+  desc:'基于需求清单完成任务列表的可交互原型，包括搜索、负责人与状态组合筛选、一键清空、批量勾选与分配、空状态。桌面端以表格为主，需同时给出手机端卡片形态。',
+  checks:[['搜索与组合筛选可操作',1],['批量分配流程含确认与取消',1],['空状态提供清空入口',0],['手机端卡片布局',0]],
+  files:[['任务列表原型 v0.3','设计稿'],['交互说明 - 列表','文档']],
+  acts:[{w:'周然',t:'更新了原型至 v0.3',d:'6月12日 16:45'},{w:'林知',t:'将负责人设为 周然',d:'6月9日 09:30'}]},
+ {id:'T-103',title:'任务详情侧边面板原型',cat:'原型',assignee:'周然',status:'todo',pri:'mid',due:'2025-06-17',creator:'林知',
+  desc:'设计任务详情的侧边面板：展示完整说明、字段、验收要求与动态。面板打开时列表保持可见以便对照，关闭后保留筛选条件与滚动位置；手机端改为全屏页。',
+  checks:[['字段分组与信息层级',0],['上一条 / 下一条切换',0],['手机端全屏形态',0]],
+  files:[['详情面板参考截图','图片']],
+  acts:[{w:'林知',t:'创建了任务',d:'6月9日 09:34'}]},
+ {id:'T-104',title:'整理按钮与表单组件规范',cat:'规范',assignee:'许宁',status:'doing',pri:'mid',due:'2025-06-16',creator:'许宁',
+  desc:'统一按钮、输入框、下拉、复选框的尺寸、圆角、状态色与间距，形成可交付研发的组件规范。高度统一为 34 / 40 两档，强调色仅用于主操作与选中态。',
+  checks:[['按钮四种状态',1],['输入框与下拉规范',1],['复选框与单选',0],['标注与切图说明',0]],
+  files:[['组件规范 v2.4','设计稿'],['Design Tokens','表格']],
+  acts:[{w:'许宁',t:'上传了 组件规范 v2.4',d:'6月12日 11:08'},{w:'许宁',t:'将状态改为 进行中',d:'6月10日 14:00'}]},
+ {id:'T-105',title:'状态标签与图标规范',cat:'规范',assignee:'许宁',status:'todo',pri:'low',due:'2025-06-20',creator:'许宁',
+  desc:'定义任务状态（待开始、进行中、已完成）与优先级（高、中、低）的标签样式和图标，保证在色弱场景下也能通过形状与文字区分。',
+  checks:[['状态标签三种样式',0],['优先级图形与颜色',0],['色弱对比度检查',0]],
+  files:[],
+  acts:[{w:'许宁',t:'创建了任务',d:'6月10日 14:05'}]},
+ {id:'T-106',title:'准备版本评审材料',cat:'评审',assignee:'林知',status:'todo',pri:'high',due:'2025-06-18',creator:'林知',
+  desc:'整理评审会所需材料：版本目标、范围、原型演示路径、待决问题清单。提前一天发给产品、设计、研发三方预读，评审时按问题清单逐项确认。',
+  checks:[['版本目标与范围一页纸',0],['原型演示路径',0],['待决问题清单',0],['发送预读邮件',0]],
+  files:[['评审模板','文档']],
+  acts:[{w:'林知',t:'创建了任务',d:'6月11日 17:20'}]},
+ {id:'T-107',title:'移动端列表适配检查',cat:'测试',assignee:'陈齐',status:'doing',pri:'mid',due:'2025-06-12',creator:'林知',
+  desc:'在 375 / 390 / 414 宽度下检查任务卡片、筛选栏、批量操作栏与详情全屏页的显示和点击区域。点击目标不小于 40px，长任务名需完整换行。',
+  checks:[['375 宽度检查',1],['390 / 414 宽度检查',0],['批量操作栏遮挡检查',0]],
+  files:[['移动端检查记录','表格']],
+  acts:[{w:'陈齐',t:'记录了 3 个显示问题',d:'6月12日 19:12'},{w:'林知',t:'将负责人设为 陈齐',d:'6月9日 09:40'}]},
+ {id:'T-108',title:'整理上轮评审遗留问题',cat:'评审',assignee:'陈齐',status:'done',pri:'low',due:'2025-06-11',creator:'林知',
+  desc:'回顾 v2.3 评审纪要，梳理尚未关闭的问题，标注处理人和计划版本，并同步到本次评审的待决问题清单中。',
+  checks:[['逐条核对 v2.3 纪要',1],['标注处理人与计划版本',1]],
+  files:[['v2.3 评审纪要','文档']],
+  acts:[{w:'陈齐',t:'将状态改为 已完成',d:'6月11日 15:30'},{w:'林知',t:'创建了任务',d:'6月6日 10:10'}]}
+];
+
+const S = {q:'',assignee:'all',status:'all',role:'lead',sel:new Set(),open:null,pick:null,undo:null,savedY:0};
+const $ = id => document.getElementById(id);
+const esc = s => String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const mem = n => MEMBERS.find(m=>m.name===n);
+const av = (n,cls='') => {const m=mem(n);return `<span class="av ${cls}" style="background:${m.bg};color:${m.c}">${m.ch}</span>`};
+const me = () => ROLE_USER[S.role];
+const byId = id => tasks.find(t=>t.id===id);
+
+function dueInfo(t){
+  const d = new Date(t.due+'T00:00:00');
+  const diff = Math.round((d-TODAY)/864e5);
+  const label = `${d.getMonth()+1}月${d.getDate()}日`;
+  let sub='',cls='';
+  if(t.status==='done'){sub='已完成'}
+  else if(diff<0){sub=`逾期 ${-diff} 天`;cls='over'}
+  else if(diff===0){sub='今天截止';cls='soon'}
+  else if(diff===1){sub='明天';cls='soon'}
+  else sub=`${diff} 天后`;
+  return {label,week:WEEK[d.getDay()],sub,cls,diff};
+}
+function highlight(text){
+  if(!S.q) return esc(text);
+  const i = text.toLowerCase().indexOf(S.q.toLowerCase());
+  if(i<0) return esc(text);
+  return esc(text.slice(0,i))+'<mark>'+esc(text.slice(i,i+S.q.length))+'</mark>'+esc(text.slice(i+S.q.length));
+}
+function match(t,ignoreStatus){
+  return (!S.q || t.title.toLowerCase().includes(S.q.toLowerCase()))
+    && (S.assignee==='all' || t.assignee===S.assignee)
+    && (ignoreStatus || S.status==='all' || t.status===S.status);
+}
+const visible = () => tasks.filter(t=>match(t,false));
+const activeCount = () => (S.q?1:0)+(S.assignee!=='all'?1:0)+(S.status!=='all'?1:0);
+
+function rowHTML(t){
+  const st=STATUS[t.status],p=PRI[t.pri],d=dueInfo(t);
+  const cls=['row',S.sel.has(t.id)?'sel':'',S.open===t.id?'active':'',t.status==='done'?'is-done':''].join(' ');
+  return `<div class="${cls}" role="row" tabindex="0" data-id="${t.id}" aria-label="${esc(t.title)}">
+    <div class="c-chk"><label><input type="checkbox" class="cb" data-chk="${t.id}" ${S.sel.has(t.id)?'checked':''} aria-label="选择 ${esc(t.title)}"></label></div>
+    <div class="c-name"><div class="t-title">${highlight(t.title)}</div><div class="t-sub"><span class="tid">${t.id}</span><span class="tag">${t.cat}</span></div></div>
+    <div class="c-asg"><span class="asg">${av(t.assignee)}${t.assignee}</span></div>
+    <div class="c-st"><span class="st ${st.c}"><span class="dot"></span>${st.l}</span></div>
+    <div class="c-pri"><span class="pri ${p.c}"><span class="bars"><i></i><i></i><i></i></span>${p.l}</span></div>
+    <div class="c-due"><div class="due">${d.label}</div><div class="due-sub ${d.cls}">${d.sub}</div></div>
+  </div>`;
+}
+
+function render(flashIds){
+  const list = visible();
+  $('rows').innerHTML = list.map(rowHTML).join('');
+  const isEmpty = list.length===0;
+  $('empty').classList.toggle('show',isEmpty);
+  $('listHead').style.display = isEmpty?'none':'';
+  $('list').classList.toggle('no-select',S.role!=='lead');
+
+  const n = activeCount();
+  $('listMeta').innerHTML = n ? `显示 <b>${list.length}</b> / ${tasks.length} 条任务` : `共 <b>${tasks.length}</b> 条任务 · 点击任务查看详情`;
+  $('clearAll').style.display = n ? '' : 'none';
+  $('clearCount').textContent = n;
+
+  $('searchBox').classList.toggle('has-q',!!S.q);
+
+  const base = tasks.filter(t=>match(t,true));
+  const segs=[['all','全部',base.length]].concat(Object.keys(STATUS).map(k=>[k,STATUS[k].l,base.filter(t=>t.status===k).length]));
+  $('statusSeg').innerHTML = segs.map(([k,l,c])=>`<button role="tab" data-st="${k}" class="${S.status===k?'on':''}" aria-selected="${S.status===k}">${l}<span class="cnt">${c}</span></button>`).join('');
+
+  $('asgVal').textContent = S.assignee==='all'?'全部':S.assignee;
+  $('asgBtn').classList.toggle('on',S.assignee!=='all');
+  $('mineBtn').classList.toggle('on',S.assignee===me());
+
+  const visIds = list.map(t=>t.id);
+  const selVis = visIds.filter(id=>S.sel.has(id)).length;
+  const sa=$('selAll');
+  sa.checked = visIds.length>0 && selVis===visIds.length;
+  sa.indeterminate = selVis>0 && selVis<visIds.length;
+
+  renderBatch(list);
+  renderStats();
+  if(flashIds) flashIds.forEach(id=>{const r=document.querySelector(`.row[data-id="${id}"]`);if(r){r.classList.remove('flash');void r.offsetWidth;r.classList.add('flash')}});
+  if(isEmpty) renderEmptyCond();
+}
+
+function renderEmptyCond(){
+  const c=[];
+  if(S.q) c.push(`关键词「${esc(S.q)}」`);
+  if(S.assignee!=='all') c.push(`负责人：${S.assignee}`);
+  if(S.status!=='all') c.push(`状态：${STATUS[S.status].l}`);
+  $('emptyCond').innerHTML = c.map(x=>`<span>${x}</span>`).join('');
+}
+
+function renderStats(){
+  const doing=tasks.filter(t=>t.status==='doing').length;
+  const done=tasks.filter(t=>t.status==='done').length;
+  const over=tasks.filter(t=>t.status!=='done'&&dueInfo(t).diff<0).length;
+  let html;
+  if(S.role==='lead'){
+    html=`<div class="stat"><div class="n">${tasks.length}</div><div class="l">全部任务</div></div>
+    <div class="stat"><div class="n">${doing}</div><div class="l">进行中</div></div>
+    <div class="stat"><div class="n">${done}</div><div class="l">已完成</div></div>
+    <div class="stat ${over?'alert':''}"><div class="n">${over}</div><div class="l">已逾期</div></div>`;
+  }else{
+    const mine=tasks.filter(t=>t.assignee===me());
+    const open=mine.filter(t=>t.status!=='done').length;
+    const mo=mine.filter(t=>t.status!=='done'&&dueInfo(t).diff<0).length;
+    html=`<div class="stat"><div class="n">${mine.length}</div><div class="l">我的任务</div></div>
+    <div class="stat"><div class="n">${open}</div><div class="l">未完成</div></div>
+    <div class="stat ${mo?'alert':''}"><div class="n">${mo}</div><div class="l">我的逾期</div></div>`;
+  }
+  $('stats').innerHTML=html;
+}
+
+function renderBatch(list){
+  const n=S.sel.size;
+  const show = n>0 && S.role==='lead';
+  $('batchbar').classList.toggle('show',show);
+  $('bbNum').textContent=n;
+  const visSet=new Set((list||visible()).map(t=>t.id));
+  const hidden=[...S.sel].filter(id=>!visSet.has(id)).length;
+  $('bbHint').textContent = hidden?`（${hidden} 项不在当前结果中）`:'';
+}
+
+/* ---------- assignee menu ---------- */
+function renderAsgMenu(){
+  const items=[{k:'all',label:'全部成员',cnt:tasks.length,icon:'<span class="av" style="background:#eef1f4;color:#5f6b77"><svg class="i" style="width:12px;height:12px"><use href="#i-users"/></svg></span>'}]
+   .concat(MEMBERS.map(m=>({k:m.name,label:m.name+(m.name===me()?'（我）':''),cnt:tasks.filter(t=>t.assignee===m.name).length,icon:av(m.name)})));
+  $('asgMenu').innerHTML = items.map(i=>`<button class="menu-item ${S.assignee===i.k?'sel':''}" role="menuitemradio" data-asg="${i.k}"><span class="tick">${S.assignee===i.k?'<svg class="i"><use href="#i-check"/></svg>':''}</span>${i.icon}${i.label}<span class="cnt">${i.cnt}</span></button>`).join('');
+}
+function toggleMenu(open){
+  const m=$('asgMenu');
+  const willOpen = open===undefined ? !m.classList.contains('open') : open;
+  if(willOpen) renderAsgMenu();
+  m.classList.toggle('open',willOpen);
+}
+$('asgBtn').addEventListener('click',e=>{e.stopPropagation();toggleMenu()});
+$('asgMenu').addEventListener('click',e=>{
+  const b=e.target.closest('[data-asg]');if(!b)return;
+  S.assignee=b.dataset.asg;toggleMenu(false);render();
+});
+document.addEventListener('click',e=>{if(!e.target.closest('.dd')) toggleMenu(false)});
+
+/* ---------- filters ---------- */
+$('q').addEventListener('input',e=>{S.q=e.target.value.trim();render()});
+$('clearQ').addEventListener('click',()=>{S.q='';$('q').value='';render();$('q').focus()});
+$('mineBtn').addEventListener('click',()=>{S.assignee = S.assignee===me()?'all':me();render()});
+$('statusSeg').addEventListener('click',e=>{const b=e.target.closest('[data-st]');if(!b)return;S.status=b.dataset.st;render()});
+function clearFilters(){S.q='';$('q').value='';S.assignee='all';S.status='all';render()}
+$('clearAll').addEventListener('click',clearFilters);
+$('emptyClear').addEventListener('click',clearFilters);
+
+/* ---------- rows ---------- */
+$('rows').addEventListener('change',e=>{
+  const c=e.target.closest('[data-chk]');if(!c)return;
+  const id=c.dataset.chk;
+  c.checked?S.sel.add(id):S.sel.delete(id);
+  render();
+});
+$('rows').addEventListener('click',e=>{
+  if(e.target.closest('.c-chk')) return;
+  const r=e.target.closest('.row');if(r) openPanel(r.dataset.id);
+});
+$('rows').addEventListener('keydown',e=>{
+  const r=e.target.closest('.row');if(!r||e.target.closest('.c-chk'))return;
+  if(e.key==='Enter'||e.key===' '){e.preventDefault();openPanel(r.dataset.id)}
+});
+$('selAll').addEventListener('change',e=>{
+  const ids=visible().map(t=>t.id);
+  ids.forEach(id=>e.target.checked?S.sel.add(id):S.sel.delete(id));
+  render();
+});
+
+/* ---------- panel ---------- */
+function openPanel(id){
+  const wasOpen = !!S.open;
+  if(!wasOpen) S.savedY = window.scrollY;
+  S.open=id;
+  document.body.classList.add('panel-open');
+  $('panel').setAttribute('aria-hidden','false');
+  renderPanel();
+  document.querySelectorAll('.row').forEach(r=>r.classList.toggle('active',r.dataset.id===id));
+  $('pBody').scrollTop=0;
+  if(!wasOpen) setTimeout(()=>$('pClose').focus({preventScroll:true}),50);
+}
+function closePanel(){
+  const id=S.open; if(!id) return;
+  S.open=null;
+  document.body.classList.remove('panel-open');
+  $('panel').setAttribute('aria-hidden','true');
+  document.querySelectorAll('.row.active').forEach(r=>r.classList.remove('active'));
+  window.scrollTo(0,S.savedY);
+  const r=document.querySelector(`.row[data-id="${id}"]`);
+  if(r) r.focus({preventScroll:true});
+}
+function renderPanel(flashAsg){
+  const t=byId(S.open);if(!t)return;
+  const st=STATUS[t.status],p=PRI[t.pri],d=dueInfo(t);
+  const list=visible(); const idx=list.findIndex(x=>x.id===t.id);
+  $('pId').textContent=t.id; $('pCat').textContent=t.cat;
+  $('pPos').textContent = idx>=0?`${idx+1} / ${list.length}`:'不在当前结果中';
+  $('pPrev').disabled = idx<=0; $('pNext').disabled = idx<0||idx>=list.length-1;
+  const done=t.checks.filter(c=>c[1]).length;
+  const m=mem(t.assignee);
+  $('pBody').innerHTML = `
+    <h2>${esc(t.title)}</h2>
+    <dl class="fields">
+      <dt>状态</dt><dd><span class="st ${st.c}"><span class="dot"></span>${st.l}</span></dd>
+      <dt>优先级</dt><dd><span class="pri ${p.c}"><span class="bars"><i></i><i></i><i></i></span>${p.l}</span></dd>
+      <dt>负责人</dt><dd id="pAsg" class="${flashAsg?'flash':''}">${av(t.assignee)}${t.assignee}<span style="color:var(--text-3)">· ${m.role}</span></dd>
+      <dt>截止日期</dt><dd>${d.label} ${d.week}<span class="due-sub ${d.cls}">${d.sub}</span></dd>
+      <dt>创建人</dt><dd>${av(t.creator)}${t.creator}</dd>
+      <dt>所属迭代</dt><dd>v2.4 版本迭代</dd>
+    </dl>
+    <section class="sec"><h3>任务说明</h3><p>${esc(t.desc)}</p></section>
+    <section class="sec"><h3>验收要求 <span class="muted">${done}/${t.checks.length}</span></h3>
+      <ul class="checks">${t.checks.map(c=>`<li class="${c[1]?'ok':''}"><span class="mk">${c[1]?'<svg class="i"><use href="#i-check"/></svg>':''}</span><span>${esc(c[0])}</span></li>`).join('')}</ul></section>
+    <section class="sec"><h3>相关资料 <span class="muted">${t.files.length}</span></h3>
+      ${t.files.length?`<ul class="files">${t.files.map(f=>`<li><svg class="i"><use href="#i-${f[1]==='设计稿'?'frame':'file'}"/></svg>${esc(f[0])}<em>${f[1]}</em></li>`).join('')}</ul>`:'<p style="color:var(--text-3)">暂无资料</p>'}</section>
+    <section class="sec"><h3>动态</h3>
+      <ol class="acts">${t.acts.map(a=>`<li class="${a.n?'new':''}"><b>${a.w}</b> ${esc(a.t)}<time>${a.d}</time></li>`).join('')}</ol></section>`;
+}
+$('pClose').addEventListener('click',closePanel);
+$('pPrev').addEventListener('click',()=>{const l=visible();const i=l.findIndex(x=>x.id===S.open);if(i>0)openPanel(l[i-1].id)});
+$('pNext').addEventListener('click',()=>{const l=visible();const i=l.findIndex(x=>x.id===S.open);if(i>=0&&i<l.length-1)openPanel(l[i+1].id)});
+
+/* ---------- batch assign ---------- */
+$('bbClear').addEventListener('click',()=>{S.sel.clear();render()});
+$('bbAssign').addEventListener('click',openAssign);
+function openAssign(){
+  S.pick=null; renderAssign();
+  $('assign').classList.add('show');$('scrim').classList.add('show');
+}
+function closeAssign(){ $('assign').classList.remove('show');$('scrim').classList.remove('show');S.pick=null }
+function renderAssign(){
+  const ids=[...S.sel];
+  $('asSub').textContent=`将已选的 ${ids.length} 条任务统一分配给：`;
+  $('asList').innerHTML = MEMBERS.map(m=>{
+    const load=tasks.filter(t=>t.assignee===m.name&&t.status!=='done').length;
+    return `<button class="as-item ${S.pick===m.name?'on':''}" data-pick="${m.name}" role="radio" aria-checked="${S.pick===m.name}">
+      <span class="radio"></span>${av(m.name,'lg')}<span class="who">${m.name}<small>${m.role}</small></span>
+      <span class="load">进行中/待开始<br>${load} 项</span></button>`}).join('');
+  const note=$('asNote');
+  if(!S.pick){note.textContent='请选择一位成员';$('asOk').disabled=true;return}
+  const already=ids.filter(id=>byId(id).assignee===S.pick).length;
+  const change=ids.length-already;
+  $('asOk').disabled = false;
+  note.innerHTML = change===0
+    ? `所选任务均已由 <b style="margin:0 3px">${S.pick}</b> 负责，确认后不会产生变更`
+    : `将把 <b style="margin:0 3px">${change}</b> 条任务的负责人改为 <b style="margin:0 3px">${S.pick}</b>${already?`，另有 ${already} 条原本就由其负责`:''}`;
+}
+$('asList').addEventListener('click',e=>{const b=e.target.closest('[data-pick]');if(!b)return;S.pick=b.dataset.pick;renderAssign()});
+$('asCancel').addEventListener('click',closeAssign);
+$('scrim').addEventListener('click',closeAssign);
+$('asOk').addEventListener('click',()=>{
+  const to=S.pick; if(!to) return;
+  const ids=[...S.sel];
+  const changed=ids.filter(id=>byId(id).assignee!==to);
+  closeAssign();
+  if(!changed.length){ S.sel.clear(); render(); showToast(`所选任务已由 ${to} 负责，未做变更`,false); return }
+  const snap=changed.map(id=>({id,prev:byId(id).assignee}));
+  changed.forEach(id=>{const t=byId(id);t.acts.unshift({w:me(),t:`将负责人从 ${t.assignee} 改为 ${to}`,d:'刚刚',n:1});t.assignee=to});
+  S.undo={snap,to};
+  S.sel.clear();
+  render(changed);
+  if(S.open && changed.includes(S.open)) renderPanel(true); else if(S.open) renderPanel();
+  const visSet=new Set(visible().map(t=>t.id));
+  const gone=changed.filter(id=>!visSet.has(id)).length;
+  const skipped=ids.length-changed.length;
+  let msg=`已将 ${changed.length} 条任务分配给 ${to}`;
+  let sub=[];
+  if(skipped) sub.push(`${skipped} 条原本就由其负责`);
+  if(gone) sub.push(`${gone} 条已不在当前筛选结果中`);
+  showToast(msg+(sub.length?`<span class="sub">（${sub.join('；')}）</span>`:''),true);
+});
+
+/* ---------- toast ---------- */
+let toastTimer=null;
+function showToast(html,canUndo){
+  $('toastText').innerHTML=html;
+  $('toastUndo').style.display=canUndo?'':'none';
+  $('toast').classList.add('show');
+  clearTimeout(toastTimer);toastTimer=setTimeout(hideToast,6000);
+}
+function hideToast(){$('toast').classList.remove('show')}
+$('toastClose').addEventListener('click',hideToast);
+$('toastUndo').addEventListener('click',()=>{
+  if(!S.undo) return;
+  const ids=S.undo.snap.map(s=>s.id);
+  S.undo.snap.forEach(s=>{const t=byId(s.id);t.assignee=s.prev;const i=t.acts.findIndex(a=>a.n);if(i>=0)t.acts.splice(i,1)});
+  S.undo=null;
+  render(ids);
+  if(S.open) renderPanel(ids.includes(S.open));
+  showToast('已撤销本次分配，负责人已恢复',false);
+});
+
+/* ---------- role ---------- */
+document.querySelector('.seg-role').addEventListener('click',e=>{
+  const b=e.target.closest('[data-role]');if(!b||b.dataset.role===S.role)return;
+  const prevMe=me();
+  S.role=b.dataset.role;
+  document.querySelectorAll('.seg-role button').forEach(x=>x.classList.toggle('on',x===b));
+  S.sel.clear();closeAssign();
+  if(S.assignee===prevMe) S.assignee=me();
+  $('pageSub').textContent = S.role==='lead'
+    ? 'v2.4 版本迭代 · 6月9日 – 6月21日 · 今天 6月13日 周五'
+    : `你好，${me()} · 成员视角下可查看全部任务，批量分配仅对负责人开放`;
+  render(); if(S.open) renderPanel();
+});
+
+/* ---------- keyboard ---------- */
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'){
+    if($('assign').classList.contains('show')) return closeAssign();
+    if($('asgMenu').classList.contains('open')) return toggleMenu(false);
+    if(S.open) return closePanel();
+  }
+  if(e.key==='/' && document.activeElement.tagName!=='INPUT'){e.preventDefault();$('q').focus()}
+});
+
+render();
+})();
+</script>
+</body>
+</html>

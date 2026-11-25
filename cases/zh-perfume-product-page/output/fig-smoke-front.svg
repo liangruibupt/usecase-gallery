@@ -1,0 +1,210 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1600" height="2000" viewBox="0 0 1600 2000">
+  <defs>
+    <!-- ===== Shared lighting rig (identical across the series) ===== -->
+    <radialGradient id="bgPool" gradientUnits="userSpaceOnUse" cx="520" cy="700" r="1150">
+      <stop offset="0" stop-color="#53392a"/>
+      <stop offset="0.3" stop-color="#33241a"/>
+      <stop offset="0.65" stop-color="#1a120d"/>
+      <stop offset="1" stop-color="#0c0806"/>
+    </radialGradient>
+    <linearGradient id="rightDark" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="1600" y2="0">
+      <stop offset="0" stop-color="#000" stop-opacity="0"/>
+      <stop offset="0.45" stop-color="#000" stop-opacity="0.12"/>
+      <stop offset="1" stop-color="#000" stop-opacity="0.6"/>
+    </linearGradient>
+    <linearGradient id="tableGrad" gradientUnits="userSpaceOnUse" x1="0" y1="1440" x2="0" y2="2000">
+      <stop offset="0" stop-color="#33251b"/>
+      <stop offset="0.45" stop-color="#1c130e"/>
+      <stop offset="1" stop-color="#0c0806"/>
+    </linearGradient>
+    <radialGradient id="tableLight" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#8a6242" stop-opacity="0.6"/>
+      <stop offset="1" stop-color="#8a6242" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="tableEdge" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="1600" y2="0">
+      <stop offset="0" stop-color="#9a6e4c" stop-opacity="0.4"/>
+      <stop offset="0.55" stop-color="#8c6446" stop-opacity="0.12"/>
+      <stop offset="1" stop-color="#8c6446" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="beam" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="900" y2="1500">
+      <stop offset="0" stop-color="#e8d2aa" stop-opacity="0.16"/>
+      <stop offset="1" stop-color="#e8d2aa" stop-opacity="0"/>
+    </linearGradient>
+    <radialGradient id="vignette" gradientUnits="userSpaceOnUse" cx="720" cy="980" r="1300">
+      <stop offset="0.45" stop-color="#000" stop-opacity="0"/>
+      <stop offset="1" stop-color="#000" stop-opacity="0.66"/>
+    </radialGradient>
+    <filter id="mottle" filterUnits="userSpaceOnUse" x="0" y="0" width="1600" height="2000">
+      <feTurbulence type="fractalNoise" baseFrequency="0.004 0.006" numOctaves="3" seed="11"/>
+      <feColorMatrix type="matrix" values="0 0 0 0 0.36  0 0 0 0 0.25  0 0 0 0 0.17  1.1 0 0 0 -0.45"/>
+    </filter>
+    <filter id="grain" filterUnits="userSpaceOnUse" x="0" y="0" width="1600" height="2000">
+      <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" seed="7"/>
+      <feColorMatrix type="matrix" values="0 0 0 0 0.91  0 0 0 0 0.88  0 0 0 0 0.82  0 0 0 1.4 -0.55"/>
+    </filter>
+    <filter id="b3" filterUnits="userSpaceOnUse" x="-2000" y="-2000" width="6000" height="6000"><feGaussianBlur stdDeviation="3"/></filter>
+    <filter id="b6" filterUnits="userSpaceOnUse" x="-2000" y="-2000" width="6000" height="6000"><feGaussianBlur stdDeviation="6"/></filter>
+    <filter id="b12" filterUnits="userSpaceOnUse" x="-2000" y="-2000" width="6000" height="6000"><feGaussianBlur stdDeviation="12"/></filter>
+    <filter id="b16" filterUnits="userSpaceOnUse" x="-2000" y="-2000" width="6000" height="6000"><feGaussianBlur stdDeviation="16"/></filter>
+    <filter id="b32" filterUnits="userSpaceOnUse" x="-2000" y="-2000" width="6000" height="6000"><feGaussianBlur stdDeviation="32"/></filter>
+    <filter id="b48" filterUnits="userSpaceOnUse" x="-2000" y="-2000" width="6000" height="6000"><feGaussianBlur stdDeviation="48"/></filter>
+
+    <!-- ===== Glass & liquid ===== -->
+    <linearGradient id="liquidFront" gradientUnits="userSpaceOnUse" x1="578" y1="0" x2="1022" y2="0">
+      <stop offset="0" stop-color="#a3633a"/>
+      <stop offset="0.18" stop-color="#86472c"/>
+      <stop offset="0.45" stop-color="#5a2a24"/>
+      <stop offset="0.8" stop-color="#2f1517"/>
+      <stop offset="1" stop-color="#1f0e10"/>
+    </linearGradient>
+    <linearGradient id="frontGlass" gradientUnits="userSpaceOnUse" x1="540" y1="0" x2="1060" y2="0">
+      <stop offset="0" stop-color="#e8e0d2" stop-opacity="0.18"/>
+      <stop offset="0.15" stop-color="#e8e0d2" stop-opacity="0.05"/>
+      <stop offset="0.65" stop-color="#e8e0d2" stop-opacity="0"/>
+      <stop offset="1" stop-color="#000" stop-opacity="0.32"/>
+    </linearGradient>
+    <linearGradient id="topGlass" gradientUnits="userSpaceOnUse" x1="540" y1="0" x2="1060" y2="0">
+      <stop offset="0" stop-color="#e8e0d2" stop-opacity="0.55"/>
+      <stop offset="0.4" stop-color="#e8e0d2" stop-opacity="0.22"/>
+      <stop offset="1" stop-color="#e8e0d2" stop-opacity="0.05"/>
+    </linearGradient>
+    <linearGradient id="baseGlass" gradientUnits="userSpaceOnUse" x1="0" y1="1525" x2="0" y2="1610">
+      <stop offset="0" stop-color="#c4834d" stop-opacity="0.5"/>
+      <stop offset="0.3" stop-color="#7a4a30" stop-opacity="0.4"/>
+      <stop offset="1" stop-color="#120a07" stop-opacity="0.75"/>
+    </linearGradient>
+    <linearGradient id="baseShade" gradientUnits="userSpaceOnUse" x1="540" y1="0" x2="1060" y2="0">
+      <stop offset="0" stop-color="#000" stop-opacity="0"/>
+      <stop offset="0.5" stop-color="#000" stop-opacity="0.1"/>
+      <stop offset="1" stop-color="#000" stop-opacity="0.55"/>
+    </linearGradient>
+    <linearGradient id="etch" gradientUnits="userSpaceOnUse" x1="-220" y1="0" x2="220" y2="0">
+      <stop offset="0" stop-color="#efe7d9" stop-opacity="0.78"/>
+      <stop offset="0.5" stop-color="#e8e0d2" stop-opacity="0.5"/>
+      <stop offset="1" stop-color="#e8e0d2" stop-opacity="0.26"/>
+    </linearGradient>
+    <clipPath id="liqClip"><rect x="578" y="912" width="444" height="613" rx="8"/></clipPath>
+
+    <!-- ===== Brass ===== -->
+    <linearGradient id="brass" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#4a361d"/>
+      <stop offset="0.08" stop-color="#9a7744"/>
+      <stop offset="0.19" stop-color="#f1d9a0"/>
+      <stop offset="0.27" stop-color="#d4b072"/>
+      <stop offset="0.45" stop-color="#9a7744"/>
+      <stop offset="0.7" stop-color="#5b4224"/>
+      <stop offset="0.9" stop-color="#261a0e"/>
+      <stop offset="1" stop-color="#3a2a16"/>
+    </linearGradient>
+    <linearGradient id="brassTop" x1="0" y1="0" x2="1" y2="0.3">
+      <stop offset="0" stop-color="#e9cf93"/>
+      <stop offset="0.35" stop-color="#b08d57"/>
+      <stop offset="1" stop-color="#3f2d17"/>
+    </linearGradient>
+    <linearGradient id="capShade" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#000" stop-opacity="0.35"/>
+      <stop offset="0.16" stop-color="#000" stop-opacity="0"/>
+      <stop offset="0.6" stop-color="#000" stop-opacity="0.15"/>
+      <stop offset="1" stop-color="#000" stop-opacity="0.6"/>
+    </linearGradient>
+    <linearGradient id="rimLight" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#ffe9b8" stop-opacity="0.8"/>
+      <stop offset="0.5" stop-color="#ffe9b8" stop-opacity="0.15"/>
+      <stop offset="1" stop-color="#ffe9b8" stop-opacity="0"/>
+    </linearGradient>
+    <pattern id="knurl" patternUnits="userSpaceOnUse" width="10" height="20">
+      <rect x="0" y="0" width="3" height="20" fill="#1c1209" opacity="0.55"/>
+      <rect x="4.5" y="0" width="1.5" height="20" fill="#ffe9b8" opacity="0.35"/>
+    </pattern>
+  </defs>
+
+  <!-- ===== Wall ===== -->
+  <rect width="1600" height="2000" fill="url(#bgPool)"/>
+  <rect width="1600" height="1440" fill="#000" filter="url(#mottle)" opacity="0.28"/>
+  <ellipse cx="430" cy="640" rx="420" ry="560" fill="#6a4a33" opacity="0.28" filter="url(#b48)"/>
+
+  <!-- ===== Table ===== -->
+  <rect x="0" y="1440" width="1600" height="560" fill="url(#tableGrad)"/>
+  <ellipse cx="660" cy="1660" rx="800" ry="250" fill="url(#tableLight)"/>
+  <rect x="0" y="1436" width="1600" height="7" fill="url(#tableEdge)" filter="url(#b3)"/>
+  <rect x="0" y="1440" width="1600" height="2" fill="#0a0604" opacity="0.5"/>
+
+  <!-- Light falloff & shaft -->
+  <rect width="1600" height="2000" fill="url(#rightDark)"/>
+  <polygon points="-100,-100 700,-100 1150,1500 250,1500" fill="url(#beam)" filter="url(#b48)"/>
+
+  <!-- ===== Shadow & caustic ===== -->
+  <ellipse cx="800" cy="1608" rx="300" ry="26" fill="#050302" opacity="0.6" filter="url(#b16)"/>
+  <polygon points="1040,1614 1060,1566 1450,1540 1520,1568 1100,1622" fill="#050302" opacity="0.85" filter="url(#b16)"/>
+  <ellipse cx="1190" cy="1590" rx="120" ry="14" fill="#c47a3e" opacity="0.38" filter="url(#b12)"/>
+  <ellipse cx="1170" cy="1592" rx="52" ry="5" fill="#e0a060" opacity="0.4" filter="url(#b3)"/>
+  <line x1="540" y1="1611" x2="1060" y2="1611" stroke="#000" stroke-width="8" opacity="0.8" filter="url(#b3)"/>
+
+  <!-- ===== Bottle (front) ===== -->
+  <rect x="578" y="912" width="444" height="613" rx="8" fill="url(#liquidFront)"/>
+  <g clip-path="url(#liqClip)">
+    <ellipse cx="690" cy="1120" rx="160" ry="380" fill="#e0985a" opacity="0.28" filter="url(#b32)"/>
+    <rect x="578" y="912" width="444" height="613" rx="8" fill="none" stroke="#000" stroke-width="10" opacity="0.35"/>
+  </g>
+  <line x1="580" y1="912" x2="1020" y2="912" stroke="#e8b27a" stroke-width="2" opacity="0.55"/>
+  <rect x="540" y="1525" width="520" height="85" fill="url(#baseGlass)"/>
+  <rect x="540" y="1525" width="520" height="85" fill="url(#baseShade)"/>
+  <line x1="578" y1="1525" x2="1022" y2="1525" stroke="#f0b880" stroke-width="2" opacity="0.5"/>
+  <rect x="540" y="870" width="520" height="740" fill="url(#frontGlass)"/>
+  <rect x="578" y="870" width="444" height="42" fill="#e8e0d2" opacity="0.07"/>
+  <rect x="540" y="870" width="38" height="740" fill="#e8e0d2" opacity="0.14"/>
+  <rect x="1022" y="870" width="38" height="740" fill="#000" opacity="0.45"/>
+  <polygon points="552,860 1048,860 1060,870 540,870" fill="url(#topGlass)"/>
+  <rect x="590" y="925" width="20" height="580" rx="10" fill="#e8e0d2" opacity="0.32" filter="url(#b6)"/>
+  <line x1="622" y1="930" x2="622" y2="1505" stroke="#e8e0d2" stroke-width="3" opacity="0.18"/>
+  <line x1="543" y1="871" x2="543" y2="1608" stroke="#f4ecdf" stroke-width="10" opacity="0.25" filter="url(#b6)"/>
+  <line x1="543" y1="871" x2="543" y2="1608" stroke="#f4ecdf" stroke-width="3" opacity="0.85"/>
+  <line x1="1057" y1="871" x2="1057" y2="1608" stroke="#e8e0d2" stroke-width="1.5" opacity="0.14"/>
+  <line x1="540" y1="870" x2="1060" y2="870" stroke="#f4ecdf" stroke-width="2" opacity="0.45"/>
+  <line x1="540" y1="1609" x2="1060" y2="1609" stroke="#e8e0d2" stroke-width="2" opacity="0.22"/>
+  <rect x="540" y="870" width="520" height="740" rx="5" fill="none" stroke="#e8e0d2" stroke-width="1.5" opacity="0.12"/>
+
+  <!-- engraving -->
+  <g transform="translate(800,0)">
+    <g fill="#0d0705" opacity="0.55" transform="translate(1.5,2)">
+      <text x="4.5" y="1062" font-family="Gill Sans, sans-serif" font-size="24" letter-spacing="9" text-anchor="middle">ATELIER OUBLI</text>
+      <text x="0" y="1258" font-family="Didot, serif" font-size="168" text-anchor="middle">Nº 7</text>
+      <text x="0" y="1338" font-family="Didot, serif" font-style="italic" font-size="58" text-anchor="middle">Fig &amp; Smoke</text>
+      <text x="3.5" y="1420" font-family="Gill Sans, sans-serif" font-size="19" letter-spacing="7" text-anchor="middle">EAU DE PARFUM</text>
+      <text x="2.5" y="1462" font-family="Gill Sans, sans-serif" font-size="16" letter-spacing="5" text-anchor="middle">50 ML · 1.7 FL OZ</text>
+    </g>
+    <g fill="url(#etch)">
+      <text x="4.5" y="1062" font-family="Gill Sans, sans-serif" font-size="24" letter-spacing="9" text-anchor="middle">ATELIER OUBLI</text>
+      <text x="0" y="1258" font-family="Didot, serif" font-size="168" text-anchor="middle">Nº 7</text>
+      <text x="0" y="1338" font-family="Didot, serif" font-style="italic" font-size="58" text-anchor="middle">Fig &amp; Smoke</text>
+      <text x="3.5" y="1420" font-family="Gill Sans, sans-serif" font-size="19" letter-spacing="7" text-anchor="middle">EAU DE PARFUM</text>
+      <text x="2.5" y="1462" font-family="Gill Sans, sans-serif" font-size="16" letter-spacing="5" text-anchor="middle">50 ML · 1.7 FL OZ</text>
+    </g>
+    <line x1="-60" y1="1095" x2="60" y2="1095" stroke="url(#etch)" stroke-width="1.5"/>
+    <line x1="-40" y1="1378" x2="40" y2="1378" stroke="url(#etch)" stroke-width="1.5"/>
+  </g>
+
+  <!-- ===== Brass cap ===== -->
+  <g transform="translate(800,0)">
+    <rect x="-70" y="824" width="140" height="44" fill="url(#brass)"/>
+    <rect x="-70" y="824" width="140" height="44" fill="url(#capShade)"/>
+    <line x1="-70" y1="838" x2="70" y2="838" stroke="#000" stroke-opacity="0.4" stroke-width="2"/>
+    <line x1="-70" y1="854" x2="70" y2="854" stroke="#000" stroke-opacity="0.4" stroke-width="2"/>
+    <ellipse cx="0" cy="826" rx="128" ry="13" fill="#000" opacity="0.55" filter="url(#b3)"/>
+    <rect x="-130" y="590" width="260" height="236" fill="url(#brass)"/>
+    <rect x="-130" y="612" width="260" height="150" fill="url(#knurl)" opacity="0.6"/>
+    <rect x="-130" y="590" width="260" height="236" fill="url(#capShade)"/>
+    <line x1="-130" y1="764" x2="130" y2="764" stroke="#1a1008" stroke-width="3" opacity="0.7"/>
+    <line x1="-130" y1="768" x2="130" y2="768" stroke="url(#rimLight)" stroke-width="1.5"/>
+    <line x1="-130" y1="610" x2="130" y2="610" stroke="#1a1008" stroke-width="2" opacity="0.6"/>
+    <rect x="-82" y="600" width="18" height="220" fill="#fff4d6" opacity="0.22" filter="url(#b6)"/>
+    <path d="M-130,826 A130,13 0 0 0 130,826" fill="none" stroke="url(#rimLight)" stroke-width="2"/>
+    <ellipse cx="0" cy="590" rx="130" ry="15" fill="url(#brassTop)"/>
+    <ellipse cx="0" cy="590" rx="112" ry="12" fill="none" stroke="#000" stroke-opacity="0.3" stroke-width="2"/>
+    <path d="M-130,590 A130,15 0 0 0 130,590" fill="none" stroke="url(#rimLight)" stroke-width="2.5"/>
+  </g>
+
+  <!-- ===== Finish ===== -->
+  <rect width="1600" height="2000" fill="url(#vignette)"/>
+  <rect width="1600" height="2000" fill="#000" filter="url(#grain)" opacity="0.22"/>
+</svg>

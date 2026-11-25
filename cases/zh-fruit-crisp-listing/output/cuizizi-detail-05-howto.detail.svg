@@ -1,0 +1,144 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="750" height="1000" viewBox="0 0 750 1000">
+<defs>
+<filter id="soft" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="2.5"/></filter>
+<filter id="sh" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur in="SourceAlpha" stdDeviation="4"/><feOffset dy="5"/><feComponentTransfer><feFuncA type="linear" slope=".4"/></feComponentTransfer><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+<pattern id="bPink" width="22" height="22" patternUnits="userSpaceOnUse"><circle cx="11" cy="11" r="5" fill="#FF3B5C"/></pattern>
+<pattern id="dMint" width="14" height="14" patternUnits="userSpaceOnUse"><circle cx="7" cy="7" r="3.2" fill="#36E2B4"/></pattern>
+<pattern id="dPurple" width="14" height="14" patternUnits="userSpaceOnUse"><circle cx="7" cy="7" r="3.2" fill="#7B4DFF"/></pattern>
+<pattern id="dLime" width="14" height="14" patternUnits="userSpaceOnUse"><circle cx="7" cy="7" r="3.2" fill="#C6FF3A"/></pattern>
+<radialGradient id="gS" cx="38%" cy="32%" r="70%"><stop offset="0" stop-color="#FF8F9C"/><stop offset=".45" stop-color="#E5162F"/><stop offset="1" stop-color="#8A0014"/></radialGradient>
+<radialGradient id="gL" cx="40%" cy="30%" r="80%"><stop offset="0" stop-color="#7EDC6E"/><stop offset="1" stop-color="#1D7A32"/></radialGradient>
+<radialGradient id="gSc" cx="50%" cy="45%" r="60%"><stop offset="0" stop-color="#FFF4F4"/><stop offset=".55" stop-color="#FF9DAD"/><stop offset="1" stop-color="#EE3352"/></radialGradient>
+<radialGradient id="gM" cx="38%" cy="30%" r="75%"><stop offset="0" stop-color="#FFF4A8"/><stop offset=".5" stop-color="#FFC21A"/><stop offset="1" stop-color="#E67E00"/></radialGradient>
+<linearGradient id="gP" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFE7A6"/><stop offset=".6" stop-color="#FFB341"/><stop offset="1" stop-color="#F08A1C"/></linearGradient>
+<radialGradient id="gB" cx="35%" cy="30%" r="75%"><stop offset="0" stop-color="#9AA3F0"/><stop offset=".4" stop-color="#3D44B0"/><stop offset="1" stop-color="#14154A"/></radialGradient>
+<linearGradient id="glass" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#E4F7FF"/><stop offset=".5" stop-color="#FFFFFF"/><stop offset="1" stop-color="#D6EEFA"/></linearGradient>
+<g id="straw">
+<path d="M0,-38C28,-46 50,-22 42,10C34,40 12,58 0,62C-12,58 -34,40 -42,10C-50,-22 -28,-46 0,-38Z" fill="url(#gS)"/>
+<g fill="#FFE08A" stroke="#9E0A1E" stroke-width=".8"><ellipse cx="-22" cy="-14" rx="1.8" ry="3"/><ellipse cx="-4" cy="-22" rx="1.8" ry="3"/><ellipse cx="16" cy="-18" rx="1.8" ry="3"/><ellipse cx="30" cy="-4" rx="1.8" ry="3"/><ellipse cx="-32" cy="2" rx="1.8" ry="3"/><ellipse cx="-14" cy="-2" rx="1.8" ry="3"/><ellipse cx="6" cy="-6" rx="1.8" ry="3"/><ellipse cx="22" cy="8" rx="1.8" ry="3"/><ellipse cx="-24" cy="20" rx="1.8" ry="3"/><ellipse cx="-6" cy="14" rx="1.8" ry="3"/><ellipse cx="12" cy="22" rx="1.8" ry="3"/><ellipse cx="28" cy="24" rx="1.8" ry="3"/><ellipse cx="-14" cy="34" rx="1.8" ry="3"/><ellipse cx="4" cy="36" rx="1.8" ry="3"/><ellipse cx="18" cy="40" rx="1.8" ry="3"/><ellipse cx="-4" cy="50" rx="1.8" ry="3"/></g>
+<ellipse cx="-17" cy="-10" rx="9" ry="20" fill="#fff" opacity=".45" filter="url(#soft)" transform="rotate(20 -17 -10)"/>
+<path d="M0,-34L-30,-44L-12,-33L-34,-24L-8,-28L0,-48L8,-28L34,-24L12,-33L30,-44Z" fill="url(#gL)"/>
+<path d="M0,-42Q2,-52 7,-58" stroke="#2E7D32" stroke-width="4" fill="none" stroke-linecap="round"/>
+</g>
+<g id="scut">
+<path d="M0,-38C28,-46 50,-22 42,10C34,40 12,58 0,62C-12,58 -34,40 -42,10C-50,-22 -28,-46 0,-38Z" fill="#C9102B"/>
+<path d="M0,-38C28,-46 50,-22 42,10C34,40 12,58 0,62C-12,58 -34,40 -42,10C-50,-22 -28,-46 0,-38Z" transform="translate(0,3) scale(.86)" fill="url(#gSc)"/>
+<path d="M0,-24C9,-8 9,22 0,44C-9,22 -9,-8 0,-24Z" fill="#FFFBF7" opacity=".9"/>
+<g stroke="#FFF6F6" stroke-width="2" fill="none" opacity=".75" stroke-linecap="round"><path d="M-3,-10Q-16,-22 -30,-26"/><path d="M3,-10Q16,-22 30,-26"/><path d="M-5,6Q-22,2 -36,6"/><path d="M5,6Q22,2 36,6"/><path d="M-4,22Q-16,30 -26,36"/><path d="M4,22Q16,30 26,36"/></g>
+<g fill="#FFE7A0"><circle cx="-34" cy="-14" r="1.6"/><circle cx="34" cy="-14" r="1.6"/><circle cx="-38" cy="10" r="1.6"/><circle cx="38" cy="10" r="1.6"/><circle cx="-26" cy="36" r="1.6"/><circle cx="26" cy="36" r="1.6"/><circle cx="0" cy="56" r="1.6"/></g>
+<ellipse cx="-18" cy="-18" rx="8" ry="14" fill="#fff" opacity=".35" filter="url(#soft)"/>
+</g>
+<g id="mango">
+<path d="M-40,-26C-20,-40 26,-40 42,-22C52,-2 46,24 32,36C8,46 -24,42 -40,28C-52,8 -50,-12 -40,-26Z" fill="url(#gM)"/>
+<g stroke="#EE9A00" stroke-width="1.6" fill="none" opacity=".55"><path d="M-30,-20Q0,-28 34,-14"/><path d="M-38,0Q0,-8 42,6"/><path d="M-32,20Q0,14 34,26"/></g>
+<ellipse cx="-16" cy="-18" rx="16" ry="7" fill="#fff" opacity=".5" filter="url(#soft)"/>
+</g>
+<g id="peach">
+<path d="M-46,22C-46,-20 -10,-46 40,-40C46,-38 48,-30 42,-26C6,-20 -18,2 -24,34C-26,42 -46,40 -46,22Z" fill="url(#gP)"/>
+<path d="M-44,22C-44,-18 -10,-43 40,-38" stroke="#FF4F3A" stroke-width="6" fill="none" stroke-linecap="round" opacity=".85"/>
+<ellipse cx="-20" cy="-10" rx="5" ry="16" fill="#fff" opacity=".5" filter="url(#soft)" transform="rotate(35 -20 -10)"/>
+</g>
+<g id="bb">
+<circle r="22" fill="url(#gB)"/>
+<path d="M0,-6L1.8,-2L6,-2L2.6,1L3.8,5.5L0,3L-3.8,5.5L-2.6,1L-6,-2L-1.8,-2Z" fill="#20214F" transform="translate(3,-11)"/>
+<ellipse cx="-8" cy="-7" rx="5" ry="8" fill="#fff" opacity=".45" filter="url(#soft)"/>
+</g>
+<path id="pouchTop" d="M0,26V6l8.5,-6l8.5,6l8.5,-6l8.5,6l8.5,-6l8.5,6l8.5,-6l8.5,6l8.5,-6l8.5,6l8.5,-6l8.5,6l8.5,-6l8.5,6l8.5,-6l8.5,6l8.5,-6l8.5,6l8.5,-6l8.5,6V26Z"/>
+<ellipse id="flk" rx="11" ry="6"/>
+<polygon id="burst16" points="64,0 42.5,17.6 45.3,45.3 17.6,42.5 0,64 -17.6,42.5 -45.3,45.3 -42.5,17.6 -64,0 -42.5,-17.6 -45.3,-45.3 -17.6,-42.5 0,-64 17.6,-42.5 45.3,-45.3 42.5,-17.6"/>
+</defs>
+
+<rect width="750" height="1000" fill="#36E2B4"/>
+<rect width="750" height="1000" fill="url(#bPink)" opacity=".35"/>
+
+<!-- 标题 -->
+<g font-family="Source Han Sans SC, sans-serif" font-weight="900" font-size="88" text-anchor="middle">
+<text x="383" y="126" fill="#111">三种吃法</text>
+<text x="375" y="118" fill="#fff" stroke="#111" stroke-width="12" stroke-linejoin="round" paint-order="stroke">三种吃法</text>
+</g>
+<rect x="215" y="146" width="320" height="50" rx="25" fill="#111"/>
+<text x="375" y="181" text-anchor="middle" font-family="Source Han Sans SC, sans-serif" font-weight="800" font-size="28" fill="#fff">怎么咔嚓都可以</text>
+
+<!-- 格1 泡酸奶 -->
+<rect x="38" y="223" width="690" height="230" rx="14" fill="#111"/>
+<rect x="30" y="215" width="690" height="230" rx="14" fill="#fff"/>
+<path d="M33,229Q33,218 44,218H323V442H44Q33,442 33,431Z" fill="#FF3B5C"/>
+<path d="M33,229Q33,218 44,218H323V442H44Q33,442 33,431Z" fill="url(#dMint)" opacity=".5"/>
+<line x1="323" y1="215" x2="323" y2="445" stroke="#111" stroke-width="6"/>
+<rect x="30" y="215" width="690" height="230" rx="14" fill="none" stroke="#111" stroke-width="6"/>
+<line x1="262" y1="236" x2="214" y2="304" stroke="#111" stroke-width="14" stroke-linecap="round"/>
+<line x1="262" y1="236" x2="214" y2="304" stroke="#E9EDF3" stroke-width="7" stroke-linecap="round"/>
+<path d="M116,290L240,290L227,428H129Z" fill="url(#glass)" stroke="#111" stroke-width="5" stroke-linejoin="round"/>
+<path d="M121,312L235,312L226,423H130Z" fill="#FFFDF8"/>
+<path d="M128,322L140,322L136,412H132Z" fill="#fff" opacity=".9"/>
+<path d="M116,290L240,290L227,428H129Z" fill="none" stroke="#111" stroke-width="5" stroke-linejoin="round"/>
+<ellipse cx="178" cy="292" rx="66" ry="15" fill="#fff" stroke="#111" stroke-width="5"/>
+<use href="#scut" transform="translate(150,278) rotate(-22) scale(.48)" filter="url(#sh)"/>
+<use href="#mango" transform="translate(208,276) rotate(15) scale(.42)" filter="url(#sh)"/>
+<use href="#bb" transform="translate(182,286) scale(.55)" filter="url(#sh)"/>
+<use href="#scut" transform="translate(668,300) rotate(15) scale(.7)" filter="url(#sh)"/>
+<rect x="360" y="247" width="84" height="40" rx="8" fill="#111"/>
+<text x="402" y="277" text-anchor="middle" font-family="Futura, sans-serif" font-weight="700" font-size="26" fill="#FF3B5C">01</text>
+<text x="360" y="348" font-family="Source Han Sans SC, sans-serif" font-weight="900" font-size="56" fill="#111">泡酸奶</text>
+<text x="360" y="398" font-family="Source Han Sans SC, sans-serif" font-weight="500" font-size="26" fill="#333">撒在酸奶上，拌一拌开吃</text>
+
+<!-- 格2 配麦片 -->
+<rect x="38" y="473" width="690" height="230" rx="14" fill="#111"/>
+<rect x="30" y="465" width="690" height="230" rx="14" fill="#fff"/>
+<path d="M33,479Q33,468 44,468H323V692H44Q33,692 33,681Z" fill="#FFC300"/>
+<path d="M33,479Q33,468 44,468H323V692H44Q33,692 33,681Z" fill="url(#dPurple)" opacity=".45"/>
+<line x1="323" y1="465" x2="323" y2="695" stroke="#111" stroke-width="6"/>
+<rect x="30" y="465" width="690" height="230" rx="14" fill="none" stroke="#111" stroke-width="6"/>
+<line x1="268" y1="498" x2="226" y2="560" stroke="#111" stroke-width="14" stroke-linecap="round"/>
+<line x1="268" y1="498" x2="226" y2="560" stroke="#E9EDF3" stroke-width="7" stroke-linecap="round"/>
+<ellipse cx="178" cy="580" rx="88" ry="16" fill="#E8B36A" stroke="#111" stroke-width="4"/>
+<g fill="#D99A4E" stroke="#8A4416" stroke-width="2">
+<use href="#flk" transform="translate(112,574) rotate(-15)"/><use href="#flk" transform="translate(132,566) rotate(20)"/><use href="#flk" transform="translate(236,572) rotate(-25)"/><use href="#flk" transform="translate(250,580) rotate(10)"/><use href="#flk" transform="translate(196,566) rotate(30)"/><use href="#flk" transform="translate(120,584) rotate(5)"/>
+</g>
+<use href="#scut" transform="translate(140,556) rotate(-18) scale(.44)" filter="url(#sh)"/>
+<use href="#bb" transform="translate(176,560) scale(.5)" filter="url(#sh)"/>
+<use href="#mango" transform="translate(212,556) rotate(12) scale(.4)" filter="url(#sh)"/>
+<use href="#peach" transform="translate(240,566) rotate(-10) scale(.34)" filter="url(#sh)"/>
+<path d="M88,582H268Q262,672 178,674Q94,672 88,582Z" fill="#fff" stroke="#111" stroke-width="5" stroke-linejoin="round"/>
+<path d="M88,582H268Q262,672 178,674Q94,672 88,582Z" fill="url(#dPurple)" opacity=".25"/>
+<path d="M104,600Q112,640 140,656" stroke="#fff" stroke-width="7" fill="none" stroke-linecap="round"/>
+<use href="#mango" transform="translate(668,552) rotate(-12) scale(.6)" filter="url(#sh)"/>
+<rect x="360" y="497" width="84" height="40" rx="8" fill="#111"/>
+<text x="402" y="527" text-anchor="middle" font-family="Futura, sans-serif" font-weight="700" font-size="26" fill="#FFC300">02</text>
+<text x="360" y="598" font-family="Source Han Sans SC, sans-serif" font-weight="900" font-size="56" fill="#111">配麦片</text>
+<text x="360" y="648" font-family="Source Han Sans SC, sans-serif" font-weight="500" font-size="26" fill="#333">和麦片一起倒进碗里</text>
+
+<!-- 格3 直接吃 -->
+<rect x="38" y="723" width="690" height="230" rx="14" fill="#111"/>
+<rect x="30" y="715" width="690" height="230" rx="14" fill="#fff"/>
+<path d="M33,729Q33,718 44,718H323V942H44Q33,942 33,931Z" fill="#2B47FF"/>
+<path d="M33,729Q33,718 44,718H323V942H44Q33,942 33,931Z" fill="url(#dLime)" opacity=".45"/>
+<line x1="323" y1="715" x2="323" y2="945" stroke="#111" stroke-width="6"/>
+<rect x="30" y="715" width="690" height="230" rx="14" fill="none" stroke="#111" stroke-width="6"/>
+<g transform="translate(62,752) scale(.6) rotate(-10 85 130)">
+<path d="M8,32H178V256Q178,268 166,268H20Q8,268 8,256Z" fill="#111"/>
+<path d="M0,24H170V248Q170,260 158,260H12Q0,260 0,248Z" fill="#FF3B5C" stroke="#111" stroke-width="6" stroke-linejoin="round"/>
+<path d="M3,27H167V248Q167,257 158,257H12Q3,257 3,248Z" fill="url(#dMint)" opacity=".55"/>
+<use href="#pouchTop" fill="#36E2B4" stroke="#111" stroke-width="5" stroke-linejoin="round"/>
+<text x="85" y="74" text-anchor="middle" font-family="Source Han Sans SC, sans-serif" font-weight="900" font-size="34" fill="#fff" stroke="#111" stroke-width="7" stroke-linejoin="round" paint-order="stroke">脆滋滋</text>
+<circle cx="85" cy="168" r="62" fill="#fff" stroke="#111" stroke-width="6"/>
+<use href="#straw" transform="translate(85,148) scale(.6)"/>
+<text x="85" y="218" text-anchor="middle" font-family="Source Han Sans SC, sans-serif" font-weight="900" font-size="30" fill="#111">草莓</text>
+</g>
+<use href="#scut" transform="translate(230,780) rotate(30) scale(.5)" filter="url(#sh)"/>
+<use href="#bb" transform="translate(288,770) scale(.5)" filter="url(#sh)"/>
+<use href="#mango" transform="translate(272,858) rotate(-20) scale(.45)" filter="url(#sh)"/>
+<use href="#peach" transform="translate(222,898) rotate(15) scale(.38)" filter="url(#sh)"/>
+<g stroke="#fff" stroke-width="5" stroke-linecap="round"><line x1="196" y1="758" x2="186" y2="740"/><line x1="254" y1="820" x2="276" y2="814"/><line x1="300" y1="808" x2="312" y2="796"/></g>
+<g transform="translate(650,802) rotate(10)">
+<use href="#burst16" transform="translate(5,5) scale(.75)" fill="#111"/>
+<use href="#burst16" transform="scale(.75)" fill="#FFC300" stroke="#111" stroke-width="5" stroke-linejoin="round"/>
+<text x="0" y="8" text-anchor="middle" font-family="Source Han Sans SC, sans-serif" font-weight="900" font-size="22" fill="#FF3B5C" stroke="#111" stroke-width="3" paint-order="stroke">咔嚓！</text>
+</g>
+<rect x="360" y="747" width="84" height="40" rx="8" fill="#111"/>
+<text x="402" y="777" text-anchor="middle" font-family="Futura, sans-serif" font-weight="700" font-size="26" fill="#C6FF3A">03</text>
+<text x="360" y="848" font-family="Source Han Sans SC, sans-serif" font-weight="900" font-size="56" fill="#111">直接吃</text>
+<text x="360" y="898" font-family="Source Han Sans SC, sans-serif" font-weight="500" font-size="26" fill="#333">撕开袋子，直接开吃</text>
+
+<text x="375" y="984" text-anchor="middle" font-family="Futura, sans-serif" font-weight="700" font-size="18" letter-spacing="6" fill="#111">CUIZIZI · 3 WAYS TO CRUNCH</text>
+</svg>

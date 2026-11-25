@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080">
+  <defs>
+    <linearGradient id="wall" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#E6DFD3"/>
+      <stop offset="1" stop-color="#EFEAE1"/>
+    </linearGradient>
+    <linearGradient id="floor" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#D3B790"/>
+      <stop offset="1" stop-color="#C6A47A"/>
+    </linearGradient>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#F8F7F2"/>
+      <stop offset="1" stop-color="#E9EDE6"/>
+    </linearGradient>
+    <filter id="soft" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="14"/>
+    </filter>
+    <filter id="softS" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="6"/>
+    </filter>
+    <clipPath id="img"><rect x="720" y="0" width="1200" height="1080"/></clipPath>
+    <clipPath id="win"><rect x="870" y="130" width="380" height="580"/></clipPath>
+  </defs>
+
+  <rect width="1920" height="1080" fill="#FBFAF7"/>
+
+  <!-- 右侧出血画面：客厅示意 -->
+  <g clip-path="url(#img)">
+    <rect x="720" y="0" width="1200" height="800" fill="url(#wall)"/>
+    <rect x="720" y="800" width="1200" height="280" fill="url(#floor)"/>
+    <g stroke="#B08E64" stroke-opacity="0.35" stroke-width="1.5">
+      <line x1="760" y1="800" x2="412" y2="1080"/>
+      <line x1="850" y1="800" x2="556" y2="1080"/>
+      <line x1="940" y1="800" x2="700" y2="1080"/>
+      <line x1="1030" y1="800" x2="844" y2="1080"/>
+      <line x1="1120" y1="800" x2="988" y2="1080"/>
+      <line x1="1210" y1="800" x2="1132" y2="1080"/>
+      <line x1="1300" y1="800" x2="1276" y2="1080"/>
+      <line x1="1390" y1="800" x2="1420" y2="1080"/>
+      <line x1="1480" y1="800" x2="1564" y2="1080"/>
+      <line x1="1570" y1="800" x2="1708" y2="1080"/>
+      <line x1="1660" y1="800" x2="1852" y2="1080"/>
+      <line x1="1750" y1="800" x2="1996" y2="1080"/>
+    </g>
+    <rect x="720" y="796" width="1200" height="6" fill="#DDD5C8"/>
+
+    <!-- 窗 -->
+    <rect x="850" y="110" width="420" height="620" fill="#D8CFC1"/>
+    <rect x="870" y="130" width="380" height="580" fill="url(#sky)"/>
+    <g clip-path="url(#win)">
+      <ellipse cx="950" cy="700" rx="140" ry="90" fill="#C7CFBC" opacity="0.6"/>
+      <ellipse cx="1150" cy="710" rx="160" ry="70" fill="#D2D8C8" opacity="0.6"/>
+    </g>
+    <rect x="870" y="130" width="380" height="580" fill="none" stroke="#B89A74" stroke-width="10"/>
+    <line x1="1060" y1="130" x2="1060" y2="710" stroke="#B89A74" stroke-width="8"/>
+    <line x1="870" y1="330" x2="1250" y2="330" stroke="#B89A74" stroke-width="8"/>
+    <rect x="838" y="722" width="444" height="14" fill="#EAE4D9"/>
+
+    <!-- 地面光斑 -->
+    <polygon points="870,804 1250,804 1640,1080 1180,1080" fill="#FFFCF3" opacity="0.6" filter="url(#soft)"/>
+    <line x1="1060" y1="804" x2="1410" y2="1080" stroke="#B08E64" stroke-opacity="0.18" stroke-width="14" filter="url(#softS)"/>
+    <line x1="1047" y1="960" x2="1473" y2="960" stroke="#B08E64" stroke-opacity="0.15" stroke-width="12" filter="url(#softS)"/>
+
+    <!-- 地毯 -->
+    <polygon points="1140,905 1860,905 1930,1060 1060,1060" fill="#EEE8DD" opacity="0.92"/>
+
+    <!-- 绿植 -->
+    <ellipse cx="1190" cy="906" rx="56" ry="8" fill="#7A6A55" opacity="0.18" filter="url(#softS)"/>
+    <g stroke="#6F7A60" stroke-width="2.5" fill="none">
+      <path d="M1190,832 C1186,760 1170,700 1150,640"/>
+      <path d="M1190,832 C1196,760 1214,700 1236,660"/>
+      <path d="M1190,832 C1190,780 1188,740 1192,700"/>
+    </g>
+    <g>
+      <ellipse cx="1148" cy="640" rx="34" ry="14" transform="rotate(-50 1148 640)" fill="#8E9B80"/>
+      <ellipse cx="1166" cy="700" rx="30" ry="12" transform="rotate(-30 1166 700)" fill="#A3AD93"/>
+      <ellipse cx="1238" cy="660" rx="34" ry="13" transform="rotate(40 1238 660)" fill="#8E9B80"/>
+      <ellipse cx="1214" cy="720" rx="28" ry="11" transform="rotate(25 1214 720)" fill="#A3AD93"/>
+      <ellipse cx="1192" cy="696" rx="12" ry="30" fill="#97A388"/>
+      <ellipse cx="1174" cy="760" rx="26" ry="10" transform="rotate(-20 1174 760)" fill="#8E9B80"/>
+    </g>
+    <polygon points="1150,830 1230,830 1220,905 1160,905" fill="#D2C6B4"/>
+    <rect x="1146" y="826" width="88" height="8" rx="3" fill="#DDD3C3"/>
+
+    <!-- 沙发 -->
+    <ellipse cx="1530" cy="896" rx="270" ry="18" fill="#7A6A55" opacity="0.22" filter="url(#softS)"/>
+    <rect x="1310" y="690" width="440" height="130" rx="22" fill="#D8CEBD"/>
+    <rect x="1330" y="710" width="192" height="100" rx="18" fill="#E3DACB"/>
+    <rect x="1536" y="710" width="194" height="100" rx="18" fill="#E3DACB"/>
+    <rect x="1600" y="744" width="92" height="68" rx="16" fill="#BCA98B"/>
+    <rect x="1295" y="800" width="470" height="70" rx="16" fill="#D0C5B2"/>
+    <rect x="1280" y="760" width="50" height="112" rx="20" fill="#C9BDA9"/>
+    <rect x="1730" y="760" width="50" height="112" rx="20" fill="#C9BDA9"/>
+    <rect x="1312" y="870" width="10" height="22" fill="#8B6B4A"/>
+    <rect x="1738" y="870" width="10" height="22" fill="#8B6B4A"/>
+
+    <!-- 陶瓷吊灯 -->
+    <ellipse cx="1530" cy="540" rx="170" ry="80" fill="#FFF4DC" opacity="0.5" filter="url(#soft)"/>
+    <line x1="1530" y1="0" x2="1530" y2="432" stroke="#6E655B" stroke-width="1.5"/>
+    <path d="M1468,488 C1468,450 1494,430 1530,430 C1566,430 1592,450 1592,488 Z" fill="#F1ECE2"/>
+    <path d="M1478,470 C1484,450 1502,438 1520,436" stroke="#FFFFFF" stroke-width="3" fill="none" opacity="0.7"/>
+    <ellipse cx="1530" cy="488" rx="62" ry="6" fill="#D7CDBD"/>
+  </g>
+
+  <!-- 左侧文字栏 -->
+  <text x="120" y="150" font-family="'Avenir Next', sans-serif" font-size="16" letter-spacing="6" fill="#8A8278">MUYU DESIGN STUDIO</text>
+  <rect x="120" y="178" width="40" height="1.5" fill="#2A2826"/>
+
+  <text x="120" y="480" font-family="'Source Han Sans SC', sans-serif" font-weight="300" font-size="104" letter-spacing="8" fill="#2A2826">木屿设计</text>
+  <text x="122" y="548" font-family="Didot, serif" font-style="italic" font-size="40" fill="#5E574F">Muyu Design Studio</text>
+  <text x="122" y="616" font-family="'Source Han Sans SC', sans-serif" font-weight="400" font-size="22" letter-spacing="4" fill="#5E574F">室内设计工作室介绍</text>
+  <text x="122" y="648" font-family="'Avenir Next', sans-serif" font-size="15" letter-spacing="4" fill="#9A9288">STUDIO PROFILE</text>
+
+  <text x="120" y="880" font-family="'Source Han Sans SC', sans-serif" font-weight="400" font-size="20" letter-spacing="2" fill="#2A2826">杭州 · 住宅与小型商业空间</text>
+  <text x="120" y="912" font-family="'Avenir Next', sans-serif" font-size="14" letter-spacing="2" fill="#9A9288">Hangzhou · Residential &amp; Small Commercial</text>
+
+  <!-- 页脚 -->
+  <text x="120" y="1010" font-family="Didot, serif" font-size="18" fill="#2A2826">01 <tspan fill="#B0A89D">/ 09</tspan></text>
+  <text x="640" y="1010" text-anchor="end" font-family="'Source Han Sans SC', sans-serif" font-weight="300" font-size="13" fill="#9A9288">示意插画 · 客厅空间</text>
+  <text x="1800" y="1010" text-anchor="end" font-family="'Avenir Next', sans-serif" font-size="13" letter-spacing="4" fill="#8A7A66">MUYU DESIGN STUDIO</text>
+</svg>

@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>周末咖啡漫游 · 活动报名（示例页面）</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#F7F0E5; --paper:#FBF7F0; --sand:#EADCC7; --line:#DCCAB0;
+    --coffee:#4A3428; --espresso:#2E2019; --mocha:#8A5A3C;
+    --bean:#C96F4A; --bean-soft:#F1D2BF; --muted:#7A6556;
+    --sans:"PingFang SC","Hiragino Sans GB","Source Han Sans SC","Microsoft YaHei",sans-serif;
+    --serif:"Songti SC","STSong","Source Han Serif SC",serif;
+    --latin:"Fraunces",Georgia,"Songti SC",serif;
+    --radius:18px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:var(--sans);color:var(--coffee);background:var(--cream);line-height:1.7;-webkit-font-smoothing:antialiased}
+  a{color:inherit}
+  img{max-width:100%;display:block}
+  .wrap{max-width:1200px;margin:0 auto;padding:0 40px}
+  .sample{display:inline-block;font-size:11px;line-height:1;padding:4px 7px;border-radius:999px;background:var(--bean-soft);color:#9A4A2A;font-weight:600;letter-spacing:.5px;vertical-align:middle;margin-left:6px;white-space:nowrap}
+
+  /* demo banner */
+  .demo-bar{background:var(--espresso);color:#F3E6D3;font-size:13px;text-align:center;padding:8px 16px}
+  .demo-bar b{color:#F2B08E;font-weight:600}
+
+  /* nav */
+  .nav{position:sticky;top:0;z-index:20;background:rgba(247,240,229,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+  .nav .wrap{display:flex;align-items:center;justify-content:space-between;height:68px}
+  .logo{display:flex;align-items:center;gap:10px;text-decoration:none;font-family:var(--serif);font-weight:700;font-size:19px}
+  .logo i{width:30px;height:30px;border-radius:50%;background:var(--coffee);display:grid;place-items:center;color:var(--cream);font-style:normal;font-family:var(--latin);font-size:14px}
+  .nav ul{display:flex;gap:28px;list-style:none;font-size:14px}
+  .nav ul a{text-decoration:none;color:var(--muted)}
+  .nav ul a:hover{color:var(--coffee)}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:none;cursor:pointer;font-family:var(--sans);font-weight:600;text-decoration:none;border-radius:999px;transition:transform .15s, background .2s, box-shadow .2s, color .2s}
+  .btn:active{transform:translateY(1px)}
+  .btn-primary{background:var(--bean);color:#fff;padding:14px 28px;font-size:16px;box-shadow:0 6px 18px rgba(201,111,74,.28)}
+  .btn-primary:hover{background:#B85F3C}
+  .btn-ghost{background:transparent;color:var(--coffee);padding:13px 24px;font-size:16px;border:1.5px solid var(--coffee)}
+  .btn-ghost:hover{background:var(--coffee);color:var(--cream)}
+  .btn-sm{padding:9px 18px;font-size:14px;box-shadow:none}
+  :focus-visible{outline:3px solid var(--bean);outline-offset:3px}
+
+  /* hero */
+  .hero{padding:64px 0 72px}
+  .hero .wrap{display:grid;grid-template-columns:1.15fr .85fr;gap:64px;align-items:center}
+  .kicker{display:flex;gap:14px;align-items:center;font-size:13px;letter-spacing:2px;color:var(--mocha);text-transform:uppercase;margin-bottom:26px}
+  .kicker span{width:40px;height:1px;background:var(--mocha)}
+  .hero h1{font-family:var(--serif);font-weight:900;font-size:96px;line-height:1.02;letter-spacing:4px;color:var(--espresso)}
+  .hero h1 em{font-style:normal;color:var(--bean)}
+  .hero .latin{font-family:var(--latin);font-style:italic;font-size:26px;color:var(--mocha);margin:14px 0 18px}
+  .hero .lead{font-size:19px;max-width:520px;color:#5C463A;text-wrap:balance}
+  .meta{display:grid;grid-template-columns:repeat(3,1fr);margin:30px 0 36px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .meta div{padding:16px 16px 16px 0}
+  .meta div+div{padding-left:18px;border-left:1px solid var(--line)}
+  .meta dt{font-size:12px;color:var(--muted);letter-spacing:1px}
+  .meta dd{font-weight:600;font-size:15px;margin-top:4px}
+  .cta-row{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+  .cta-note{font-size:13px;color:var(--muted);margin-top:16px}
+  .hero-art{position:relative}
+  .hero-art figure{position:relative;z-index:1;background:var(--paper);padding:14px;border-radius:26px;box-shadow:0 24px 50px -24px rgba(74,52,40,.35);transform:rotate(1.2deg)}
+  .hero-art img{border-radius:18px;width:100%;height:auto}
+  .hero-art figcaption{font-size:12px;color:var(--muted);padding:10px 6px 0;display:flex;justify-content:space-between}
+  .stamp{position:absolute;z-index:2;left:-36px;top:-40px;width:112px;height:112px;border-radius:50%;background:var(--bean);color:#fff;display:grid;place-items:center;text-align:center;transform:rotate(-12deg);box-shadow:0 10px 24px rgba(201,111,74,.35);font-size:12px;line-height:1.35}
+  .stamp b{display:block;font-family:var(--latin);font-size:30px;line-height:1}
+
+  /* section shared */
+  section{scroll-margin-top:80px}
+  .sec{padding:96px 0}
+  .sec-head{display:flex;justify-content:space-between;align-items:flex-end;gap:32px;margin-bottom:48px}
+  .sec-no{font-family:var(--latin);font-size:14px;color:var(--bean);letter-spacing:2px}
+  .sec-head h2{font-family:var(--serif);font-size:44px;line-height:1.2;color:var(--espresso);margin-top:8px}
+  .sec-head p{max-width:420px;color:var(--muted);font-size:15px}
+
+  /* workshop */
+  .workshop{background:var(--espresso);color:#E9DCCB}
+  .workshop .sec-no{color:#F2B08E}
+  .workshop .sec-head h2{color:var(--cream)}
+  .workshop .sec-head p{color:#BFA88F}
+  .ws-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+  .ws-card{background:var(--paper);color:var(--coffee);border-radius:22px;padding:34px;display:flex;flex-direction:column}
+  .ws-top{display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:13px;flex-wrap:wrap}
+  .ws-day{background:var(--coffee);color:var(--cream);padding:5px 12px;border-radius:999px;font-weight:600}
+  .ws-time{font-family:var(--latin);color:var(--mocha);font-size:15px}
+  .ws-head{display:flex;gap:18px;align-items:center;margin:26px 0 14px}
+  .ws-icon{width:72px;height:72px;border-radius:20px;background:var(--bean-soft);display:grid;place-items:center;flex:none}
+  .ws-card h3{font-family:var(--serif);font-size:30px;color:var(--espresso);line-height:1.2}
+  .ws-card h3 small{display:block;font-family:var(--latin);font-style:italic;font-size:15px;color:var(--mocha);font-weight:400;margin-top:4px}
+  .ws-desc{font-size:15px;color:#5C463A}
+  .ws-steps{list-style:none;display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:22px 0 26px;flex:1;align-content:start}
+  .ws-steps li{background:var(--cream);border:1px solid var(--line);border-radius:14px;padding:12px 14px;font-size:13px;color:var(--muted);line-height:1.55}
+  .ws-steps i{font-style:normal;font-family:var(--latin);color:var(--bean);font-size:13px}
+  .ws-steps b{display:block;font-family:var(--serif);font-size:16px;color:var(--espresso);margin:2px 0}
+  .ws-foot{display:flex;justify-content:space-between;align-items:center;gap:14px;padding-top:18px;border-top:1px dashed var(--line);flex-wrap:wrap}
+  .ws-guest{display:flex;gap:10px;align-items:center;font-size:12.5px;color:var(--muted);line-height:1.45}
+  .ws-guest .avatar{width:40px;height:40px;font-size:15px}
+  .ws-guest b{display:block;color:var(--coffee);font-size:14px}
+  .ws-take{font-size:13px;background:var(--sand);padding:6px 12px;border-radius:999px;color:var(--coffee)}
+  .ws-note{margin-top:30px;display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;font-size:14px;color:#BFA88F}
+  .ws-note b{color:var(--cream);font-weight:600}
+  .ws-note .btn-ghost{color:var(--cream);border-color:#BFA88F}
+  .ws-note .btn-ghost:hover{background:var(--cream);color:var(--espresso);border-color:var(--cream)}
+
+  /* highlights */
+  .hl-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:2px solid var(--coffee)}
+  .hl{padding:28px 26px 30px 0}
+  .hl+.hl{padding-left:26px;border-left:1px solid var(--line)}
+  .hl .num{font-family:var(--latin);font-size:56px;line-height:1;color:var(--bean)}
+  .hl .num small{font-size:18px;color:var(--mocha);margin-left:4px;font-family:var(--sans)}
+  .hl h3{font-family:var(--serif);font-size:21px;margin:16px 0 8px;color:var(--espresso)}
+  .hl p{font-size:14.5px;color:#6A5446}
+  .quote{margin-top:56px;display:grid;grid-template-columns:auto 1fr;gap:28px;align-items:center;background:var(--sand);border-radius:var(--radius);padding:34px 40px}
+  .quote .mark{font-family:var(--latin);font-size:90px;line-height:.6;color:var(--bean)}
+  .quote blockquote{font-family:var(--serif);font-size:24px;line-height:1.6;color:var(--espresso)}
+  .quote cite{display:block;font-family:var(--sans);font-style:normal;font-size:13px;color:var(--muted);margin-top:10px}
+
+  /* schedule */
+  .schedule{background:var(--paper);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .tabs{display:inline-flex;background:var(--sand);padding:5px;border-radius:999px;gap:4px;margin-bottom:34px}
+  .tab{border:none;background:transparent;font-family:var(--sans);font-size:15px;font-weight:600;color:var(--muted);padding:10px 22px;border-radius:999px;cursor:pointer}
+  .tab[aria-selected="true"]{background:var(--coffee);color:var(--cream)}
+  .sch-grid{display:grid;grid-template-columns:1fr 340px;gap:48px;align-items:start}
+  .timeline{list-style:none}
+  .timeline li{display:grid;grid-template-columns:120px 24px 1fr;gap:18px;padding-bottom:26px}
+  .timeline .time{font-family:var(--latin);font-size:22px;color:var(--espresso);text-align:right;line-height:1.3}
+  .timeline .dot{position:relative}
+  .timeline .dot::before{content:"";position:absolute;left:50%;top:8px;width:12px;height:12px;margin-left:-6px;border-radius:50%;background:var(--cream);border:3px solid var(--bean)}
+  .timeline .dot::after{content:"";position:absolute;left:50%;top:26px;bottom:-30px;width:1.5px;margin-left:-.75px;background:var(--line)}
+  .timeline li:last-child .dot::after{display:none}
+  .timeline h4{font-family:var(--serif);font-size:20px;color:var(--espresso);line-height:1.35}
+  .timeline p{font-size:14.5px;color:#6A5446;margin-top:4px}
+  .timeline .where{font-size:13px;color:var(--mocha);margin-top:6px}
+  .timeline .ws-link{font-size:13px;color:var(--bean);font-weight:600;margin-left:6px;text-decoration:none;white-space:nowrap}
+  .timeline .ws-link:hover{text-decoration:underline}
+  .panel[hidden]{display:none}
+  .guest-card{background:var(--cream);border:1px solid var(--line);border-radius:var(--radius);padding:28px}
+  .guest-card h3{font-family:var(--serif);font-size:20px;margin-bottom:4px}
+  .guest-card .tip{font-size:12.5px;color:var(--muted);margin-bottom:20px}
+  .guest{display:flex;gap:14px;align-items:center;padding:14px 0;border-top:1px dashed var(--line)}
+  .avatar{flex:none;width:48px;height:48px;border-radius:50%;display:grid;place-items:center;font-family:var(--serif);font-size:18px;font-weight:700;color:#fff}
+  .guest b{display:block;font-size:15px}
+  .guest span{font-size:13px;color:var(--muted)}
+  .route-meta{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+  .chip-s{font-size:12.5px;padding:5px 11px;border-radius:999px;background:var(--sand);color:var(--coffee)}
+
+  /* join */
+  .join-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:64px;align-items:start}
+  .steps{list-style:none}
+  .steps li{display:grid;grid-template-columns:56px 1fr;gap:16px;padding:22px 0;border-bottom:1px solid var(--line)}
+  .steps li:first-child{border-top:2px solid var(--coffee)}
+  .steps .n{font-family:var(--latin);font-size:34px;color:var(--bean);line-height:1}
+  .steps h4{font-family:var(--serif);font-size:20px;color:var(--espresso)}
+  .steps p{font-size:14.5px;color:#6A5446}
+  .price{margin-top:30px;display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+  .price b{font-family:var(--latin);font-size:46px;color:var(--espresso);font-weight:600}
+  .price span{color:var(--muted);font-size:14px}
+
+  .form-card{background:var(--paper);border:1px solid var(--line);border-radius:24px;padding:36px;box-shadow:0 24px 50px -30px rgba(74,52,40,.4)}
+  .form-card h3{font-family:var(--serif);font-size:26px;color:var(--espresso)}
+  .form-note{display:flex;gap:10px;align-items:flex-start;background:var(--bean-soft);color:#7E3E22;font-size:13px;border-radius:12px;padding:10px 14px;margin:14px 0 26px}
+  .field{margin-bottom:22px;border:none}
+  .field>label,.field legend{display:block;font-size:14px;font-weight:600;margin-bottom:10px}
+  .field legend{padding:0}
+  .input{width:100%;font:inherit;font-size:16px;padding:13px 16px;border-radius:12px;border:1.5px solid var(--line);background:#fff;color:var(--coffee)}
+  .input:focus{outline:none;border-color:var(--bean);box-shadow:0 0 0 3px rgba(201,111,74,.18)}
+  .err{display:none;color:#B4421E;font-size:13px;margin-top:6px}
+  .invalid .err{display:block}
+  .invalid .input{border-color:#C9532B}
+  .sessions{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+  .session input{position:absolute;opacity:0;pointer-events:none}
+  .session label{display:block;cursor:pointer;border:1.5px solid var(--line);border-radius:14px;padding:12px 14px;background:#fff;transition:.15s;height:100%}
+  .session label b{display:block;font-size:15px}
+  .session label small{font-size:12px;color:var(--muted)}
+  .session .left{display:block;font-size:12px;color:var(--bean);margin-top:4px;font-weight:600}
+  .session input:checked+label{border-color:var(--bean);background:#FFF5EE;box-shadow:inset 0 0 0 1px var(--bean)}
+  .session input:focus-visible+label{outline:3px solid var(--bean);outline-offset:2px}
+  .session input:disabled+label{opacity:.45;cursor:not-allowed}
+  .row2{display:grid;grid-template-columns:auto 1fr;gap:28px;align-items:start}
+  .stepper{display:inline-flex;align-items:center;border:1.5px solid var(--line);border-radius:999px;background:#fff}
+  .stepper button{width:42px;height:42px;border:none;background:none;font-size:20px;cursor:pointer;color:var(--coffee);border-radius:50%}
+  .stepper button:disabled{opacity:.3;cursor:not-allowed}
+  .stepper output{min-width:34px;text-align:center;font-family:var(--latin);font-size:18px;font-weight:600}
+  .chips{display:flex;flex-wrap:wrap;gap:8px}
+  .chip{border:1.5px solid var(--line);background:#fff;color:var(--coffee);font:inherit;font-size:14px;padding:7px 14px;border-radius:999px;cursor:pointer}
+  .chip[aria-pressed="true"]{background:var(--coffee);border-color:var(--coffee);color:var(--cream)}
+  .check{display:flex;gap:10px;align-items:flex-start;font-size:14px;cursor:pointer}
+  .check input{width:18px;height:18px;margin-top:3px;accent-color:var(--bean);flex:none}
+  .submit-row{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-top:8px;flex-wrap:wrap}
+  .total{font-size:14px;color:var(--muted)}
+  .total b{font-family:var(--latin);font-size:24px;color:var(--espresso)}
+  .success{display:none;text-align:center;padding:10px 0}
+  .form-card.done form{display:none}
+  .form-card.done .success{display:block}
+  .ticket{margin:24px auto;max-width:360px;background:var(--cream);border:1.5px dashed var(--mocha);border-radius:16px;padding:22px;text-align:left;position:relative}
+  .ticket::before,.ticket::after{content:"";position:absolute;top:50%;width:20px;height:20px;margin-top:-10px;border-radius:50%;background:var(--paper);border:1.5px dashed var(--mocha)}
+  .ticket::before{left:-11px;clip-path:inset(0 0 0 50%)}
+  .ticket::after{right:-11px;clip-path:inset(0 50% 0 0)}
+  .ticket dl{display:grid;grid-template-columns:80px 1fr;gap:6px 10px;font-size:14px}
+  .ticket dt{color:var(--muted)}
+  .ticket dd{font-weight:600}
+  .ticket .code{font-family:var(--latin);font-size:22px;letter-spacing:2px;color:var(--bean);margin-bottom:12px}
+  .cup-icon{width:64px;height:64px;margin:0 auto 10px;border-radius:50%;background:var(--bean-soft);display:grid;place-items:center}
+
+  /* faq */
+  .faq{background:var(--sand)}
+  .faq-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:64px}
+  .faq-side h2{font-family:var(--serif);font-size:40px;color:var(--espresso);margin-top:8px;line-height:1.25}
+  .faq-side p{color:#6A5446;font-size:15px;margin-top:14px}
+  details{border-bottom:1px solid #CDB89A}
+  details:first-of-type{border-top:2px solid var(--coffee)}
+  summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;gap:20px;padding:22px 0;font-family:var(--serif);font-size:19px;font-weight:700;color:var(--espresso)}
+  summary::-webkit-details-marker{display:none}
+  summary .pm{flex:none;width:28px;height:28px;border-radius:50%;border:1.5px solid var(--coffee);position:relative;transition:.2s}
+  summary .pm::before,summary .pm::after{content:"";position:absolute;left:50%;top:50%;width:11px;height:1.5px;background:var(--coffee);transform:translate(-50%,-50%)}
+  summary .pm::after{transform:translate(-50%,-50%) rotate(90deg);transition:.2s}
+  details[open] summary .pm{background:var(--coffee)}
+  details[open] summary .pm::before{background:var(--cream)}
+  details[open] summary .pm::after{opacity:0}
+  details .ans{padding:0 48px 24px 0;color:#5C463A;font-size:15px}
+
+  /* footer */
+  footer{background:var(--espresso);color:#D9C8B4;padding:64px 0 40px;font-size:14px}
+  .ft-top{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:48px;padding-bottom:40px;border-bottom:1px solid #4A3A30}
+  footer .logo{color:var(--cream)}
+  footer .logo i{background:var(--bean)}
+  footer h5{color:var(--cream);font-size:14px;margin-bottom:12px;letter-spacing:1px}
+  footer ul{list-style:none}
+  footer li{margin-bottom:6px}
+  footer a{text-decoration:none}
+  footer a:hover{color:#F2B08E}
+  .disclaimer{margin-top:16px;max-width:400px;line-height:1.8}
+  .ft-bot{display:flex;justify-content:space-between;gap:20px;padding-top:24px;font-size:12.5px;color:#A38E7A;flex-wrap:wrap}
+
+  /* mobile sticky cta */
+  .m-cta{display:none}
+
+  @media (max-width:1024px){
+    .hero h1{font-size:76px}
+    .ws-grid{grid-template-columns:1fr}
+    .hl-grid{grid-template-columns:repeat(2,1fr)}
+    .hl:nth-child(3){padding-left:0;border-left:none}
+    .hl:nth-child(n+3){border-top:1px solid var(--line)}
+    .sch-grid,.join-grid,.faq-grid{grid-template-columns:1fr;gap:40px}
+  }
+  @media (max-width:760px){
+    .wrap{padding:0 20px}
+    .nav ul{display:none}
+    .nav .wrap{height:58px}
+    .hero{padding:36px 0 48px}
+    .hero .wrap{grid-template-columns:1fr;gap:44px}
+    .hero h1{font-size:56px;letter-spacing:2px}
+    .hero .latin{font-size:20px;margin:10px 0 14px}
+    .hero .lead{font-size:16px}
+    .meta{grid-template-columns:1fr;margin:24px 0 28px}
+    .meta div,.meta div+div{padding:12px 0;border-left:none}
+    .meta div+div{border-top:1px solid var(--line)}
+    .cta-row .btn{flex:1;padding-left:12px;padding-right:12px}
+    .stamp{left:-8px;right:auto;top:-26px;width:88px;height:88px;font-size:10.5px}
+    .stamp b{font-size:22px}
+    .sec{padding:64px 0}
+    .sec-head{flex-direction:column;align-items:flex-start;gap:12px;margin-bottom:32px}
+    .sec-head h2{font-size:32px}
+    .ws-grid{gap:18px}
+    .ws-card{padding:24px 20px;border-radius:20px}
+    .ws-head{margin:20px 0 12px;gap:14px}
+    .ws-icon{width:56px;height:56px;border-radius:16px}
+    .ws-icon svg{width:32px;height:32px}
+    .ws-card h3{font-size:24px}
+    .ws-steps{grid-template-columns:1fr;gap:8px;margin:18px 0 20px}
+    .ws-steps li{display:grid;grid-template-columns:28px 72px 1fr;align-items:baseline;gap:6px;padding:10px 14px}
+    .ws-steps b{margin:0;font-size:15px}
+    .ws-note{flex-direction:column;align-items:stretch;text-align:left}
+    .ws-note .btn{width:100%}
+    .hl-grid{grid-template-columns:1fr}
+    .hl,.hl+.hl,.hl:nth-child(3){padding:22px 0;border-left:none;border-top:1px solid var(--line)}
+    .hl:first-child{border-top:none}
+    .hl .num{font-size:44px}
+    .quote{grid-template-columns:1fr;padding:26px 24px;gap:6px}
+    .quote .mark{font-size:64px}
+    .quote blockquote{font-size:19px}
+    .tabs{display:flex}
+    .tab{flex:1;padding:10px 8px;font-size:14px}
+    .timeline li{grid-template-columns:62px 18px 1fr;gap:10px}
+    .timeline .time{font-size:16px}
+    .timeline h4{font-size:17px}
+    .form-card{padding:24px 20px;border-radius:20px}
+    .sessions{grid-template-columns:1fr}
+    .row2{grid-template-columns:1fr;gap:0}
+    .submit-row .btn{width:100%}
+    .faq-side h2{font-size:32px}
+    details .ans{padding-right:0}
+    summary{font-size:17px}
+    .ft-top{grid-template-columns:1fr;gap:28px}
+    body{padding-bottom:76px}
+    .m-cta{display:flex;position:fixed;left:12px;right:12px;bottom:12px;z-index:30;background:var(--espresso);color:var(--cream);border-radius:999px;padding:8px 8px 8px 20px;align-items:center;justify-content:space-between;box-shadow:0 10px 30px rgba(46,32,25,.35);transition:transform .25s, opacity .25s}
+    .m-cta.hide{transform:translateY(120%);opacity:0;pointer-events:none}
+    .m-cta span{font-size:13px}
+    .m-cta b{color:#F2B08E}
+  }
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<div class="demo-bar" role="note">演示稿 · 本页所有<b>时间、地点、嘉宾、价格均为示例信息</b>，不代表真实活动；报名表单不会提交任何数据</div>
+
+<header class="nav">
+  <div class="wrap">
+    <a href="#top" class="logo" aria-label="周末咖啡漫游 首页"><i>W</i>周末咖啡漫游</a>
+    <nav aria-label="页面导航">
+      <ul>
+        <li><a href="#workshop">工作坊</a></li>
+        <li><a href="#highlights">活动亮点</a></li>
+        <li><a href="#schedule">活动日程</a></li>
+        <li><a href="#join">参与方式</a></li>
+        <li><a href="#faq">常见问题</a></li>
+      </ul>
+    </nav>
+    <a href="#join" class="btn btn-primary btn-sm">立即报名</a>
+  </div>
+</header>
+
+<main id="top">
+  <!-- HERO -->
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="wrap">
+      <div>
+        <div class="kicker"><span></span>City Weekend · Vol.07</div>
+        <h1 id="hero-title">周末<em>咖啡</em><br>漫游</h1>
+        <p class="latin">Weekend Coffee Walk</p>
+        <p class="lead">慢走一条街区，喝 6 家独立咖啡馆，上一堂咖啡工作坊。</p>
+        <dl class="meta">
+          <div><dt>活动日期</dt><dd>10月18日—19日<span class="sample">示例</span></dd></div>
+          <div><dt>集合地点</dt><dd>梧桐街区 · 南门<span class="sample">示例</span></dd></div>
+          <div><dt>每场名额</dt><dd>30 人 / 场<span class="sample">示例</span></dd></div>
+        </dl>
+        <div class="cta-row">
+          <a href="#join" class="btn btn-primary">立即报名 →</a>
+          <a href="#workshop" class="btn btn-ghost">了解工作坊</a>
+        </div>
+        <p class="cta-note">报名约需 1 分钟 · 本页为演示，不会收集个人信息</p>
+      </div>
+      <div class="hero-art">
+        <div class="stamp" aria-hidden="true"><div><b>3.2</b>公里慢行<br>示例路线</div></div>
+        <figure>
+          <img src="coffee-walk-hero.svg" alt="示例路线插画：橙色虚线串起四个咖啡站点，左下角是一杯拉花咖啡" width="520" height="600">
+          <figcaption><span>路线示意 · 非真实地图</span><span>Illustration</span></figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- WORKSHOP (moved up) -->
+  <section class="sec workshop" id="workshop" aria-labelledby="ws-title">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <div class="sec-no">01 — WORKSHOP</div>
+          <h2 id="ws-title">两场咖啡工作坊</h2>
+        </div>
+        <p>每条路线都安排了一场 30 分钟的动手课程，零基础也能参加。报名即含，不用另外付费。以下时间与嘉宾均为示例。</p>
+      </div>
+
+      <div class="ws-grid">
+        <article class="ws-card" aria-labelledby="ws1">
+          <div class="ws-top"><span class="ws-day">周六 · 老城线</span><span class="ws-time">11:00 — 11:30<span class="sample">示例</span></span></div>
+          <div class="ws-head">
+            <div class="ws-icon" aria-hidden="true">
+              <svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="#C96F4A" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 8h26l-9 12h-8z"/><path d="M20 21v3"/><path d="M10 26h20v3a7 7 0 0 1-7 7h-6a7 7 0 0 1-7-7z"/><path d="M30 28h2a3 3 0 0 1 0 6h-2"/></svg>
+            </div>
+            <h3 id="ws1">手冲小课堂<small>Pour-over Basics</small></h3>
+          </div>
+          <p class="ws-desc">从一包豆子开始，学会在家冲出稳定好喝的一杯。每人一套器具，讲师逐组指导。</p>
+          <ol class="ws-steps">
+            <li><i>01</i><b>磨豆</b>认识研磨粗细</li>
+            <li><i>02</i><b>注水</b>闷蒸与分段注水</li>
+            <li><i>03</i><b>品鉴</b>对比两杯风味</li>
+          </ol>
+          <div class="ws-foot">
+            <div class="ws-guest"><div class="avatar" style="background:#8A5A3C">周</div><div><b>周以安</b>手冲讲师 · 示例嘉宾</div></div>
+            <span class="ws-take">带走：一张手冲参数卡</span>
+          </div>
+        </article>
+
+        <article class="ws-card" aria-labelledby="ws2">
+          <div class="ws-top"><span class="ws-day">周日 · 河畔线</span><span class="ws-time">11:00 — 11:30<span class="sample">示例</span></span></div>
+          <div class="ws-head">
+            <div class="ws-icon" aria-hidden="true">
+              <svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="#C96F4A" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 22h24a12 12 0 0 1-24 0z"/><path d="M27 16L37 6"/><ellipse cx="24" cy="18" rx="4.5" ry="2.6" transform="rotate(-40 24 18)"/><path d="M11 17c-2-3 2-4 0-8M17 17c-2-3 2-4 0-8"/></svg>
+            </div>
+            <h3 id="ws2">杯测体验<small>Cupping Session</small></h3>
+          </div>
+          <p class="ws-desc">像烘焙师一样并排品尝三款咖啡豆，用一张风味轮找到你真正喜欢的味道。</p>
+          <ol class="ws-steps">
+            <li><i>01</i><b>闻香</b>干香与湿香</li>
+            <li><i>02</i><b>破渣</b>捞渣后啜吸</li>
+            <li><i>03</i><b>记录</b>标出风味偏好</li>
+          </ol>
+          <div class="ws-foot">
+            <div class="ws-guest"><div class="avatar" style="background:#4A3428">陈</div><div><b>陈默</b>烘焙师 · 示例嘉宾</div></div>
+            <span class="ws-take">带走：一份风味轮笔记</span>
+          </div>
+        </article>
+      </div>
+
+      <div class="ws-note">
+        <span>工作坊名额随场次分配，<b>选好场次就自动预留</b>。报名时的口味偏好会提前告诉讲师。</span>
+        <a href="#join" class="btn btn-ghost btn-sm">选场次报名</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- HIGHLIGHTS -->
+  <section class="sec" id="highlights" aria-labelledby="hl-title">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <div class="sec-no">02 — HIGHLIGHTS</div>
+          <h2 id="hl-title">这个周末，为什么值得出门</h2>
+        </div>
+        <p>不赶时间，也不打卡。这个活动适合工作日喝够了速溶、周末想换口气的上班族。</p>
+      </div>
+      <div class="hl-grid">
+        <article class="hl">
+          <div class="num">6<small>家</small></div>
+          <h3>独立咖啡馆串游</h3>
+          <p>每站停留 20—30 分钟，主理人带你认识这家店的豆子和故事。<span class="sample">示例</span></p>
+        </article>
+        <article class="hl">
+          <div class="num">4<small>杯</small></div>
+          <h3>沿途饮品体验</h3>
+          <p>含 3—4 杯饮品，每站都备有低因、燕麦奶或茶饮替代选项。<span class="sample">示例</span></p>
+        </article>
+        <article class="hl">
+          <div class="num">3.2<small>km</small></div>
+          <h3>街区慢行路线</h3>
+          <p>平缓的步行路线穿过老街、河畔和小公园，全程约 3 小时，强度轻松。</p>
+        </article>
+        <article class="hl">
+          <div class="num">30<small>人</small></div>
+          <h3>小规模同好局</h3>
+          <p>每场限额，分成小组同行，方便认识新朋友，也不会拥挤嘈杂。</p>
+        </article>
+      </div>
+      <div class="quote">
+        <div class="mark" aria-hidden="true">“</div>
+        <blockquote>
+          一杯咖啡的时间刚好够走完一条街。我们把周末留给慢一点的城市。
+          <cite>—— 活动发起人 林小满（示例嘉宾）</cite>
+        </blockquote>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCHEDULE -->
+  <section class="sec schedule" id="schedule" aria-labelledby="sch-title">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <div class="sec-no">03 — SCHEDULE</div>
+          <h2 id="sch-title">活动日程</h2>
+        </div>
+        <p>两天两条路线，内容不重复，可以任选一场。以下时间、地点均为示例。</p>
+      </div>
+
+      <div class="tabs" role="tablist" aria-label="选择日期">
+        <button class="tab" role="tab" id="tab-sat" aria-controls="panel-sat" aria-selected="true">周六 · 老城线</button>
+        <button class="tab" role="tab" id="tab-sun" aria-controls="panel-sun" aria-selected="false" tabindex="-1">周日 · 河畔线</button>
+      </div>
+
+      <div class="sch-grid">
+        <div>
+          <div class="panel" id="panel-sat" role="tabpanel" aria-labelledby="tab-sat">
+            <ol class="timeline">
+              <li><div class="time">09:30</div><div class="dot"></div><div><h4>集合 · 领取漫游手册</h4><p>签到后领取路线手册和杯套徽章，按小组出发。</p><div class="where">📍 梧桐街区南门（示例地点）</div></div></li>
+              <li><div class="time">10:00</div><div class="dot"></div><div><h4>第 1—2 站 · 老街早咖啡</h4><p>两家社区咖啡馆的招牌单品品鉴，主理人讲讲开店故事。</p><div class="where">📍 示例咖啡馆「晨光」「巷口」</div></div></li>
+              <li><div class="time">11:00</div><div class="dot"></div><div><h4>工作坊 · 手冲小课堂</h4><p>30 分钟实操课，学会一杯稳定好喝的手冲。<a class="ws-link" href="#workshop">详见 01 工作坊 ↑</a></p><div class="where">📍 示例烘焙工坊 · 嘉宾：周以安（示例）</div></div></li>
+              <li><div class="time">12:00</div><div class="dot"></div><div><h4>第 3 站 · 午间分享与合影</h4><p>小组交流今日最爱的一杯，合影后自由解散。</p><div class="where">📍 示例书店咖啡角</div></div></li>
+            </ol>
+          </div>
+          <div class="panel" id="panel-sun" role="tabpanel" aria-labelledby="tab-sun" hidden>
+            <ol class="timeline">
+              <li><div class="time">09:30</div><div class="dot"></div><div><h4>集合 · 河畔签到</h4><p>领取手册和一份小点心，听路线说明。</p><div class="where">📍 河畔步道 3 号入口（示例地点）</div></div></li>
+              <li><div class="time">10:00</div><div class="dot"></div><div><h4>第 4—5 站 · 河景咖啡</h4><p>沿河两家店，对比冷萃和意式浓缩的风味差异。</p><div class="where">📍 示例咖啡馆「水岸」「浮光」</div></div></li>
+              <li><div class="time">11:00</div><div class="dot"></div><div><h4>工作坊 · 杯测体验</h4><p>简化版杯测，找到自己的风味偏好。<a class="ws-link" href="#workshop">详见 01 工作坊 ↑</a></p><div class="where">📍 示例烘焙室 · 嘉宾：陈默（示例）</div></div></li>
+              <li><div class="time">12:00</div><div class="dot"></div><div><h4>第 6 站 · 草地野餐收尾</h4><p>草地上喝完最后一杯，交换联系方式，下次再约。</p><div class="where">📍 示例滨河小公园</div></div></li>
+            </ol>
+          </div>
+        </div>
+
+        <aside class="guest-card" aria-labelledby="guest-title">
+          <h3 id="guest-title">同行嘉宾</h3>
+          <p class="tip">以下人物均为虚构的示例嘉宾</p>
+          <div class="guest"><div class="avatar" style="background:#C96F4A">林</div><div><b>林小满</b><span>活动发起人 · 城市散步爱好者</span></div></div>
+          <div class="guest"><div class="avatar" style="background:#8A5A3C">周</div><div><b>周以安</b><span>手冲讲师 · 周六场</span></div></div>
+          <div class="guest"><div class="avatar" style="background:#4A3428">陈</div><div><b>陈默</b><span>烘焙师 · 周日场</span></div></div>
+          <div class="route-meta">
+            <span class="chip-s">☕ 3—4 杯饮品</span>
+            <span class="chip-s">👟 约 3.2 km</span>
+            <span class="chip-s">⏱ 约 3 小时</span>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- JOIN -->
+  <section class="sec" id="join" aria-labelledby="join-title">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <div class="sec-no">04 — HOW TO JOIN</div>
+          <h2 id="join-title">三步参与</h2>
+        </div>
+        <p>选好场次，填个昵称就能占位。这里是演示表单，不会真的报名，也不会收集信息。</p>
+      </div>
+
+      <div class="join-grid">
+        <div>
+          <ol class="steps">
+            <li><div class="n">01</div><div><h4>选择场次</h4><p>周六老城线（手冲课）或周日河畔线（杯测），按你的周末安排选。</p></div></li>
+            <li><div class="n">02</div><div><h4>提交报名</h4><p>填写昵称、人数和口味偏好，生成一张电子漫游票。</p></div></li>
+            <li><div class="n">03</div><div><h4>当天签到出发</h4><p>出示漫游票签到，领取手册后跟着小组出发。</p></div></li>
+          </ol>
+          <div class="price"><b>¥89</b><span>/ 人 · 含工作坊、3—4 杯饮品与手册<span class="sample">示例价格</span></span></div>
+        </div>
+
+        <div class="form-card" id="formCard">
+          <form id="demoForm" novalidate>
+            <h3>报名漫游票</h3>
+            <div class="form-note" role="note"><span aria-hidden="true">ⓘ</span><span>演示表单：数据只在浏览器里临时显示，不会保存或发送。昵称可随意填写，请勿填写真实个人信息。</span></div>
+
+            <div class="field" id="f-name">
+              <label for="nick">怎么称呼你</label>
+              <input class="input" id="nick" name="nick" type="text" maxlength="16" placeholder="例如：拿铁星人（演示用，可随意填）" autocomplete="off">
+              <div class="err" id="nick-err">请填写一个昵称（1—16 个字）</div>
+            </div>
+
+            <fieldset class="field" id="f-session">
+              <legend>选择场次</legend>
+              <div class="sessions">
+                <div class="session"><input type="radio" name="session" id="s1" value="周六上午 · 老城线（手冲课）" data-left="8"><label for="s1"><b>周六上午</b><small>老城线 · 手冲课</small><span class="left" data-for="s1">剩余 8 席</span></label></div>
+                <div class="session"><input type="radio" name="session" id="s2" value="周日上午 · 河畔线（杯测）" data-left="3"><label for="s2"><b>周日上午</b><small>河畔线 · 杯测</small><span class="left" data-for="s2">剩余 3 席</span></label></div>
+                <div class="session"><input type="radio" name="session" id="s3" value="周日下午 · 河畔线（杯测）" data-left="0" disabled><label for="s3"><b>周日下午</b><small>河畔线 · 杯测</small><span class="left" data-for="s3">已满</span></label></div>
+              </div>
+              <div class="err">请选择一个场次</div>
+            </fieldset>
+
+            <div class="row2">
+              <div class="field">
+                <label id="cnt-label">人数</label>
+                <div class="stepper" role="group" aria-labelledby="cnt-label">
+                  <button type="button" id="minus" aria-label="减少人数">−</button>
+                  <output id="count" aria-live="polite">1</output>
+                  <button type="button" id="plus" aria-label="增加人数">+</button>
+                </div>
+              </div>
+              <div class="field">
+                <label id="taste-label">口味偏好 <small style="font-weight:400;color:var(--muted)">（可多选）</small></label>
+                <div class="chips" role="group" aria-labelledby="taste-label">
+                  <button type="button" class="chip" aria-pressed="false">果酸明亮</button>
+                  <button type="button" class="chip" aria-pressed="false">坚果巧克力</button>
+                  <button type="button" class="chip" aria-pressed="false">奶咖派</button>
+                  <button type="button" class="chip" aria-pressed="false">不喝咖啡因</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="field" id="f-agree">
+              <label class="check"><input type="checkbox" id="agree"><span>我知道这是演示表单，信息不会被提交，活动内容为示例</span></label>
+              <div class="err">请先勾选确认</div>
+            </div>
+
+            <div class="submit-row">
+              <div class="total">合计（示例）<b id="total">¥89</b></div>
+              <button type="submit" class="btn btn-primary">生成漫游票</button>
+            </div>
+          </form>
+
+          <div class="success" role="status" aria-live="polite">
+            <div class="cup-icon" aria-hidden="true">
+              <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="#C96F4A" stroke-width="2.4" stroke-linecap="round"><path d="M6 12h16v6a7 7 0 0 1-7 7h-2a7 7 0 0 1-7-7z"/><path d="M22 14h2a3 3 0 0 1 0 6h-2"/><path d="M11 4v3M15 3v4"/></svg>
+            </div>
+            <h3>占位成功！（演示）</h3>
+            <p style="color:var(--muted);font-size:14px">以下是一张示例漫游票，没有任何信息被提交</p>
+            <div class="ticket">
+              <div class="code" id="t-code">DEMO-0000</div>
+              <dl>
+                <dt>昵称</dt><dd id="t-name"></dd>
+                <dt>场次</dt><dd id="t-session"></dd>
+                <dt>人数</dt><dd id="t-count"></dd>
+                <dt>偏好</dt><dd id="t-taste"></dd>
+              </dl>
+            </div>
+            <button type="button" class="btn btn-ghost" id="again">重新填写</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="sec faq" id="faq" aria-labelledby="faq-title">
+    <div class="wrap faq-grid">
+      <div class="faq-side">
+        <div class="sec-no">05 — FAQ</div>
+        <h2 id="faq-title">出发前，<br>你可能想问</h2>
+        <p>没找到答案？正式上线后可以在这里接入客服入口（当前为演示）。</p>
+      </div>
+      <div>
+        <details open>
+          <summary>不太懂咖啡，可以参加吗？<span class="pm" aria-hidden="true"></span></summary>
+          <div class="ans">完全可以。路线主要面向零基础的城市上班族，每站都有简单讲解，工作坊也从最基础的步骤开始。</div>
+        </details>
+        <details>
+          <summary>工作坊需要另外报名或付费吗？<span class="pm" aria-hidden="true"></span></summary>
+          <div class="ans">不需要。工作坊包含在场次里：周六老城线是手冲小课堂，周日河畔线是杯测体验。选好场次就会自动预留名额（示例安排）。</div>
+        </details>
+        <details>
+          <summary>步行强度大吗？需要准备什么？<span class="pm" aria-hidden="true"></span></summary>
+          <div class="ans">全程约 3.2 公里（示例），路面平缓，中间有多次休息。建议穿舒适的鞋，带一个水杯，雨天会提前通知备用安排。</div>
+        </details>
+        <details>
+          <summary>不喝咖啡因 / 乳糖不耐受怎么办？<span class="pm" aria-hidden="true"></span></summary>
+          <div class="ans">报名时可以在口味偏好里选择“不喝咖啡因”。每站都会备有低因、燕麦奶或茶饮替代选项（示例安排）。</div>
+        </details>
+        <details>
+          <summary>可以和朋友一起报名吗？<span class="pm" aria-hidden="true"></span></summary>
+          <div class="ans">可以。每次最多为 3 人占位，同一次报名的伙伴会被安排在同一小组。</div>
+        </details>
+        <details>
+          <summary>临时去不了，可以退改吗？<span class="pm" aria-hidden="true"></span></summary>
+          <div class="ans">示例规则：活动前 48 小时可免费改期或退款，之后不再支持退款，但可以转让给朋友。正式规则以上线版本为准。</div>
+        </details>
+        <details>
+          <summary>这个页面上的信息是真实的吗？<span class="pm" aria-hidden="true"></span></summary>
+          <div class="ans">不是。这是设计评审用的演示页面，除活动名称外的时间、地点、嘉宾、价格都是示例信息，报名表单也不会提交任何数据。</div>
+        </details>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="ft-top">
+      <div>
+        <a href="#top" class="logo"><i>W</i>周末咖啡漫游</a>
+        <p class="disclaimer">一个为城市年轻上班族设计的周末慢行活动。本页面为设计评审演示稿，活动时间、地点、嘉宾和价格均为示例信息，不构成真实活动邀约。</p>
+      </div>
+      <div>
+        <h5>页面导航</h5>
+        <ul>
+          <li><a href="#workshop">工作坊</a></li>
+          <li><a href="#highlights">活动亮点</a></li>
+          <li><a href="#schedule">活动日程</a></li>
+          <li><a href="#join">参与方式</a></li>
+          <li><a href="#faq">常见问题</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>联系我们（示例）</h5>
+        <ul>
+          <li>公众号：周末咖啡漫游（示例）</li>
+          <li>邮箱：hello@example.com</li>
+          <li>合作：仅作演示</li>
+        </ul>
+      </div>
+    </div>
+    <div class="ft-bot">
+      <span>© 2024 Weekend Coffee Walk · Demo for design review</span>
+      <span>所有示例信息仅用于展示</span>
+    </div>
+  </div>
+</footer>
+
+<div class="m-cta" id="mCta">
+  <span>¥89 起（示例）· <b>周日仅剩 3 席</b></span>
+  <a href="#join" class="btn btn-primary btn-sm">立即报名</a>
+</div>
+
+<script>
+(function(){
+  // Tabs
+  var tabs = document.querySelectorAll('.tab');
+  function selectTab(t){
+    tabs.forEach(function(x){
+      var on = x === t;
+      x.setAttribute('aria-selected', on);
+      x.tabIndex = on ? 0 : -1;
+      document.getElementById(x.getAttribute('aria-controls')).hidden = !on;
+    });
+  }
+  tabs.forEach(function(t, i){
+    t.addEventListener('click', function(){ selectTab(t); });
+    t.addEventListener('keydown', function(e){
+      if(e.key === 'ArrowRight' || e.key === 'ArrowLeft'){
+        var n = tabs[(i + (e.key === 'ArrowRight' ? 1 : -1) + tabs.length) % tabs.length];
+        selectTab(n); n.focus();
+      }
+    });
+  });
+
+  // Stepper
+  var count = 1, PRICE = 89, MAX = 3;
+  var out = document.getElementById('count'), minus = document.getElementById('minus'), plus = document.getElementById('plus'), total = document.getElementById('total');
+  function render(){
+    var sel = document.querySelector('input[name=session]:checked');
+    var cap = sel ? Math.min(MAX, +sel.dataset.left) : MAX;
+    if(count > cap){ count = Math.max(1, cap); }
+    out.textContent = count;
+    minus.disabled = count <= 1;
+    plus.disabled = count >= cap;
+    total.textContent = '¥' + (count * PRICE);
+  }
+  minus.onclick = function(){ count--; render(); };
+  plus.onclick = function(){ count++; render(); };
+  document.querySelectorAll('input[name=session]').forEach(function(r){
+    r.addEventListener('change', function(){ document.getElementById('f-session').classList.remove('invalid'); render(); });
+  });
+  render();
+
+  // Chips
+  document.querySelectorAll('.chip').forEach(function(c){
+    c.addEventListener('click', function(){
+      c.setAttribute('aria-pressed', c.getAttribute('aria-pressed') !== 'true');
+    });
+  });
+
+  // Validation + demo submit
+  var form = document.getElementById('demoForm'), card = document.getElementById('formCard');
+  var nick = document.getElementById('nick'), agree = document.getElementById('agree');
+  nick.addEventListener('input', function(){ document.getElementById('f-name').classList.remove('invalid'); });
+  agree.addEventListener('change', function(){ document.getElementById('f-agree').classList.remove('invalid'); });
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault(); // 不发送任何数据
+    var ok = true, first = null;
+    var sel = document.querySelector('input[name=session]:checked');
+    if(!nick.value.trim()){ document.getElementById('f-name').classList.add('invalid'); ok = false; first = first || nick; }
+    if(!sel){ document.getElementById('f-session').classList.add('invalid'); ok = false; first = first || document.getElementById('s1'); }
+    if(!agree.checked){ document.getElementById('f-agree').classList.add('invalid'); ok = false; first = first || agree; }
+    if(!ok){ first.focus(); return; }
+
+    var tastes = [].map.call(document.querySelectorAll('.chip[aria-pressed=true]'), function(c){ return c.textContent; });
+    document.getElementById('t-code').textContent = 'DEMO-' + String(Math.floor(1000 + Math.random()*9000));
+    document.getElementById('t-name').textContent = nick.value.trim();
+    document.getElementById('t-session').textContent = sel.value;
+    document.getElementById('t-count').textContent = count + ' 人 · ¥' + count*PRICE + '（示例）';
+    document.getElementById('t-taste').textContent = tastes.length ? tastes.join('、') : '随缘就好';
+
+    // 演示：剩余席位减少
+    var left = Math.max(0, +sel.dataset.left - count);
+    sel.dataset.left = left;
+    var tag = document.querySelector('.left[data-for="' + sel.id + '"]');
+    tag.textContent = left ? '剩余 ' + left + ' 席' : '已满';
+    if(!left) sel.disabled = true;
+
+    card.classList.add('done');
+    card.scrollIntoView({behavior:'smooth', block:'start'});
+  });
+
+  document.getElementById('again').addEventListener('click', function(){
+    form.reset();
+    document.querySelectorAll('.chip').forEach(function(c){ c.setAttribute('aria-pressed','false'); });
+    count = 1; render();
+    card.classList.remove('done');
+    nick.focus();
+  });
+
+  // Mobile sticky CTA: hide when join section is in view
+  var mCta = document.getElementById('mCta');
+  if('IntersectionObserver' in window){
+    new IntersectionObserver(function(entries){
+      entries.forEach(function(en){ mCta.classList.toggle('hide', en.isIntersecting); });
+    }, {threshold:.15}).observe(document.getElementById('join'));
+  }
+})();
+</script>
+</body>
+</html>

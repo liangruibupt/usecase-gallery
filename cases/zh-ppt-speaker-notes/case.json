@@ -1,0 +1,34 @@
+{
+  "slug": "zh-ppt-speaker-notes",
+  "lang": "zh",
+  "title": "根据 PPT 页面内容写逐页讲稿",
+  "summary": "把一份 12 页投入方案 PPT 的逐页文字交给模型，按“一句开场 → 要点展开 → 过渡句”写成 10 分钟的逐页讲稿，每页标注建议秒数和唯一要记住的一句话，结尾附时间分配表。",
+  "tags": [
+    "Presentation",
+    "Writing"
+  ],
+  "source": {
+    "site": "AutoClaw 博客",
+    "category": "Tutorial",
+    "title": "AI 怎么写 PPT 讲稿？从页面结构到逐页演讲备注",
+    "url": "https://autoclaw.z.ai/cn/blog/tutorial/M11W1B/",
+    "published": "2026-11-03",
+    "original_setup": "AutoClaw 通用 AI Agent（原文未注明模型）",
+    "notes": "提示词用原文“可直接复制的任务描述”，括号里的听众、时长、目的按原文示例填写。原文没有给出 PPT 内容，这里合成一份虚构公司“明川科技”的 12 页下季度投入方案逐页文字。"
+  },
+  "system": "你是 AutoClaw 通用 AI Agent，能跨文件持续工作并交付可编辑文档。\n\n交付规则：\n- 文档用 Markdown 交付，会自动转成可编辑的 Word；文件名 speech-script.md。\n- 讲稿里的数字、日期必须与用户提供的页面一致，页面没有的数字不要编。",
+  "inputs": [
+    "ppt-pages.md"
+  ],
+  "convert": {
+    ".md": {
+      "to": "docx"
+    }
+  },
+  "turns": [
+    {
+      "label": "任务描述",
+      "prompt": "请根据我提供的 PPT 页面内容撰写逐页讲稿。听众：公司管理层，关心结论和风险；总时长：10 分钟；目的：确认下季度投入方案。每页按\"一句开场 → 要点展开 → 过渡句\"三段式撰写，数据页补充对比基准说明，不要照读页面文字；每页前标注建议时长和本页唯一要记住的一句话。输出 Word 逐页讲稿，并在结尾给出整体时间分配表。"
+    }
+  ]
+}

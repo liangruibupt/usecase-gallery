@@ -1,0 +1,75 @@
+{
+  "slug": "zh-running-shoe-ooh",
+  "lang": "zh",
+  "title": "跑鞋户外广告提案：三个创意方向 × 三种版位",
+  "summary": "围绕「182g. Lighter than your phone.」为虚构跑鞋 Aero 1 发展天平、纯字体、长曝光三个创意方向，每个方向出 48 开广告牌（2:1）、6 开候车亭（2:3）和 Instagram 1:1，共 9 张，最后附一页城市投放场景对比。",
+  "tags": [
+    "Design",
+    "Marketing"
+  ],
+  "source": {
+    "site": "AutoClaw 博客",
+    "category": "Tutorial",
+    "title": "如何用 AutoClaw 设计专家制作跑鞋户外广告：三个创意方向实战",
+    "url": "https://autoclaw.z.ai/cn/blog/tutorial/autoclaw-running-shoe-outdoor-ads/",
+    "published": "2026-11-18",
+    "original_setup": "AutoClaw 设计专家 · GLM-5.3-Flash",
+    "notes": "提示词用原文实际提交的英文版。原文是 AI 生成的摄影画面（带生成水印），复现时 9 张都是 SVG 插画；没有 Anton 等超窄字体，纯字体方向用横向压缩的 Futura 代替。单轮输出有上限，所以分轮交付：方向 A 一轮，方向 B、C 各分两轮，最后一轮对比页。"
+  },
+  "system": "You are AutoClaw's Design Expert: a senior advertising art director who works in code and checks every placement before handing it over.\n\nTechnical constraints for every image:\n- Each image is one self-contained SVG whose width/height and viewBox equal the target pixel size. No external images, no web fonts, no <foreignObject>. Draw products, people and scenes with SVG shapes, gradients and filters as illustration; never pretend to be a photograph.\n- Keep text as real <text> elements so it stays editable.\n- SVGs are rendered with librsvg on macOS. Fonts that work there: Didot, Baskerville, Futura, Avenir Next, Gill Sans, Georgia, DIN Alternate, Bradley Hand (handwriting); for any Chinese text \"Source Han Sans SC\" (weights 300-900), \"Hiragino Sans GB\", \"PingFang SC\" or \"Songti SC\". Name one of these first in every font-family list, then a generic family. There are no condensed fonts; if you need a condensed look, compress text horizontally with a transform.\n- A PNG is exported automatically from every SVG, using the same base name, so deliver only the SVG.\n- Billboards end in .2x1.svg (2400×1200), bus shelters in .2x3.svg (1200×1800), Instagram posts in .1x1.svg (1080×1080), and the base name must include the concept and placement, for example aero1-a-scale-billboard.2x1.svg, aero1-a-scale-shelter.2x3.svg, aero1-a-scale-instagram.1x1.svg.\n\nTechnical constraints for HTML:\n- One self-contained HTML file per page: inline CSS and JS. You may load the Google Fonts the brief names with a <link>, always with a system-font fallback.\n- Images may only be SVG files you have delivered in this conversation, referenced by relative path (<img src=\"name.svg\">), or drawn inline with SVG/CSS. No external images.\n- For review the page is screenshotted in a 1440×2000 browser window (top of the page only). Do not size sections with vh units.",
+  "convert": {
+    ".html": {
+      "to": "shot.png",
+      "width": 1440,
+      "height": 2000
+    },
+    ".2x1.svg": {
+      "to": "png",
+      "width": 2400,
+      "height": 1200
+    },
+    ".2x3.svg": {
+      "to": "png",
+      "width": 1200,
+      "height": 1800
+    },
+    ".1x1.svg": {
+      "to": "png",
+      "width": 1080,
+      "height": 1080
+    }
+  },
+  "review_prompt": "Here are the images rendered from the files you just delivered (SVGs via librsvg, HTML as a browser screenshot of the top of the page), downscaled. Check them as a designer would before a client review: clipped or overlapping text, text that renders as boxes or in a fallback font, broken layout, empty areas, anything that breaks the brief's rules. If something needs fixing, deliver the corrected files under the same names. If everything is ready, say so in one or two sentences and deliver nothing.",
+  "turns": [
+    {
+      "label": "Prompt · concepts and Concept A",
+      "review": true,
+      "prompt": "We're pitching out-of-home for the Aero 1 running shoe, and the whole campaign hangs on one line: \"182g. Lighter than your phone.\" Help me develop three concepts. For each one I need a concept name and a one-line idea, a 48-sheet billboard (2:1), a 6-sheet bus shelter (2:3) and a 1:1 Instagram adaptation.\nConcept A, \"Scale\", is a photographic still life on a brass balance scale: the shoe on one side, a smartphone on the other, with the shoe side riding higher, on a warm grey seamless backdrop with a hard shadow. Concept B, \"Type only\", shows no product at all: just \"182g\" set edge to edge in an ultra-condensed grotesk like Anton or Big Shoulders Display, black on acid lime #D4FF3A, with the line set small underneath, and each placement crops the number differently. Concept C, \"Gone\", is motion photography: a runner as a long-exposure blur streak on a city bridge at dawn, with the shoe the only sharp thing in frame and the copy tiny in a corner.\nKeep the brand mark in the same position on every placement, and make the billboard headline at least a sixth of the board height so it reads from 50 meters. No athlete endorsements. The three concepts must differ in idea, not just layout. Close with a one-page comparison of which concept fits which city context.\n\nStart with the three concept names and one-line ideas, and deliver Concept A's three placements in this reply. I will ask for B, C and the comparison next."
+    },
+    {
+      "label": "Concept B · billboard and shelter",
+      "review": true,
+      "prompt": "Now deliver Concept B's billboard and bus shelter. I will ask for its Instagram version next."
+    },
+    {
+      "label": "Concept B · Instagram",
+      "review": true,
+      "prompt": "Now deliver Concept B's Instagram version."
+    },
+    {
+      "label": "Concept C · billboard and shelter",
+      "review": true,
+      "prompt": "Now deliver Concept C's billboard and bus shelter. I will ask for its Instagram version next."
+    },
+    {
+      "label": "Concept C · Instagram",
+      "review": true,
+      "prompt": "Now deliver Concept C's Instagram version."
+    },
+    {
+      "label": "Comparison page",
+      "review": true,
+      "prompt": "Now close with the one-page comparison of which concept fits which city context, as an HTML page that also shows all nine placements side by side."
+    }
+  ]
+}

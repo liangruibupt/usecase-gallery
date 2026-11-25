@@ -1,0 +1,76 @@
+{
+  "slug": "zh-coffee-ad-creatives",
+  "lang": "zh",
+  "title": "冻干咖啡投放素材：五个创意方向 × 三个渠道尺寸",
+  "summary": "围绕「3 秒冷水速溶，0 糖 0 脂」为虚构品牌「醒山」冻干咖啡做实验室、打工人、颜值、对比、玩梗五个方向，每个方向出抖音、朋友圈、淘宝三种尺寸共 15 张，再做一张写明测试假设的总览板。",
+  "tags": [
+    "Design",
+    "Marketing",
+    "E-commerce"
+  ],
+  "source": {
+    "site": "AutoClaw 博客",
+    "category": "Tutorial",
+    "title": "如何用 AutoClaw 设计专家制作广告素材：营销团队实战",
+    "url": "https://autoclaw.z.ai/cn/blog/tutorial/autoclaw-ad-creatives/",
+    "published": "2026-11-18",
+    "original_setup": "AutoClaw 设计专家 · GLM-5.3",
+    "notes": "原文 15 张是 AI 生图的 JPG，复现时全部为 SVG 插画；为控制单轮输出，每轮交付一个方向的 3 张，最后一轮交付总览板（引用 15 张 SVG 的 HTML）。原文后来补充的清晰度与加载修改要求未复现。"
+  },
+  "system": "你是 AutoClaw 设计专家：资深广告投放视觉设计师，用代码作图，交付前逐张检查。\n\n每张图的技术约束：\n- 每张图交付一个自包含 SVG，width/height 和 viewBox 等于目标像素尺寸。不能引用外部图片和网络字体，不用 <foreignObject>。商品、人物和场景用 SVG 形状、渐变和滤镜画成插画，不要伪装成照片。\n- 文字保留为 <text> 元素，方便之后修改。\n- SVG 在 macOS 上用 librsvg 渲染，可用字体：中文 \"Source Han Sans SC\"（字重 300–900 都有）、\"Hiragino Sans GB\"、\"PingFang SC\"、\"Songti SC\"；西文和数字 Futura、Avenir Next、DIN Alternate、Didot、Gill Sans。每个 font-family 先写其中一个，再写通用族。没有窄体字，需要窄体效果时用 transform 横向压缩。\n- 每个 SVG 会自动导出同名 PNG，只交付 SVG。\n- 抖音版文件名以 .1080x1920.svg 结尾（1080×1920），朋友圈版以 .1080x1350.svg 结尾（1080×1350），淘宝版以 .800x800.svg 结尾（800×800），文件名主体要写明方向和渠道，例如 xingshan-a-lab-douyin.1080x1920.svg、xingshan-a-lab-moments.1080x1350.svg、xingshan-a-lab-taobao.800x800.svg。\n\nHTML 的技术约束：\n- 每个页面一个自包含 HTML 文件，CSS 和 JS 内联。中文字体写 \"PingFang SC\", \"Hiragino Sans GB\", \"Source Han Sans SC\", sans-serif（衬线用 \"Songti SC\", serif）；可以用 Google Fonts 的 <link> 加载西文字体，但必须有系统字体兜底。\n- 图片只能用本次对话里交付过的 SVG 文件（相对路径引用，如 <img src=\"xxx.svg\">），或者用内联 SVG/CSS 画出来，不引用任何外部图片。\n- 自检时会在 1440×2000 的浏览器窗口里截取页面顶部，所以不要用 vh 单位撑高区块。",
+  "convert": {
+    ".html": {
+      "to": "shot.png",
+      "width": 1440,
+      "height": 2000
+    },
+    ".1080x1920.svg": {
+      "to": "png",
+      "width": 1080,
+      "height": 1920
+    },
+    ".1080x1350.svg": {
+      "to": "png",
+      "width": 1080,
+      "height": 1350
+    },
+    ".800x800.svg": {
+      "to": "png",
+      "width": 800,
+      "height": 800
+    }
+  },
+  "review_prompt": "这是你刚交付的文件渲染出来的图片（SVG 用 librsvg 导出，HTML 为浏览器截取的页面顶部），已缩小。请像交给客户评审前那样检查：文字是否被裁切或重叠、中文是否显示成方框或回退字体、版式是否错乱或留空、有没有违反需求里的规则。需要修改就用同样的文件名交付改好的文件；都没问题就用一两句话说明，不要再交付文件。",
+  "turns": [
+    {
+      "label": "提示词 · A 实验室",
+      "review": true,
+      "prompt": "帮「醒山」冻干咖啡做一批投放素材。卖点只有一个：「3 秒冷水速溶，0 糖 0 脂」。我要围绕它做 5 个创意方向，每个方向出 3 个尺寸：抖音 1080×1920、朋友圈 1080×1350、淘宝 800×800，一共 15 张。\n五个方向分别是：A 实验室，冷水杯配一个显示 3.00s 的计时器，网格背景加标尺和数据标注，冷静的科学感；B 打工人，早高峰地铁或者凌晨工位，文案「早八续命，3 秒到位」，用高反差闪光灯直拍的质感；C 颜值，6 个口味的小罐俯拍一字排开，配糖果色大色块；D 对比，左右分屏信息图，手冲 7 步 vs 醒山 1 步；E 玩梗，「比你回老板消息还快」，大字报加表情包式构图。\n每张都要有左上角的 logo、「3 秒冷水速溶」这句卖点、底部 CTA「立即抢购 · 首单 9.9 元 6 颗」和价格角标。5 个方向的色调、版式、字体必须拉开差距，不能只是换文案；主文案不超过 12 个字；抖音版要避开顶部 15% 和底部 25% 的遮挡区。最后再做一张总览板，按方向 × 尺寸把 15 张排好，并写上每个方向的测试假设。\n\n（本轮先交付 A 方向的 3 张，其余方向和总览板之后逐轮继续。）"
+    },
+    {
+      "label": "B 打工人",
+      "review": true,
+      "prompt": "继续交付 B 方向的 3 张。"
+    },
+    {
+      "label": "C 颜值",
+      "review": true,
+      "prompt": "继续交付 C 方向的 3 张。"
+    },
+    {
+      "label": "D 对比",
+      "review": true,
+      "prompt": "继续交付 D 方向的 3 张。"
+    },
+    {
+      "label": "E 玩梗",
+      "review": true,
+      "prompt": "继续交付 E 方向的 3 张。"
+    },
+    {
+      "label": "总览板",
+      "review": true,
+      "prompt": "最后交付总览板：按方向 × 尺寸把 15 张排好，写上每个方向的测试假设。"
+    }
+  ]
+}

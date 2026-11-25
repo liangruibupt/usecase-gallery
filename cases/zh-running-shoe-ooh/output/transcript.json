@@ -1,0 +1,209 @@
+{
+  "provider": "bedrock",
+  "model": "us.anthropic.claude-opus-5-5",
+  "started": "2026-11-25T07:28:35+00:00",
+  "finished": "2026-11-25T08:01:06+00:00",
+  "inputs": [],
+  "turns": [
+    {
+      "label": "Prompt · concepts and Concept A",
+      "prompt": "We're pitching out-of-home for the Aero 1 running shoe, and the whole campaign hangs on one line: \"182g. Lighter than your phone.\" Help me develop three concepts. For each one I need a concept name and a one-line idea, a 48-sheet billboard (2:1), a 6-sheet bus shelter (2:3) and a 1:1 Instagram adaptation.\nConcept A, \"Scale\", is a photographic still life on a brass balance scale: the shoe on one side, a smartphone on the other, with the shoe side riding higher, on a warm grey seamless backdrop with a hard shadow. Concept B, \"Type only\", shows no product at all: just \"182g\" set edge to edge in an ultra-condensed grotesk like Anton or Big Shoulders Display, black on acid lime #D4FF3A, with the line set small underneath, and each placement crops the number differently. Concept C, \"Gone\", is motion photography: a runner as a long-exposure blur streak on a city bridge at dawn, with the shoe the only sharp thing in frame and the copy tiny in a corner.\nKeep the brand mark in the same position on every placement, and make the billboard headline at least a sixth of the board height so it reads from 50 meters. No athlete endorsements. The three concepts must differ in idea, not just layout. Close with a one-page comparison of which concept fits which city context.\n\nStart with the three concept names and one-line ideas, and deliver Concept A's three placements in this reply. I will ask for B, C and the comparison next.",
+      "attached_inputs": [],
+      "attached_images": 0,
+      "reply": "# Aero 1 OOH: \"182g. Lighter than your phone.\"\n\n## The three concepts\n\n| | Concept | One-line idea | What it argues |\n|---|---|---|---|\n| **A** | **Scale** | A brass balance scale gives the verdict: the shoe rides higher than the phone. | **Proof.** The claim is shown as evidence you can see. |\n| **B** | **Type only** | The number is the product: \"182g\" set so large and cropped so hard that no picture is needed. | **Fact as icon.** The figure itself becomes the brand asset. |\n| **C** | **Gone** | Lightness shown as disappearance: the runner dissolves into a blur, and only the shoe stays in focus. | **Sensation.** It shows what 182g feels like, not what it weighs. |\n\nAll three use the same line, but each makes a different argument: evidence, assertion and experience.\n\n### Brand mark rule (all concepts, all placements)\nThe **AERO 1** wordmark and its two-bar mark sit **bottom-right**. They are inset by 5% of the placement's short side, and the mark height is 4.3% of the short side. On the billboard that is 60 px in from each edge, on the shelter 60 px, and on Instagram 54 px. Only the colour can change between concepts (for example, white on C's dawn sky). The position never changes.\n\n---\n\n## Concept A: \"Scale\"\n\nThe setup is a warm grey seamless backdrop with one hard key light from the upper left. The light throws a crisp shadow of the scale across the floor to the right. The beam tips 7° toward the phone, so the shoe pan rides higher, and the pointer confirms the reading. The shoe is visibly larger than the phone yet still lighter, and that contrast is the joke.\n\n**Size and legibility checks**\n- **Billboard headline:** \"182g.\" has a cap height of about 230 px. That is 19% of the 1200 px board, which clears your 1/6 rule (200 px). The tagline \"Lighter than / your phone.\" is the supporting line, at about 100 px cap height.\n  - If the client reads the 1/6 rule as applying to the *entire* sentence, the only way to fit it is to let the type take the whole board and shrink the scale. I'd push back, because the scale is the concept.\n- **Shelter:** \"182g.\" is 400 px with the tagline at 130 px. People see it from 2 to 10 m, so the scale gets the bottom half and room to breathe.\n- **Instagram:** the type is stacked at the top and the scale is fully in frame. It also reads as a thumbnail.\n\n[[file:aero1-a-scale-billboard.2x1.svg]]\n\n[[file:aero1-a-scale-shelter.2x3.svg]]\n\n[[file:aero1-a-scale-instagram.1x1.svg]]\n\n### Notes before you present A\n- **Illustration, not a photo:** these are drawn comps, not photographs. They lock the composition, the light direction and the tilt of the beam for the photographer. The real shoot should match: a single hard key light from the upper left, the beam tipped about 7°, the phone screen showing 9:41, and the brass kept warm against the warm grey.\n- **Upper colour:** I gave the shoe a lime upper so it ties to Concept B's #D4FF3A. If the client picks only one concept, the colour still works as the product's hero colour.\n- **Fact check before launch:** confirm that 182g is the stated size (for example, a men's US 9). Then pick a real reference phone that is heavier, since most current flagships weigh 190 to 230g. Legal will ask for both.\n- **Heads-up for Concept B:** Anton and Big Shoulders Display aren't available to the SVG renderer. I'll get the ultra-condensed look by squeezing a heavy grotesk horizontally (Futura Bold or DIN Alternate at about 45 to 55% width), and I'll name Anton or Big Shoulders as the production font.\n\nNext up: B (\"Type only\"), C (\"Gone\") and the city-context comparison when you're ready.",
+      "files": [
+        "aero1-a-scale-billboard.2x1.svg",
+        "aero1-a-scale-billboard.png",
+        "aero1-a-scale-shelter.2x3.svg",
+        "aero1-a-scale-shelter.png",
+        "aero1-a-scale-instagram.1x1.svg",
+        "aero1-a-scale-instagram.png"
+      ],
+      "usage": {
+        "input": 1289,
+        "output": 33043
+      },
+      "seconds": 306.2
+    },
+    {
+      "label": "Self-check",
+      "prompt": "Here are the images rendered from the files you just delivered (SVGs via librsvg, HTML as a browser screenshot of the top of the page), downscaled. Check them as a designer would before a client review: clipped or overlapping text, text that renders as boxes or in a fallback font, broken layout, empty areas, anything that breaks the brief's rules. If something needs fixing, deliver the corrected files under the same names. If everything is ready, say so in one or two sentences and deliver nothing.",
+      "attached_inputs": [],
+      "attached_images": 3,
+      "reply": "Three defects, all now fixed:\n\n- **Shelter:** the 400 px \"182g.\" ran off the right edge and clipped the full stop.\n- **Instagram:** the descender of the \"g\" cut through \"phone.\", and the scale's base collided with the AERO 1 mark.\n- **Billboard:** the full stop almost touched the shoe.\n\nHere is how each was fixed:\n\n- **Billboard:** the headline is now 300 px, with a cap height of about 216 px. That is 18% of the board, still above your one-sixth minimum. The scale moved right and was reduced slightly, which leaves about 90 px between the full stop and the toe of the shoe. The base still clears the mark.\n- **Shelter:** the headline is now 320 px, so \"182g.\" fits with a 165 px margin on the right. The tagline moved down so it no longer meets the descender of the \"g\".\n- **Instagram:** the headline is now 220 px, and the tagline sits below the descender. The scale is smaller and shifted left, so the base ends about 60 px before the mark. The mark stays in the same bottom-right position.\n\n[[file:aero1-a-scale-billboard.2x1.svg]]\n\n[[file:aero1-a-scale-shelter.2x3.svg]]\n\n[[file:aero1-a-scale-instagram.1x1.svg]]",
+      "files": [
+        "aero1-a-scale-billboard.2x1.svg",
+        "aero1-a-scale-billboard.png",
+        "aero1-a-scale-shelter.2x3.svg",
+        "aero1-a-scale-shelter.png",
+        "aero1-a-scale-instagram.1x1.svg",
+        "aero1-a-scale-instagram.png"
+      ],
+      "usage": {
+        "input": 25102,
+        "output": 18279
+      },
+      "seconds": 138.5
+    },
+    {
+      "label": "Concept B · billboard and shelter",
+      "prompt": "Now deliver Concept B's billboard and bus shelter. I will ask for its Instagram version next.",
+      "attached_inputs": [],
+      "attached_images": 0,
+      "reply": "# Concept B: \"Type only\"\n\n**Idea:** The number is the product. \"182g\" is set so large that each placement can only show part of it, and the shoe never appears.\n\n**How each placement crops the number**\n- **Billboard: cropped by the top edge.** The number runs edge to edge, the \"1\" and the \"g\" bleed off the sides, and the tops of the digits are cut off by the top of the board. The crop is about 0.12 em, which is less than one stroke, so the 8 and the 2 keep their counters and still read cleanly at 50 m. The visible digit height is about 915 px, which is 76% of the board and far above the one-sixth minimum. The tagline sits small along the bottom.\n- **Bus shelter: turned 90° so the number climbs the panel.** \"182g\" reads bottom to top along the full height, and the digit tops are cropped by the left edge. The tagline runs underneath the number's baseline, in the same direction. Rising type suits a story about lightness, and the vertical setting lets the digits reach true ultra-condensed proportions, about 2.4:1 height to width.\n- **Instagram (next): an extreme close crop.** It will be a different crop again.\n\n**Brand mark:** It stays bottom-right with the same inset and size. Concept B adds one colour rule: the mark is black on lime, and wherever it sits on the number it turns lime. This is a knockout done with a mask, so it always reads. On the billboard, the descender of the \"g\" drops into the mark's area, which ties the brand to the number.\n\n**Type stand-in:** The renderer doesn't have Anton or Big Shoulders. I used Futura Bold squeezed horizontally instead: about 73% width on the billboard and about 52% on the shelter. In production, swap in Anton. Its taller proportions will make the billboard crop slightly deeper, which helps the idea.\n\n[[file:aero1-b-type-billboard.2x1.svg]]\n\n[[file:aero1-b-type-shelter.2x3.svg]]\n\n**Check on the next render:**\n- **Billboard:** the \"1\" and the \"g\" should bleed only a few pixels off the sides, and the stem of the \"g\" must stay whole.\n- **Shelter:** the top of the \"g\" should sit just at the top edge, and the \"1\" should end above the mark.\n\nIf the font metrics land differently from my estimate, I'll adjust the spacing in the next round.",
+      "files": [
+        "aero1-b-type-billboard.2x1.svg",
+        "aero1-b-type-billboard.png",
+        "aero1-b-type-shelter.2x3.svg",
+        "aero1-b-type-shelter.png"
+      ],
+      "usage": {
+        "input": 40573,
+        "output": 39266
+      },
+      "seconds": 432.0
+    },
+    {
+      "label": "Self-check",
+      "prompt": "Here are the images rendered from the files you just delivered (SVGs via librsvg, HTML as a browser screenshot of the top of the page), downscaled. Check them as a designer would before a client review: clipped or overlapping text, text that renders as boxes or in a fallback font, broken layout, empty areas, anything that breaks the brief's rules. If something needs fixing, deliver the corrected files under the same names. If everything is ready, say so in one or two sentences and deliver nothing.",
+      "attached_inputs": [],
+      "attached_images": 2,
+      "reply": "Both placements are ready for client review. The billboard crop keeps every digit legible, and the lime knockout mark reads cleanly on the descender of the \"g\". The shelter's rising \"182g\" clears both the tagline and the bottom-right mark.",
+      "files": [],
+      "usage": {
+        "input": 46859,
+        "output": 1966
+      },
+      "seconds": 26.7
+    },
+    {
+      "label": "Concept B · Instagram",
+      "prompt": "Now deliver Concept B's Instagram version.",
+      "attached_inputs": [],
+      "attached_images": 0,
+      "reply": "# Concept B: Instagram\n\n**Crop: the number rises on an 18° diagonal and is cropped at the corners.** The billboard crops the number with its top edge, and the shelter turns it 90°. Here \"182g\" tilts upward as if it is taking off. The left edge cuts off the flag of the \"1\", and the right edge cuts off the stem of the \"g\". The 8, the 2 and the counter of the \"g\" stay whole, so the number still reads at thumbnail size. The digits are squeezed to 56% width, which brings them close to Anton's ultra-condensed proportions.\n\n**Tagline:** \"Lighter than your phone.\" sits small underneath, on the number's own baseline. It ends before the tail of the \"g\".\n\n**Brand mark:** The mark stays bottom-right, 54 px in from each edge, horizontal and black on lime. The same knockout mask as the billboard and shelter is included, in case the production font pushes the \"g\" into the mark's area.\n\n[[file:aero1-b-type-instagram.1x1.svg]]\n\n**Check on the next render:**\n- **The \"1\":** about three quarters of its stem should be visible, with the bottom ending about 80 px above the bottom edge.\n- **The \"2\":** the top of its curve should clear the top edge by about 60 px.\n- **The tagline:** it should start below the 8 and stay clear of both the \"1\" and the bottom edge.\n\nIf Futura's widths land differently, I'll adjust the rotation centre in the next round.",
+      "files": [
+        "aero1-b-type-instagram.1x1.svg",
+        "aero1-b-type-instagram.png"
+      ],
+      "usage": {
+        "input": 46957,
+        "output": 13577
+      },
+      "seconds": 159.5
+    },
+    {
+      "label": "Self-check",
+      "prompt": "Here are the images rendered from the files you just delivered (SVGs via librsvg, HTML as a browser screenshot of the top of the page), downscaled. Check them as a designer would before a client review: clipped or overlapping text, text that renders as boxes or in a fallback font, broken layout, empty areas, anything that breaks the brief's rules. If something needs fixing, deliver the corrected files under the same names. If everything is ready, say so in one or two sentences and deliver nothing.",
+      "attached_inputs": [],
+      "attached_images": 1,
+      "reply": "One fix before client review: the right edge cut through the counter of the \"g\". The bowl opens on the right, so at thumbnail size the last digit can read as a \"c\" or a \"9\". I promised that counter would stay whole, and it didn't.\n\n**Fix:** I slid the number 100 px back along its own 18° baseline. Its angle, size and condensing are unchanged.\n- **The \"g\":** its counter now closes inside the frame. Only the stem is cropped, as intended.\n- **The \"1\":** it loses a little more of its stem off the left edge, and its foot now ends about 50 px above the bottom.\n- **The \"2\":** its top now clears the top edge by about 90 px.\n- **Tagline:** I kept it in exactly the same screen position by compensating its x-coordinate. It still sits on a parallel line below the number's baseline. It still ends about 100 px before the tail of the \"g\".\n- **Brand mark:** unchanged. If the tail of the \"g\" comes near the mark, the knockout mask still turns the overlapping part lime.\n\n[[file:aero1-b-type-instagram.1x1.svg]]",
+      "files": [
+        "aero1-b-type-instagram.1x1.svg",
+        "aero1-b-type-instagram.png"
+      ],
+      "usage": {
+        "input": 51686,
+        "output": 4374
+      },
+      "seconds": 51.5
+    },
+    {
+      "label": "Concept C · billboard and shelter",
+      "prompt": "Now deliver Concept C's billboard and bus shelter. I will ask for its Instagram version next.",
+      "attached_inputs": [],
+      "attached_images": 0,
+      "reply": "# Concept C: \"Gone\"\n\n**Idea:** Lightness shown as disappearance. In a long exposure the runner smears into a ghost across the bridge, and only the shoe stays sharp.\n\n**The scene:** a cable-stayed city bridge at dawn, shot side-on from the walkway at hip height. The sun sits low behind the runner, so the streak glows against it. The skyline, cables and railing are slightly soft, which keeps the shoe as the only crisp edge in frame. The runner moves left to right, and the trail fades back toward the sun. The lime upper also smears into a lime streak from the trailing foot, while the planted foot is pin-sharp. The face is lost in the blur, so the runner is anonymous and no athlete endorsement is implied.\n\n**Life-size on both formats:**\n- **Billboard:** a 48-sheet is 6.1 × 3.05 m, so 1 px is about 2.5 mm. The runner is about 700 px tall, which is real human height on the board.\n- **Shelter:** the runner stands about 1.3 m tall, roughly the height of the person waiting next to it. The shoe is about 270 px long, slightly heroic.\n\n**Where the copy rules conflict:** the concept says \"copy tiny in a corner\", but your rule says the billboard headline must be at least a sixth of the board height.\n- **Billboard:** your rule wins. \"182g.\" has a cap height of about 216 px, which is 18% of the board. It is held in a tight top-left corner block (60 to 1010 px wide, 60 to 365 px high), and the tagline sits small beneath it. The picture keeps about 85% of the board.\n- **Shelter:** here the copy is genuinely tiny: 135 px with a 46 px tagline, in the top-left corner.\n\n**Brand mark:** bottom-right with the same inset and size as A and B. On C it is warm white on the dark walkway.\n\n[[file:aero1-c-gone-billboard.2x1.svg]]\n\n[[file:aero1-c-gone-shelter.2x3.svg]]\n\n**Notes for the shoot:**\n- **Camera:** on a tripod at hip height, with an exposure of about ¼ s at first light.\n- **Flash:** rear-curtain flash, snooted tight to the feet. This freezes the planted shoe at the end of the exposure while the body keeps smearing.\n- **Fallback:** if the single frame isn't clean, comp a locked-off plate of the shoe into the best blur take.\n\n**Check on the next render:**\n- **The shoe:** it should be the only crisp edge in frame.\n- **Head ghosts:** they should clear the tagline on the billboard.\n- **Lime streak:** it should read behind the trailing foot.\n- **Mark:** it should sit on dark walkway and stay clear of the runner's shadow.",
+      "files": [
+        "aero1-c-gone-billboard.2x1.svg",
+        "aero1-c-gone-billboard.png",
+        "aero1-c-gone-shelter.2x3.svg",
+        "aero1-c-gone-shelter.png"
+      ],
+      "usage": {
+        "input": 52810,
+        "output": 35074
+      },
+      "seconds": 338.3
+    },
+    {
+      "label": "Self-check",
+      "prompt": "Here are the images rendered from the files you just delivered (SVGs via librsvg, HTML as a browser screenshot of the top of the page), downscaled. Check them as a designer would before a client review: clipped or overlapping text, text that renders as boxes or in a fallback font, broken layout, empty areas, anything that breaks the brief's rules. If something needs fixing, deliver the corrected files under the same names. If everything is ready, say so in one or two sentences and deliver nothing.",
+      "attached_inputs": [],
+      "attached_images": 2,
+      "reply": "Four problems to fix before C goes to the client:\n\n- **Billboard: headline overlaps the tagline.** The descender of the \"g\" in \"182g.\" cuts through \"phone.\".\n- **Both: the runner doesn't read.** The 38 px horizontal blur turned every copy of the body, including the lead one, into an abstract haze. The sharp shoe ends up looking like a sneaker left on the pavement, not the one frozen point of a moving runner. That breaks the idea of the concept.\n- **Both: a stray pale oval in the middle of the frame.** The sun's water reflection rendered as a crisp vertical shape. It reads as a rendering glitch.\n- **Both: the walkway glow looks like a stage disc.** The flat ellipse has a hard edge.\n\n**Fixes:**\n\n- **Runner:**\n  - The trailing ghosts keep a heavy smear, now 30 px.\n  - The lead body has its own light blur of 9 px, so a running figure now reads clearly, and the leg runs into the collar of the sharp shoe.\n  - The shoe is still the only crisp edge in frame.\n- **Billboard trail:** pulled in so the faint head ghosts and the peach streak stay clear of the tagline.\n- **Reflection oval:** removed. Only the horizontal glint on the waterline remains.\n- **Walkway glow:** now a soft radial falloff.\n- **Billboard tagline:** moved to a baseline of 412, which clears the descender of the \"g\" by about 20 px. The headline is unchanged: cap height about 216 px, 18% of the board.\n- **Shelter tagline:** moved down 14 px for the same clearance.\n\n[[file:aero1-c-gone-billboard.2x1.svg]]\n\n[[file:aero1-c-gone-shelter.2x3.svg]]",
+      "files": [
+        "aero1-c-gone-billboard.2x1.svg",
+        "aero1-c-gone-billboard.png",
+        "aero1-c-gone-shelter.2x3.svg",
+        "aero1-c-gone-shelter.png"
+      ],
+      "usage": {
+        "input": 71310,
+        "output": 18515
+      },
+      "seconds": 228.4
+    },
+    {
+      "label": "Concept C · Instagram",
+      "prompt": "Now deliver Concept C's Instagram version.",
+      "attached_inputs": [],
+      "attached_images": 0,
+      "reply": "# Concept C: Instagram\n\n**Crop: tighter and closer.** The billboard and shelter show the whole bridge. The square moves in, so the runner fills about 70% of the frame height and the fading trail runs off the left edge. In a feed, the eye lands on the one sharp object: the lime shoe on the dark walkway, just left of the mark.\n\n**Copy:** \"182g.\" with the tagline beneath, small in the top-left corner (112 px and 36 px). The trail's faint head ghosts sit below the tagline. The one-sixth headline rule applies only to the billboard, so here the concept's \"tiny in a corner\" holds.\n\n**Brand mark:** bottom-right, 54 px from each edge, warm white on the dark walkway, the same as the billboard and shelter. The shoe ends about 40 px left of the mark and sits higher, so they don't touch.\n\n**Carried over from the last fix:** the lead body has its own light 9 px blur, the ghosts have a 30 px smear, there is no reflection oval, and the walkway glow has a soft falloff.\n\n[[file:aero1-c-gone-instagram.1x1.svg]]\n\n**Check on the next render:**\n- **Headline and tagline:** the descender of the \"g\" should clear the tagline. The faint head ghosts should start below the tagline's descenders, at about y 230.\n- **Shoe and mark:** the shoe should sit at about x 490–640, clear of the mark.\n- **Runner:** the lead runner should read as a figure, and the shoe should be the only crisp edge in frame.\n\nWhen you're ready, the last piece is the one-page comparison of which concept fits which city context.",
+      "files": [
+        "aero1-c-gone-instagram.1x1.svg",
+        "aero1-c-gone-instagram.png"
+      ],
+      "usage": {
+        "input": 85770,
+        "output": 9069
+      },
+      "seconds": 78.5
+    },
+    {
+      "label": "Self-check",
+      "prompt": "Here are the images rendered from the files you just delivered (SVGs via librsvg, HTML as a browser screenshot of the top of the page), downscaled. Check them as a designer would before a client review: clipped or overlapping text, text that renders as boxes or in a fallback font, broken layout, empty areas, anything that breaks the brief's rules. If something needs fixing, deliver the corrected files under the same names. If everything is ready, say so in one or two sentences and deliver nothing.",
+      "attached_inputs": [],
+      "attached_images": 1,
+      "reply": "Concept C's Instagram is ready for client review. The headline, tagline and brand mark all sit clear of the image, the runner reads as a figure dissolving into the trail, and the planted lime shoe is the only crisp edge in frame.",
+      "files": [],
+      "usage": {
+        "input": 96283,
+        "output": 496
+      },
+      "seconds": 11.7
+    },
+    {
+      "label": "Comparison page",
+      "prompt": "Now close with the one-page comparison of which concept fits which city context, as an HTML page that also shows all nine placements side by side.",
+      "attached_inputs": [],
+      "attached_images": 0,
+      "reply": "# One-page comparison: Aero 1 out-of-home\n\nThe page shows all nine placements as one strip per concept, all scaled to the same height. Below them is a fit matrix that rates each concept against seven city contexts, followed by a media recommendation.\n\n**My recommendation:**\n- **B:** run it on roadside sites and in cluttered districts. It has no weak ratings, so it is the safe choice if the client buys only one concept.\n- **A:** use it in shelters and retail areas, where people stop long enough for the joke to land.\n- **C:** buy it site by site on running routes and use it on social, where its context makes the point for it.\n\n[[file:aero1-ooh-comparison.html]]",
+      "files": [
+        "aero1-ooh-comparison.html",
+        "aero1-ooh-comparison.shot.png"
+      ],
+      "usage": {
+        "input": 96403,
+        "output": 9261
+      },
+      "seconds": 109.5
+    },
+    {
+      "label": "Self-check",
+      "prompt": "Here are the images rendered from the files you just delivered (SVGs via librsvg, HTML as a browser screenshot of the top of the page), downscaled. Check them as a designer would before a client review: clipped or overlapping text, text that renders as boxes or in a fallback font, broken layout, empty areas, anything that breaks the brief's rules. If something needs fixing, deliver the corrected files under the same names. If everything is ready, say so in one or two sentences and deliver nothing.",
+      "attached_inputs": [],
+      "attached_images": 1,
+      "reply": "The page has two defects in the header:\n\n- **\"182G.\" instead of \"182g.\":** the display style uppercases all text, so the gram unit became a capital G, which reads as a different unit or a g-force figure. The highlighted number now keeps its lowercase \"g\", as on all nine placements.\n- **Highlight overlapping the second line:** the lime box ran down into \"LIGHTER THAN\". The highlight is now a compact block, and the heading has a slightly looser line height, so the two lines no longer touch.\n\nThe rest of the page is ready: all nine placements load at equal height, and the matrix and recommendation cards are unchanged.\n\n[[file:aero1-ooh-comparison.html]]",
+      "files": [
+        "aero1-ooh-comparison.html",
+        "aero1-ooh-comparison.shot.png"
+      ],
+      "usage": {
+        "input": 105322,
+        "output": 7008
+      },
+      "seconds": 69.0
+    }
+  ]
+}

@@ -12,6 +12,8 @@ import re
 import subprocess
 from pathlib import Path
 
+from hub.run import preview_of, rule_for
+
 ROOT = Path(__file__).resolve().parent.parent
 CHIP = re.compile(r"\[\[file:([^\]]+)\]\]")
 DERIVED = (".png", ".jpg", ".docx", ".pptx", ".xlsx")
@@ -43,35 +45,33 @@ def md_title(text: str, fallback: str) -> str:
     return next((l.lstrip("# ").strip() for l in text.splitlines() if l.startswith("#")), fallback)
 
 
-def describe(path: Path, href) -> dict:
-    """One gallery item for a delivered (or input) file, keyed on its kind."""
+def describe(path: Path, href, rules: dict) -> dict:
+    """One gallery item for a delivered (or input) file, keyed on its kind.
+    Converted files are named by the same rule the runner used, so lookups never guess."""
     name, text = path.name, lambda: path.read_text(encoding="utf-8")
-    sibling = lambda ext: path.with_name(name.rsplit(".", 2 if name.endswith(".slides.md") else 1)[0] + ext)
+    match = rule_for(path, rules)
+    derived = match[0] if match and match[0].exists() else None
     if path.suffix == ".svg":
-        png = path.with_suffix(".png")
-        return {"kind": "image", "name": png.name, "href": href(png), "source": href(path),
-                "preview": href(path.with_suffix(".preview.jpg"))}
+        return {"kind": "image", "name": derived.name if derived else name, "href": href(derived or path),
+                "source": href(path), "preview": href(preview_of(derived)) if derived else href(path)}
     if path.suffix in (".html", ".htm"):
-        shot = path.with_suffix(".shot.preview.jpg")
         return {"kind": "page", "name": name, "href": href(path),
-                "preview": href(shot) if shot.exists() else None}
+                "preview": href(preview_of(derived)) if derived else None}
     if name.endswith(".slides.md"):
-        pptx = sibling(".pptx")
-        return {"kind": "deck", "name": pptx.name if pptx.exists() else name, "title": md_title(text(), path.stem),
-                "href": href(pptx if pptx.exists() else path), "source": href(path), "preview": md_to_html(text())}
-    if path.suffix == ".md":
-        docx = path.with_suffix(".docx")
-        return {"kind": "document", "name": docx.name if docx.exists() else name, "title": md_title(text(), path.stem),
-                "href": href(docx if docx.exists() else path), "source": href(path), "preview": md_to_html(text())}
-    if path.suffix == ".csv":
-        xlsx = path.with_suffix(".xlsx")
-        return {"kind": "sheet", "name": xlsx.name if xlsx.exists() else name, "title": path.stem,
-                "href": href(xlsx if xlsx.exists() else path), "source": href(path), "preview": csv_to_html(path)}
-    return {"kind": "file", "name": name, "title": name, "href": href(path), "source": href(path),
-            "preview": f"<pre>{html.escape(text())}</pre>"}
+        kind = "deck"
+    elif path.suffix == ".md":
+        kind = "document"
+    elif path.suffix == ".csv":
+        return {"kind": "sheet", "name": derived.name if derived else name, "title": path.stem,
+                "href": href(derived or path), "source": href(path), "preview": csv_to_html(path)}
+    else:
+        return {"kind": "file", "name": name, "title": name, "href": href(path), "source": href(path),
+                "preview": f"<pre>{html.escape(text())}</pre>"}
+    return {"kind": kind, "name": derived.name if derived else name, "title": md_title(text(), path.stem),
+            "href": href(derived or path), "source": href(path), "preview": md_to_html(text())}
 
 
-def outputs(case_dir: Path, run: dict) -> list[dict]:
+def outputs(case_dir: Path, run: dict, rules: dict) -> list[dict]:
     """Final files on disk, in delivery order, labelled with the turn that wrote the final version."""
     out = case_dir / "output"
     href = lambda p: f"cases/{case_dir.name}/output/{p.name}"
@@ -81,7 +81,7 @@ def outputs(case_dir: Path, run: dict) -> list[dict]:
     last_turn = {f: f"{i + 1:02d} · {turn['label']}" for i, turn in enumerate(run["turns"]) for f in turn["files"]}
     items = []
     for p in sources:
-        item = describe(p, href)
+        item = describe(p, href, rules)
         item["turn"] = last_turn.get(p.name, "")
         item["rank"] = order.index(p.name) if p.name in order else len(order)
         items.append(item)
@@ -90,7 +90,7 @@ def outputs(case_dir: Path, run: dict) -> list[dict]:
 
 def inputs(case_dir: Path, names: list[str]) -> list[dict]:
     href = lambda p: f"cases/{case_dir.name}/input/{p.name}"
-    return [describe(case_dir / "input" / n, href) for n in names]
+    return [describe(case_dir / "input" / n, href, {}) for n in names]
 
 
 def build() -> None:
@@ -105,7 +105,7 @@ def build() -> None:
         run = json.loads(transcript.read_text())
         for turn in run["turns"]:
             turn["reply_html"] = md_to_html(turn.pop("reply"))
-        files = outputs(case_dir, run)
+        files = outputs(case_dir, run, case.get("convert", {}))
         usage = {k: sum(t["usage"][k] for t in run["turns"]) for k in ("input", "output")}
         card = {
             "slug": case["slug"],

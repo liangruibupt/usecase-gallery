@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1240">
+<title>Low Tide: Menu, by the glass</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Gloock&family=Work+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#14213D; --oyster:#EDE6DA; --kelp:#4E6E4E; --coral:#F2795B;
+    --display:'Gloock', Georgia, 'Times New Roman', serif;
+    --text:'Work Sans', system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    --mono:'DM Mono', ui-monospace, Menlo, Consolas, monospace;
+    --l:30px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:var(--oyster);color:var(--navy)}
+  body{width:1240px;height:1754px;overflow:hidden;position:relative;font-family:var(--text);-webkit-font-smoothing:antialiased}
+  ::selection{background:var(--navy);color:var(--oyster)}
+  .disp{font-family:var(--display);font-weight:400}
+  .eyebrow{font-family:var(--mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase}
+
+  .logo{position:absolute;display:inline-flex;flex-direction:column;padding:var(--l);margin:calc(-1 * var(--l));color:inherit;text-decoration:none}
+  .logo .word{font-family:var(--display);font-size:40px;line-height:1;letter-spacing:-.005em}
+  .logo svg{display:block;width:100%;height:10px;margin-top:5px;overflow:visible}
+
+  /* Header band */
+  .band{position:absolute;left:0;top:0;width:1240px;height:420px;background:var(--navy);color:var(--oyster);overflow:hidden}
+  .meta{position:absolute;right:80px;top:60px;text-align:right;font-family:var(--mono);font-size:13px;line-height:1.7;letter-spacing:.08em;text-transform:uppercase}
+  .band .e1{position:absolute;left:80px;top:168px}
+  .band h1{position:absolute;left:76px;top:194px;font-size:112px;line-height:1;letter-spacing:-.02em}
+  .lede{position:absolute;left:80px;top:320px;width:640px;font-size:22px;line-height:1.3}
+  .sun{position:absolute;left:960px;top:300px;width:110px;height:110px;border-radius:50%;background:var(--coral);z-index:1}
+  .sea{position:absolute;left:0;top:360px;width:1240px;height:60px;background:var(--navy);z-index:2}
+  .sea svg{display:block;width:1240px;height:60px}
+
+  /* Wines */
+  .col{position:absolute;top:460px;width:520px}
+  .col-head{height:96px;padding-top:6px;border-bottom:1.5px solid var(--navy)}
+  .col-head .eyebrow{display:flex;align-items:center;gap:10px;color:var(--kelp)}
+  .col-head svg.mini{width:40px;height:14px;display:block}
+  .col-head h2{font-size:40px;line-height:1;margin-top:12px;letter-spacing:-.01em}
+  .list{list-style:none}
+  .wine{height:90px;padding-top:12px;border-bottom:1px solid var(--navy)}
+  .w-top{display:flex;justify-content:space-between;align-items:baseline}
+  .w-name{font-family:var(--display);font-weight:400;font-size:26px;line-height:1.1}
+  .w-price{font-family:var(--mono);font-size:20px}
+  .w-region{font-size:15px;font-weight:500;margin-top:5px}
+  .w-taste{font-size:15px;color:var(--kelp);margin-top:2px;line-height:1.3}
+  .new{display:inline-block;vertical-align:4px;margin-left:8px;background:var(--coral);color:var(--navy);font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:3px 7px;line-height:1.2}
+
+  /* Snacks */
+  .snacks{position:absolute;left:80px;top:1140px;width:1080px}
+  .s-head{height:84px;display:flex;justify-content:space-between;align-items:flex-end}
+  .s-head .eyebrow{color:var(--kelp)}
+  .s-head h2{font-size:48px;line-height:1;margin-top:12px;letter-spacing:-.01em}
+  .s-head p{width:380px;font-size:17px;line-height:1.45;text-align:right;padding-bottom:4px}
+  .s-grid{display:grid;grid-template-columns:repeat(3,344px);column-gap:24px;row-gap:20px;margin-top:28px}
+  .snack{height:128px;border-top:1.5px solid var(--navy);padding-top:14px}
+  .s-top{display:flex;justify-content:space-between;align-items:baseline}
+  .s-name{font-family:var(--display);font-weight:400;font-size:24px;line-height:1.1}
+  .s-price{font-family:var(--mono);font-size:18px}
+  .s-desc{font-size:15px;line-height:1.45;margin-top:8px}
+
+  /* Footer */
+  .foot{position:absolute;left:0;top:1590px;width:1240px;height:164px;background:var(--navy);color:var(--oyster)}
+  .foot svg.tide{position:absolute;left:0;top:0;width:1240px;height:36px;display:block}
+  .foot-cols{position:absolute;left:80px;top:56px;width:1080px;display:grid;grid-template-columns:300px 300px 1fr;column-gap:40px}
+  .foot .lab{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px}
+  .foot .mono-lines{font-family:var(--mono);font-size:13px;line-height:1.65}
+  .foot .small{font-size:14px;line-height:1.5}
+  .foot .small .mono{font-family:var(--mono);font-size:13px;display:block;margin-top:4px}
+
+  /* Toggle + annotations */
+  .toggle{position:absolute;top:14px;right:14px;z-index:60;font:500 11px var(--mono);letter-spacing:.06em;text-transform:uppercase;padding:8px 10px;background:var(--oyster);color:var(--navy);border:1.5px solid var(--navy);cursor:pointer;opacity:0;transition:opacity .15s}
+  .toggle:hover,.toggle:focus-visible,body.notes .toggle{opacity:1}
+  #notes-layer{position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:none;z-index:50;display:none}
+  body.notes #notes-layer{display:block}
+  body.notes [data-note]{outline:1.5px dashed currentColor;outline-offset:6px}
+  body.notes .logo[data-note]{outline-offset:0}
+  #leaders{position:absolute;left:0;top:0}
+  #notes-layer .ann{position:absolute;width:240px;background:var(--oyster);color:var(--navy);border:1.5px solid var(--navy);padding:10px 13px 12px;font:13px/1.42 var(--text)}
+  #notes-layer .ann .k{display:flex;gap:8px;align-items:center;font:500 11px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--kelp);margin-bottom:7px}
+  #notes-layer .ann .num{flex:none;width:20px;height:20px;border-radius:50%;background:var(--navy);color:var(--oyster);display:inline-flex;align-items:center;justify-content:center;font-size:10px;letter-spacing:0}
+  #notes-layer .ann.sum{width:420px;padding:14px 16px}
+  #notes-layer .swatches{display:flex;flex-wrap:wrap;gap:6px;margin:9px 0}
+  #notes-layer .sw{display:flex;align-items:center;gap:6px;font:11px var(--mono);border:1.5px solid var(--navy);padding:3px 7px 3px 3px}
+  #notes-layer .sw i{display:block;width:14px;height:14px;border:1.5px solid var(--navy)}
+  #notes-layer .meter{display:flex;align-items:center;gap:10px;font:11px var(--mono);margin-top:8px}
+  #notes-layer .track{width:150px;height:10px;border:1.5px solid var(--navy);position:relative}
+  #notes-layer .fill{position:absolute;left:0;top:0;bottom:0;background:var(--coral)}
+</style>
+</head>
+<body>
+<button class="toggle" id="toggle" aria-pressed="false">Notes · off</button>
+
+<header class="band">
+  <a class="logo" href="low-tide-homepage.page.html" style="left:80px;top:56px" data-note="logo" aria-label="low tide">
+    <span class="word">low tide</span>
+    <svg viewBox="0 0 100 8" preserveAspectRatio="none" aria-hidden="true"><path d="M0 4 Q6.25 0 12.5 4 T25 4 T37.5 4 T50 4 T62.5 4 T75 4 T87.5 4 T100 4" fill="none" stroke="#EDE6DA" stroke-width="2" vector-effect="non-scaling-stroke" stroke-linecap="round"/></svg>
+  </a>
+  <div class="meta">Menu · Spring<br>No. 14 · Red Hook</div>
+  <div class="eyebrow e1">Wines by the glass · 5oz pours</div>
+  <h1 class="disp" data-note="title">By the glass</h1>
+  <p class="lede" data-note="voice">Twelve bottles open. None of them shy.</p>
+  <div class="sun" data-coral="0.5" aria-hidden="true"></div>
+  <span id="sun-anchor" data-note="sun" style="position:absolute;left:960px;top:312px;width:110px;height:46px;z-index:3"></span>
+  <div class="sea" data-note="sea"><svg class="tide" data-n="7" data-r="0.82" data-amp="2.6" data-len="110" data-sw="1.25" data-stroke="#EDE6DA" aria-hidden="true"></svg></div>
+</header>
+
+<section class="col" style="left:80px">
+  <div class="col-head">
+    <div class="eyebrow" data-note="kelp"><svg class="tide mini" data-n="3" data-r="0.7" data-amp="1.6" data-len="16" data-sw="1.25" data-stroke="#4E6E4E"></svg>01 · Bubbles and whites</div>
+    <h2 class="disp">Bright and white</h2>
+  </div>
+  <ol class="list">
+    <li class="wine"><div class="w-top"><span class="w-name">Chenin Blanc pét-nat<span class="new" data-coral="1" data-note="badge">New</span></span><span class="w-price">$15</span></div><div class="w-region">Loire Valley, France</div><div class="w-taste">Fizzy, cloudy, unbothered.</div></li>
+    <li class="wine"><div class="w-top"><span class="w-name">Muscadet</span><span class="w-price">$13</span></div><div class="w-region">Pays Nantais, France</div><div class="w-taste">Salty. Born for oysters.</div></li>
+    <li class="wine"><div class="w-top"><span class="w-name" data-note="name">Grüner Veltliner</span><span class="w-price">$14</span></div><div class="w-region" data-note="region">Kamptal, Austria</div><div class="w-taste">Peppery, green, keeps you honest.</div></li>
+    <li class="wine"><div class="w-top"><span class="w-name">Xarel·lo</span><span class="w-price" data-note="price">$14</span></div><div class="w-region">Penedès, Spain</div><div class="w-taste">Lemon peel and sea spray.</div></li>
+    <li class="wine"><div class="w-top"><span class="w-name">Assyrtiko</span><span class="w-price">$16</span></div><div class="w-region">Santorini, Greece</div><div class="w-taste">Volcanic. Takes itself seriously.</div></li>
+    <li class="wine"><div class="w-top"><span class="w-name">Savagnin</span><span class="w-price">$18</span></div><div class="w-region">Jura, France</div><div class="w-taste">Nutty, flinty, an acquired taste. Acquire it.</div></li>
+  </ol>
+</section>
+
+<section class="col" style="left:640px">
+  <div class="col-head">
+    <div class="eyebrow"><svg class="tide mini" data-n="5" data-r="0.78" data-amp="1.4" data-len="16" data-sw="1.25" data-stroke="#4E6E4E"></svg>02 · Orange, pink and red</div>
+    <h2 class="disp">Skins and reds</h2>
+  </div>
+  <ol class="list" start="7">
+    <li class="wine"><div class="w-top"><span class="w-name">Ramato Pinot Grigio</span><span class="w-price">$16</span></div><div class="w-region">Friuli, Italy</div><div class="w-taste">Copper-colored. Argues back.</div></li>
+    <li class="wine"><div class="w-top"><span class="w-name">Rkatsiteli</span><span class="w-price">$15</span></div><div class="w-region">Kakheti, Georgia</div><div class="w-taste">Made in clay pots. Tannic, in a nice way.</div></li>
+    <li class="wine"><div class="w-top"><span class="w-name">Zweigelt rosé</span><span class="w-price">$13</span></div><div class="w-region">Burgenland, Austria</div><div class="w-taste">Pink, dry, not here to make friends.</div></li>
+    <li class="wine"><div class="w-top"><span class="w-name">Gamay</span><span class="w-price">$14</span></div><div class="w-region">Beaujolais, France</div><div class="w-taste" data-note="taste">Served cold. Drinks fast. We don't judge.</div></li>
+    <li class="wine"><div class="w-top"><span class="w-name">Frappato</span><span class="w-price">$15</span></div><div class="w-region">Vittoria, Sicily</div><div class="w-taste">Light, red, a little flirty.</div></li>
+    <li class="wine"><div class="w-top"><span class="w-name">Trousseau</span><span class="w-price">$17</span></div><div class="w-region">Jura, France</div><div class="w-taste">Pale, perfumed, a little smug.</div></li>
+  </ol>
+</section>
+
+<section class="snacks">
+  <div class="s-head">
+    <div>
+      <div class="eyebrow">03 · Not wine</div>
+      <h2 class="disp">Snacks, briefly</h2>
+    </div>
+    <p>For lining the stomach. Or as an excuse to stay for another glass.</p>
+  </div>
+  <div class="s-grid" data-note="snacks">
+    <div class="snack"><div class="s-top"><span class="s-name">Local oysters</span><span class="s-price">$18</span></div><p class="s-desc">Half dozen, shucked to order. Mignonette, lemon, no sauce.</p></div>
+    <div class="snack"><div class="s-top"><span class="s-name">Bread and butter</span><span class="s-price">$8</span></div><p class="s-desc">Sourdough from down the street. Cultured butter, generously.</p></div>
+    <div class="snack"><div class="s-top"><span class="s-name">Marinated olives</span><span class="s-price">$7</span></div><p class="s-desc">Castelvetrano, orange peel, chili. Pits included, free of charge.</p></div>
+    <div class="snack"><div class="s-top"><span class="s-name">Tinned fish</span><span class="s-price">$16</span></div><p class="s-desc">A tin, some crackers, pickled shallot. The catch rotates.</p></div>
+    <div class="snack"><div class="s-top"><span class="s-name">Cheese, three ways</span><span class="s-price">$19</span></div><p class="s-desc">Three cheeses, honey and whatever fruit is in season.</p></div>
+    <div class="snack"><div class="s-top"><span class="s-name">House chips</span><span class="s-price">$6</span></div><p class="s-desc">Fried here, salted heavily. Especially good with bubbles.</p></div>
+  </div>
+</section>
+
+<footer class="foot" data-note="foot">
+  <svg class="tide" data-n="5" data-r="0.8" data-amp="2.4" data-len="80" data-sw="1.25" data-stroke="#EDE6DA" aria-hidden="true"></svg>
+  <div class="foot-cols">
+    <div><div class="lab">Hours</div><div class="mono-lines">Tue–Thu 4–11pm<br>Fri–Sat 4pm–1am<br>Sun 2–10pm · Mon closed</div></div>
+    <div><div class="lab">Every week</div><div class="mono-lines">Tuesday tastings 6–8pm<br>Sunday oysters from 2pm<br>$2 each until 5pm</div></div>
+    <div><div class="lab">Small print</div><p class="small">Every glass on this list is also a bottle. Ask, and we'll pretend it's a hassle.<span class="mono">312 Van Brunt St · @lowtide.redhook</span></p></div>
+  </div>
+</footer>
+
+<div id="notes-layer" aria-hidden="true"><svg id="leaders" width="1240" height="1754"></svg></div>
+
+<script>
+window.PIECE={
+  W:1240,H:1754,SUM:[80,1270],
+  NOTES:[
+    {id:'logo',  a:[1,.5], at:[330,40],  rule:'Logo', t:`Lowercase wordmark with its wave line, in Oyster on Navy. The dashed box is the clear space, equal to the height of the “l” ({L}px).`},
+    {id:'title', a:[.98,.5], at:[700,128], rule:'Display · sentence case', t:`Gloock, sentence case, on Tide Navy. The primary color opens the page, as on the homepage hero.`},
+    {id:'sun',   a:[.5,.4], at:[988,170], rule:'Accent ≤ 10%', t:`The setting sun carries over from the homepage. Coral appears only here and on one “New” tag.`},
+    {id:'voice', a:[1,.5], at:[700,300], rule:'Voice', t:`Dry, witty, short. One line that sets up the list.`},
+    {id:'sea',   a:[.12,.5], at:[80,440], rule:'Graphic device', t:`Horizontal tide lines that tighten toward the bottom. They are never rotated.`},
+    {id:'badge', a:[1,.5], at:[400,520], rule:'Accent ≤ 10%', t:`Coral flags the single new arrival on the list.`},
+    {id:'kelp',  a:[.5,1], at:[80,600], rule:'Secondary color', t:`Kelp carries the labels and tasting notes, a quieter second voice than the Navy.`},
+    {id:'name',  a:[1,.5], at:[360,700], rule:'Display', t:`Grape names are set in Gloock, sentence case, so the list scans by grape first.`},
+    {id:'region',a:[1,.5], at:[360,820], rule:'Type · text', t:`Regions and notes are in Work Sans. The region sits on its own line, as the brief asks.`},
+    {id:'price', a:[0,.5], at:[640,720], rule:'Type · prices', t:`Every price is DM Mono, aligned right to a single column.`},
+    {id:'taste', a:[1,.5], at:[988,860], rule:'Voice', t:`Tasting notes run to five or six words, with one joke apiece.`},
+    {id:'snacks',a:[.98,.1], at:[920,1150], rule:'Background', t:`Oyster carries the content. Navy hairlines give the structure with no boxes or fills.`},
+    {id:'foot',  a:[.6,.5], at:[700,1420], rule:'Labels · device', t:`The hours and events are labels, so they are set in DM Mono. The tide strip closes the page.`}
+  ]
+};
+</script>
+<script>
+(function(){
+  const P=window.PIECE, W=P.W, H=P.H;
+  function tidePaths(w,h,o){
+    const n=Math.max(2,o.n), ratio=o.r, sw=o.sw, pad=o.amp+sw, usable=h-2*pad;
+    const g=[]; let sum=0;
+    for(let i=0;i<n-1;i++){const v=Math.pow(ratio,i); g.push(v); sum+=v;}
+    const ys=[pad]; let y=pad; g.forEach(v=>{y+=v/sum*usable; ys.push(y);});
+    let out='';
+    ys.forEach((y0,i)=>{
+      const near=Math.min(g[Math.max(0,i-1)], g[Math.min(i,g.length-1)])/sum*usable;
+      const a=Math.min(o.amp*(0.7+0.3*Math.sin(i*1.9+0.4)), near*0.42);
+      const L=o.len*(1+0.15*Math.sin(i*2.7)), ph=i*0.85;
+      let d='';
+      for(let x=-6;x<=w+6;x+=4){ d+=(d?'L':'M')+x+' '+(y0+a*Math.sin(2*Math.PI*x/L+ph)).toFixed(2); }
+      out+=`<path d="${d}" fill="none" stroke="${o.stroke}" stroke-width="${sw}" stroke-linecap="round"/>`;
+    });
+    return out;
+  }
+  function crest(w,h,amp,len,fill){
+    let d=`M0 ${h}`;
+    for(let x=0;x<=w;x+=4){ d+=` L${x} ${(amp+amp*Math.sin(2*Math.PI*x/len+0.6)).toFixed(2)}`; }
+    return `<path d="${d} L${w} ${h} Z" fill="${fill}"/>`;
+  }
+  function draw(){
+    document.querySelectorAll('svg.tide').forEach(svg=>{
+      const r=svg.getBoundingClientRect(), w=Math.round(r.width), h=Math.round(r.height), d=svg.dataset;
+      svg.setAttribute('viewBox',`0 0 ${w} ${h}`);
+      svg.innerHTML=tidePaths(w,h,{n:+d.n,r:+d.r,amp:+d.amp,len:+d.len,sw:+d.sw,stroke:d.stroke});
+    });
+    document.querySelectorAll('svg.crest').forEach(svg=>{
+      const r=svg.getBoundingClientRect(), w=Math.round(r.width), h=Math.round(r.height), d=svg.dataset;
+      svg.setAttribute('viewBox',`0 0 ${w} ${h}`);
+      svg.innerHTML=crest(w,h,+d.amp,+d.len,d.fill);
+    });
+    if(P.draw) P.draw();
+  }
+  function measureL(){
+    const word=document.querySelector('.logo .word');
+    const fs=parseFloat(getComputedStyle(word).fontSize);
+    const c=document.createElement('canvas').getContext('2d');
+    c.font=`${fs}px Gloock, Georgia, serif`;
+    const m=c.measureText('l');
+    const lh=Math.round(m.actualBoundingBoxAscent+m.actualBoundingBoxDescent)||Math.round(fs*.75);
+    document.documentElement.style.setProperty('--l',lh+'px');
+    return lh;
+  }
+  function coralShare(){
+    let area=0;
+    document.querySelectorAll('[data-coral]').forEach(el=>{const r=el.getBoundingClientRect(); area+=r.width*r.height*(+el.dataset.coral||1);});
+    return area/(W*H)*100;
+  }
+  function build(lh){
+    const layer=document.getElementById('notes-layer'), svg=document.getElementById('leaders');
+    layer.querySelectorAll('.ann').forEach(n=>n.remove());
+    const hidden=!document.body.classList.contains('notes');
+    if(hidden) layer.style.display='block';
+    const placed=[]; let lines='', pins='';
+    const share=coralShare();
+    const s=document.createElement('div');
+    s.className='ann sum'; s.style.left=P.SUM[0]+'px'; s.style.top=P.SUM[1]+'px';
+    s.innerHTML=`<div class="k">Annotations · ${P.NOTES.length} notes · press N</div>
+      <div>Only the guideline palette and type are used.</div>
+      <div class="swatches">
+        <span class="sw"><i style="background:#14213D"></i>Tide Navy #14213D</span>
+        <span class="sw"><i style="background:#EDE6DA"></i>Oyster #EDE6DA</span>
+        <span class="sw"><i style="background:#4E6E4E"></i>Kelp #4E6E4E</span>
+        <span class="sw"><i style="background:#F2795B"></i>Sunset Coral #F2795B</span>
+      </div>
+      <div style="font:11px var(--mono)">Gloock display · Work Sans text · DM Mono prices &amp; labels</div>
+      <div class="meter"><span>Coral ≈ ${share.toFixed(2)}%</span><span class="track"><span class="fill" style="width:${Math.min(100,share*10)}%"></span></span><span>10% cap</span></div>`;
+    layer.appendChild(s);
+    placed.push({x:P.SUM[0],y:P.SUM[1],w:s.offsetWidth,h:s.offsetHeight});
+    P.NOTES.forEach((n,i)=>{
+      const el=document.querySelector(`[data-note="${n.id}"]`);
+      if(!el) return;
+      const r=el.getBoundingClientRect();
+      const ax=r.left+n.a[0]*r.width, ay=r.top+n.a[1]*r.height;
+      const card=document.createElement('div');
+      card.className='ann';
+      card.innerHTML=`<div class="k"><span class="num">${i+1}</span>${n.rule}</div>${n.t.replace('{L}',lh)}`;
+      layer.appendChild(card);
+      const w=card.offsetWidth, h=card.offsetHeight;
+      let x=Math.max(12,Math.min(W-w-12,n.at[0])), y=n.at[1];
+      let moved=true, guard=0;
+      while(moved && guard++<30){
+        moved=false;
+        for(const p of placed){
+          if(x<p.x+p.w+8 && x+w+8>p.x && y<p.y+p.h+8 && y+h+8>p.y){ y=p.y+p.h+10; moved=true; }
+        }
+      }
+      y=Math.min(y,H-h-12);
+      card.style.left=x+'px'; card.style.top=y+'px';
+      placed.push({x,y,w,h});
+      const cx=Math.max(x,Math.min(x+w,ax)), cy=Math.max(y,Math.min(y+h,ay));
+      lines+=`<line x1="${ax}" y1="${ay}" x2="${cx}" y2="${cy}" stroke="#EDE6DA" stroke-width="4"/><line x1="${ax}" y1="${ay}" x2="${cx}" y2="${cy}" stroke="#14213D" stroke-width="1.5"/>`;
+      pins+=`<circle cx="${ax}" cy="${ay}" r="10" fill="#14213D" stroke="#EDE6DA" stroke-width="2"/><text x="${ax}" y="${ay+3.5}" text-anchor="middle" font-family="DM Mono, monospace" font-size="10" fill="#EDE6DA">${i+1}</text>`;
+    });
+    svg.innerHTML=lines+pins;
+    if(hidden) layer.style.display='';
+  }
+  function setNotes(on){
+    document.body.classList.toggle('notes',on);
+    const b=document.getElementById('toggle');
+    b.setAttribute('aria-pressed',on?'true':'false');
+    b.textContent=on?'Notes · on':'Notes · off';
+  }
+  function init(){ const lh=measureL(); draw(); requestAnimationFrame(()=>build(lh)); }
+  document.getElementById('toggle').addEventListener('click',()=>setNotes(!document.body.classList.contains('notes')));
+  document.addEventListener('keydown',e=>{ if(e.key==='n'||e.key==='N') setNotes(!document.body.classList.contains('notes')); });
+  if(location.hash==='#notes') setNotes(true);
+  draw();
+  if(document.fonts && document.fonts.ready){ document.fonts.ready.then(init); } else { init(); }
+  setTimeout(init,1500);
+})();
+</script>
+</body>
+</html>

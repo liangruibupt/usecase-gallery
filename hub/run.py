@@ -41,7 +41,9 @@ def to_png(src: Path, target: Path, rule: dict) -> None:
 
 
 def to_pandoc(src: Path, target: Path, rule: dict) -> None:
-    subprocess.run(["pandoc", "-f", "gfm", str(src), "-o", str(target)], check=True)
+    # Slides need pandoc's own markdown: gfm prints `::: notes` as slide text and splits slides at tables.
+    flavor = "markdown" if target.suffix == ".pptx" else "gfm"
+    subprocess.run(["pandoc", "-f", flavor, str(src), "-o", str(target)], check=True)
 
 
 def to_xlsx(src: Path, target: Path, rule: dict) -> None:
@@ -65,30 +67,45 @@ def _cell(v: str):
 
 def html_screenshot(src: Path, target: Path, rule: dict) -> None:
     w, h = rule.get("width", 1440), rule.get("height", 900)
-    with tempfile.TemporaryDirectory() as profile:
-        subprocess.run([CHROME, "--headless=new", "--disable-gpu", "--hide-scrollbars",
-                        f"--user-data-dir={profile}", f"--window-size={w},{h}",
-                        "--virtual-time-budget=5000", f"--screenshot={target}", src.resolve().as_uri()],
-                       check=True, capture_output=True, timeout=120)
+    for attempt in range(3):  # headless Chrome occasionally exits non-zero during teardown
+        with tempfile.TemporaryDirectory() as profile:
+            r = subprocess.run([CHROME, "--headless=new", "--use-angle=swiftshader", "--enable-unsafe-swiftshader",
+                                "--hide-scrollbars", f"--user-data-dir={profile}", f"--window-size={w},{h}",
+                                "--virtual-time-budget=5000", f"--screenshot={target}", src.resolve().as_uri()],
+                               capture_output=True, timeout=120)
+        if target.exists() and target.stat().st_size > 0:
+            return
+    raise RuntimeError(f"Chrome could not screenshot {src.name}: {r.stderr.decode()[-300:]}")
 
 
 CONVERTERS = {"png": to_png, "docx": to_pandoc, "pptx": to_pandoc, "xlsx": to_xlsx, "shot.png": html_screenshot}
 
 
-def convert(path: Path, rules: dict) -> list[Path]:
-    """Rules are keyed by file-name ending; the longest matching key wins (".slides.md" beats ".md")."""
+def rule_for(path: Path, rules: dict) -> tuple[Path, dict] | None:
+    """Rules are keyed by file-name ending; the longest matching key wins (".slides.md" beats ".md").
+    Returns the converted file's path and the rule, or None when no rule matches."""
     key = max((k for k in rules if path.name.endswith(k)), key=len, default=None)
     if key is None:
+        return None
+    return path.with_name(path.name[: -len(key)] + "." + rules[key]["to"]), rules[key]
+
+
+def convert(path: Path, rules: dict) -> list[Path]:
+    match = rule_for(path, rules)
+    if match is None:
         return []
-    rule = rules[key]
-    target = path.with_name(path.name[: -len(key)] + "." + rule["to"])
+    target, rule = match
     CONVERTERS[rule["to"]](path, target, rule)
     return [target]
 
 
+def preview_of(png: Path) -> Path:
+    return png.with_name(png.name.removesuffix(".png") + ".preview.jpg")
+
+
 def jpeg_preview(png: Path, width: int = 1600) -> Path:
     """Downscaled JPEG beside the PNG: what the model reviews and what the gallery shows."""
-    target = png.with_name(png.name.removesuffix(".png") + ".preview.jpg")
+    target = preview_of(png)
     subprocess.run(["sips", "-s", "format", "jpeg", "-s", "formatOptions", "82", "-Z", str(width),
                     str(png), "--out", str(target)], check=True, capture_output=True)
     return target

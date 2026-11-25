@@ -1,0 +1,182 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1350" viewBox="0 0 1080 1350">
+  <style>
+    .cn{font-family:'Source Han Sans SC',sans-serif}
+    .num{font-family:'DIN Alternate',sans-serif}
+  </style>
+  <defs>
+    <pattern id="gMinor" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M40 0.5H0.5V40" fill="none" stroke="#DBE3E8" stroke-width="1"/>
+    </pattern>
+    <pattern id="gMajor" width="200" height="200" patternUnits="userSpaceOnUse">
+      <path d="M200 0.75H0.75V200" fill="none" stroke="#C4D1D9" stroke-width="1.5"/>
+    </pattern>
+    <pattern id="rulerV" width="40" height="50" patternUnits="userSpaceOnUse">
+      <path d="M14 0.5H40 M28 10.5H40 M28 20.5H40 M28 30.5H40 M28 40.5H40" stroke="#6C8494" stroke-width="1"/>
+    </pattern>
+    <pattern id="rulerH" width="50" height="40" patternUnits="userSpaceOnUse">
+      <path d="M0.5 14V40 M10.5 28V40 M20.5 28V40 M30.5 28V40 M40.5 28V40" stroke="#6C8494" stroke-width="1"/>
+    </pattern>
+    <clipPath id="glassClip">
+      <path d="M20 0 L340 0 L315 460 Q313 480 293 480 L67 480 Q47 480 45 460 Z"/>
+    </clipPath>
+    <linearGradient id="coffeeG" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#A46A43"/>
+      <stop offset="0.25" stop-color="#7A4627"/>
+      <stop offset="1" stop-color="#3F2112"/>
+    </linearGradient>
+    <linearGradient id="depthG" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#000" stop-opacity="0.28"/>
+      <stop offset="0.35" stop-color="#000" stop-opacity="0"/>
+      <stop offset="0.7" stop-color="#000" stop-opacity="0"/>
+      <stop offset="1" stop-color="#000" stop-opacity="0.32"/>
+    </linearGradient>
+    <filter id="soft" x="-20%" y="-200%" width="140%" height="500%">
+      <feGaussianBlur stdDeviation="8"/>
+    </filter>
+    <filter id="glow" x="-20%" y="-30%" width="140%" height="160%">
+      <feGaussianBlur stdDeviation="5" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <rect width="1080" height="1350" fill="#EEF2F4"/>
+  <rect width="1080" height="1350" fill="url(#gMinor)"/>
+  <rect width="1080" height="1350" fill="url(#gMajor)"/>
+  <rect x="0" y="0" width="40" height="1350" fill="#E2E9EE"/>
+  <rect x="0" y="0" width="40" height="1350" fill="url(#rulerV)"/>
+  <rect x="0" y="0" width="1080" height="40" fill="#E2E9EE"/>
+  <rect x="0" y="0" width="1080" height="40" fill="url(#rulerH)"/>
+  <rect x="0" y="0" width="40" height="40" fill="#0B1F33"/>
+
+  <!-- logo -->
+  <g transform="translate(72 72)">
+    <rect width="56" height="56" rx="10" fill="#0B1F33"/>
+    <path d="M10 40 L22 26 L29 33 L38 20 L48 40" stroke="#FFFFFF" stroke-width="3.5" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+    <circle cx="40" cy="14" r="4" fill="#7DF3FF"/>
+    <text x="70" y="34" class="cn" font-size="34" font-weight="700" fill="#0B1F33" letter-spacing="2">醒山</text>
+    <text x="70" y="52" class="num" font-size="11" fill="#5B7385" letter-spacing="2.5">XINGSHAN FREEZE-DRIED</text>
+  </g>
+  <text x="1008" y="110" text-anchor="end" class="num" font-size="18" fill="#5B7385" letter-spacing="3">LAB REPORT · EXP-03</text>
+  <line x1="72" y1="156" x2="1008" y2="156" stroke="#0B1F33" stroke-opacity="0.35" stroke-width="1.5"/>
+
+  <text x="72" y="208" class="cn" font-size="24" font-weight="500" fill="#0A8FB3" letter-spacing="4">冷溶测试报告 / COLD DISSOLVE TEST</text>
+  <text x="66" y="320" class="cn" font-size="112" font-weight="300" fill="#0B1F33">冷水实测，</text>
+  <text x="66" y="450" class="cn" font-size="112" font-weight="300" fill="#0B1F33"><tspan class="num" font-size="140" fill="#0A8FB3">3</tspan> 秒全溶</text>
+
+  <!-- price badge -->
+  <g transform="translate(878 318) rotate(-8)">
+    <circle r="112" fill="#FF5A36"/>
+    <circle r="98" fill="none" stroke="#FFFFFF" stroke-opacity="0.6" stroke-width="2" stroke-dasharray="4 6"/>
+    <text y="-44" text-anchor="middle" class="cn" font-size="26" font-weight="500" fill="#FFFFFF" letter-spacing="3">首单</text>
+    <text y="34" text-anchor="middle" fill="#FFFFFF"><tspan class="num" font-size="96">9.9</tspan><tspan class="cn" font-size="30" font-weight="500">元</tspan></text>
+    <text y="76" text-anchor="middle" class="cn" font-size="26" font-weight="500" fill="#FFFFFF">6 颗</text>
+  </g>
+
+  <rect x="72" y="502" width="16" height="16" fill="#0A8FB3"/>
+  <text x="104" y="532" class="cn" font-size="44" font-weight="500" fill="#0B1F33">3 秒冷水速溶<tspan fill="#5B7385" font-weight="400"> · 0 糖 0 脂</tspan></text>
+
+  <!-- dimension line -->
+  <g stroke="#5B7385" stroke-width="1.5">
+    <line x1="112" y1="604" x2="112" y2="1104"/>
+    <line x1="102" y1="604" x2="122" y2="604"/>
+    <line x1="102" y1="1104" x2="122" y2="1104"/>
+  </g>
+  <text transform="translate(98 854) rotate(-90)" text-anchor="middle" class="num" font-size="18" fill="#5B7385" letter-spacing="2">H 120 mm</text>
+
+  <!-- beaker -->
+  <g transform="translate(140 604) scale(1.04)">
+    <ellipse cx="180" cy="490" rx="175" ry="16" fill="#0B1F33" opacity="0.16" filter="url(#soft)"/>
+    <g clip-path="url(#glassClip)">
+      <rect x="0" y="0" width="360" height="480" fill="#FFFFFF" opacity="0.4"/>
+      <rect x="0" y="118" width="360" height="370" fill="url(#coffeeG)"/>
+      <rect x="0" y="118" width="360" height="370" fill="url(#depthG)"/>
+      <path d="M70 210 C150 170 230 250 300 205" fill="none" stroke="#C99466" stroke-width="9" stroke-linecap="round" opacity="0.35"/>
+      <path d="M90 290 C170 250 210 330 280 290" fill="none" stroke="#C99466" stroke-width="7" stroke-linecap="round" opacity="0.25"/>
+      <path d="M80 370 C150 340 230 400 290 360" fill="none" stroke="#2E170A" stroke-width="14" stroke-linecap="round" opacity="0.22"/>
+      <ellipse cx="180" cy="118" rx="154" ry="13" fill="#B07A50"/>
+      <ellipse cx="180" cy="116" rx="140" ry="9" fill="#C8936A" opacity="0.6"/>
+      <g fill="#FFFFFF" opacity="0.35">
+        <circle cx="100" cy="240" r="5"/><circle cx="130" cy="300" r="3"/><circle cx="210" cy="262" r="4"/>
+        <circle cx="262" cy="350" r="6"/><circle cx="180" cy="420" r="3"/><circle cx="92" cy="400" r="4"/>
+      </g>
+      <g fill="#FFFFFF" fill-opacity="0.42" stroke="#FFFFFF" stroke-opacity="0.9" stroke-width="2">
+        <rect x="70" y="90" width="76" height="70" rx="12" transform="rotate(-14 108 125)"/>
+        <rect x="160" y="98" width="68" height="62" rx="11" transform="rotate(10 194 129)"/>
+        <rect x="236" y="88" width="64" height="60" rx="10" transform="rotate(-6 268 118)"/>
+      </g>
+      <g stroke="#FFFFFF" stroke-width="4" stroke-linecap="round" fill="none" opacity="0.85">
+        <path d="M84 104 L104 98"/><path d="M172 110 L188 112"/><path d="M246 98 L262 96"/>
+      </g>
+      <rect x="38" y="0" width="22" height="480" fill="#FFFFFF" opacity="0.16"/>
+    </g>
+    <path d="M20 0 L340 0 L315 460 Q313 480 293 480 L67 480 Q47 480 45 460 Z" fill="none" stroke="#0B1F33" stroke-opacity="0.55" stroke-width="3"/>
+    <ellipse cx="180" cy="0" rx="160" ry="13" fill="#FFFFFF" fill-opacity="0.35" stroke="#0B1F33" stroke-opacity="0.55" stroke-width="3"/>
+    <path d="M42 30 L60 430" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round" opacity="0.6"/>
+    <path d="M322 40 L304 420" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" opacity="0.3"/>
+    <g stroke="#FFFFFF" stroke-opacity="0.8" stroke-width="2">
+      <line x1="309" y1="130" x2="327" y2="130"/><line x1="305" y1="210" x2="323" y2="210"/>
+      <line x1="300" y1="290" x2="318" y2="290"/><line x1="296" y1="370" x2="314" y2="370"/>
+    </g>
+    <g class="num" font-size="16" fill="#FFFFFF" fill-opacity="0.8" text-anchor="end">
+      <text x="302" y="136">200</text><text x="298" y="216">150</text><text x="293" y="296">100</text><text x="289" y="376">50</text>
+    </g>
+    <g fill="#FFFFFF" opacity="0.7">
+      <ellipse cx="74" cy="250" rx="4" ry="6"/><ellipse cx="96" cy="332" rx="3" ry="5"/><ellipse cx="258" cy="410" rx="4" ry="6"/>
+      <ellipse cx="240" cy="182" rx="3" ry="4.5"/><ellipse cx="122" cy="440" rx="3.5" ry="5"/><ellipse cx="282" cy="270" rx="3" ry="4.5"/>
+    </g>
+  </g>
+
+  <!-- leader lines -->
+  <g fill="none" stroke="#0A8FB3" stroke-width="1.5" stroke-dasharray="5 4">
+    <polyline points="379,724 548,724 548,894 568,894"/>
+    <polyline points="380,1032 548,1032 548,990 568,990"/>
+  </g>
+  <circle cx="379" cy="724" r="6" fill="#EEF2F4" stroke="#0A8FB3" stroke-width="2"/>
+  <circle cx="380" cy="1032" r="6" fill="#EEF2F4" stroke="#0A8FB3" stroke-width="2"/>
+
+  <!-- timer -->
+  <g transform="translate(580 604) scale(1.1)">
+    <rect width="380" height="180" rx="14" fill="#0B1F33"/>
+    <circle cx="26" cy="22" r="5" fill="#FF5A36"/>
+    <text x="40" y="28" class="num" font-size="16" fill="#8FB3C7" letter-spacing="3">DISSOLVE TIME</text>
+    <text x="364" y="28" text-anchor="end" class="num" font-size="16" fill="#8FB3C7" letter-spacing="3">STOP</text>
+    <rect x="16" y="42" width="348" height="122" rx="6" fill="#051320" stroke="#173A52" stroke-width="2"/>
+    <text x="292" y="146" text-anchor="end" class="num" font-size="118" fill="#12324A">8.88</text>
+    <text x="292" y="146" text-anchor="end" class="num" font-size="118" fill="#7DF3FF" filter="url(#glow)">3.00</text>
+    <text x="302" y="146" class="num" font-size="50" fill="#7DF3FF">s</text>
+  </g>
+
+  <!-- data table -->
+  <text x="580" y="852" class="cn" font-size="20" font-weight="500" fill="#5B7385" letter-spacing="3">DATA / 实测数据</text>
+  <g stroke="#0B1F33" stroke-width="1">
+    <line x1="580" y1="866" x2="998" y2="866" stroke-width="2"/>
+    <line x1="580" y1="918" x2="998" y2="918" stroke-opacity="0.25"/>
+    <line x1="580" y1="966" x2="998" y2="966" stroke-opacity="0.25"/>
+    <line x1="580" y1="1014" x2="998" y2="1014" stroke-opacity="0.25"/>
+    <line x1="580" y1="1062" x2="998" y2="1062" stroke-width="2"/>
+  </g>
+  <g class="cn" font-size="26" fill="#0B1F33">
+    <text x="580" y="903">水温</text><text x="580" y="951">用水</text>
+    <text x="580" y="999">糖</text><text x="580" y="1047">脂肪</text>
+  </g>
+  <g class="num" font-size="32" text-anchor="end">
+    <text x="998" y="904" fill="#0B1F33">4 °C</text>
+    <text x="998" y="952" fill="#0B1F33">200 ml</text>
+    <text x="998" y="1000" fill="#0A8FB3">0 g</text>
+    <text x="998" y="1048" fill="#0A8FB3">0 g</text>
+  </g>
+
+  <g stroke="#0A8FB3" stroke-width="1.5">
+    <path d="M1030 594 V614 M1020 604 H1040"/>
+    <path d="M1030 1094 V1114 M1020 1104 H1040"/>
+  </g>
+
+  <text x="72" y="1146" class="cn" font-size="18" fill="#5B7385">* 实验条件：4 °C 饮用水 200 ml，冻干咖啡 2 g，搅拌后计时。图示为示意。</text>
+
+  <!-- CTA -->
+  <rect x="72" y="1172" width="936" height="108" fill="#0B1F33"/>
+  <rect x="72" y="1172" width="12" height="108" fill="#7DF3FF"/>
+  <text x="120" y="1242" class="cn" font-size="46" font-weight="500" fill="#FFFFFF">立即抢购 · 首单 <tspan class="num" font-size="52" fill="#7DF3FF">9.9</tspan> 元 6 颗</text>
+  <rect x="908" y="1172" width="100" height="108" fill="#0A8FB3"/>
+  <path d="M940 1226 H976 M962 1210 L978 1226 L962 1242" stroke="#FFFFFF" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

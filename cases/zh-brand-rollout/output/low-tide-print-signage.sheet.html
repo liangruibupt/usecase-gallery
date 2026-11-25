@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1440">
+<title>Low Tide: Coaster, tote, business card, window vinyl</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Gloock&family=Work+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#14213D; --oyster:#EDE6DA; --kelp:#4E6E4E; --coral:#F2795B;
+    --display:'Gloock', Georgia, 'Times New Roman', serif;
+    --text:'Work Sans', system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    --mono:'DM Mono', ui-monospace, Menlo, Consolas, monospace;
+    --l:24px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:var(--oyster);color:var(--navy)}
+  body{width:1440px;height:1800px;overflow:hidden;position:relative;font-family:var(--text);-webkit-font-smoothing:antialiased}
+  ::selection{background:var(--navy);color:var(--oyster)}
+  .disp{font-family:var(--display);font-weight:400}
+  .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase}
+  svg .g{font-family:var(--display)}
+  svg .m{font-family:var(--mono)}
+  svg .w{font-family:var(--text)}
+
+  /* Logo */
+  .logo{position:absolute;display:inline-flex;flex-direction:column;padding:var(--l);margin:calc(-1 * var(--l));color:inherit;text-decoration:none}
+  .logo .word{font-family:var(--display);font-size:32px;line-height:1;letter-spacing:-.005em}
+  .logo svg{display:block;width:100%;height:9px;margin-top:4px;overflow:visible}
+
+  /* Header */
+  .hdr-eb{position:absolute;right:236px;top:69px}
+  .toggle{position:absolute;right:80px;top:56px;font:500 12px var(--mono);letter-spacing:.06em;text-transform:uppercase;border:1.5px solid var(--navy);padding:11px 14px;background:var(--oyster);color:var(--navy);cursor:pointer;z-index:60}
+  .toggle[aria-pressed="true"]{background:var(--navy);color:var(--oyster)}
+  h1{position:absolute;left:76px;top:132px;font-size:72px;line-height:1;letter-spacing:-.02em}
+  .hsub{position:absolute;right:80px;top:142px;width:360px;text-align:right;font-size:18px;line-height:1.45}
+
+  /* Panels */
+  .panel{position:absolute;overflow:hidden}
+  .panel.oy{background:var(--oyster);border:1.5px solid var(--navy);color:var(--navy)}
+  .panel.oy .eyebrow{color:var(--kelp)}
+  .panel.kp{background:var(--kelp);color:var(--oyster)}
+  .ph{position:absolute;left:28px;top:28px}
+  .ph h2{font-size:36px;line-height:1;margin-top:10px;letter-spacing:-.01em}
+  .obj{position:absolute;display:block;overflow:visible}
+  .cap{position:absolute;font-family:var(--mono);font-size:12px;letter-spacing:.04em}
+  .specs{position:absolute}
+  .specs .row{border-top:1.5px solid currentColor;padding:9px 0 10px}
+  .specs dt{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase}
+  .specs dd{font-family:var(--mono);font-size:13px;line-height:1.4;margin-top:4px}
+  .panel.oy .specs dt{color:var(--kelp)}
+  .specs.three{display:grid;grid-template-columns:repeat(3,1fr);column-gap:24px}
+  .tote-line{position:absolute;left:404px;bottom:40px;width:204px;font-size:28px;line-height:1.05}
+  .voice{position:absolute;font-size:15px;line-height:1.45}
+
+  /* Footer */
+  footer{position:absolute;left:0;top:1748px;width:1440px;height:52px;background:var(--navy);color:var(--oyster);display:flex;align-items:center;justify-content:space-between;padding:0 80px;font-family:var(--mono);font-size:12px;letter-spacing:.04em}
+
+  /* Annotations */
+  #notes-layer{position:absolute;left:0;top:0;width:1440px;height:1800px;pointer-events:none;z-index:50;display:none}
+  body.notes #notes-layer{display:block}
+  body.notes [data-note]:not(svg *){outline:1.5px dashed currentColor;outline-offset:6px}
+  body.notes .logo[data-note]{outline-offset:0}
+  #leaders{position:absolute;left:0;top:0}
+  #notes-layer .ann{position:absolute;width:240px;background:var(--oyster);color:var(--navy);border:1.5px solid var(--navy);padding:10px 13px 12px;font:13px/1.42 var(--text)}
+  #notes-layer .ann .k{display:flex;gap:8px;align-items:center;font:500 11px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--kelp);margin-bottom:7px}
+  #notes-layer .ann .num{flex:none;width:20px;height:20px;border-radius:50%;background:var(--navy);color:var(--oyster);display:inline-flex;align-items:center;justify-content:center;font-size:10px;letter-spacing:0}
+  #notes-layer .ann.sum{width:420px;padding:14px 16px}
+  #notes-layer .swatches{display:flex;flex-wrap:wrap;gap:6px;margin:9px 0}
+  #notes-layer .sw{display:flex;align-items:center;gap:6px;font:11px var(--mono);border:1.5px solid var(--navy);padding:3px 7px 3px 3px}
+  #notes-layer .sw i{display:block;width:14px;height:14px;border:1.5px solid var(--navy)}
+  #notes-layer .meter{display:flex;align-items:center;gap:10px;font:11px var(--mono);margin-top:8px}
+  #notes-layer .track{width:150px;height:10px;border:1.5px solid var(--navy);position:relative}
+  #notes-layer .fill{position:absolute;left:0;top:0;bottom:0;background:var(--coral)}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<a class="logo" href="low-tide-homepage.page.html" style="left:80px;top:56px" data-note="logo" aria-label="low tide">
+  <span class="word">low tide</span>
+  <svg viewBox="0 0 100 8" preserveAspectRatio="none" aria-hidden="true"><path d="M0 4 Q6.25 0 12.5 4 T25 4 T37.5 4 T50 4 T62.5 4 T75 4 T87.5 4 T100 4" fill="none" stroke="#14213D" stroke-width="2" vector-effect="non-scaling-stroke" stroke-linecap="round"/></svg>
+</a>
+<div class="eyebrow hdr-eb">Brand applications · Print and signage</div>
+<button class="toggle" id="toggle" aria-pressed="false">Notes · off</button>
+<h1 class="disp" data-note="h1">Things we put our name on.</h1>
+<p class="hsub">Four objects, four colors, one wave. Shown together, not to scale.</p>
+
+<!-- 01 COASTER -->
+<section class="panel oy" style="left:80px;top:236px;width:620px;height:640px">
+  <div class="ph"><div class="eyebrow">01 · 100 mm Ø · Two-sided</div><h2 class="disp">Coaster</h2></div>
+
+  <svg class="obj" style="left:28px;top:120px" width="270" height="270" viewBox="0 0 260 260" aria-label="Coaster front">
+    <defs><clipPath id="cf"><circle cx="130" cy="130" r="130"/></clipPath></defs>
+    <g clip-path="url(#cf)">
+      <rect width="260" height="260" fill="#14213D"/>
+      <circle cx="186" cy="184" r="24" fill="#F2795B" data-coral="0.393" data-note="c-sun"/>
+      <rect x="0" y="184" width="260" height="76" fill="#14213D"/>
+      <g class="tg" data-x="0" data-y="184" data-w="260" data-h="76" data-n="8" data-r="0.82" data-amp="2.4" data-len="54" data-sw="1.25" data-stroke="#EDE6DA"></g>
+    </g>
+    <text class="m" x="130" y="40" text-anchor="middle" font-size="9" letter-spacing="1.5" fill="#EDE6DA">RED HOOK · BROOKLYN</text>
+    <text class="g wm" x="130" y="104" text-anchor="middle" font-size="36" fill="#EDE6DA" data-note="c-logo">low tide</text>
+    <svg x="66" y="110" width="128" height="7" viewBox="0 0 100 8" preserveAspectRatio="none" overflow="visible"><path d="M0 4 Q6.25 0 12.5 4 T25 4 T37.5 4 T50 4 T62.5 4 T75 4 T87.5 4 T100 4" fill="none" stroke="#EDE6DA" stroke-width="2" vector-effect="non-scaling-stroke" stroke-linecap="round"/></svg>
+  </svg>
+
+  <svg class="obj" style="left:322px;top:120px" width="270" height="270" viewBox="0 0 260 260" aria-label="Coaster back">
+    <defs><clipPath id="cb"><circle cx="130" cy="130" r="129"/></clipPath></defs>
+    <circle cx="130" cy="130" r="129.25" fill="#EDE6DA" stroke="#14213D" stroke-width="1.5"/>
+    <g clip-path="url(#cb)" data-note="c-tide">
+      <g class="tg" data-x="0" data-y="198" data-w="260" data-h="62" data-n="7" data-r="0.82" data-amp="2" data-len="50" data-sw="1.25" data-stroke="#4E6E4E"></g>
+    </g>
+    <text class="m" x="130" y="52" text-anchor="middle" font-size="9" letter-spacing="1.5" fill="#14213D">312 VAN BRUNT ST</text>
+    <g data-note="c-back">
+      <text class="g" x="130" y="112" text-anchor="middle" font-size="46" fill="#14213D">Same</text>
+      <text class="g" x="130" y="158" text-anchor="middle" font-size="46" fill="#14213D">again?</text>
+    </g>
+    <text class="w" x="130" y="186" text-anchor="middle" font-size="11" fill="#14213D">Nod at the bar. We'll notice.</text>
+  </svg>
+
+  <svg class="obj" style="left:28px;top:406px" width="270" height="20" viewBox="0 0 270 20" aria-hidden="true">
+    <line x1="0" y1="10" x2="270" y2="10" stroke="#14213D" stroke-width="1"/>
+    <line x1="0.5" y1="4" x2="0.5" y2="16" stroke="#14213D" stroke-width="1"/>
+    <line x1="269.5" y1="4" x2="269.5" y2="16" stroke="#14213D" stroke-width="1"/>
+    <rect x="104" y="2" width="62" height="16" fill="#EDE6DA"/>
+    <text class="m" x="135" y="14" text-anchor="middle" font-size="11" fill="#14213D">100 mm</text>
+  </svg>
+  <div class="cap" style="left:28px;top:440px">Front · Navy, Oyster, Coral</div>
+  <div class="cap" style="left:322px;top:440px">Back · Navy, Kelp</div>
+
+  <dl class="specs three" style="left:28px;top:532px;width:564px" data-note="c-spec">
+    <div class="row"><dt>Stock</dt><dd>1.5 mm pulpboard</dd></div>
+    <div class="row"><dt>Finish</dt><dd>Uncoated. Soaks it up.</dd></div>
+    <div class="row"><dt>Run</dt><dd>2,000. Some will walk.</dd></div>
+  </dl>
+</section>
+
+<!-- 02 TOTE -->
+<section class="panel kp" style="left:724px;top:236px;width:636px;height:640px">
+  <div class="ph"><div class="eyebrow">02 · 380 × 420 mm · Canvas</div><h2 class="disp">Tote bag</h2></div>
+
+  <svg class="obj" style="left:36px;top:104px" width="340" height="495" viewBox="0 0 360 524" aria-label="Tote bag">
+    <defs><clipPath id="tb"><rect x="10" y="140" width="340" height="376"/></clipPath></defs>
+    <path d="M100 152 C100 14 260 14 260 152" fill="none" stroke="#EDE6DA" stroke-width="22" stroke-linecap="butt"/>
+    <path d="M100 152 C100 14 260 14 260 152" fill="none" stroke="#14213D" stroke-width="1" stroke-dasharray="4 4"/>
+    <rect x="10" y="140" width="340" height="376" fill="#EDE6DA"/>
+    <line x1="10" y1="156" x2="350" y2="156" stroke="#14213D" stroke-width="1" stroke-dasharray="4 4"/>
+    <rect x="89" y="142" width="22" height="26" fill="none" stroke="#14213D" stroke-width="1" stroke-dasharray="3 3"/>
+    <rect x="249" y="142" width="22" height="26" fill="none" stroke="#14213D" stroke-width="1" stroke-dasharray="3 3"/>
+    <text class="g wm" x="180" y="222" text-anchor="middle" font-size="44" fill="#14213D">low tide</text>
+    <svg x="102" y="230" width="156" height="8" viewBox="0 0 100 8" preserveAspectRatio="none" overflow="visible"><path d="M0 4 Q6.25 0 12.5 4 T25 4 T37.5 4 T50 4 T62.5 4 T75 4 T87.5 4 T100 4" fill="none" stroke="#14213D" stroke-width="2.5" vector-effect="non-scaling-stroke" stroke-linecap="round"/></svg>
+    <text class="g" x="180" y="302" text-anchor="middle" font-size="30" fill="#14213D" data-note="t-print">Holds three bottles.</text>
+    <text class="w" x="180" y="328" text-anchor="middle" font-size="14" fill="#14213D">(or two and a baguette)</text>
+    <g clip-path="url(#tb)" data-note="t-sea">
+      <circle cx="262" cy="404" r="22" fill="#F2795B" data-coral="0.393"/>
+      <rect x="10" y="404" width="340" height="112" fill="#EDE6DA"/>
+      <g class="tg" data-x="10" data-y="404" data-w="340" data-h="96" data-n="10" data-r="0.84" data-amp="3" data-len="70" data-sw="1.4" data-stroke="#14213D"></g>
+    </g>
+  </svg>
+
+  <dl class="specs" style="left:404px;top:116px;width:204px" data-note="t-spec">
+    <div class="row"><dt>Canvas</dt><dd>12 oz, undyed, matched to Oyster</dd></div>
+    <div class="row"><dt>Print</dt><dd>Screen, 2 spot: Navy, Coral</dd></div>
+    <div class="row"><dt>Handles</dt><dd>66 cm. Shoulder-friendly.</dd></div>
+    <div class="row"><dt>Wash</dt><dd>Cold. Like the Gamay.</dd></div>
+  </dl>
+  <p class="tote-line disp">Carry-out, mostly.</p>
+</section>
+
+<!-- 03 BUSINESS CARD -->
+<section class="panel kp" style="left:80px;top:900px;width:1280px;height:320px">
+  <div class="ph"><div class="eyebrow">03 · 89 × 51 mm · Duplex</div><h2 class="disp">Business card</h2></div>
+  <dl class="specs" style="left:28px;top:118px;width:280px">
+    <div class="row"><dt>Stock</dt><dd>Duplex, 600 gsm, uncoated</dd></div>
+    <div class="row"><dt>Front</dt><dd>Navy + Oyster, coral sun</dd></div>
+    <div class="row"><dt>Back</dt><dd>Oyster + Navy, Kelp tide</dd></div>
+  </dl>
+
+  <svg class="obj" style="left:360px;top:36px" width="420" height="240" viewBox="0 0 420 240" aria-label="Business card front" data-note="k-front">
+    <defs><clipPath id="kf"><rect width="420" height="240"/></clipPath></defs>
+    <rect width="420" height="240" fill="#14213D"/>
+    <g clip-path="url(#kf)">
+      <circle cx="318" cy="190" r="14" fill="#F2795B" data-coral="0.393"/>
+      <rect x="0" y="190" width="420" height="50" fill="#14213D"/>
+      <g class="tg" data-x="0" data-y="190" data-w="420" data-h="50" data-n="6" data-r="0.8" data-amp="2" data-len="60" data-sw="1.25" data-stroke="#EDE6DA"></g>
+    </g>
+    <text class="g wm" x="210" y="116" text-anchor="middle" font-size="56" fill="#EDE6DA">low tide</text>
+    <svg x="110" y="124" width="200" height="10" viewBox="0 0 100 8" preserveAspectRatio="none" overflow="visible"><path d="M0 4 Q6.25 0 12.5 4 T25 4 T37.5 4 T50 4 T62.5 4 T75 4 T87.5 4 T100 4" fill="none" stroke="#EDE6DA" stroke-width="2.5" vector-effect="non-scaling-stroke" stroke-linecap="round"/></svg>
+  </svg>
+
+  <svg class="obj" style="left:820px;top:36px" width="420" height="240" viewBox="0 0 420 240" aria-label="Business card back">
+    <defs><clipPath id="kb"><rect width="420" height="240"/></clipPath></defs>
+    <rect width="420" height="240" fill="#EDE6DA"/>
+    <g data-note="k-back">
+      <text class="g" x="32" y="62" font-size="30" fill="#14213D">Nora Okafor</text>
+      <text class="w" x="32" y="88" font-size="14" fill="#14213D">Owner. Also does the dishes.</text>
+    </g>
+    <text class="m" x="32" y="132" font-size="12" fill="#14213D">nora@lowtide.wine</text>
+    <text class="m" x="32" y="152" font-size="12" fill="#14213D">(718) 555-0142</text>
+    <text class="m" x="32" y="172" font-size="12" fill="#14213D">312 Van Brunt St, Red Hook</text>
+    <text class="g wm" x="388" y="48" text-anchor="end" font-size="22" fill="#14213D">low tide</text>
+    <svg x="310" y="54" width="78" height="5" viewBox="0 0 100 8" preserveAspectRatio="none" overflow="visible"><path d="M0 4 Q6.25 0 12.5 4 T25 4 T37.5 4 T50 4 T62.5 4 T75 4 T87.5 4 T100 4" fill="none" stroke="#14213D" stroke-width="1.5" vector-effect="non-scaling-stroke" stroke-linecap="round"/></svg>
+    <g clip-path="url(#kb)">
+      <g class="tg" data-x="0" data-y="198" data-w="420" data-h="42" data-n="6" data-r="0.8" data-amp="1.8" data-len="56" data-sw="1.25" data-stroke="#4E6E4E"></g>
+    </g>
+  </svg>
+  <div class="cap" style="left:360px;top:288px">Front</div>
+  <div class="cap" style="left:820px;top:288px">Back</div>
+</section>
+
+<!-- 04 WINDOW VINYL -->
+<section class="panel oy" style="left:80px;top:1244px;width:1280px;height:480px">
+  <div class="ph"><div class="eyebrow">04 · Storefront, Van Brunt St</div><h2 class="disp">Window vinyl</h2></div>
+  <dl class="specs" style="left:28px;top:118px;width:280px">
+    <div class="row"><dt>Glass</dt><dd>2400 × 1200 mm</dd></div>
+    <div class="row"><dt>Film</dt><dd>Oyster, matte cut vinyl</dd></div>
+    <div class="row"><dt>Accent</dt><dd>Coral sun, one piece</dd></div>
+    <div class="row"><dt>Wordmark</dt><dd>~1000 mm wide, centered</dd></div>
+    <div class="row"><dt>Clear space</dt><dd>One “l” on every side</dd></div>
+  </dl>
+  <p class="voice" style="left:28px;top:400px;width:280px">Readable from the B61 stop. Also after two glasses.</p>
+
+  <svg class="obj" style="left:336px;top:24px" width="916" height="432" viewBox="0 0 916 432" aria-label="Storefront with window vinyl">
+    <defs><clipPath id="glass"><rect x="48" y="88" width="576" height="292"/></clipPath></defs>
+    <rect x="0" y="0" width="916" height="400" fill="#4E6E4E"/>
+    <rect x="0" y="0" width="916" height="48" fill="#14213D"/>
+    <text class="m" x="24" y="29" font-size="11" letter-spacing="1.5" fill="#EDE6DA">NO. 312</text>
+    <text class="m" x="892" y="29" text-anchor="end" font-size="11" letter-spacing="1.5" fill="#EDE6DA">VAN BRUNT ST</text>
+    <!-- window -->
+    <rect x="36" y="76" width="600" height="316" fill="#14213D"/>
+    <rect x="48" y="88" width="576" height="292" fill="#14213D" stroke="#EDE6DA" stroke-width="1.5"/>
+    <text class="g wm" x="336" y="184" text-anchor="middle" font-size="64" fill="#EDE6DA" data-note="v-mark">low tide</text>
+    <svg x="222" y="192" width="228" height="9" viewBox="0 0 100 8" preserveAspectRatio="none" overflow="visible"><path d="M0 4 Q6.25 0 12.5 4 T25 4 T37.5 4 T50 4 T62.5 4 T75 4 T87.5 4 T100 4" fill="none" stroke="#EDE6DA" stroke-width="3" vector-effect="non-scaling-stroke" stroke-linecap="round"/></svg>
+    <text class="g" x="336" y="270" text-anchor="middle" font-size="28" fill="#EDE6DA">Wine, mostly.</text>
+    <text class="m" x="336" y="294" text-anchor="middle" font-size="12" letter-spacing="1.5" fill="#EDE6DA">NATURAL WINE · TUE–SUN FROM 4PM</text>
+    <g clip-path="url(#glass)">
+      <circle cx="530" cy="318" r="28" fill="#F2795B" data-coral="0.393" data-note="v-sun"/>
+      <rect x="48" y="318" width="576" height="62" fill="#14213D"/>
+      <g class="tg" data-note="v-sea" data-x="48" data-y="318" data-w="576" data-h="62" data-n="9" data-r="0.84" data-amp="2.4" data-len="80" data-sw="1.25" data-stroke="#EDE6DA"></g>
+    </g>
+    <!-- door -->
+    <rect x="672" y="76" width="168" height="324" fill="#14213D"/>
+    <rect x="688" y="92" width="136" height="200" fill="#14213D" stroke="#EDE6DA" stroke-width="1.5"/>
+    <g data-note="v-door">
+      <text class="m" x="756" y="122" text-anchor="middle" font-size="11" letter-spacing="2" fill="#EDE6DA">OPEN</text>
+      <text class="m" x="756" y="146" text-anchor="middle" font-size="10" fill="#EDE6DA">TUE–THU 4–11PM</text>
+      <text class="m" x="756" y="162" text-anchor="middle" font-size="10" fill="#EDE6DA">FRI–SAT 4PM–1AM</text>
+      <text class="m" x="756" y="178" text-anchor="middle" font-size="10" fill="#EDE6DA">SUN 2–10PM</text>
+      <text class="m" x="756" y="194" text-anchor="middle" font-size="10" fill="#EDE6DA">MON: AT SEA</text>
+      <text class="g" x="756" y="272" text-anchor="middle" font-size="18" fill="#EDE6DA">Push. Gently.</text>
+    </g>
+    <rect x="700" y="312" width="112" height="8" fill="#EDE6DA"/>
+    <!-- plaque -->
+    <rect x="860" y="140" width="40" height="26" fill="#EDE6DA"/>
+    <text class="m" x="880" y="158" text-anchor="middle" font-size="12" fill="#14213D">312</text>
+    <!-- curb + dimension -->
+    <rect x="0" y="400" width="916" height="6" fill="#14213D"/>
+    <line x1="36" y1="418" x2="636" y2="418" stroke="#14213D" stroke-width="1"/>
+    <line x1="36.5" y1="412" x2="36.5" y2="424" stroke="#14213D" stroke-width="1"/>
+    <line x1="635.5" y1="412" x2="635.5" y2="424" stroke="#14213D" stroke-width="1"/>
+    <rect x="294" y="410" width="84" height="16" fill="#EDE6DA"/>
+    <text class="m" x="336" y="422" text-anchor="middle" font-size="11" fill="#14213D">2400 mm</text>
+  </svg>
+</section>
+
+<footer>
+  <span>low tide · Red Hook, Brooklyn</span>
+  <span>Tide Navy · Oyster · Kelp · Sunset Coral (≤10%)</span>
+  <span>Gloock · Work Sans · DM Mono</span>
+  <span>Print and signage</span>
+</footer>
+
+<div id="notes-layer" aria-hidden="true"><svg id="leaders" width="1440" height="1800"></svg></div>
+
+<script>
+window.PIECE={
+  W:1440,H:1800,SUM:[110,1380],
+  NOTES:[
+    {id:'logo',  a:[1,.5], at:[300,14], rule:'Logo', t:`Lowercase wordmark with its wave line. The dashed box is its clear space: the height of the “l”, {L}px at this size.`},
+    {id:'h1',    a:[.97,.4], at:[940,40], rule:'Display · voice', t:`Gloock, sentence case. One dry line instead of a heading that says “Brand applications”.`},
+    {id:'c-logo',a:[1,.5], at:[120,290], fs:36, rule:'Logo · clear space', t:`On a 100 mm circle the wordmark still keeps one “l” of clear space ({L}px in artwork units), clear of the edge and the sun.`},
+    {id:'c-sun', a:[.5,.2], at:[110,660], rule:'Accent ≤ 10%', t:`Coral appears once per object, always as the setting sun. Across this sheet it stays well under 1%.`},
+    {id:'c-back',a:[1,.6], at:[470,250], rule:'Voice · display', t:`The back is the voice side: two words in Gloock, sentence case, with a Work Sans aside. The address is a label, so it is DM Mono.`},
+    {id:'c-tide',a:[.6,.5], at:[470,650], rule:'Graphic device', t:`The circle clips the tide lines rather than bending them. They stay horizontal and are never rotated.`},
+    {id:'c-spec',a:[.5,.15], at:[110,790], rule:'Type · labels', t:`Specs are labels, so they are DM Mono: Kelp labels, Navy values.`},
+    {id:'t-print',a:[1,.5], at:[1110,560], rule:'Display · voice', t:`A one-liner sized to read across a room: Gloock headline, Work Sans aside.`},
+    {id:'t-sea', a:[.75,.15], at:[760,760], rule:'Device · accent', t:`Navy tide lines on canvas, with the coral sun as the second and last screen color.`},
+    {id:'t-spec',a:[0,.3], at:[860,290], rule:'Palette', t:`Canvas is specified to match Oyster #EDE6DA, so the bag prints in Navy and Coral only.`},
+    {id:'k-front',a:[.5,.45], at:[440,1130], fs:56, rule:'Primary · logo', t:`The front is Tide Navy, the primary. The wordmark is centered with {L}px of clear space before the tide begins.`},
+    {id:'k-back',a:[.55,.5], at:[1110,1090], rule:'Type roles', t:`All three typefaces in their roles: name in Gloock, title in Work Sans, contact details in DM Mono.`},
+    {id:'v-mark',a:[1,.4], at:[940,1290], fs:64, rule:'Logo · clear space', t:`The wordmark sits centered on the glass. One “l” of clear space ({L}px at this scale) runs right up to the top edge of the glass.`},
+    {id:'v-sun', a:[.5,.25], at:[1000,1430], rule:'Accent ≤ 10%', t:`The sun is the only coral on the facade: one small piece of cut vinyl.`},
+    {id:'v-door',a:[1,.4], at:[1110,1560], rule:'Labels · voice', t:`Door hours are labels, set in DM Mono. “Push. Gently.” is the voice in two words.`},
+    {id:'v-sea', a:[.2,.5], at:[420,1600], rule:'Graphic device', t:`A band of tide lines along the bottom of the glass works as a privacy strip at table height. The lines stay horizontal.`}
+  ]
+};
+</script>
+<script>
+(function(){
+  const P=window.PIECE, W=P.W, H=P.H;
+  function tidePaths(w,h,o){
+    const n=Math.max(2,o.n), ratio=o.r, sw=o.sw, pad=o.amp+sw, usable=h-2*pad;
+    const g=[]; let sum=0;
+    for(let i=0;i<n-1;i++){const v=Math.pow(ratio,i); g.push(v); sum+=v;}
+    const ys=[pad]; let y=pad; g.forEach(v=>{y+=v/sum*usable; ys.push(y);});
+    let out='';
+    ys.forEach((y0,i)=>{
+      const near=Math.min(g[Math.max(0,i-1)], g[Math.min(i,g.length-1)])/sum*usable;
+      const a=Math.min(o.amp*(0.7+0.3*Math.sin(i*1.9+0.4)), near*0.42);
+      const L=o.len*(1+0.15*Math.sin(i*2.7)), ph=i*0.85;
+      let d='';
+      for(let x=-6;x<=w+6;x+=3){ d+=(d?'L':'M')+x+' '+(y0+a*Math.sin(2*Math.PI*x/L+ph)).toFixed(2); }
+      out+=`<path d="${d}" fill="none" stroke="${o.stroke}" stroke-width="${sw}" stroke-linecap="round"/>`;
+    });
+    return out;
+  }
+  function draw(){
+    document.querySelectorAll('g.tg').forEach(g=>{
+      const d=g.dataset;
+      g.innerHTML=`<g transform="translate(${d.x} ${d.y})">`+tidePaths(+d.w,+d.h,{n:+d.n,r:+d.r,amp:+d.amp,len:+d.len,sw:+d.sw,stroke:d.stroke})+'</g>';
+    });
+    document.querySelectorAll('text.wm').forEach(t=>{
+      const w=t.nextElementSibling; if(!w) return;
+      try{ const b=t.getBBox(); if(b.width>0){ w.setAttribute('x',b.x.toFixed(1)); w.setAttribute('width',b.width.toFixed(1)); } }catch(e){}
+    });
+  }
+  const ctx=document.createElement('canvas').getContext('2d');
+  function lAt(fs){
+    ctx.font=`${fs}px Gloock, Georgia, serif`;
+    const m=ctx.measureText('l');
+    return (m.actualBoundingBoxAscent+m.actualBoundingBoxDescent)||fs*.75;
+  }
+  function measureL(){
+    const fs=parseFloat(getComputedStyle(document.querySelector('.logo .word')).fontSize);
+    const lh=Math.round(lAt(fs));
+    document.documentElement.style.setProperty('--l',lh+'px');
+    return lh;
+  }
+  function clearSpaceBoxes(){
+    let out='';
+    document.querySelectorAll('text.wm').forEach(t=>{
+      const fs=+t.getAttribute('font-size'), l=lAt(fs), bb=t.getBBox(), base=+t.getAttribute('y');
+      const wv=t.nextElementSibling, bot=(+wv.getAttribute('y'))+(+wv.getAttribute('height'));
+      const m=t.getScreenCTM(); if(!m) return;
+      const x1=m.a*(bb.x-l)+m.e, x2=m.a*(bb.x+bb.width+l)+m.e, y1=m.d*(base-2*l)+m.f, y2=m.d*(bot+l)+m.f;
+      const r=`x="${x1.toFixed(1)}" y="${y1.toFixed(1)}" width="${(x2-x1).toFixed(1)}" height="${(y2-y1).toFixed(1)}" fill="none"`;
+      out+=`<rect ${r} stroke="#14213D" stroke-width="3"/><rect ${r} stroke="#EDE6DA" stroke-width="1.5" stroke-dasharray="5 4"/>`;
+    });
+    return out;
+  }
+  function coralShare(){
+    let area=0;
+    document.querySelectorAll('[data-coral]').forEach(el=>{const r=el.getBoundingClientRect(); area+=r.width*r.height*(+el.dataset.coral||1);});
+    return area/(W*H)*100;
+  }
+  function build(lh){
+    const layer=document.getElementById('notes-layer'), svg=document.getElementById('leaders');
+    layer.querySelectorAll('.ann').forEach(n=>n.remove());
+    const hidden=!document.body.classList.contains('notes');
+    if(hidden) layer.style.display='block';
+    const placed=[]; let lines='', pins='';
+    const share=coralShare();
+    const s=document.createElement('div');
+    s.className='ann sum'; s.style.left=P.SUM[0]+'px'; s.style.top=P.SUM[1]+'px';
+    s.innerHTML=`<div class="k">Annotations · ${P.NOTES.length} notes · press N</div>
+      <div>Only the guideline palette and type are used. Dashed boxes show each wordmark's clear space.</div>
+      <div class="swatches">
+        <span class="sw"><i style="background:#14213D"></i>Tide Navy #14213D</span>
+        <span class="sw"><i style="background:#EDE6DA"></i>Oyster #EDE6DA</span>
+        <span class="sw"><i style="background:#4E6E4E"></i>Kelp #4E6E4E</span>
+        <span class="sw"><i style="background:#F2795B"></i>Sunset Coral #F2795B</span>
+      </div>
+      <div style="font:11px var(--mono)">Gloock display · Work Sans text · DM Mono prices &amp; labels</div>
+      <div class="meter"><span>Coral ≈ ${share.toFixed(2)}%</span><span class="track"><span class="fill" style="width:${Math.min(100,share*10)}%"></span></span><span>10% cap</span></div>`;
+    layer.appendChild(s);
+    placed.push({x:P.SUM[0],y:P.SUM[1],w:s.offsetWidth,h:s.offsetHeight});
+    P.NOTES.forEach((n,i)=>{
+      const el=document.querySelector(`[data-note="${n.id}"]`);
+      if(!el) return;
+      const r=el.getBoundingClientRect();
+      const ax=r.left+n.a[0]*r.width, ay=r.top+n.a[1]*r.height;
+      const L=n.fs?Math.round(lAt(n.fs)):lh;
+      const card=document.createElement('div');
+      card.className='ann';
+      card.innerHTML=`<div class="k"><span class="num">${i+1}</span>${n.rule}</div>${n.t.replace('{L}',L)}`;
+      layer.appendChild(card);
+      const w=card.offsetWidth, h=card.offsetHeight;
+      let x=Math.max(12,Math.min(W-w-12,n.at[0])), y=n.at[1];
+      let moved=true, guard=0;
+      while(moved && guard++<30){
+        moved=false;
+        for(const p of placed){
+          if(x<p.x+p.w+8 && x+w+8>p.x && y<p.y+p.h+8 && y+h+8>p.y){ y=p.y+p.h+10; moved=true; }
+        }
+      }
+      y=Math.min(y,H-h-12);
+      card.style.left=x+'px'; card.style.top=y+'px';
+      placed.push({x,y,w,h});
+      const cx=Math.max(x,Math.min(x+w,ax)), cy=Math.max(y,Math.min(y+h,ay));
+      lines+=`<line x1="${ax}" y1="${ay}" x2="${cx}" y2="${cy}" stroke="#EDE6DA" stroke-width="4"/><line x1="${ax}" y1="${ay}" x2="${cx}" y2="${cy}" stroke="#14213D" stroke-width="1.5"/>`;
+      pins+=`<circle cx="${ax}" cy="${ay}" r="10" fill="#14213D" stroke="#EDE6DA" stroke-width="2"/><text x="${ax}" y="${ay+3.5}" text-anchor="middle" font-family="DM Mono, monospace" font-size="10" fill="#EDE6DA">${i+1}</text>`;
+    });
+    svg.innerHTML=clearSpaceBoxes()+lines+pins;
+    if(hidden) layer.style.display='';
+  }
+  function setNotes(on){
+    document.body.classList.toggle('notes',on);
+    const b=document.getElementById('toggle');
+    b.setAttribute('aria-pressed',on?'true':'false');
+    b.textContent=on?'Notes · on':'Notes · off';
+  }
+  function init(){ const lh=measureL(); draw(); requestAnimationFrame(()=>build(lh)); }
+  document.getElementById('toggle').addEventListener('click',()=>setNotes(!document.body.classList.contains('notes')));
+  document.addEventListener('keydown',e=>{ if(e.key==='n'||e.key==='N') setNotes(!document.body.classList.contains('notes')); });
+  if(location.hash==='#notes') setNotes(true);
+  draw();
+  if(document.fonts && document.fonts.ready){ document.fonts.ready.then(init); } else { init(); }
+  setTimeout(init,1500);
+})();
+</script>
+</body>
+</html>

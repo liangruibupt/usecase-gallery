@@ -1,0 +1,227 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080">
+  <defs>
+    <pattern id="oakP" width="48" height="12" patternUnits="userSpaceOnUse">
+      <rect width="48" height="12" fill="#EADBC2"/>
+      <line x1="0" y1="11.5" x2="48" y2="11.5" stroke="#DBC7A6" stroke-width="1"/>
+      <line x1="30" y1="0" x2="30" y2="12" stroke="#DBC7A6" stroke-width="1"/>
+    </pattern>
+    <pattern id="terrazzoP" width="28" height="28" patternUnits="userSpaceOnUse">
+      <rect width="28" height="28" fill="#EEEAE3"/>
+      <circle cx="5" cy="6" r="1.6" fill="#C9B9A2"/>
+      <circle cx="18" cy="4" r="1.2" fill="#9AA58A"/>
+      <circle cx="12" cy="16" r="1.8" fill="#B9A58A"/>
+      <circle cx="23" cy="20" r="1.3" fill="#9A9288"/>
+      <circle cx="4" cy="23" r="1.2" fill="#C9B9A2"/>
+    </pattern>
+    <pattern id="linenP" width="6" height="6" patternUnits="userSpaceOnUse">
+      <rect width="6" height="6" fill="#ECE4D6"/>
+      <rect y="2" width="6" height="1" fill="#E0D6C5"/>
+      <rect x="2" width="1" height="6" fill="#F2ECE1"/>
+    </pattern>
+    <pattern id="deckP" width="16" height="60" patternUnits="userSpaceOnUse">
+      <rect width="16" height="60" fill="#D6BE98"/>
+      <line x1="15.5" y1="0" x2="15.5" y2="60" stroke="#BFA27C" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <rect width="1920" height="1080" fill="#FBFAF7"/>
+
+  <!-- 左栏 -->
+  <text x="120" y="150" font-family="'Avenir Next', sans-serif" font-size="16" letter-spacing="6" fill="#8A8278">07 — ROOM SCHEDULE</text>
+  <rect x="120" y="178" width="40" height="1.5" fill="#2A2826"/>
+  <text x="118" y="262" font-family="'Source Han Sans SC', sans-serif" font-weight="300" font-size="56" letter-spacing="6" fill="#2A2826">空间清单</text>
+
+  <text font-family="'Songti SC', serif" font-size="44" fill="#2A2826" letter-spacing="2">
+    <tspan x="120" y="400">每一平方米，</tspan>
+    <tspan x="120" y="466">都先想好</tspan>
+    <tspan x="120" y="532">留给谁。</tspan>
+  </text>
+  <rect x="120" y="590" width="60" height="1.5" fill="#A88660"/>
+
+  <text font-family="'Source Han Sans SC', sans-serif" font-weight="300" font-size="18" fill="#5E574F">
+    <tspan x="120" y="650">西溪 · 栖光住宅是一套三口之家的旧房改造，</tspan>
+    <tspan x="120" y="682">总面积 123㎡，划分为六个空间。</tspan>
+    <tspan x="120" y="714">客厅与餐厨连成一片，光从阳台一路走进来；</tspan>
+    <tspan x="120" y="746">收纳集中在玄关与书房，卧室只留下安睡。</tspan>
+  </text>
+
+  <text x="120" y="848" font-family="'Avenir Next', sans-serif" font-size="13" letter-spacing="4" fill="#9A9288">PROJECT DATA · 项目数据</text>
+  <text x="120" y="910" fill="#2A2826"><tspan font-family="Didot, serif" font-size="44">123</tspan><tspan font-family="'Source Han Sans SC', sans-serif" font-weight="300" font-size="20" dx="4">㎡</tspan></text>
+  <text x="120" y="940" font-family="'Source Han Sans SC', sans-serif" font-weight="300" font-size="14" fill="#7D756B">总面积</text>
+  <text x="300" y="910" font-family="Didot, serif" font-size="44" fill="#2A2826">6</text>
+  <text x="300" y="940" font-family="'Source Han Sans SC', sans-serif" font-weight="300" font-size="14" fill="#7D756B">个空间</text>
+  <text x="430" y="910" font-family="Didot, serif" font-size="44" fill="#2A2826">3</text>
+  <text x="430" y="940" font-family="'Source Han Sans SC', sans-serif" font-weight="300" font-size="14" fill="#7D756B">口之家</text>
+
+  <!-- 右栏：平面示意 -->
+  <rect x="720" y="96" width="1080" height="404" fill="#F3EFE8"/>
+
+  <!-- 房间铺装 -->
+  <rect x="800" y="130" width="280" height="160" fill="url(#linenP)"/>
+  <rect x="1080" y="130" width="180" height="160" fill="url(#oakP)"/>
+  <rect x="1260" y="130" width="460" height="160" fill="url(#terrazzoP)"/>
+  <rect x="800" y="290" width="160" height="180" fill="#E8E2D7"/>
+  <rect x="960" y="290" width="760" height="120" fill="url(#oakP)"/>
+  <rect x="960" y="410" width="760" height="60" fill="url(#deckP)"/>
+
+  <!-- 家具 -->
+  <g stroke="#B0A89D" stroke-width="1.2" fill="#FBFAF7">
+    <rect x="820" y="150" width="110" height="122" rx="4"/>
+    <rect x="828" y="157" width="44" height="20" rx="4"/>
+    <rect x="878" y="157" width="44" height="20" rx="4"/>
+    <line x1="820" y1="196" x2="930" y2="196"/>
+    <rect x="1098" y="146" width="84" height="34" rx="2"/>
+    <circle cx="1140" cy="196" r="10"/>
+    <rect x="1236" y="140" width="16" height="120" fill="#E2D2B6"/>
+    <rect x="1272" y="138" width="200" height="28" fill="#F7F4EE"/>
+    <circle cx="1310" cy="152" r="8"/>
+    <circle cx="1640" cy="225" r="30"/>
+    <circle cx="1640" cy="183" r="8"/>
+    <circle cx="1640" cy="267" r="8"/>
+    <circle cx="1598" cy="225" r="8"/>
+    <circle cx="1682" cy="225" r="8"/>
+    <rect x="1520" y="300" width="180" height="30" rx="6"/>
+    <rect x="1560" y="346" width="100" height="30" rx="15"/>
+    <circle cx="1490" cy="362" r="14"/>
+    <rect x="812" y="300" width="22" height="58" fill="#EFE8DC"/>
+    <rect x="896" y="440" width="52" height="18" fill="#E3D6BF"/>
+  </g>
+  <circle cx="1690" cy="440" r="13" fill="#A3AD93"/>
+  <circle cx="1662" cy="446" r="9" fill="#8E9B80"/>
+  <circle cx="990" cy="442" r="10" fill="#A3AD93"/>
+
+  <!-- 外墙 -->
+  <g stroke="#2A2826" stroke-width="6" stroke-linecap="square" fill="none">
+    <line x1="800" y1="130" x2="1720" y2="130"/>
+    <line x1="1720" y1="130" x2="1720" y2="470"/>
+    <line x1="800" y1="470" x2="1720" y2="470"/>
+    <line x1="800" y1="130" x2="800" y2="370"/>
+    <line x1="800" y1="430" x2="800" y2="470"/>
+  </g>
+  <!-- 窗 -->
+  <g>
+    <rect x="880" y="126" width="120" height="8" fill="#FBFAF7"/>
+    <rect x="1420" y="126" width="200" height="8" fill="#FBFAF7"/>
+    <rect x="1716" y="170" width="8" height="90" fill="#FBFAF7"/>
+    <rect x="1000" y="466" width="680" height="8" fill="#FBFAF7"/>
+    <g stroke="#2A2826" stroke-width="1">
+      <line x1="880" y1="127" x2="1000" y2="127"/><line x1="880" y1="133" x2="1000" y2="133"/>
+      <line x1="1420" y1="127" x2="1620" y2="127"/><line x1="1420" y1="133" x2="1620" y2="133"/>
+      <line x1="1717" y1="170" x2="1717" y2="260"/><line x1="1723" y1="170" x2="1723" y2="260"/>
+      <line x1="1000" y1="467" x2="1680" y2="467"/><line x1="1000" y1="473" x2="1680" y2="473"/>
+    </g>
+  </g>
+
+  <!-- 内墙 -->
+  <g stroke="#2A2826" stroke-width="3" stroke-linecap="square" fill="none">
+    <line x1="800" y1="290" x2="1000" y2="290"/>
+    <line x1="1050" y1="290" x2="1180" y2="290"/>
+    <line x1="1230" y1="290" x2="1260" y2="290"/>
+    <line x1="1080" y1="130" x2="1080" y2="290"/>
+    <line x1="1260" y1="130" x2="1260" y2="290"/>
+    <line x1="960" y1="290" x2="960" y2="310"/>
+    <line x1="960" y1="380" x2="960" y2="470"/>
+  </g>
+  <line x1="1260" y1="290" x2="1720" y2="290" stroke="#9A9288" stroke-width="1" stroke-dasharray="6 6"/>
+  <g stroke="#2A2826" stroke-width="1">
+    <line x1="960" y1="408" x2="1720" y2="408"/>
+    <line x1="960" y1="412" x2="1720" y2="412"/>
+  </g>
+
+  <!-- 门 -->
+  <g fill="none">
+    <line x1="800" y1="430" x2="860" y2="430" stroke="#2A2826" stroke-width="1.5"/>
+    <path d="M860,430 A60,60 0 0 0 800,370" stroke="#9A9288" stroke-width="1"/>
+    <line x1="1000" y1="290" x2="1000" y2="240" stroke="#2A2826" stroke-width="1.5"/>
+    <path d="M1000,240 A50,50 0 0 1 1050,290" stroke="#9A9288" stroke-width="1"/>
+    <line x1="1230" y1="290" x2="1230" y2="240" stroke="#2A2826" stroke-width="1.5"/>
+    <path d="M1230,240 A50,50 0 0 0 1180,290" stroke="#9A9288" stroke-width="1"/>
+  </g>
+
+  <!-- 房间标注 -->
+  <g font-family="'Source Han Sans SC', sans-serif" text-anchor="middle">
+    <text x="1200" y="348" font-weight="400" font-size="17" fill="#2A2826"><tspan font-family="Didot, serif" font-size="15" fill="#A88660">01 </tspan>客厅</text>
+    <text x="1200" y="372" font-weight="300" font-size="13" fill="#7D756B">38㎡</text>
+    <text x="1420" y="226" font-weight="400" font-size="17" fill="#2A2826"><tspan font-family="Didot, serif" font-size="15" fill="#A88660">02 </tspan>餐厨</text>
+    <text x="1420" y="250" font-weight="300" font-size="13" fill="#7D756B">27㎡</text>
+    <text x="1010" y="196" font-weight="400" font-size="17" fill="#2A2826"><tspan font-family="Didot, serif" font-size="15" fill="#A88660">03 </tspan>主卧</text>
+    <text x="1010" y="220" font-weight="300" font-size="13" fill="#7D756B">24㎡</text>
+    <text x="1158" y="238" font-weight="400" font-size="17" fill="#2A2826"><tspan font-family="Didot, serif" font-size="15" fill="#A88660">04 </tspan>书房</text>
+    <text x="1158" y="260" font-weight="300" font-size="13" fill="#7D756B">13㎡</text>
+    <text x="888" y="322" font-weight="400" font-size="17" fill="#2A2826"><tspan font-family="Didot, serif" font-size="15" fill="#A88660">05 </tspan>玄关</text>
+    <text x="888" y="344" font-weight="300" font-size="13" fill="#7D756B">6㎡</text>
+    <text x="1200" y="446" font-weight="400" font-size="17" fill="#2A2826"><tspan font-family="Didot, serif" font-size="15" fill="#A88660">06 </tspan>阳台<tspan font-weight="300" font-size="13" fill="#7D756B">　15㎡</tspan></text>
+  </g>
+
+  <!-- 指北针 -->
+  <circle cx="1760" cy="156" r="16" fill="none" stroke="#9A9288" stroke-width="1"/>
+  <polygon points="1760,141 1766,162 1760,157 1754,162" fill="#2A2826"/>
+  <text x="1760" y="190" text-anchor="middle" font-family="'Avenir Next', sans-serif" font-size="11" letter-spacing="1" fill="#7D756B">N</text>
+
+  <text x="720" y="530" font-family="'Source Han Sans SC', sans-serif" font-weight="300" font-size="13" fill="#9A9288">示意插画 · 西溪 · 栖光住宅平面，非实际比例</text>
+
+  <!-- 空间清单表 -->
+  <line x1="720" y1="560" x2="1800" y2="560" stroke="#2A2826" stroke-width="1.5"/>
+  <g font-family="'Source Han Sans SC', sans-serif" font-weight="300" font-size="13" letter-spacing="2" fill="#9A9288">
+    <text x="720" y="592">编号</text>
+    <text x="780" y="592">空间</text>
+    <text x="960" y="592">主要材料</text>
+    <text x="1460" y="592">面积占比</text>
+    <text x="1800" y="592" text-anchor="end">面积</text>
+  </g>
+  <line x1="720" y1="608" x2="1800" y2="608" stroke="#E2DCD2" stroke-width="1"/>
+
+  <g font-family="'Source Han Sans SC', sans-serif">
+    <text x="720" y="646" font-family="Didot, serif" font-size="20" fill="#A88660">01</text>
+    <text x="780" y="646" font-weight="400" font-size="20" fill="#2A2826">客厅</text>
+    <text x="960" y="645" font-weight="300" font-size="17" fill="#5E574F">白橡木地板 · 微水泥墙面</text>
+    <rect x="1460" y="637" width="220" height="6" fill="#EFEAE1"/>
+    <rect x="1460" y="637" width="220" height="6" fill="#D2B68F"/>
+    <text x="1800" y="646" text-anchor="end" fill="#2A2826"><tspan font-family="Didot, serif" font-size="22">38</tspan><tspan font-weight="300" font-size="15" dx="2">㎡</tspan></text>
+    <line x1="720" y1="666" x2="1800" y2="666" stroke="#E2DCD2" stroke-width="1"/>
+
+    <text x="720" y="696" font-family="Didot, serif" font-size="20" fill="#A88660">02</text>
+    <text x="780" y="696" font-weight="400" font-size="20" fill="#2A2826">餐厨</text>
+    <text x="960" y="695" font-weight="300" font-size="17" fill="#5E574F">水磨石台面 · 橡木柜体</text>
+    <rect x="1460" y="687" width="220" height="6" fill="#EFEAE1"/>
+    <rect x="1460" y="687" width="156" height="6" fill="#CFC6B8"/>
+    <text x="1800" y="696" text-anchor="end" fill="#2A2826"><tspan font-family="Didot, serif" font-size="22">27</tspan><tspan font-weight="300" font-size="15" dx="2">㎡</tspan></text>
+    <line x1="720" y1="716" x2="1800" y2="716" stroke="#E2DCD2" stroke-width="1"/>
+
+    <text x="720" y="746" font-family="Didot, serif" font-size="20" fill="#A88660">03</text>
+    <text x="780" y="746" font-weight="400" font-size="20" fill="#2A2826">主卧</text>
+    <text x="960" y="745" font-weight="300" font-size="17" fill="#5E574F">亚麻墙布 · 胡桃木床头</text>
+    <rect x="1460" y="737" width="220" height="6" fill="#EFEAE1"/>
+    <rect x="1460" y="737" width="139" height="6" fill="#D8CDBA"/>
+    <text x="1800" y="746" text-anchor="end" fill="#2A2826"><tspan font-family="Didot, serif" font-size="22">24</tspan><tspan font-weight="300" font-size="15" dx="2">㎡</tspan></text>
+    <line x1="720" y1="766" x2="1800" y2="766" stroke="#E2DCD2" stroke-width="1"/>
+
+    <text x="720" y="796" font-family="Didot, serif" font-size="20" fill="#A88660">04</text>
+    <text x="780" y="796" font-weight="400" font-size="20" fill="#2A2826">书房</text>
+    <text x="960" y="795" font-weight="300" font-size="17" fill="#5E574F">橡木书架 · 藤编</text>
+    <rect x="1460" y="787" width="220" height="6" fill="#EFEAE1"/>
+    <rect x="1460" y="787" width="75" height="6" fill="#C9A77C"/>
+    <text x="1800" y="796" text-anchor="end" fill="#2A2826"><tspan font-family="Didot, serif" font-size="22">13</tspan><tspan font-weight="300" font-size="15" dx="2">㎡</tspan></text>
+    <line x1="720" y1="816" x2="1800" y2="816" stroke="#E2DCD2" stroke-width="1"/>
+
+    <text x="720" y="846" font-family="Didot, serif" font-size="20" fill="#A88660">05</text>
+    <text x="780" y="846" font-weight="400" font-size="20" fill="#2A2826">玄关</text>
+    <text x="960" y="845" font-weight="300" font-size="17" fill="#5E574F">石灰涂料 · 洞石</text>
+    <rect x="1460" y="837" width="220" height="6" fill="#EFEAE1"/>
+    <rect x="1460" y="837" width="35" height="6" fill="#D6CBB8"/>
+    <text x="1800" y="846" text-anchor="end" fill="#2A2826"><tspan font-family="Didot, serif" font-size="22">6</tspan><tspan font-weight="300" font-size="15" dx="2">㎡</tspan></text>
+    <line x1="720" y1="866" x2="1800" y2="866" stroke="#E2DCD2" stroke-width="1"/>
+
+    <text x="720" y="896" font-family="Didot, serif" font-size="20" fill="#A88660">06</text>
+    <text x="780" y="896" font-weight="400" font-size="20" fill="#2A2826">阳台</text>
+    <text x="960" y="895" font-weight="300" font-size="17" fill="#5E574F">防腐木 · 绿植</text>
+    <rect x="1460" y="887" width="220" height="6" fill="#EFEAE1"/>
+    <rect x="1460" y="887" width="87" height="6" fill="#B8A27F"/>
+    <text x="1800" y="896" text-anchor="end" fill="#2A2826"><tspan font-family="Didot, serif" font-size="22">15</tspan><tspan font-weight="300" font-size="15" dx="2">㎡</tspan></text>
+    <line x1="720" y1="916" x2="1800" y2="916" stroke="#2A2826" stroke-width="1.5"/>
+  </g>
+
+  <!-- 页脚 -->
+  <text x="120" y="1010" font-family="Didot, serif" font-size="18" fill="#2A2826">07 <tspan fill="#B0A89D">/ 09</tspan></text>
+  <text x="1800" y="1010" text-anchor="end" font-family="'Avenir Next', sans-serif" font-size="13" letter-spacing="4" fill="#9A9288">MUYU DESIGN STUDIO</text>
+</svg>

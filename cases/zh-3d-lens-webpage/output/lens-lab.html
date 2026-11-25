@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Lens Lab — Interactive 3D Camera Lens</title>
+<style>
+:root{--bg:#0b0e13;--panel:rgba(16,20,27,.86);--line:rgba(255,255,255,.08);--txt:#e8ecf2;--mut:#8b95a7;--acc:#ffb547;--cy:#4fd2ff}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:var(--bg);color:var(--txt);font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",-apple-system,"Segoe UI",sans-serif;overflow:hidden;-webkit-font-smoothing:antialiased}
+#view{position:fixed;inset:0;width:100%;height:100%;display:block;cursor:grab;touch-action:none}
+#view.drag{cursor:grabbing}
+#vignette{position:fixed;inset:0;pointer-events:none;background:radial-gradient(ellipse at 62% 48%,transparent 40%,rgba(0,0,0,.6))}
+.panel{position:fixed;left:20px;top:20px;bottom:20px;width:316px;background:var(--panel);border:1px solid var(--line);border-radius:16px;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);padding:20px 20px 16px;overflow:auto;box-shadow:0 20px 60px rgba(0,0,0,.45);z-index:5}
+.panel::-webkit-scrollbar{width:6px}.panel::-webkit-scrollbar-thumb{background:#2a313d;border-radius:3px}
+.brand{display:flex;align-items:center;gap:8px;font-size:11px;letter-spacing:.22em;color:var(--mut);font-weight:600}
+h1{margin:10px 0 4px;font-size:22px;font-weight:650;letter-spacing:-.01em}
+h1 span{color:var(--acc)}
+.sub{margin:0;color:var(--mut);font-size:12px;line-height:1.5}
+section{margin-top:18px;padding-top:16px;border-top:1px solid var(--line)}
+.sec-h{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px}
+.sec-h span{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--mut);font-weight:600}
+.fnum{font-family:"SF Mono",Menlo,monospace;font-size:30px;font-weight:600;color:var(--acc);letter-spacing:-.02em}
+.val{font-family:"SF Mono",Menlo,monospace;font-size:13px;color:var(--txt)}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:28px;background:transparent;margin:0}
+input[type=range]::-webkit-slider-runnable-track{height:4px;border-radius:2px;background:linear-gradient(90deg,var(--acc) var(--p,50%),#2a313d var(--p,50%))}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:#fff;margin-top:-7px;box-shadow:0 0 0 4px rgba(255,181,71,.25),0 2px 6px rgba(0,0,0,.5);cursor:pointer}
+input[type=range]::-moz-range-track{height:4px;border-radius:2px;background:#2a313d}
+input[type=range]::-moz-range-progress{height:4px;border-radius:2px;background:var(--acc)}
+input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;background:#fff;border:none}
+#field{--p:40%}
+#field::-webkit-slider-runnable-track{background:linear-gradient(90deg,var(--cy) var(--p,50%),#2a313d var(--p,50%))}
+#field::-webkit-slider-thumb{box-shadow:0 0 0 4px rgba(79,210,255,.22),0 2px 6px rgba(0,0,0,.5)}
+.stops{display:flex;justify-content:space-between;gap:2px;margin-top:4px}
+.stops button{flex:1;background:transparent;border:1px solid transparent;color:var(--mut);font-family:"SF Mono",Menlo,monospace;font-size:10.5px;padding:4px 0;border-radius:6px;cursor:pointer}
+.stops button:hover{color:var(--txt);background:rgba(255,255,255,.05)}
+.stops button.on{color:var(--acc);border-color:rgba(255,181,71,.4);background:rgba(255,181,71,.08)}
+.stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:12px}
+.stats div{background:rgba(255,255,255,.035);border:1px solid var(--line);border-radius:10px;padding:8px 9px}
+.stats i{display:block;font-style:normal;font-size:10px;color:var(--mut);margin-bottom:3px;white-space:nowrap}
+.stats b{font-family:"SF Mono",Menlo,monospace;font-size:13px;font-weight:600}
+.seg{display:flex;background:rgba(255,255,255,.04);border:1px solid var(--line);border-radius:10px;padding:3px}
+.seg button{flex:1;background:transparent;border:0;color:var(--mut);font:inherit;font-size:13px;padding:8px 0;border-radius:7px;cursor:pointer;transition:.2s}
+.seg button.on{background:#fff;color:#111;font-weight:600}
+.tog{display:flex;align-items:center;gap:10px;padding:9px 2px;font-size:13.5px;cursor:pointer;user-select:none}
+.tog input{display:none}
+.sw{width:34px;height:20px;border-radius:10px;background:#2a313d;position:relative;transition:.2s;flex:none}
+.sw::after{content:"";position:absolute;left:3px;top:3px;width:14px;height:14px;border-radius:50%;background:#9aa3b2;transition:.2s}
+.tog input:checked+.sw{background:var(--acc)}
+.tog input:checked+.sw::after{left:17px;background:#fff}
+.tog kbd{margin-left:auto;font-family:"SF Mono",Menlo,monospace;font-size:10px;color:var(--mut);border:1px solid var(--line);border-radius:4px;padding:1px 5px}
+.presets{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.presets button{background:rgba(255,255,255,.04);border:1px solid var(--line);color:var(--txt);font:inherit;font-size:12px;padding:8px 0;border-radius:8px;cursor:pointer}
+.presets button:hover{background:rgba(255,255,255,.09)}
+.hint{margin-top:16px;font-size:11.5px;color:var(--mut);line-height:1.7}
+.hint b{color:var(--txt);font-weight:500}
+.hud{position:fixed;right:20px;top:20px;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px 16px;min-width:230px;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);z-index:5}
+.hud .row{display:flex;justify-content:space-between;gap:18px;font-size:12px;padding:3px 0;color:var(--mut)}
+.hud .row b{font-family:"SF Mono",Menlo,monospace;color:var(--txt);font-weight:500}
+.hud .row b.ok{color:#5ee69a}
+.hud .mode{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--acc);font-weight:600;margin-bottom:6px}
+.legend{position:fixed;right:20px;bottom:20px;display:flex;gap:16px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:10px 14px;font-size:12px;color:var(--mut);z-index:5}
+.legend span{display:flex;align-items:center;gap:7px}
+.legend i{width:18px;height:3px;border-radius:2px;display:inline-block}
+#labels{position:fixed;inset:0;pointer-events:none;z-index:3}
+.lbl{position:absolute;left:0;top:0;opacity:0;white-space:nowrap;font-size:11.5px;color:#dfe5ee;padding-bottom:var(--lead,20px)}
+.lbl em{font-style:normal;font-family:"SF Mono",Menlo,monospace;color:var(--acc);margin-right:6px;font-size:10.5px}
+.lbl .t{background:rgba(12,15,21,.82);border:1px solid rgba(255,255,255,.12);border-radius:7px;padding:4px 8px}
+.lbl::after{content:"";position:absolute;left:50%;bottom:0;width:1px;height:var(--lead,20px);background:linear-gradient(rgba(255,255,255,.45),rgba(255,255,255,0))}
+.lbl::before{content:"";position:absolute;left:calc(50% - 2.5px);bottom:-2.5px;width:5px;height:5px;border-radius:50%;background:#fff}
+</style>
+</head>
+<body>
+<canvas id="view"></canvas>
+<div id="vignette"></div>
+<div id="labels"></div>
+
+<aside class="panel" id="panel">
+  <div class="brand">
+    <svg width="18" height="18" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10.5" fill="none" stroke="#ffb547" stroke-width="1.6"/><path d="M12 1.5 L16.5 9.5 M22.5 12 L14 13.2 M17.2 21 L11.6 14.7 M6.8 21 L9.2 13 M1.5 12 L9.6 10.2 M6.8 3 L13 9" stroke="#ffb547" stroke-width="1.3" fill="none"/></svg>
+    LENS LAB
+  </div>
+  <h1>35mm <span>f/1.8</span> Prime</h1>
+  <p class="sub">Procedurally modelled · 4 elements in 4 groups · 6-blade iris diaphragm · live sequential ray trace</p>
+
+  <section>
+    <div class="sec-h"><span>Aperture</span><b class="fnum" id="fnum">f/2.8</b></div>
+    <input type="range" id="ap" min="0" max="1000" value="300">
+    <div class="stops" id="stops"></div>
+    <div class="stats">
+      <div><i>Stop Ø</i><b id="stopD">—</b></div>
+      <div><i>Exposure</i><b id="ev">—</b></div>
+      <div><i>Rays through</i><b id="thru">—</b></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-h"><span>View</span></div>
+    <div class="seg"><button id="mA" class="on">Assembled</button><button id="mE">Exploded</button></div>
+    <div style="margin-top:8px">
+      <label class="tog"><input type="checkbox" id="tSec" checked><span class="sw"></span>Cross-section<kbd>C</kbd></label>
+      <label class="tog"><input type="checkbox" id="tRay" checked><span class="sw"></span>Light rays<kbd>R</kbd></label>
+      <label class="tog"><input type="checkbox" id="tAxis" checked><span class="sw"></span>Optical axis<kbd>A</kbd></label>
+      <label class="tog"><input type="checkbox" id="tAuto"><span class="sw"></span>Auto-rotate<kbd>O</kbd></label>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-h"><span>Off-axis field angle</span><b class="val" id="fieldV">8°</b></div>
+    <input type="range" id="field" min="0" max="20" step="0.5" value="8">
+  </section>
+
+  <section>
+    <div class="sec-h"><span>Camera</span></div>
+    <div class="presets">
+      <button data-p="q">3/4</button><button data-p="s">Side</button><button data-p="f">Front</button><button data-p="t">Top</button>
+    </div>
+    <div class="hint"><b>Drag</b> orbit · <b>Right-drag / Shift</b> pan · <b>Scroll</b> zoom · <b>Double-click</b> reset · <b>E</b> explode</div>
+  </section>
+</aside>
+
+<div class="hud">
+  <div class="mode" id="hudMode">Assembled · Section</div>
+  <div class="row">Effective focal length<b id="hEfl">—</b></div>
+  <div class="row">Back focal distance<b id="hBfd">—</b></div>
+  <div class="row">Working f-number<b id="hF">—</b></div>
+  <div class="row">Coaxial deviation<b class="ok" id="hDev">0.000 mm</b></div>
+</div>
+<div class="legend">
+  <span><i style="background:#ffc861"></i>On-axis bundle</span>
+  <span><i style="background:#59d8ff"></i>Off-axis bundle</span>
+  <span><i style="background:#7a4a40"></i>Vignetted</span>
+</div>
+
+<script>
+"use strict";
+/* =====================================================================
+   Lens Lab — component layout (React-style, vanilla JS):
+   createStore()     → app state + subscribe (useState/useReducer)
+   <LensModel/>      → procedural lathe geometry for barrels & glass
+   <IrisDiaphragm/>  → 6-blade iris geometry, rebuilt per aperture
+   <RayTracer/>      → meridional Snell's-law trace through surfaces
+   <Viewport/>       → software 3D renderer (z-buffer rasterizer on Canvas)
+   <OrbitControls/>  → pointer / wheel camera control
+   <ControlPanel/>   → DOM bindings, renders from store
+   ===================================================================== */
+const TAU = Math.PI * 2;
+
+/* ---------------- store ---------------- */
+function createStore(init){
+  let s = init; const subs = new Set();
+  return {
+    get: () => s,
+    set(patch){ s = Object.assign({}, s, typeof patch === 'function' ? patch(s) : patch); subs.forEach(f => f(s)); },
+    subscribe(f){ subs.add(f); return () => subs.delete(f); }
+  };
+}
+const F_MIN = 1.8, F_MAX = 22;
+const store = createStore({ fTarget: 2.8, exploded: false, section: true, rays: true, axis: true, auto: false, field: 8 });
+
+/* ---------------- math ---------------- */
+const V3 = {
+  sub:(a,b)=>[a[0]-b[0],a[1]-b[1],a[2]-b[2]],
+  dot:(a,b)=>a[0]*b[0]+a[1]*b[1]+a[2]*b[2],
+  cross:(a,b)=>[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]],
+  norm(a){const l=Math.hypot(a[0],a[1],a[2])||1;return [a[0]/l,a[1]/l,a[2]/l];}
+};
+const M4 = {
+  persp(fovy,asp,n,f,shift){const t=1/Math.tan(fovy/2);const m=new Float32Array(16);m[0]=t/asp;m[5]=t;m[10]=(f+n)/(n-f);m[11]=-1;m[14]=2*f*n/(n-f);m[8]=-shift;return m;},
+  lookAt(e,c,u){const z=V3.norm(V3.sub(e,c)),x=V3.norm(V3.cross(u,z)),y=V3.cross(z,x);const m=new Float32Array(16);
+    m[0]=x[0];m[4]=x[1];m[8]=x[2];m[12]=-V3.dot(x,e);
+    m[1]=y[0];m[5]=y[1];m[9]=y[2];m[13]=-V3.dot(y,e);
+    m[2]=z[0];m[6]=z[1];m[10]=z[2];m[14]=-V3.dot(z,e);m[15]=1;return {m,x,y,z};},
+  mul(a,b){const o=new Float32Array(16);for(let c=0;c<4;c++)for(let r=0;r<4;r++){let s=0;for(let k=0;k<4;k++)s+=a[k*4+r]*b[c*4+k];o[c*4+r]=s;}return o;},
+  xf(m,v){const o=[0,0,0,0];for(let r=0;r<4;r++)o[r]=m[r]*v[0]+m[4+r]*v[1]+m[8+r]*v[2]+m[12+r];return o;}
+};
+const smooth = t => t*t*(3-2*t);
+
+/* =====================================================================
+   <LensModel/> — procedural geometry (triangle soup: pos + normal)
+   ===================================================================== */
+class Geo {
+  constructor(){ this.d = []; }
+  v(p,n){ this.d.push(p[0],p[1],p[2],n[0],n[1],n[2]); }
+  tri(a,b,c,na,nb,nc){ this.v(a,na); this.v(b,nb||na); this.v(c,nc||na); }
+  quad(p0,p1,p2,p3,n0,n1,n2,n3){ this.tri(p0,p1,p2,n0,n1,n2); this.tri(p0,p2,p3,n0,n2,n3); }
+  array(){ return new Float32Array(this.d); }
+}
+const SEG = 64; // angular segments (multiple of 4 → section plane lies on vertex lines)
+function revolve(g,a,b,seg,a0,a1){
+  for(let j=0;j<seg;j++){
+    const t0=a0+(a1-a0)*j/seg, t1=a0+(a1-a0)*(j+1)/seg;
+    const c0=Math.cos(t0),s0=Math.sin(t0),c1=Math.cos(t1),s1=Math.sin(t1);
+    g.quad([a.r*c0,a.r*s0,a.z],[b.r*c0,b.r*s0,b.z],[b.r*c1,b.r*s1,b.z],[a.r*c1,a.r*s1,a.z],
+           [a.nr*c0,a.nr*s0,a.nz],[b.nr*c0,b.nr*s0,b.nz],[b.nr*c1,b.nr*s1,b.nz],[a.nr*c1,a.nr*s1,a.nz]);
+  }
+}
+function revolvePolygon(g,pts,seg,a0=0,a1=TAU){
+  const n=pts.length; let area=0;
+  for(let i=0;i<n;i++){const p=pts[i],q=pts[(i+1)%n];area+=p[0]*q[1]-q[0]*p[1];}
+  const sg=area>0?1:-1;
+  for(let i=0;i<n;i++){
+    const p=pts[i],q=pts[(i+1)%n];const dr=q[0]-p[0],dz=q[1]-p[1];const L=Math.hypot(dr,dz);if(L<1e-9)continue;
+    const nr=sg*dz/L,nz=-sg*dr/L;
+    revolve(g,{r:p[0],z:p[1],nr,nz},{r:q[0],z:q[1],nr,nz},seg,a0,a1);
+  }
+  if(a1-a0<TAU-1e-6){
+    [[a0,[Math.sin(a0),-Math.cos(a0),0]],[a1,[-Math.sin(a1),Math.cos(a1),0]]].forEach(([t,nn])=>{
+      const c=Math.cos(t),s=Math.sin(t);const P=p=>[p[0]*c,p[0]*s,p[1]];
+      for(let i=1;i<n-1;i++)g.tri(P(pts[0]),P(pts[i]),P(pts[i+1]),nn);
+    });
+  }
+}
+function sag(z0,R,r){ return isFinite(R) ? z0 + R - Math.sign(R)*Math.sqrt(Math.max(R*R-r*r,0)) : z0; }
+
+// Optical prescription (mm). Light travels toward +z.
+const ELEMENTS = [
+  {id:'L1', name:'Front element (L1)',     z:0,  R1:40,  R2:-200, t:6,   sd:14, n:1.62},
+  {id:'L2', name:'Biconcave element (L2)', z:12, R1:-35, R2:38,   t:2.5, sd:11, n:1.65},
+  {id:'L3', name:'Biconvex element (L3)',  z:22, R1:90,  R2:-30,  t:5,   sd:12, n:1.62},
+  {id:'L4', name:'Rear element (L4)',      z:31, R1:50,  R2:-80,  t:4.5, sd:12, n:1.62},
+];
+function lensGeo(el,seg=SEG){
+  const g=new Geo(),N=14,zf=el.z,zb=el.z+el.t;
+  const front=[],back=[];
+  for(let i=0;i<=N;i++){const r=el.sd*i/N,z=sag(zf,el.R1,r);
+    front.push(isFinite(el.R1)?{r,z,nr:r/el.R1,nz:(z-(zf+el.R1))/el.R1}:{r,z,nr:0,nz:-1});}
+  for(let i=N;i>=0;i--){const r=el.sd*i/N,z=sag(zb,el.R2,r);
+    back.push(isFinite(el.R2)?{r,z,nr:-r/el.R2,nz:-(z-(zb+el.R2))/el.R2}:{r,z,nr:0,nz:1});}
+  for(let i=0;i<N;i++)revolve(g,front[i],front[i+1],seg,0,TAU);
+  revolve(g,{r:el.sd,z:front[N].z,nr:1,nz:0},{r:el.sd,z:back[0].z,nr:1,nz:0},seg,0,TAU);
+  for(let i=0;i<N;i++)revolve(g,back[i],back[i+1],seg,0,TAU);
+  return g.array();
+}
+function ringGeo(pts,seg=SEG){const g=new Geo();revolvePolygon(g,pts,seg);return g.array();}
+function ridged(rIn,rBase,rTop,z0,z1,pitch){
+  const p=[[rIn,z0],[rBase,z0]];let z=z0+pitch*0.5;
+  while(z+pitch<=z1-pitch*0.3){p.push([rBase,z],[rTop,z+pitch*0.2],[rTop,z+pitch*0.7],[rBase,z+pitch*0.9]);z+=pitch;}
+  p.push([rBase,z1],[rIn,z1]);return p;
+}
+function mountGeo(){
+  const g=new Geo();
+  revolvePolygon(g,[[13,42],[17.2,42],[17.2,43],[20,43],[20,44.2],[16.5,44.2],[16.5,48],[13,48]],SEG);
+  for(let k=0;k<3;k++){const a=k*TAU/3+0.3;revolvePolygon(g,[[16.4,46],[18.9,46],[18.9,47.4],[16.4,47.4]],6,a,a+0.62);}
+  return g.array();
+}
+function boxGeo(cx,cy,cz,w,h,d){
+  const g=new Geo(),x0=cx-w/2,x1=cx+w/2,y0=cy-h/2,y1=cy+h/2,z0=cz-d/2,z1=cz+d/2;
+  const Q=(a,b,c,e,n)=>g.quad(a,b,c,e,n,n,n,n);
+  Q([x0,y0,z1],[x1,y0,z1],[x1,y1,z1],[x0,y1,z1],[0,0,1]);
+  Q([x1,y0,z0],[x0,y0,z0],[x0,y1,z0],[x1,y1,z0],[0,0,-1]);
+  Q([x1,y0,z1],[x1,y0,z0],[x1,y1,z0],[x1,y1,z1],[1,0,0]);
+  Q([x0,y0,z0],[x0,y0,z1],[x0,y1,z1],[x0,y1,z0],[-1,0,0]);
+  Q([x0,y1,z1],[x1,y1,z1],[x1,y1,z0],[x0,y1,z0],[0,1,0]);
+  Q([x0,y0,z0],[x1,y0,z0],[x1,y0,z1],[x0,y0,z1],[0,-1,0]);
+  return g.array();
+}
+
+/* =====================================================================
+   <IrisDiaphragm/> — six overlapping blades; cutting edges tangent to a
+   hexagon of inradius a; helical z ramp gives cyclic overlap.
+   ===================================================================== */
+const IRIS = { z:18.5, h:1.5, th:0.18, rout:13.6, amax:11.5 };
+const IRIS_STOP_Z = IRIS.z + IRIS.h*0.5 + IRIS.th*0.5;
+const irisRot = a => 0.6*(1 - a/IRIS.amax);
+const fToRadius = N => IRIS.amax * F_MIN / N;
+function hexRadius(phi,a,rot){let m=0;for(let i=0;i<6;i++)m=Math.max(m,Math.cos(phi-(i*Math.PI/3+rot)));return a/m;}
+function bladesGeo(a){
+  const g=new Geo(),rot=irisRot(a),R=IRIS.rout;
+  for(let i=0;i<6;i++){
+    const al=i*Math.PI/3+rot,n=[Math.cos(al),Math.sin(al)],t=[-Math.sin(al),Math.cos(al)];
+    const s0=-a*Math.tan(Math.PI/6),s1=Math.sqrt(R*R-a*a);
+    const aStart=al-Math.PI/6,aEnd=al+Math.acos(a/R),span=aEnd-aStart;
+    const pts=[];
+    for(let k=0;k<=10;k++){const s=s0+(s1-s0)*k/10;pts.push([a*n[0]+s*t[0],a*n[1]+s*t[1]]);}
+    for(let k=1;k<=14;k++){const ang=aEnd-(aEnd-aStart)*k/14;pts.push([R*Math.cos(ang),R*Math.sin(ang)]);}
+    const zOf=p=>{let d=Math.atan2(p[1],p[0])-aStart;d=Math.atan2(Math.sin(d),Math.cos(d));return IRIS.z+IRIS.h*Math.min(Math.max(d/span,0),1);};
+    let cx=0,cy=0;pts.forEach(p=>{cx+=p[0];cy+=p[1];});cx/=pts.length;cy/=pts.length;
+    const C=[cx,cy],cz=zOf(C),th=IRIS.th,m=pts.length;
+    let area=0;for(let k=0;k<m;k++){const p=pts[k],q=pts[(k+1)%m];area+=p[0]*q[1]-q[0]*p[1];}
+    const sg=area>0?1:-1;
+    for(let k=0;k<m;k++){
+      const p=pts[k],q=pts[(k+1)%m],zp=zOf(p),zq=zOf(q);
+      g.tri([C[0],C[1],cz+th],[p[0],p[1],zp+th],[q[0],q[1],zq+th],[0,0,1]);
+      g.tri([C[0],C[1],cz],[q[0],q[1],zq],[p[0],p[1],zp],[0,0,-1]);
+      const ex=q[0]-p[0],ey=q[1]-p[1],L=Math.hypot(ex,ey)||1,nn=[sg*ey/L,-sg*ex/L,0];
+      g.quad([p[0],p[1],zp],[q[0],q[1],zq],[q[0],q[1],zq+th],[p[0],p[1],zp+th],nn,nn,nn,nn);
+    }
+  }
+  return g.array();
+}
+
+/* =====================================================================
+   <RayTracer/> — sequential meridional trace (Snell's law, vector form)
+   ===================================================================== */
+function buildSystem(offs){
+  const ev=[];
+  ELEMENTS.forEach(el=>{const o=offs[el.id]||0;
+    ev.push({z:el.z+o,R:el.R1,sd:el.sd,n1:1,n2:el.n});
+    ev.push({z:el.z+el.t+o,R:el.R2,sd:el.sd,n1:el.n,n2:1});});
+  if(offs.stop!==undefined)ev.push({stop:true,z:IRIS_STOP_Z+offs.stop});
+  ev.sort((a,b)=>a.z-b.z);
+  return ev;
+}
+function trace(pz,py,dz,dy,ev,sensorZ,a,rot,psi){
+  const pts=[[pz,py]];
+  for(const s of ev){
+    if(s.stop){
+      const t=(s.z-pz)/dz;const qy=py+t*dy;
+      if(a!==null){const lim=hexRadius(qy>=0?psi:psi+Math.PI,a,rot);
+        if(Math.abs(qy)>lim){pts.push([s.z,qy]);return {pts,blocked:true};}}
+      continue;
+    }
+    let t;
+    if(!isFinite(s.R))t=(s.z-pz)/dz;
+    else{const cz=s.z+s.R,oz=pz-cz,b=oz*dz+py*dy,c=oz*oz+py*py-s.R*s.R,disc=b*b-c;
+      if(disc<0)return {pts,blocked:true};const sq=Math.sqrt(disc);t=s.R>0?-b-sq:-b+sq;}
+    const qz=pz+t*dz,qy=py+t*dy;pts.push([qz,qy]);
+    if(Math.abs(qy)>s.sd)return {pts,blocked:true};
+    let nz,ny;if(!isFinite(s.R)){nz=-1;ny=0;}else{nz=(qz-(s.z+s.R))/s.R;ny=qy/s.R;}
+    const eta=s.n1/s.n2,cosi=-(nz*dz+ny*dy),k=1-eta*eta*(1-cosi*cosi);
+    if(k<0)return {pts,blocked:true};
+    const f=eta*cosi-Math.sqrt(k);dz=eta*dz+f*nz;dy=eta*dy+f*ny;const L=Math.hypot(dz,dy);dz/=L;dy/=L;
+    pz=qz;py=qy;
+  }
+  const end=[pz,py,dz,dy];
+  if(dz>1e-6&&sensorZ>pz){const t=(sensorZ-pz)/dz;pts.push([sensorZ,py+t*dy]);}
+  return {pts,blocked:false,end};
+}
+const PARAX=(()=>{const ev=buildSystem({});const r=trace(-20,0.25,1,0,ev,0,null,0,0);
+  const [pz,py,dz,dy]=r.end;const u=-dy/dz;return {efl:0.25/u,focus:pz+py/u,lastZ:pz};})();
+const SENSOR_Z=Math.min(Math.max(PARAX.focus,52),90);
+
+/* =====================================================================
+   Parts table — every part only translates along z (coaxial by construction)
+   ===================================================================== */
+const MAT={
+  anod:  {col:[0.075,0.08,0.09,1],metal:.55,shin:40,cap:[0.62,0.64,0.68,1]},
+  rubber:{col:[0.05,0.05,0.055,1],metal:.05,shin:12,cap:[0.26,0.26,0.28,1]},
+  alu:   {col:[0.22,0.23,0.25,1],metal:.75,shin:50,cap:[0.72,0.74,0.77,1]},
+  chrome:{col:[0.72,0.73,0.76,1],metal:1,shin:60,cap:[0.82,0.82,0.85,1]},
+  red:   {col:[0.85,0.1,0.07,1],metal:.25,shin:30,cap:[0.85,0.3,0.25,1]},
+  blade: {col:[0.15,0.16,0.18,1],metal:.4,shin:30,cap:[0.48,0.5,0.55,1]},
+  glass: {col:[0.55,0.75,0.85,0.08],metal:0,shin:60,glass:true,cap:[0.5,0.8,0.95,0.62]},
+  sensor:{col:[0.28,0.22,0.42,1],metal:.9,shin:60,cap:[0.5,0.5,0.6,1]},
+  pcb:   {col:[0.05,0.22,0.12,1],metal:.2,shin:30,cap:[0.2,0.4,0.3,1]},
+};
+const PART_DEFS=[
+  {id:'focus', name:'Focus ring',            off:-82, top:21,  zc:7.5,  meshes:[[()=>ringGeo(ridged(17.95,20.25,20.85,1,14,0.9)),'rubber']]},
+  {id:'L1',    name:ELEMENTS[0].name,        off:-58, top:15,  zc:3,    meshes:[[()=>lensGeo(ELEMENTS[0]),'glass']]},
+  {id:'fb',    name:'Front barrel',          off:-30, top:18.5,zc:5,    meshes:[[()=>ringGeo([[13.6,-6],[18.5,-6],[18.5,-1.2],[17.8,-0.5],[17.8,17],[15.2,17],[15.2,-3],[13.6,-3]]),'anod']]},
+  {id:'L2',    name:ELEMENTS[1].name+' + spacer', off:-2, top:15.1,zc:11, meshes:[[()=>lensGeo(ELEMENTS[1]),'glass'],[()=>ringGeo([[11.3,6],[15.1,6],[15.1,9.8],[11.3,9.8]]),'anod']]},
+  {id:'iris',  name:'Iris diaphragm · 6 blades', off:8, top:20.7, zc:19.5, meshes:[[()=>ringGeo([[12.2,17],[18.5,17],[18.5,22],[12.2,22],[12.2,20.4],[14,20.4],[14,18.2],[12.2,18.2]]),'anod'],[()=>ringGeo(ridged(18.55,20.3,20.7,17.4,21.6,0.6)),'alu'],['BLADES','blade']]},
+  {id:'L3',    name:ELEMENTS[2].name,        off:22,  top:13,  zc:24.5, meshes:[[()=>lensGeo(ELEMENTS[2]),'glass']]},
+  {id:'rb',    name:'Rear barrel',           off:38,  top:18.2,zc:32,   meshes:[[()=>ringGeo([[12.4,22],[17.8,22],[17.8,36],[16.6,37],[16.6,42],[12.4,42]]),'anod'],[()=>ringGeo([[17.75,23.2],[18.2,23.2],[18.2,24],[17.75,24]]),'red']]},
+  {id:'L4',    name:ELEMENTS[3].name,        off:62,  top:13,  zc:33,   meshes:[[()=>lensGeo(ELEMENTS[3]),'glass']]},
+  {id:'mount', name:'Bayonet mount',         off:68,  top:20,  zc:45,   meshes:[[mountGeo,'chrome']]},
+  {id:'sensor',name:'Image sensor (focal plane)', off:72, top:9, zc:SENSOR_Z, meshes:[[()=>boxGeo(0,0,SENSOR_Z,24,16,0.6),'sensor'],[()=>boxGeo(0,0,SENSOR_Z+1.1,32,24,1.6),'pcb']]},
+];
+const bladeMesh={data:new Float32Array(0)};let bladeBuiltA=-1;
+function rebuildBlades(a){bladeMesh.data=bladesGeo(a);bladeBuiltA=a;}
+const PARTS=PART_DEFS.map(d=>({...d,meshes:d.meshes.map(([g,m])=>({mesh:g==='BLADES'?bladeMesh:{data:g()},mat:MAT[m]}))}));
+
+/* =====================================================================
+   <Viewport/> — software z-buffer rasterizer (Gouraud shading)
+   ===================================================================== */
+const canvas=document.getElementById('view');
+const ctx=canvas.getContext('2d');
+const SW=document.createElement('canvas');const swc=SW.getContext('2d');
+let img=null,buf8=null,buf32=null,depth=null,W=0,H=0;
+function ensureBuffers(w,h){if(w===W&&h===H&&img)return;W=w;H=h;SW.width=w;SW.height=h;
+  img=swc.createImageData(w,h);buf8=img.data;buf32=new Uint32Array(buf8.buffer);depth=new Float32Array(w*h);}
+let scap=0,SX,SY,SZ,IW,XW,WX,CR,CG,CB,CA,FC;
+function ensureScratch(n){if(n<=scap)return;scap=n;
+  SX=new Float32Array(n);SY=new Float32Array(n);SZ=new Float32Array(n);IW=new Float32Array(n);XW=new Float32Array(n);WX=new Float32Array(n);
+  CR=new Float32Array(n);CG=new Float32Array(n);CB=new Float32Array(n);CA=new Float32Array(n);FC=new Float32Array(n);}
+const nrm=(x,y,z)=>{const l=Math.hypot(x,y,z);return [x/l,y/l,z/l];};
+const L1=nrm(.45,.8,-.4),L2=nrm(-.7,.15,.6),E1=nrm(.4,.85,-.35),E2=nrm(-.8,.25,.5),E3=nrm(.9,-.1,.4);
+
+let VPcur=null,eyeCur=[0,0,100],clipCur=999;
+function rasterMesh(data,off,mat){
+  const n=data.length/6;if(!n)return;ensureScratch(n);
+  const m=VPcur,ex=eyeCur[0],ey=eyeCur[1],ez=eyeCur[2],hw=W*.5,hh=H*.5;
+  const glass=!!mat.glass,br=mat.col[0],bg=mat.col[1],bb=mat.col[2],ba=mat.col[3],metal=mat.metal,shin=mat.shin;
+  for(let i=0,j=0;i<n;i++,j+=6){
+    const x=data[j],y=data[j+1],z=data[j+2]+off;
+    WX[i]=x;
+    const cw=m[3]*x+m[7]*y+m[11]*z+m[15];
+    if(cw<=0.5){IW[i]=-1;continue;}
+    const iw=1/cw;IW[i]=iw;XW[i]=x*iw;
+    SX[i]=((m[0]*x+m[4]*y+m[8]*z+m[12])*iw+1)*hw;
+    SY[i]=(1-(m[1]*x+m[5]*y+m[9]*z+m[13])*iw)*hh;
+    SZ[i]=(m[2]*x+m[6]*y+m[10]*z+m[14])*iw;
+    // shading
+    let nx=data[j+3],ny=data[j+4],nz=data[j+5];
+    let vx=ex-x,vy=ey-y,vz=ez-z;const vl=1/Math.hypot(vx,vy,vz);vx*=vl;vy*=vl;vz*=vl;
+    let fc=nx*vx+ny*vy+nz*vz;FC[i]=fc;
+    if(fc<0){nx=-nx;ny=-ny;nz=-nz;fc=-fc;}
+    const d1=Math.max(nx*L1[0]+ny*L1[1]+nz*L1[2],0),d2=Math.max(nx*L2[0]+ny*L2[1]+nz*L2[2],0);
+    let hx=L1[0]+vx,hy=L1[1]+vy,hz=L1[2]+vz,hl=1/Math.hypot(hx,hy,hz);
+    const s1=Math.pow(Math.max((nx*hx+ny*hy+nz*hz)*hl,0),shin);
+    hx=L2[0]+vx;hy=L2[1]+vy;hz=L2[2]+vz;hl=1/Math.hypot(hx,hy,hz);
+    const s2=Math.pow(Math.max((nx*hx+ny*hy+nz*hz)*hl,0),shin);
+    const rx=2*fc*nx-vx,ry=2*fc*ny-vy,rz=2*fc*nz-vz;
+    let t=ry*.5+.5;t=Math.min(Math.max((t-.35)/.65,0),1);t=t*t*(3-2*t);
+    let er=.03+(.30-.03)*t,eg=.035+(.34-.035)*t,eb=.045+(.40-.045)*t;
+    let k=Math.pow(Math.max(rx*E1[0]+ry*E1[1]+rz*E1[2],0),24)*1.6;er+=k;eg+=.97*k;eb+=.92*k;
+    k=Math.pow(Math.max(rx*E2[0]+ry*E2[1]+rz*E2[2],0),16)*.6;er+=.55*k;eg+=.75*k;eb+=k;
+    k=Math.pow(Math.max(rx*E3[0]+ry*E3[1]+rz*E3[2],0),30)*.5;er+=k;eg+=.8*k;eb+=.6*k;
+    const fr=Math.pow(1-Math.min(fc,1),4);
+    let r,g,b,al=1;
+    if(glass){
+      const tr=.55+.25*fr,tg=.95-.35*fr,tb=.75+.25*fr,w=.3+.7*fr,sp=s1*1.2+s2*.4;
+      r=br*.22+er*tr*w+sp;g=bg*.22+eg*tg*w+sp;b=bb*.22+eb*tb*w+sp;
+      al=Math.min(Math.max(ba+fr*.55+s1*.6,0),.95);
+    }else{
+      const df=.10+.85*d1+.35*d2,sp=(s1+.4*s2)*(.35+.65*metal);
+      const spr=.5+(br*2+.2-.5)*metal,spg=.5+(bg*2+.2-.5)*metal,spb=.5+(bb*2+.2-.5)*metal;
+      r=br*df*(1-metal)+(br*er*2.2+er*.15)*metal+spr*sp+er*fr*.22;
+      g=bg*df*(1-metal)+(bg*eg*2.2+eg*.15)*metal+spg*sp+eg*fr*.22;
+      b=bb*df*(1-metal)+(bb*eb*2.2+eb*.15)*metal+spb*sp+eb*fr*.22;
+    }
+    CR[i]=Math.min(r,1)*255;CG[i]=Math.min(g,1)*255;CB[i]=Math.min(b,1)*255;CA[i]=al;
+  }
+  const clipX=clipCur,clipPix=clipX<900,clipOn=clipX<50;
+  const capR=mat.cap[0]*.92*255,capG=mat.cap[1]*.92*255,capB=mat.cap[2]*.92*255,capA=mat.cap[3];
+  const EPS=-1e-5;
+  for(let a=0;a<n;a+=3){
+    const b=a+1,c=a+2;
+    if(IW[a]<0||IW[b]<0||IW[c]<0)continue;
+    if(clipPix&&WX[a]>clipX&&WX[b]>clipX&&WX[c]>clipX)continue;
+    const back=FC[a]+FC[b]+FC[c]<0;
+    if(back&&!glass&&!clipOn)continue;
+    const cap=back&&clipOn;
+    const x0=SX[a],y0=SY[a],x1=SX[b],y1=SY[b],x2=SX[c],y2=SY[c];
+    const area=(x1-x0)*(y2-y0)-(x2-x0)*(y1-y0);
+    if(area>-1e-7&&area<1e-7)continue;
+    const minX=Math.max(0,Math.floor(Math.min(x0,x1,x2))),maxX=Math.min(W-1,Math.ceil(Math.max(x0,x1,x2)));
+    const minY=Math.max(0,Math.floor(Math.min(y0,y1,y2))),maxY=Math.min(H-1,Math.ceil(Math.max(y0,y1,y2)));
+    if(minX>maxX||minY>maxY)continue;
+    const ia=1/area,b0dx=(y1-y2)*ia,b0dy=(x2-x1)*ia,b1dx=(y2-y0)*ia,b1dy=(x0-x2)*ia;
+    const px0=minX+.5,py0=minY+.5;
+    let b0r=((x1-px0)*(y2-py0)-(x2-px0)*(y1-py0))*ia,b1r=((x2-px0)*(y0-py0)-(x0-px0)*(y2-py0))*ia;
+    const z0=SZ[a],z1=SZ[b],z2=SZ[c],xa=XW[a],xb=XW[b],xc=XW[c],wa=IW[a],wb=IW[b],wc=IW[c];
+    const ra=CR[a],rb=CR[b],rc=CR[c],ga=CG[a],gb=CG[b],gc=CG[c],ba_=CB[a],bb_=CB[b],bc=CB[c],aa=CA[a],ab=CA[b],ac=CA[c];
+    for(let py=minY;py<=maxY;py++,b0r+=b0dy,b1r+=b1dy){
+      let w0=b0r,w1=b1r,idx=py*W+minX;
+      for(let px=minX;px<=maxX;px++,idx++,w0+=b0dx,w1+=b1dx){
+        const w2=1-w0-w1;
+        if(w0<EPS||w1<EPS||w2<EPS)continue;
+        const zz=w0*z0+w1*z1+w2*z2;
+        if(zz>=depth[idx])continue;
+        if(clipPix&&(w0*xa+w1*xb+w2*xc)/(w0*wa+w1*wb+w2*wc)>clipX)continue;
+        let r,g,bl,al;
+        if(cap){const h=glass?1:((((px+py)>>2)&1)?1:.82);r=capR*h;g=capG*h;bl=capB*h;al=capA;}
+        else{r=w0*ra+w1*rb+w2*rc;g=w0*ga+w1*gb+w2*gc;bl=w0*ba_+w1*bb_+w2*bc;al=w0*aa+w1*ab+w2*ac;}
+        if(!glass){depth[idx]=zz;buf32[idx]=(0xff000000|((bl|0)<<16)|((g|0)<<8)|(r|0));}
+        else{
+          const o=idx<<2,dA=buf8[o+3]/255,oA=al+dA*(1-al),k1=al/oA,k2=dA*(1-al)/oA;
+          buf8[o]=r*k1+buf8[o]*k2;buf8[o+1]=g*k1+buf8[o+1]*k2;buf8[o+2]=bl*k1+buf8[o+2]*k2;buf8[o+3]=oA*255;
+        }
+      }
+    }
+  }
+}
+
+/* ---------------- animated state ---------------- */
+const A={logF:Math.log(2.8),ex:0,cut:1,yaw:2.05,pitch:0.3,dist:140,target:[0,0,24],camGoal:null,rayStats:{pass:0,total:0}};
+const DEFAULT_CAM={yaw:2.05,pitch:0.3,dist:140,target:[0,0,24]};
+
+/* ---------------- labels ---------------- */
+const labelsEl=document.getElementById('labels');
+PARTS.forEach((p,i)=>{const d=document.createElement('div');d.className='lbl';d.style.setProperty('--lead',(i%2?56:22)+'px');
+  d.innerHTML=`<div class="t"><em>${String(i+1).padStart(2,'0')}</em>${p.name}</div>`;labelsEl.appendChild(d);p.el=d;});
+
+/* ---------------- rays (polylines in world space) ---------------- */
+const RAY_GOLD=[255,199,97],RAY_GOLD_B=[217,97,71],RAY_CY=[89,216,255],RAY_CY_B=[115,102,217];
+function buildRays(offs,a,rot,sensorZ,field){
+  const ev=buildSystem(offs);const z0=ELEMENTS[0].z+(offs.L1||0)-28;const out=[];
+  let pass=0,total=0;
+  const add=(res,psi,col,colB,al,alB)=>{const c=Math.cos(psi),s=Math.sin(psi);
+    out.push({pts:res.pts.map(q=>[q[1]*c,q[1]*s,q[0]]),rgb:res.blocked?colB:col,a:res.blocked?alB:al});};
+  const Hs=[-13.2,-9.9,-6.6,-3.3,0,3.3,6.6,9.9,13.2];
+  [[Math.PI/2,1],[Math.PI/6,.45],[Math.PI*5/6,.45]].forEach(([psi,al],pi)=>{
+    Hs.forEach(h=>{const r=trace(z0,h,1,0,ev,sensorZ,a,rot,psi);
+      if(pi===0){total++;if(!r.blocked)pass++;}
+      add(r,psi,RAY_GOLD,RAY_GOLD_B,.95*al,.45*al);});
+  });
+  if(field>0.01){
+    const th=field*Math.PI/180,dz=Math.cos(th),dy=Math.sin(th),tz=Math.tan(th),zE=ELEMENTS[0].z+(offs.L1||0);
+    Hs.forEach(h=>{const y0=h-tz*15-tz*(zE-z0);
+      add(trace(z0,y0,dz,dy,ev,sensorZ,a,rot,Math.PI/2),Math.PI/2,RAY_CY,RAY_CY_B,.95,.4);});
+  }
+  A.rayStats={pass,total};
+  return out;
+}
+
+/* ---------------- render ---------------- */
+let cssW=1,cssH=1,dpr=1,needs=true,wasMoving=false,lastInteract=0;
+function resize(){dpr=Math.min(window.devicePixelRatio||1,2);cssW=window.innerWidth;cssH=window.innerHeight;
+  canvas.width=Math.round(cssW*dpr);canvas.height=Math.round(cssH*dpr);needs=true;}
+window.addEventListener('resize',resize);resize();
+const poke=()=>{lastInteract=performance.now();};
+
+function proj(p){const m=VPcur,x=p[0],y=p[1],z=p[2];const w=m[3]*x+m[7]*y+m[11]*z+m[15];if(w<=0.5)return null;
+  return [((m[0]*x+m[4]*y+m[8]*z+m[12])/w*.5+.5)*cssW,(1-((m[1]*x+m[5]*y+m[9]*z+m[13])/w*.5+.5))*cssH,(m[2]*x+m[6]*y+m[10]*z+m[14])/w];}
+function occluded(s){const ix=(s[0]*W/cssW)|0,iy=(s[1]*H/cssH)|0;if(ix<0||iy<0||ix>=W||iy>=H)return false;return depth[iy*W+ix]<s[2]-3e-5;}
+// split a polyline into depth-tested visible / hidden Path2D runs
+function splitPolyline(pts,clipLimit,step){
+  const vis=new Path2D(),hid=new Path2D();let state=null,last=null;
+  for(let i=0;i<pts.length-1;i++){
+    const p0=pts[i],p1=pts[i+1],L=Math.hypot(p1[0]-p0[0],p1[1]-p0[1],p1[2]-p0[2]);const n=Math.max(1,Math.min(80,Math.ceil(L/step)));
+    let prev=proj(p0);
+    for(let k=1;k<=n;k++){
+      const t=k/n,q=[p0[0]+(p1[0]-p0[0])*t,p0[1]+(p1[1]-p0[1])*t,p0[2]+(p1[2]-p0[2])*t],cur=proj(q);
+      if(!prev||!cur){prev=cur;state=null;continue;}
+      const mx=p0[0]+(p1[0]-p0[0])*(t-.5/n);
+      const v=!occluded([(prev[0]+cur[0])/2,(prev[1]+cur[1])/2,(prev[2]+cur[2])/2])&&mx<=clipLimit;
+      const path=v?vis:hid;
+      if(state!==v||last!==prev){path.moveTo(prev[0],prev[1]);}
+      path.lineTo(cur[0],cur[1]);state=v;last=cur;prev=cur;
+    }
+  }
+  return {vis,hid};
+}
+
+function frame(dt,now){
+  const s=store.get();
+  const before=[A.logF,A.ex,A.cut,A.yaw,A.pitch,A.dist,A.target[0],A.target[1],A.target[2]];
+  const lt=Math.log(s.fTarget);A.logF+=(lt-A.logF)*Math.min(1,dt*8);if(Math.abs(lt-A.logF)<1e-4)A.logF=lt;
+  const exT=s.exploded?1:0;A.ex+=Math.sign(exT-A.ex)*Math.min(Math.abs(exT-A.ex),dt*1.3);
+  const cutT=s.section?1:0;A.cut+=Math.sign(cutT-A.cut)*Math.min(Math.abs(cutT-A.cut),dt*1.8);
+  if(A.camGoal){const g=A.camGoal,k=Math.min(1,dt*5);let dy=g.yaw-A.yaw;dy=Math.atan2(Math.sin(dy),Math.cos(dy));
+    A.yaw+=dy*k;A.pitch+=(g.pitch-A.pitch)*k;A.dist+=(g.dist-A.dist)*k;
+    for(let i=0;i<3;i++)A.target[i]+=(g.target[i]-A.target[i])*k;
+    if(Math.abs(dy)<1e-3&&Math.abs(g.pitch-A.pitch)<1e-3&&Math.abs(g.dist-A.dist)<0.05){
+      A.yaw=g.yaw;A.pitch=g.pitch;A.dist=g.dist;A.target=[...g.target];A.camGoal=null;}}
+  if(s.auto&&!drag)A.yaw+=dt*0.18;
+  const after=[A.logF,A.ex,A.cut,A.yaw,A.pitch,A.dist,A.target[0],A.target[1],A.target[2]];
+  const animating=after.some((v,i)=>Math.abs(v-before[i])>1e-7);
+  const moving=animating||!!drag||now-lastInteract<180;
+  let q;
+  if(moving){q=0.55;wasMoving=true;}
+  else if(wasMoving||needs){q=1;wasMoving=false;}
+  else return;
+  needs=false;
+  render(s,q);
+}
+
+function render(s,q){
+  const N=Math.exp(A.logF),a=fToRadius(N),rot=irisRot(a);
+  if(Math.abs(a-bladeBuiltA)>1e-4)rebuildBlades(a);
+  const e=smooth(A.ex);
+  const offs={};PARTS.forEach(p=>offs[p.id]=p.off*e);offs.stop=offs.iris;
+  const clipX=A.cut<=0.001?999:(1-smooth(A.cut))*42;
+
+  const d=A.dist*(1+0.8*e),cp=Math.cos(A.pitch);
+  const eye=[A.target[0]+d*cp*Math.sin(A.yaw),A.target[1]+d*Math.sin(A.pitch),A.target[2]+d*cp*Math.cos(A.yaw)];
+  const shift=cssW>900?170/(cssW/2):0;
+  const P=M4.persp(35*Math.PI/180,cssW/cssH,1,3000,shift),Vw=M4.lookAt(eye,A.target,[0,1,0]);
+  camBasis=Vw;VPcur=M4.mul(P,Vw.m);eyeCur=eye;clipCur=clipX;
+
+  // ----- rasterize meshes -----
+  ensureBuffers(Math.max(1,Math.round(cssW*q)),Math.max(1,Math.round(cssH*q)));
+  buf32.fill(0);depth.fill(Infinity);
+  const glassList=[];
+  PARTS.forEach(p=>p.meshes.forEach(mm=>{if(mm.mat.glass)glassList.push([p,mm]);else rasterMesh(mm.mesh.data,offs[p.id],mm.mat);}));
+  glassList.sort((g1,g2)=>Math.abs(eye[2]-(g2[0].zc+offs[g2[0].id]))-Math.abs(eye[2]-(g1[0].zc+offs[g1[0].id])));
+  glassList.forEach(([p,mm])=>rasterMesh(mm.mesh.data,offs[p.id],mm.mat));
+  swc.putImageData(img,0,0);
+
+  // ----- composite -----
+  ctx.setTransform(dpr,0,0,dpr,0,0);
+  ctx.globalCompositeOperation='source-over';ctx.globalAlpha=1;ctx.setLineDash([]);
+  const bgG=ctx.createRadialGradient(cssW*.6,cssH*.45,50,cssW*.6,cssH*.45,Math.max(cssW,cssH)*.75);
+  bgG.addColorStop(0,'#151a23');bgG.addColorStop(1,'#090b10');
+  ctx.fillStyle=bgG;ctx.fillRect(0,0,cssW,cssH);
+
+  const fy=-36;
+  const drawGrid=alpha=>{
+    const pth=new Path2D(),pthC=new Path2D();
+    const line=(p0,p1,path)=>{const n=20;let prev=null;for(let k=0;k<=n;k++){const t=k/n;
+      const c=proj([p0[0]+(p1[0]-p0[0])*t,p0[1]+(p1[1]-p0[1])*t,p0[2]+(p1[2]-p0[2])*t]);
+      if(c){if(prev)path.lineTo(c[0],c[1]);else path.moveTo(c[0],c[1]);}prev=c;}};
+    for(let x=-60;x<=60;x+=10)line([x,fy,-110],[x,fy,160],x===0?pthC:pth);
+    for(let z=-110;z<=160;z+=10)line([-60,fy,z],[60,fy,z],pth);
+    ctx.lineWidth=1;ctx.strokeStyle=`rgba(115,140,178,${.14*alpha})`;ctx.stroke(pth);
+    ctx.strokeStyle=`rgba(115,140,178,${.28*alpha})`;ctx.stroke(pthC);
+  };
+  const above=eye[1]>fy;
+  if(above)drawGrid(1);
+  ctx.imageSmoothingEnabled=true;ctx.drawImage(SW,0,0,cssW,cssH);
+  if(!above)drawGrid(.6);
+
+  ctx.globalCompositeOperation='lighter';ctx.lineCap='round';ctx.lineJoin='round';
+  if(s.axis){
+    const zs=-110+100*(1-e),ze=SENSOR_Z+offs.sensor+12;
+    const {vis,hid}=splitPolyline([[0,0,zs],[0,0,ze]],999,2);
+    ctx.setLineDash([5,4]);ctx.lineWidth=1.1;
+    ctx.strokeStyle='rgba(178,204,242,.55)';ctx.stroke(vis);
+    ctx.strokeStyle='rgba(178,204,242,.14)';ctx.stroke(hid);ctx.setLineDash([]);
+  }
+  if(s.rays){
+    const rays=buildRays(offs,a,rot,SENSOR_Z+offs.sensor,s.field);
+    rays.forEach(r=>{
+      const {vis,hid}=splitPolyline(r.pts,clipX+0.35,1.5);const [R,G,B]=r.rgb;
+      ctx.lineWidth=4;ctx.strokeStyle=`rgba(${R},${G},${B},${r.a*.16})`;ctx.stroke(vis);
+      ctx.lineWidth=1.4;ctx.strokeStyle=`rgba(${R},${G},${B},${r.a})`;ctx.stroke(vis);
+      ctx.lineWidth=1.1;ctx.strokeStyle=`rgba(${R},${G},${B},${r.a*.24})`;ctx.stroke(hid);
+    });
+  }else A.rayStats={pass:0,total:0,off:true};
+  ctx.globalCompositeOperation='source-over';
+
+  // ----- labels -----
+  PARTS.forEach(p=>{
+    const c=M4.xf(VPcur,[0,p.top+1.5,p.zc+offs[p.id],1]);
+    if(c[3]<=0||e<0.05){p.el.style.opacity=0;return;}
+    const x=(c[0]/c[3]*.5+.5)*cssW,y=(1-(c[1]/c[3]*.5+.5))*cssH;
+    p.el.style.opacity=Math.max(0,(e-0.55)/0.45).toFixed(3);
+    p.el.style.transform=`translate(${x.toFixed(1)}px,${y.toFixed(1)}px) translate(-50%,-100%)`;
+  });
+
+  updateLive(N,a);
+}
+
+/* =====================================================================
+   <OrbitControls/>
+   ===================================================================== */
+let drag=null,camBasis=null;
+canvas.addEventListener('contextmenu',e=>e.preventDefault());
+canvas.addEventListener('pointerdown',e=>{canvas.setPointerCapture(e.pointerId);A.camGoal=null;
+  drag={x:e.clientX,y:e.clientY,pan:e.button===2||e.shiftKey};canvas.classList.add('drag');poke();});
+canvas.addEventListener('pointermove',e=>{if(!drag)return;const dx=e.clientX-drag.x,dy=e.clientY-drag.y;drag.x=e.clientX;drag.y=e.clientY;
+  if(drag.pan&&camBasis){const k=A.dist*0.0014;const r=camBasis.x,up=camBasis.y;
+    for(let i=0;i<3;i++)A.target[i]+=(-r[i]*dx+up[i]*dy)*k;}
+  else{A.yaw-=dx*0.006;A.pitch=Math.max(-1.45,Math.min(1.45,A.pitch+dy*0.005));}poke();});
+const endDrag=()=>{drag=null;canvas.classList.remove('drag');poke();};
+canvas.addEventListener('pointerup',endDrag);canvas.addEventListener('pointercancel',endDrag);
+canvas.addEventListener('wheel',e=>{e.preventDefault();A.camGoal=null;A.dist=Math.max(45,Math.min(420,A.dist*Math.exp(e.deltaY*0.001)));poke();},{passive:false});
+canvas.addEventListener('dblclick',()=>{A.camGoal={...DEFAULT_CAM,target:[...DEFAULT_CAM.target]};});
+
+/* =====================================================================
+   <ControlPanel/>
+   ===================================================================== */
+const $=id=>document.getElementById(id);
+const STOPS=[1.8,2,2.8,4,5.6,8,11,16,22];
+const fToSlider=N=>Math.round(1000*Math.log(N/F_MIN)/Math.log(F_MAX/F_MIN));
+const sliderToF=v=>F_MIN*Math.pow(F_MAX/F_MIN,v/1000);
+const fmtF=N=>'f/'+(N<9.95?N.toFixed(1):Math.round(N));
+const stopsEl=$('stops');
+STOPS.forEach(N=>{const b=document.createElement('button');b.textContent=N;b.onclick=()=>store.set({fTarget:N});stopsEl.appendChild(b);});
+$('ap').addEventListener('input',e=>store.set({fTarget:sliderToF(+e.target.value)}));
+$('field').addEventListener('input',e=>store.set({field:+e.target.value}));
+$('mA').onclick=()=>store.set({exploded:false});
+$('mE').onclick=()=>store.set({exploded:true});
+$('tSec').onchange=e=>store.set({section:e.target.checked});
+$('tRay').onchange=e=>store.set({rays:e.target.checked});
+$('tAxis').onchange=e=>store.set({axis:e.target.checked});
+$('tAuto').onchange=e=>store.set({auto:e.target.checked});
+const PRESETS={q:{yaw:2.05,pitch:.3},s:{yaw:Math.PI/2,pitch:.02},f:{yaw:Math.PI,pitch:.04},t:{yaw:Math.PI/2,pitch:1.38}};
+document.querySelectorAll('.presets button').forEach(b=>b.onclick=()=>{const p=PRESETS[b.dataset.p];
+  A.camGoal={yaw:p.yaw,pitch:p.pitch,dist:b.dataset.p==='f'?110:140,target:[0,0,24]};});
+window.addEventListener('keydown',e=>{if(e.target.tagName==='INPUT'&&e.target.type==='range')return;const s=store.get();
+  const k=e.key.toLowerCase();
+  if(k==='e')store.set({exploded:!s.exploded});else if(k==='c')store.set({section:!s.section});
+  else if(k==='r')store.set({rays:!s.rays});else if(k==='a')store.set({axis:!s.axis});else if(k==='o')store.set({auto:!s.auto});});
+
+function renderPanel(s){
+  const v=fToSlider(s.fTarget);$('ap').value=v;$('ap').style.setProperty('--p',(v/10)+'%');
+  $('fnum').textContent=fmtF(s.fTarget);
+  [...stopsEl.children].forEach((b,i)=>b.classList.toggle('on',Math.abs(STOPS[i]-s.fTarget)<0.01));
+  $('field').value=s.field;$('field').style.setProperty('--p',(s.field/20*100)+'%');$('fieldV').textContent=s.field+'°';
+  $('mA').classList.toggle('on',!s.exploded);$('mE').classList.toggle('on',s.exploded);
+  $('tSec').checked=s.section;$('tRay').checked=s.rays;$('tAxis').checked=s.axis;$('tAuto').checked=s.auto;
+  $('hudMode').textContent=(s.exploded?'Exploded':'Assembled')+(s.section?' · Section':'')+(s.rays?' · Rays':'');
+  const ev=2*Math.log2(s.fTarget/F_MIN);
+  $('ev').textContent=ev<0.05?'0 EV':'−'+ev.toFixed(1)+' EV';
+  needs=true;
+}
+store.subscribe(renderPanel);renderPanel(store.get());
+
+$('hEfl').textContent=PARAX.efl.toFixed(1)+' mm';
+$('hBfd').textContent=(SENSOR_Z-PARAX.lastZ).toFixed(1)+' mm';
+let lastLive='';
+function updateLive(N,a){
+  // every part carries only an axial offset → lateral deviation is exactly zero
+  let dev=0;PARTS.forEach(p=>{dev=Math.max(dev,Math.hypot(p.dx||0,p.dy||0));});
+  const st=A.rayStats;
+  const txt=[(2*a).toFixed(1)+' mm',st.off?'—':st.pass+'/'+st.total,fmtF(N),dev.toFixed(3)+' mm'].join('|');
+  if(txt===lastLive)return;lastLive=txt;const t=txt.split('|');
+  $('stopD').textContent=t[0];$('thru').textContent=t[1];$('hF').textContent=t[2];$('hDev').textContent=t[3];
+}
+
+/* ---------------- loop ---------------- */
+let last=performance.now();
+function loop(now){const dt=Math.min(0.05,(now-last)/1000);last=now;frame(dt,now);requestAnimationFrame(loop);}
+requestAnimationFrame(loop);
+</script>
+</body>
+</html>

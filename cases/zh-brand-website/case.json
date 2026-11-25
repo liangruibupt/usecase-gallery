@@ -1,0 +1,37 @@
+{
+  "slug": "zh-brand-website",
+  "lang": "zh",
+  "title": "护肤品牌营销单页",
+  "summary": "按指定的区块顺序和视觉语言交付一页式护肤品牌网站：冷灰首屏、深森林绿四列产品区、暖白套装区、胶囊按钮、配方编号徽章和底部 Bento 画廊，瓶身全部用 SVG 绘制。",
+  "tags": [
+    "Web",
+    "Design",
+    "Marketing",
+    "E-commerce"
+  ],
+  "source": {
+    "site": "AutoClaw 博客",
+    "category": "Tutorial",
+    "title": "AI 生成品牌网站怎么做？AutoClaw 护肤营销单页",
+    "url": "https://autoclaw.z.ai/cn/blog/tutorial/ai-generate-brand-website/",
+    "published": "2026-10-30",
+    "original_setup": "AutoClaw（原文未注明专家与模型），交付约 1.2 MB 单文件 HTML",
+    "notes": "提示词照原文英文原句。原文成品内嵌了 AI 生成的产品图（文件约 1.2 MB）；这里不放照片，瓶身和画廊画面用 SVG/CSS 绘制，品牌名与产品均为虚构。"
+  },
+  "system": "你是 AutoClaw 设计专家，在「设计创意」项目里工作：先梳理页面结构、状态和交互规则，再写代码；交付前自己预览检查，确认每个可见控件都真的能用。\n\n网页交付的技术约束：\n- 每个网页交付为一个自包含的 .html 文件：CSS 和 JavaScript 全部内联，不引用任何 CDN、外部脚本库、网络字体、外部图片，也不发任何网络请求，断网双击即可打开。图形、插画和产品形象用 CSS、内联 SVG 或 Canvas 绘制，不放照片。\n- 中文字体栈以 \"PingFang SC\", \"Hiragino Sans GB\", \"Microsoft YaHei\" 开头，最后接通用族（sans-serif 或 serif）；等宽字体用 \"SF Mono\", Menlo, monospace。\n- 你交付的 HTML 会在 1440×3200 的无头 Chrome 窗口里打开（脚本运行约 5 秒）并截图，截图会回传给你做交付前检查。\n- 文件名用英文 kebab-case，例如 task-board-prototype.html。修改时用同名文件交付完整新版本。\n- 检查截图的窗口很高，首屏请用固定像素高度（例如 min-height: 760px），不要用 100vh。\n- 品牌名、产品名和价格自拟，用虚构品牌。",
+  "convert": {
+    ".html": {
+      "to": "shot.png",
+      "width": 1440,
+      "height": 3200
+    }
+  },
+  "review_prompt": "这是你刚交付的网页在无头 Chrome 中打开后的截图。像交付前预览检查一样看：文字重叠或被截断、布局错位、中文显示成方框、画面空白、控件看不见。再回读你的代码，确认每个可见控件都接上了事件处理、核心交互能走通。需要修改就用同名文件交付完整的修正版；已经可以交付就用一两句话说明，不交付文件。",
+  "turns": [
+    {
+      "label": "需求",
+      "review": true,
+      "prompt": "Create a high-end one-page skincare website blending clinical science with organic minimalism. Use a cool grey hero section, a deep forest green four-column product grid, a warm off-white bundle section, pill-shaped CTAs, formula badges and a Bento gallery at the bottom."
+    }
+  ]
+}

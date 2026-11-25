@@ -1,0 +1,58 @@
+{
+  "slug": "zh-interior-studio-deck",
+  "lang": "zh",
+  "title": "室内设计工作室作品集式介绍稿",
+  "summary": "为虚构工作室「木屿设计」做 9 页杂志画册式介绍稿（封面、目录、理念、团队、空间与材质、光影、空间清单、灯具与材质细节、封底）和一页九宫格索引，白底大留白、左窄右宽，可在浏览器里翻页。",
+  "tags": [
+    "Presentation",
+    "Design"
+  ],
+  "source": {
+    "site": "AutoClaw 博客",
+    "category": "Tutorial",
+    "title": "室内设计公司介绍怎么做？用 AutoClaw 生成作品集式演示稿",
+    "url": "https://autoclaw.z.ai/cn/blog/tutorial/c5f316b8-962b-45df-b09f-cc774e697646/",
+    "published": "2026-10-30",
+    "original_setup": "AutoClaw（原文未注明专家与模型）",
+    "notes": "原文输入了工作室信息和 18 张项目照片；复现时按原文截图里可见的信息（木屿设计、四位成员、123㎡ 空间清单）合成了一份工作室资料，没有照片，空间画面全部用 SVG 绘制。每页交付为一张 1920×1080 的 SVG，另做一个引用这些页面的 HTML 翻页器和九宫格索引。"
+  },
+  "system": "你是 AutoClaw 设计专家：做过多本室内设计画册的版式设计师，用代码作图，先规划叙事再排版，交付前逐页检查。\n\n每张图的技术约束：\n- 每张图交付一个自包含 SVG，width/height 和 viewBox 等于目标像素尺寸。不能引用外部图片和网络字体，不用 <foreignObject>。商品、人物和场景用 SVG 形状、渐变和滤镜画成插画，不要伪装成照片。\n- 文字保留为 <text> 元素，方便之后修改。\n- SVG 在 macOS 上用 librsvg 渲染，可用字体：中文 \"Source Han Sans SC\"（字重 300–900 都有）、\"Hiragino Sans GB\"、\"PingFang SC\"、\"Songti SC\"；西文和数字 Futura、Avenir Next、DIN Alternate、Didot、Gill Sans。每个 font-family 先写其中一个，再写通用族。没有窄体字，需要窄体效果时用 transform 横向压缩。\n- 每个 SVG 会自动导出同名 PNG，只交付 SVG。\n- 演示稿每页一张 1920×1080 的 SVG，文件名如 muyu-01-cover.svg。\n\nHTML 的技术约束：\n- 每个页面一个自包含 HTML 文件，CSS 和 JS 内联。中文字体写 \"PingFang SC\", \"Hiragino Sans GB\", \"Source Han Sans SC\", sans-serif（衬线用 \"Songti SC\", serif）；可以用 Google Fonts 的 <link> 加载西文字体，但必须有系统字体兜底。\n- 图片只能用本次对话里交付过的 SVG 文件（相对路径引用，如 <img src=\"xxx.svg\">），或者用内联 SVG/CSS 画出来，不引用任何外部图片。\n- 自检时会在 1440×900 的浏览器窗口里截取页面顶部，所以不要用 vh 单位撑高区块。\n- 翻页器 HTML 用 <img> 引用各页 SVG，支持键盘和按钮翻页；九宫格索引单独一个 HTML，点击缩略图跳到对应页。",
+  "inputs": [
+    "studio-brief.md"
+  ],
+  "convert": {
+    ".svg": {
+      "to": "png",
+      "width": 1920,
+      "height": 1080
+    },
+    ".html": {
+      "to": "shot.png",
+      "width": 1440,
+      "height": 900
+    }
+  },
+  "review_prompt": "这是你刚交付的文件渲染出来的图片（SVG 用 librsvg 导出，HTML 为浏览器截取的页面顶部），已缩小。请像交给客户评审前那样检查：文字是否被裁切或重叠、中文是否显示成方框或回退字体、版式是否错乱或留空、有没有违反需求里的规则。需要修改就用同样的文件名交付改好的文件；都没问题就用一两句话说明，不要再交付文件。",
+  "turns": [
+    {
+      "label": "提示词 · 第 1–3 页",
+      "review": true,
+      "prompt": "做一个 9 页的室内设计工作室介绍稿，采用杂志画册式的极简风格，白底、大留白、左窄右宽的不对称排版；内容包含设计理念、团队、空间与材质、光影、细节和联系方式，并用九宫格展示全部页面。\n\n（工作室资料见附件 studio-brief.md，我手上的项目照片暂时没法发给你，空间画面请先画示意。九页依次是：封面、目录、设计理念、团队、空间与材质、光影情绪、空间清单、灯具与材质细节、封底。本轮先交付第 1–3 页。）"
+    },
+    {
+      "label": "第 4–6 页",
+      "review": true,
+      "prompt": "继续交付第 4–6 页。"
+    },
+    {
+      "label": "第 7–9 页",
+      "review": true,
+      "prompt": "继续交付第 7–9 页。"
+    },
+    {
+      "label": "翻页器和九宫格索引",
+      "review": true,
+      "prompt": "最后交付可以在浏览器里翻页的 HTML 演示稿和一页九宫格索引。"
+    }
+  ]
+}

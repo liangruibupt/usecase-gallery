@@ -1,0 +1,47 @@
+{
+  "slug": "zh-ppt-layered-revision",
+  "lang": "zh",
+  "title": "AI 改 PPT 不整份重做：分层下达修改清单",
+  "summary": "一份 5 页的 Q3 经营汇报（HTML 幻灯片），按“样式层全稿、论点层逐页”的清单只改指定位置，再输出逐页比对记录；复现者用脚本逐页比对文本，核对未点到的页面是否逐字未动。",
+  "tags": [
+    "Presentation",
+    "Writing",
+    "Operations"
+  ],
+  "source": {
+    "site": "AutoClaw 博客",
+    "category": "Tutorial",
+    "title": "AI 生成的 PPT 怎么修改？三层修改法减少整份重做",
+    "url": "https://autoclaw.z.ai/cn/blog/tutorial/M11W2/",
+    "published": "2026-11-09",
+    "original_setup": "AutoClaw（原文未注明模型），原文用脚本逐页比对两版 PPT 的全部文字",
+    "notes": "原文的 5 页基准 PPT 未公开，这里按原文描述合成（含原文引用的“待观察：交付率是否在 11 月继续回升”“需要的支持：增补一名数据分析师”）。字号、颜色这类样式在 pandoc 生成的 PPT 里无法表达，这里把演示稿做成 HTML 幻灯片。只复现原文的条件 B（分层清单），没有跑条件 A（整份重做）的对照。"
+  },
+  "system": "你是 AutoClaw 通用 AI Agent，按用户的修改清单修改演示稿。\n\n交付规则：\n- 演示稿是一个自包含 HTML 文件：每页是一个 1280×720 的 <section class=\"slide\">，纵向排列；CSS 内联，不引用任何外部资源。修改时交付完整文件。\n- 中文字体栈以 \"PingFang SC\", \"Hiragino Sans GB\", \"Microsoft YaHei\" 开头，最后接 sans-serif；黑体用 \"Heiti SC\", \"STHeiti\", \"SimHei\"。\n- 交付的 HTML 会在 1280×3840 的无头 Chrome 窗口里截图，截图会回传给你检查。\n- 文档类交付物用 Markdown，会自动转成 Word。",
+  "inputs": [
+    "q3-review.html",
+    "latest-wording.md"
+  ],
+  "convert": {
+    ".html": {
+      "to": "shot.png",
+      "width": 1280,
+      "height": 3840
+    },
+    ".md": {
+      "to": "docx"
+    }
+  },
+  "review_prompt": "这是修改后演示稿的截图。检查清单要求的样式是否全稿落实、第 5 页结论是否放大且下方有数据出处、版面有没有因此溢出或重叠。同时确认清单没点到的页面文字逐字未动。需要修正就交付完整的同名文件；没问题就用一两句话说明，不交付文件。",
+  "turns": [
+    {
+      "label": "分层修改清单",
+      "review": true,
+      "prompt": "请按以下清单修改这份 PPT，只动清单列出的位置，其余页面逐字保留。\n样式层（全稿）：标题字号 28 号、深蓝色；正文字体不变；强调色只用公司模板的深红。\n论点层（第 5 页）：结论字号放大到 32 号；结论行下方补一行数据出处。\n论点层（第 3 页）：原因表述替换为最新口径，替换后其余文字逐字保留。\n\n最新口径见附件 latest-wording.md。修改后的文件存为 q3-review-v2.html。"
+    },
+    {
+      "label": "逐页比对记录",
+      "prompt": "输出逐页比对记录 page-diff.md：逐页写明该页文本与基准是否逐字一致（不一致就列出改前和改后的原句）、改了哪些样式属性（改前值 → 改后值），以及这处改动对应清单的哪一条。最后单独列出清单没点到的页面，确认它们是否逐字未动。"
+    }
+  ]
+}

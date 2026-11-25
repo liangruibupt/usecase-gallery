@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>设计画布 · 周末咖啡漫游落地页（评审稿 v2）</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:"PingFang SC","Hiragino Sans GB","Source Han Sans SC",sans-serif;background:#E6DCCD;color:#4A3428;padding:40px 48px 64px}
+  .top{display:flex;justify-content:space-between;align-items:flex-end;gap:32px;flex-wrap:wrap;margin-bottom:28px}
+  h1{font-family:"Songti SC","STSong",serif;font-size:34px;color:#2E2019}
+  .sub{font-size:14px;color:#7A6556;margin-top:6px}
+  .tag{display:inline-block;background:#C96F4A;color:#fff;font-size:12px;padding:4px 10px;border-radius:999px;margin-right:6px}
+  .spec{display:flex;gap:28px;flex-wrap:wrap;align-items:center}
+  .sw{display:flex;gap:8px;align-items:center;font-size:12px}
+  .sw i{width:28px;height:28px;border-radius:8px;border:1px solid rgba(0,0,0,.08)}
+  .type{font-size:12px;color:#7A6556;line-height:1.5}
+  .type b{font-family:"Songti SC",serif;font-size:18px;color:#2E2019}
+  .stage{display:flex;gap:40px;align-items:flex-start}
+  .frame{flex:none}
+  .label{display:flex;justify-content:space-between;font-size:13px;color:#7A6556;margin-bottom:10px}
+  .label b{color:#2E2019}
+  .desk{width:864px;height:1320px;overflow:hidden;border-radius:14px;background:#fff;box-shadow:0 30px 60px -30px rgba(46,32,25,.5)}
+  .desk iframe{width:1440px;height:2200px;border:0;transform:scale(.6);transform-origin:0 0}
+  .phone{width:414px;padding:12px;background:#2E2019;border-radius:44px;box-shadow:0 30px 60px -30px rgba(46,32,25,.6)}
+  .phone .screen{width:390px;height:1296px;overflow:hidden;border-radius:32px;background:#fff}
+  .phone iframe{width:390px;height:1296px;border:0;display:block}
+  .side{width:414px}
+  .notes{margin-top:24px;font-size:13px;line-height:1.8;color:#5C463A;background:#F7F0E5;border-radius:16px;padding:18px 20px}
+  .notes h3{font-size:14px;color:#2E2019;margin-bottom:6px;display:flex;align-items:center;gap:8px}
+  .notes li{margin-left:18px}
+  .notes.change{background:#2E2019;color:#E9DCCB}
+  .notes.change h3{color:#F7F0E5}
+  .notes.change b{color:#F2B08E;font-weight:600}
+  .v{font-family:"Fraunces",Georgia,serif;font-size:12px;background:#C96F4A;color:#fff;border-radius:999px;padding:1px 8px}
+  .flow{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+  .flow span{font-size:12px;padding:3px 9px;border-radius:999px;background:#4A3428;color:#E9DCCB}
+  .flow span.new{background:#C96F4A;color:#fff}
+</style>
+</head>
+<body>
+  <div class="top">
+    <div>
+      <h1>周末咖啡漫游 · 报名落地页</h1>
+      <p class="sub"><span class="tag">评审稿 v2</span>桌面 1440 / 手机 390 · 内容均为示例信息 · 可直接在下方框内滚动与操作</p>
+    </div>
+    <div class="spec">
+      <div class="sw"><i style="background:#F7F0E5"></i>奶油白</div>
+      <div class="sw"><i style="background:#4A3428"></i>咖啡棕</div>
+      <div class="sw"><i style="background:#C96F4A"></i>豆沙橙</div>
+      <div class="sw"><i style="background:#EADCC7"></i>燕麦沙</div>
+      <div class="type"><b>宋体标题 / 苹方正文</b><br>数字与英文：Fraunces</div>
+    </div>
+  </div>
+
+  <div class="stage">
+    <div class="frame">
+      <div class="label"><b>Desktop · 1440</b><span>缩放 60%</span></div>
+      <div class="desk"><iframe src="weekend-coffee-walk.html" title="桌面预览"></iframe></div>
+    </div>
+    <div class="frame side">
+      <div class="label"><b>Mobile · 390</b><span>原尺寸 · 可滚动</span></div>
+      <div class="phone"><div class="screen"><iframe src="weekend-coffee-walk.html" title="手机预览"></iframe></div></div>
+
+      <div class="notes change">
+        <h3><span class="v">v2</span>本轮评审修改</h3>
+        <ul>
+          <li><b>工作坊介绍提前</b>：首屏后紧接「01 工作坊」，介绍手冲小课堂与杯测体验</li>
+          <li><b>首屏副标题缩短</b>：从约 60 字缩为一句 24 字</li>
+          <li>首屏次按钮改为「了解工作坊」，导航新增入口</li>
+          <li>亮点区去掉重复的手冲课，换成「4 杯沿途饮品」</li>
+        </ul>
+        <div class="flow">
+          <span>首屏</span><span class="new">01 工作坊</span><span>02 亮点</span><span>03 日程</span><span>04 报名</span><span>05 FAQ</span>
+        </div>
+      </div>
+
+      <div class="notes">
+        <h3>评审要点</h3>
+        <ul>
+          <li>首屏：标题、示例信息和报名按钮都能直接看到</li>
+          <li>工作坊卡片：时间、三步内容、示例嘉宾、可带走的东西</li>
+          <li>手机端底部常驻报名条，滚动到表单区后自动隐藏</li>
+          <li>日程可切换周六/周日，工作坊条目可回跳；FAQ 可展开</li>
+          <li>表单只做演示校验，生成示例漫游票，不发送数据</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
