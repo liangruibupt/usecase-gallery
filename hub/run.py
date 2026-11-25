@@ -3,14 +3,17 @@
 Sends each turn of cases/<slug>/case.json in one conversation, saves every
 <file name="..."> block the model returns into cases/<slug>/output/, converts
 files per the case's "convert" rules, and writes output/transcript.json.
-Each run starts from an empty output/ so reruns converge to the same layout.
+Input files listed in "inputs" (from cases/<slug>/input/) are attached to the
+first turn. Each run starts from an empty output/ so reruns converge.
 """
 
+import csv
 import json
 import re
 import shutil
 import subprocess
 import sys
+import tempfile
 import time
 from datetime import datetime, timezone
 from pathlib import Path
@@ -19,6 +22,7 @@ from hub import llm
 
 ROOT = Path(__file__).resolve().parent.parent
 FILE_BLOCK = re.compile(r'<file name="([^"/\\]+)">\n?(.*?)\n?</file>', re.S)
+CHROME = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
 
 FILE_PROTOCOL = """
 Deliver every file inside its own block, exactly like this:
@@ -28,26 +32,63 @@ Deliver every file inside its own block, exactly like this:
 Only files wrapped this way are saved for the user. Always send complete files, never fragments or diffs.
 Outside the blocks, write your normal reply to the user."""
 
+INPUT_NOTE = "\n\nThe files I am sharing with you are below, each inside an <input> block."
+
+
+def to_png(src: Path, target: Path, rule: dict) -> None:
+    subprocess.run(["rsvg-convert", "-w", str(rule["width"]), "-h", str(rule["height"]),
+                    "-b", "white", "-o", str(target), str(src)], check=True)
+
+
+def to_pandoc(src: Path, target: Path, rule: dict) -> None:
+    subprocess.run(["pandoc", "-f", "gfm", str(src), "-o", str(target)], check=True)
+
+
+def to_xlsx(src: Path, target: Path, rule: dict) -> None:
+    from openpyxl import Workbook
+
+    wb = Workbook()
+    ws = wb.active
+    ws.title = src.stem[:31]
+    with src.open(newline="", encoding="utf-8") as f:
+        for row in csv.reader(f):
+            ws.append([_cell(v) for v in row])
+    wb.save(target)
+
+
+def _cell(v: str):
+    try:
+        return int(v) if re.fullmatch(r"-?\d{1,15}", v) else float(v) if re.fullmatch(r"-?\d+\.\d+", v) else v
+    except ValueError:
+        return v
+
+
+def html_screenshot(src: Path, target: Path, rule: dict) -> None:
+    w, h = rule.get("width", 1440), rule.get("height", 900)
+    with tempfile.TemporaryDirectory() as profile:
+        subprocess.run([CHROME, "--headless=new", "--disable-gpu", "--hide-scrollbars",
+                        f"--user-data-dir={profile}", f"--window-size={w},{h}",
+                        "--virtual-time-budget=5000", f"--screenshot={target}", src.resolve().as_uri()],
+                       check=True, capture_output=True, timeout=120)
+
+
+CONVERTERS = {"png": to_png, "docx": to_pandoc, "pptx": to_pandoc, "xlsx": to_xlsx, "shot.png": html_screenshot}
+
 
 def convert(path: Path, rules: dict) -> list[Path]:
-    rule = rules.get(path.suffix)
-    if not rule:
+    """Rules are keyed by file-name ending; the longest matching key wins (".slides.md" beats ".md")."""
+    key = max((k for k in rules if path.name.endswith(k)), key=len, default=None)
+    if key is None:
         return []
-    target = path.with_suffix("." + rule["to"])
-    if rule["to"] == "png":
-        cmd = ["rsvg-convert", "-w", str(rule["width"]), "-h", str(rule["height"]),
-               "-b", "white", "-o", str(target), str(path)]
-    elif rule["to"] == "docx":
-        cmd = ["pandoc", str(path), "-o", str(target)]
-    else:
-        raise SystemExit(f"No converter for {path.suffix} -> {rule['to']}")
-    subprocess.run(cmd, check=True)
+    rule = rules[key]
+    target = path.with_name(path.name[: -len(key)] + "." + rule["to"])
+    CONVERTERS[rule["to"]](path, target, rule)
     return [target]
 
 
 def jpeg_preview(png: Path, width: int = 1600) -> Path:
     """Downscaled JPEG beside the PNG: what the model reviews and what the gallery shows."""
-    target = png.with_suffix(".preview.jpg")
+    target = png.with_name(png.name.removesuffix(".png") + ".preview.jpg")
     subprocess.run(["sips", "-s", "format", "jpeg", "-s", "formatOptions", "82", "-Z", str(width),
                     str(png), "--out", str(target)], check=True, capture_output=True)
     return target
@@ -71,6 +112,12 @@ def display_text(reply: str) -> str:
     return FILE_BLOCK.sub(lambda m: f"[[file:{m.group(1)}]]", reply).strip()
 
 
+def attach_inputs(case_dir: Path, names: list[str]) -> str:
+    blocks = [f'<input name="{n}">\n{(case_dir / "input" / n).read_text(encoding="utf-8").rstrip()}\n</input>'
+              for n in names]
+    return INPUT_NOTE + "\n\n" + "\n\n".join(blocks) if blocks else ""
+
+
 def run(slug: str) -> None:
     case_dir = ROOT / "cases" / slug
     case = json.loads((case_dir / "case.json").read_text())
@@ -80,6 +127,7 @@ def run(slug: str) -> None:
 
     system = case["system"] + "\n" + FILE_PROTOCOL
     rules = case.get("convert", {})
+    inputs = case.get("inputs", [])
     messages, log = [], []
     started = datetime.now(timezone.utc).isoformat(timespec="seconds")
 
@@ -89,11 +137,12 @@ def run(slug: str) -> None:
             "model": llm.MODEL,
             "started": started,
             "finished": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+            "inputs": inputs,
             "turns": log,
         }, indent=2, ensure_ascii=False) + "\n")
 
-    def exchange(label, prompt, images=()):
-        messages.append({"role": "user", "text": prompt, "images": list(images)})
+    def exchange(label, prompt, images=(), attachment=""):
+        messages.append({"role": "user", "text": prompt + attachment, "images": list(images)})
         t0 = time.time()
         reply = llm.chat(system, messages)
         messages.append({"role": "assistant", "text": reply.text})
@@ -101,6 +150,7 @@ def run(slug: str) -> None:
         log.append({
             "label": label,
             "prompt": prompt,
+            "attached_inputs": inputs if attachment else [],
             "attached_images": len(images),
             "reply": display_text(reply.text),
             "files": files,
@@ -108,15 +158,15 @@ def run(slug: str) -> None:
             "seconds": round(time.time() - t0, 1),
         })
         write_transcript()
-        print(f"  {label}: {len(files)} files, {reply.usage['output']} output tokens, {log[-1]['seconds']}s")
+        print(f"  {label}: {len(files)} files, {reply.usage['output']} output tokens, {log[-1]['seconds']}s",
+              flush=True)
         return rendered
 
-    print(f"{slug} on {llm.PROVIDER}:{llm.MODEL}")
-    for turn in case["turns"]:
-        rendered = exchange(turn["label"], turn["prompt"])
+    print(f"{slug} on {llm.PROVIDER}:{llm.MODEL}", flush=True)
+    for i, turn in enumerate(case["turns"]):
+        rendered = exchange(turn["label"], turn["prompt"], attachment=attach_inputs(case_dir, inputs) if i == 0 else "")
         if turn.get("review") and rendered:
             exchange("Self-check", case["review_prompt"], [jpeg_preview(p).read_bytes() for p in rendered])
-
 
 
 if __name__ == "__main__":

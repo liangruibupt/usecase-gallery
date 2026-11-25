@@ -3,111 +3,165 @@ const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "
 const num = (i) => String(i + 1).padStart(2, "0");
 const modelName = (id) => id.replace(/^(us|eu|apac|global)\.anthropic\./, "");
 const kTokens = (n) => (n >= 1000 ? `${(n / 1000).toFixed(1)}k` : String(n));
+const LANGS = { all: "All languages", en: "English", zh: "中文" };
+const READER_KINDS = { document: "Word", deck: "PowerPoint", sheet: "Excel", file: "File" };
 
 let cases = [];
-let filter = "All";
-
-function totals(run) {
-  return run.turns.reduce(
-    (t, x) => ({ input: t.input + x.usage.input, output: t.output + x.usage.output, seconds: t.seconds + x.seconds }),
-    { input: 0, output: 0, seconds: 0 },
-  );
-}
+const state = { lang: "all", tag: "All", q: "" };
+const views = new Map();
 
 function cover(c) {
   if (c.cover) return `<img class="cover" src="${esc(c.cover)}" alt="" loading="lazy">`;
-  const docs = c.outputs.filter((o) => o.kind === "document").slice(0, 3);
-  return `<div class="doc-stack">${docs
-    .map((d, i) => `<span style="transform: translate(${(docs.length - 1 - i) * 10}px, ${(docs.length - 1 - i) * -10}px) rotate(${(i - 1) * 2}deg)">${esc(d.title)}</span>`)
+  const titles = c.doc_titles.length ? c.doc_titles : [c.title];
+  return `<div class="doc-stack">${titles
+    .map((t, i) => `<span style="transform: translate(${(titles.length - 1 - i) * 10}px, ${(titles.length - 1 - i) * -10}px) rotate(${(i - 1) * 2}deg)">${esc(t)}</span>`)
     .join("")}</div>`;
 }
 
-function renderIndex() {
-  const tags = ["All", ...new Set(cases.flatMap((c) => [c.source.site, ...c.tags]))];
-  const shown = cases.filter((c) => filter === "All" || c.source.site === filter || c.tags.includes(filter));
-  app.innerHTML = `
-    <div class="toolbar">
-      <span class="count">${shown.length} of ${cases.length} use cases</span>
-      ${tags.map((t) => `<button class="filter" aria-pressed="${t === filter}" data-filter="${esc(t)}">${esc(t)}</button>`).join("")}
-    </div>
-    <section class="grid">
-      ${shown
-        .map(
-          (c, i) => `
-        <a class="card" href="#/${esc(c.slug)}" style="animation-delay:${i * 90}ms">
-          <div class="no">${num(cases.indexOf(c))}<small>${esc(c.source.site)}<br>${esc(c.source.category)} · ${esc(c.source.published)}</small></div>
-          <span class="stamp">Reproduced</span>
-          <div class="cover-wrap">${cover(c)}</div>
-          <div>
-            <h2>${esc(c.title)}</h2>
-            <p>${esc(c.summary)}</p>
-            <div class="meta">
-              <span class="src">${esc(modelName(c.run.model))}</span>
-              <span>${c.run.turns.length} turns</span>
-              <span>${c.outputs.length} outputs</span>
-            </div>
-          </div>
-        </a>`,
-        )
-        .join("")}
-    </section>`;
-  app.querySelectorAll(".filter").forEach((b) =>
-    b.addEventListener("click", () => {
-      filter = b.dataset.filter;
-      renderIndex();
-    }),
+function matches(c) {
+  const q = state.q.trim().toLowerCase();
+  return (
+    (state.lang === "all" || c.lang === state.lang) &&
+    (state.tag === "All" || c.tags.includes(state.tag)) &&
+    (!q || [c.title, c.summary, c.source.title, ...c.tags].join(" ").toLowerCase().includes(q))
   );
 }
 
-function images(c) {
-  const imgs = c.outputs.filter((o) => o.kind === "image");
-  if (!imgs.length) return "";
-  return `
-    <div class="section-head"><h2>Outputs</h2><span>${imgs.length} images · click to open full size</span></div>
-    <div class="plates">
-      ${imgs
-        .map(
-          (o) => `
-        <figure class="plate">
-          <a href="${esc(o.href)}" target="_blank" rel="noopener"><img src="${esc(o.preview)}" alt="${esc(o.name)}" loading="lazy"></a>
-          <figcaption><span>${esc(o.name)}<br><small>Turn ${esc(o.turn)}</small></span><a href="${esc(o.source)}" download>editable .svg ↓</a> <a href="${esc(o.href)}" download>300 DPI .png ↓</a></figcaption>
-        </figure>`,
-        )
-        .join("")}
-    </div>`;
+function topTags() {
+  const count = new Map();
+  cases.filter((c) => state.lang === "all" || c.lang === state.lang).forEach((c) => c.tags.forEach((t) => count.set(t, (count.get(t) || 0) + 1)));
+  return ["All", ...[...count].sort((a, b) => b[1] - a[1]).slice(0, 12).map(([t]) => t)];
 }
 
-function documents(c) {
-  const docs = c.outputs.filter((o) => o.kind === "document");
-  if (!docs.length) return "";
+function cards(shown) {
+  return (
+    shown
+      .map(
+        (c, i) => `
+      <a class="card" href="#/${esc(c.slug)}" lang="${c.lang === "zh" ? "zh-CN" : "en"}" style="animation-delay:${Math.min(i, 12) * 70}ms">
+        <div class="no">${num(cases.indexOf(c))}<small>${esc(c.source.site)}<br>${esc(c.source.category)} · ${esc(c.source.published)}</small></div>
+        <span class="stamp">Reproduced</span>
+        <div class="cover-wrap">${cover(c)}</div>
+        <div>
+          <h2>${esc(c.title)}</h2>
+          <p>${esc(c.summary)}</p>
+          <div class="meta">
+            <span class="src">${esc(modelName(c.model))}</span>
+            <span>${c.turns} turns</span>
+            <span>${c.outputs} outputs</span>
+          </div>
+        </div>
+      </a>`,
+      )
+      .join("") || `<p class="empty">Nothing matches.</p>`
+  );
+}
+
+function renderIndex() {
+  const langs = Object.keys(LANGS).filter((l) => l === "all" || cases.some((c) => c.lang === l));
+  app.innerHTML = `
+    <div class="toolbar">
+      <span class="count"></span>
+      <input class="search" type="search" placeholder="Search" value="${esc(state.q)}" aria-label="Search use cases">
+    </div>
+    <div class="toolbar filters">
+      ${langs.map((l) => `<button class="filter" aria-pressed="${l === state.lang}" data-lang="${l}">${LANGS[l]}</button>`).join("")}
+      <span class="sep"></span>
+      ${topTags().map((t) => `<button class="filter" aria-pressed="${t === state.tag}" data-tag="${esc(t)}">${esc(t)}</button>`).join("")}
+    </div>
+    <section class="grid"></section>`;
+  const refresh = () => {
+    const shown = cases.filter(matches);
+    app.querySelector(".count").textContent = `${shown.length} of ${cases.length} use cases`;
+    app.querySelector(".grid").innerHTML = cards(shown);
+  };
+  app.querySelectorAll("[data-lang]").forEach((b) => b.addEventListener("click", () => { state.lang = b.dataset.lang; state.tag = "All"; renderIndex(); }));
+  app.querySelectorAll("[data-tag]").forEach((b) => b.addEventListener("click", () => { state.tag = b.dataset.tag; renderIndex(); }));
+  app.querySelector(".search").addEventListener("input", (e) => { state.q = e.target.value; refresh(); });
+  refresh();
+}
+
+function plates(items) {
+  return `<div class="plates">${items
+    .map(
+      (o) => `
+      <figure class="plate">
+        <a href="${esc(o.href)}" target="_blank" rel="noopener"><img src="${esc(o.preview)}" alt="${esc(o.name)}" loading="lazy"></a>
+        <figcaption><span>${esc(o.name)}<br><small>${o.turn ? `Turn ${esc(o.turn)}` : "Input"}</small></span><span><a href="${esc(o.source)}" download>editable .svg ↓</a> <a href="${esc(o.href)}" download>.png ↓</a></span></figcaption>
+      </figure>`,
+    )
+    .join("")}</div>`;
+}
+
+function pages(items) {
+  return items
+    .map(
+      (o) => `
+      <figure class="page-frame">
+        <div class="frame-bar"><span>${esc(o.name)}${o.turn ? ` · turn ${esc(o.turn.slice(0, 2))}` : " · input"}</span><a class="btn" href="${esc(o.href)}" target="_blank" rel="noopener">Open full page ↗</a></div>
+        <iframe src="${esc(o.href)}" sandbox="allow-scripts" loading="lazy" title="${esc(o.name)}"></iframe>
+      </figure>`,
+    )
+    .join("");
+}
+
+function reader(items, id) {
   return `
-    <div class="section-head"><h2>Documents</h2><span>${docs.length} editable Word files</span></div>
-    <div class="reader">
+    <div class="reader" data-reader="${id}">
       <ul class="doc-list">
-        ${docs
+        ${items
           .map(
-            (d, i) => `<li><button data-doc="${i}" aria-current="${i === 0}"><span class="n">${num(i)}</span>${esc(d.title)}<small>${esc(d.name)} · turn ${esc(d.turn.slice(0, 2))}</small></button></li>`,
+            (d, i) => `<li><button data-doc="${i}" aria-current="${i === 0}"><span class="n">${num(i)}</span>${esc(d.title)}<small>${READER_KINDS[d.kind]} · ${esc(d.name)}${d.turn ? ` · turn ${esc(d.turn.slice(0, 2))}` : ""}</small></button></li>`,
           )
           .join("")}
       </ul>
       <div class="doc-pane">
-        <div class="doc-tools"><a class="btn primary" id="dl-docx" download>Download .docx</a><a class="btn" id="dl-md" download>Markdown</a></div>
-        <article class="doc-body" id="doc-body"></article>
+        <div class="doc-tools"><a class="btn primary" data-dl download></a><a class="btn" data-src download>Source</a></div>
+        <article class="doc-body"></article>
       </div>
     </div>`;
 }
 
-function conversation(c) {
+function wireReader(root, items) {
+  const show = (i) => {
+    root.querySelector(".doc-body").innerHTML = items[i].preview;
+    const dl = root.querySelector("[data-dl]");
+    dl.href = items[i].href;
+    dl.textContent = `Download .${items[i].href.split(".").pop()}`;
+    const src = root.querySelector("[data-src]");
+    src.href = items[i].source;
+    src.hidden = items[i].source === items[i].href;
+    root.querySelectorAll("[data-doc]").forEach((b) => b.setAttribute("aria-current", String(+b.dataset.doc === i)));
+  };
+  root.querySelectorAll("[data-doc]").forEach((b) => b.addEventListener("click", () => show(+b.dataset.doc)));
+  show(0);
+}
+
+const inReader = (items) => items.filter((o) => o.kind in READER_KINDS);
+
+function fileGroups(items, id) {
+  const of = (kind) => items.filter((o) => o.kind === kind);
+  return [
+    of("image").length ? plates(of("image")) : "",
+    of("page").length ? pages(of("page")) : "",
+    inReader(items).length ? reader(inReader(items), id) : "",
+  ].join("");
+}
+
+function section(title, note, body) {
+  return body ? `<div class="section-head"><h2>${title}</h2><span>${note}</span></div>${body}` : "";
+}
+
+function conversation(v) {
   return `
-    <div class="section-head"><h2>Conversation</h2><span>every prompt sent, every reply received</span></div>
     <ol class="timeline">
-      ${c.run.turns
+      ${v.run.turns
         .map(
           (t, i) => `
         <li class="turn ${t.label === "Self-check" ? "check" : ""}">
           <div class="turn-label"><b>${num(i)}</b>${esc(t.label)}<span>${kTokens(t.usage.output)} tokens out · ${Math.round(t.seconds)}s</span></div>
           <div>
-            <div class="prompt">${esc(t.prompt)}${t.attached_images ? `<span class="attach">+ ${t.attached_images} rendered image(s) attached by the runner</span>` : ""}</div>
+            <div class="prompt">${esc(t.prompt)}${(t.attached_inputs || []).length ? `<span class="attach">+ input files: ${t.attached_inputs.map(esc).join(", ")}</span>` : ""}${t.attached_images ? `<span class="attach">+ ${t.attached_images} rendered image(s) attached by the runner</span>` : ""}</div>
             <details class="reply" ${i < 2 ? "open" : ""}><summary>Model reply</summary><div class="reply-body">${t.reply_html}</div></details>
             ${t.files.length ? `<div class="made">${t.files.map((f) => `<span>${esc(f)}</span>`).join("")}</div>` : ""}
           </div>
@@ -117,45 +171,43 @@ function conversation(c) {
     </ol>`;
 }
 
-function renderCase(c) {
-  const t = totals(c.run);
+function renderCase(v) {
+  document.documentElement.lang = v.lang === "zh" ? "zh-CN" : "en";
   app.innerHTML = `
     <a class="back" href="#/">← All use cases</a>
     <section class="hero">
       <div>
-        <h1>${esc(c.title)}</h1>
-        <p class="lede">${esc(c.summary)}</p>
+        <h1>${esc(v.title)}</h1>
+        <p class="lede">${esc(v.summary)}</p>
       </div>
       <dl class="ledger">
-        <div><dt>Source</dt><dd><a href="${esc(c.source.url)}" target="_blank" rel="noopener">${esc(c.source.title)}</a></dd></div>
-        <div><dt>Published</dt><dd>${esc(c.source.site)} · ${esc(c.source.category)} · ${esc(c.source.published)}</dd></div>
-        <div><dt>Original setup</dt><dd>${esc(c.source.original_setup)}</dd></div>
-        <div class="vs"><dt>Reproduced with</dt><dd>${esc(modelName(c.run.model))} (${esc(c.run.provider)})</dd></div>
-        <div><dt>Run</dt><dd>${c.run.turns.length} turns · ${kTokens(t.input)} in / ${kTokens(t.output)} out · ${Math.round(t.seconds / 60)} min · ${esc(c.run.finished.slice(0, 10))}</dd></div>
+        <div><dt>Source</dt><dd><a href="${esc(v.source.url)}" target="_blank" rel="noopener">${esc(v.source.title)}</a></dd></div>
+        <div><dt>Published</dt><dd>${esc(v.source.site)} · ${esc(v.source.category)} · ${esc(v.source.published)}</dd></div>
+        <div><dt>Original setup</dt><dd>${esc(v.source.original_setup)}</dd></div>
+        <div class="vs"><dt>Reproduced with</dt><dd>${esc(modelName(v.model))} (${esc(v.provider)})</dd></div>
+        <div><dt>Run</dt><dd>${v.turns} turns · ${kTokens(v.usage.input)} in / ${kTokens(v.usage.output)} out · ${Math.max(1, Math.round(v.seconds / 60))} min · ${esc(v.finished.slice(0, 10))}</dd></div>
+        ${v.source.notes ? `<div><dt>Reproduction notes</dt><dd>${esc(v.source.notes)}</dd></div>` : ""}
       </dl>
     </section>
-    ${images(c)}
-    ${documents(c)}
-    ${conversation(c)}`;
-
-  const docs = c.outputs.filter((o) => o.kind === "document");
-  const show = (i) => {
-    document.getElementById("doc-body").innerHTML = docs[i].preview;
-    document.getElementById("dl-docx").href = docs[i].href;
-    document.getElementById("dl-md").href = docs[i].source;
-    app.querySelectorAll("[data-doc]").forEach((b) => b.setAttribute("aria-current", String(+b.dataset.doc === i)));
-  };
-  app.querySelectorAll("[data-doc]").forEach((b) => b.addEventListener("click", () => show(+b.dataset.doc)));
-  if (docs.length) show(0);
+    ${section("Inputs", "files given to the model in the first turn", fileGroups(v.inputs, "in"))}
+    ${section("Outputs", `${v.outputs.length} files the model delivered`, fileGroups(v.outputs, "out"))}
+    ${section("Conversation", "every prompt sent, every reply received", conversation(v))}`;
+  app.querySelectorAll("[data-reader]").forEach((root) => wireReader(root, inReader(root.dataset.reader === "in" ? v.inputs : v.outputs)));
 }
 
-function route() {
-  const slug = location.hash.replace(/^#\/?/, "");
-  const c = cases.find((x) => x.slug === slug);
-  if (slug && !c) app.innerHTML = `<p class="empty">No use case called “${esc(slug)}”. <a href="#/">Back to all</a></p>`;
-  else if (c) renderCase(c);
-  else renderIndex();
+async function route() {
+  const slug = decodeURIComponent(location.hash.replace(/^#\/?/, ""));
   window.scrollTo(0, 0);
+  if (!slug) {
+    document.documentElement.lang = "en";
+    return renderIndex();
+  }
+  if (!cases.some((c) => c.slug === slug)) {
+    app.innerHTML = `<p class="empty">No use case called “${esc(slug)}”. <a href="#/">Back to all</a></p>`;
+    return;
+  }
+  if (!views.has(slug)) views.set(slug, fetch(`cases/${slug}/view.json`).then((r) => r.json()));
+  renderCase(await views.get(slug));
 }
 
 fetch("gallery.json")
