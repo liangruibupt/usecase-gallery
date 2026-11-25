@@ -1,5 +1,7 @@
 # Use-Case Hub
 
+English | [中文](README.zh-CN.md)
+
 A gallery of published AI agent use cases, each reproduced from its original prompts with a general model (Claude on Amazon Bedrock by default, or GPT through the OpenAI API).
 
 > **Red line:** never download or install AutoClaw or any other vendor agent for this repo. Read the public blog posts only; every output comes from the model through `python -m hub.run`.
