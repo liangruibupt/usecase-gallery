@@ -73,6 +73,41 @@ Every case keeps the real outputs and the full conversation, so you can compare 
 
 60 cases: 2 from the [English blog](https://autoclaw.z.ai/en/blog/) and 58 from the [Chinese blog](https://autoclaw.z.ai/cn/blog/tutorial/). Only posts in the AutoClaw blog's **Tutorial** category are included. News, Product and Model posts are out of scope.
 
+## Reading a case: turns and versions
+
+### Turns
+
+A turn is one round in the case's conversation: one user message and one model reply. Each case is one continuous conversation, and its turns follow the order of the source post. A case's turn count comes from four kinds of turn:
+
+1. **Prompts from the post**, copied verbatim. A typical post first sets out the rules and the data, then asks for changes.
+2. **UI actions from the post**, written as explicit messages. Where the original user picked an option in a form, clicked "continue" or confirmed an unclear record, the case sends that as a turn, for example "确认拿不准的记录" in `zh-signup-tally`.
+3. **Self-checks**, added by this repo's runner and not part of the post. After a turn that delivers images or web pages, the runner renders them and sends the pictures back, so the model can fix overlapping text, clipping or broken layout. They show as `Self-check` in the timeline.
+4. **Split turns.** One reply is capped at 64k output tokens, so a large delivery is split across turns. `contract-package` delivers nine documents over eight turns.
+
+Why turns matter:
+
+- **They keep the real working process.** The post's author did not get the result from one message either: they set the rules, got a first draft, checked it by hand, then added a rule and had part of it recomputed. Keeping each step lets you compare the reproduction with the post step by step.
+- **They show the cost of iteration.** More turns means more human interventions. Every turn records its time and tokens, so you can see how much back-and-forth a task takes.
+- **They separate human work from model work.** Many Chinese cases go from "第一步" straight to "第三步". The post's second step is a human spot-check with no model involved, so it is not a turn.
+
+### Versions (v1, v2, …)
+
+Version numbers come from the post's own workflow: the model delivers a first version, then the user finds a problem or a business condition changes, and the model produces a revision in the same conversation. v1 is the first delivery and v2 or later are revisions. Old versions are kept so you can compare them.
+
+Most revisions change only what is affected and leave everything else alone. That is the skill these posts show: after one rule is added, the model finds the affected records, recomputes only those and keeps the rest unchanged. For example:
+
+- `zh-attendance-anomalies` V2 applies the design team's flexible hours to 6 people only.
+- `zh-training-scores` V2 recomputes only the 8 Chengdu trainees who attended by livestream.
+- `zh-equipment-quotation` V2 to V4 each apply one customer change to one tier.
+
+The case page has a **Versions** section listing each version, the turn that produced it, what changed and its files. Each output file is also labelled with the last turn that wrote it, so you can match a version with the prompt that asked for it. A case lists its versions in the optional `versions` field of `case.json`. The build checks that every file named there exists.
+
+Not every number in a file name is a revision:
+
+- In `zh-meeting-scheduling`, "V2.4" is the name of the product release under review.
+- In `zh-customer-ledger`, `zh-expense-check` and `zh-qa-to-faq` the files carry only `_v1`. That follows the post's naming; the later "补一条规则" turn overwrites the same file.
+- In `zh-backtest-review`, `_v3` is a version number the model gave its own report, not a revision the user asked for.
+
 ## How it works
 
 Each use case is one declarative file, `cases/<slug>/case.json`:
@@ -81,6 +116,7 @@ Each use case is one declarative file, `cases/<slug>/case.json`:
 - `system`: the role the original product's workspace supplied (for example "Design" or "Legal, country United Kingdom")
 - `turns`: the user prompts in order, copied from the post where the post gives them. A turn with `"review": true` is followed by a self-check: the runner renders the files, attaches the images and asks the model to fix what it sees.
 - `convert`: what each delivered file becomes (`.svg` → `.png` at a pixel size, `.md` → `.docx`)
+- `versions` (optional): one entry per version, with its name, the delivered files that make it up and what changed. It is shown as the case page's Versions section.
 
 The runner sends the turns in one conversation. The model returns files in `<file name="…">…</file>` blocks; the runner saves them to `cases/<slug>/output/`, converts them, and writes `output/transcript.json` with every prompt, reply, file and token count. The build step turns all cases into `gallery.json`, which the static page reads.
 

@@ -271,10 +271,19 @@ details.reply[open] summary::before { content: "− "; }
 .chip-file, .made span { display: inline-block; margin: .1rem .2rem; padding: .15rem .45rem; border: 1px solid var(--accent); color: var(--accent); font: 500 .74rem/1.4 var(--mono); }
 .made { margin-top: .8rem; }
 
+/* versions */
+.versions { list-style: none; margin: 0; padding: 0; border-bottom: 1px solid var(--rule); }
+.versions li { display: grid; grid-template-columns: 11rem 1fr; gap: 1.5rem; padding: 1rem 0; border-top: 1px solid var(--rule); }
+.ver-name b { display: block; font: 400 2rem/1 var(--serif); }
+.ver-name small { display: block; margin-top: .45rem; font: 500 .7rem/1.4 var(--mono); color: var(--accent); }
+.versions p { margin: 0; max-width: 46rem; }
+.made a { display: inline-block; margin: .1rem .2rem; padding: .15rem .45rem; border: 1px solid var(--ink); color: var(--ink); font: 500 .74rem/1.4 var(--mono); text-decoration: none; }
+.made a:hover { border-color: var(--accent); color: var(--accent); }
+
 .empty { padding: 4rem 0; font: 400 1.6rem var(--serif); color: var(--ink-2); }
 
 @media (max-width: 760px) {
-  .masthead, .hero, .reader, .turn { grid-template-columns: 1fr; }
+  .masthead, .hero, .reader, .turn, .versions li { grid-template-columns: 1fr; }
   .tagline { justify-self: start; text-align: left; }
   .doc-list { border-right: 0; border-bottom: 1px solid var(--ink); }
 }

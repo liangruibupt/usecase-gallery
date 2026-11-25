@@ -34,5 +34,21 @@
       "review": true,
       "prompt": "Update the SVG: change the three Coffee prices to $4.50, $5.25 and $5.75, make all prices slightly larger so they read well when printed, and add a footer line \"Oat and almond milk available · Ask us about gluten-free options\". Keep everything else. Save as \"sunday-fern-menu-v2.svg\" and export a matching PNG."
     }
+  ],
+  "versions": [
+    {
+      "name": "v1",
+      "files": [
+        "sunday-fern-menu.svg"
+      ],
+      "change": "First delivery from the brief: three sections of four items each, with sample USD prices. The self-check pass revised it once before hand-off."
+    },
+    {
+      "name": "v2",
+      "files": [
+        "sunday-fern-menu-v2.svg"
+      ],
+      "change": "Coffee prices set to $4.50, $5.25 and $5.75; all prices slightly larger for print; new footer line \"Oat and almond milk available · Ask us about gluten-free options\". Everything else kept, and v1 left unchanged."
+    }
   ]
 }

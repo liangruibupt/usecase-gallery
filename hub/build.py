@@ -93,6 +93,21 @@ def inputs(case_dir: Path, names: list[str]) -> list[dict]:
     return [describe(case_dir / "input" / n, href, {}) for n in names]
 
 
+def versions(case: dict, files: list[dict], ins: list[dict]) -> list[dict]:
+    """case.json "versions" names files as delivered (source names); attach each file's link and turn."""
+    delivered = lambda o: o.get("source", o["href"]).rsplit("/", 1)[-1]
+    by_name = {delivered(o): o for o in files} | {delivered(o): {**o, "turn": "Input"} for o in ins}
+    out = []
+    for v in case.get("versions", []):
+        missing = [n for n in v["files"] if n not in by_name]
+        if missing:
+            raise SystemExit(f"{case['slug']}: version {v['name']} lists files that do not exist: {missing}")
+        items = [by_name[n] for n in v["files"]]
+        out.append({"name": v["name"], "change": v["change"], "turns": list(dict.fromkeys(o["turn"] for o in items)),
+                    "files": [{"name": o["name"], "href": o["href"]} for o in items]})
+    return out
+
+
 def build() -> None:
     cards = []
     for case_file in sorted((ROOT / "cases").glob("*/case.json")):
@@ -124,7 +139,8 @@ def build() -> None:
             "cover": next((f["preview"] for f in reversed(files) if f["kind"] in ("image", "page") and f["preview"]), None),
             "doc_titles": [f["title"] for f in files if f["kind"] in ("document", "deck", "sheet")][:3],
         }
-        view = {**card, "inputs": inputs(case_dir, case.get("inputs", [])), "run": run, "outputs": files}
+        ins = inputs(case_dir, case.get("inputs", []))
+        view = {**card, "inputs": ins, "run": run, "outputs": files, "versions": versions(case, files, ins)}
         (case_dir / "view.json").write_text(json.dumps(view, ensure_ascii=False) + "\n")
         cards.append(card)
     cards.sort(key=lambda c: (c["source"]["published"], c["slug"]), reverse=True)

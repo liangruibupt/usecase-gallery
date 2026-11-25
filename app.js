@@ -152,6 +152,25 @@ function section(title, note, body) {
   return body ? `<div class="section-head"><h2>${title}</h2><span>${note}</span></div>${body}` : "";
 }
 
+function versionList(versions) {
+  if (!versions?.length) return "";
+  return `
+    <ol class="versions">
+      ${versions
+        .map(
+          (ver) => `
+        <li>
+          <div class="ver-name"><b>${esc(ver.name)}</b>${ver.turns.map((t) => `<small>${esc(t === "Input" ? "Input file" : `Turn ${t}`)}</small>`).join("")}</div>
+          <div>
+            <p>${esc(ver.change)}</p>
+            <div class="made">${ver.files.map((f) => `<a href="${esc(f.href)}" download>${esc(f.name)}</a>`).join("")}</div>
+          </div>
+        </li>`,
+        )
+        .join("")}
+    </ol>`;
+}
+
 function conversation(v) {
   return `
     <ol class="timeline">
@@ -190,6 +209,7 @@ function renderCase(v) {
       </dl>
     </section>
     ${section("Inputs", "files given to the model in the first turn", fileGroups(v.inputs, "in"))}
+    ${section("Versions", "what changed from one version to the next", versionList(v.versions))}
     ${section("Outputs", `${v.outputs.length} files the model delivered`, fileGroups(v.outputs, "out"))}
     ${section("Conversation", "every prompt sent, every reply received", conversation(v))}`;
   app.querySelectorAll("[data-reader]").forEach((root) => wireReader(root, inReader(root.dataset.reader === "in" ? v.inputs : v.outputs)));
