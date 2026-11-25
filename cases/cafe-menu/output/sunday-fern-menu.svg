@@ -1,0 +1,170 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="2480" height="3508" viewBox="0 0 2480 3508">
+  <defs>
+    <!-- Paper grain -->
+    <filter id="grain" filterUnits="userSpaceOnUse" x="0" y="0" width="2480" height="3508">
+      <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" seed="7" result="noise"/>
+      <feColorMatrix in="noise" type="matrix" values="0 0 0 0 0.36  0 0 0 0 0.32  0 0 0 0 0.22  0.55 0 0 0 -0.2"/>
+    </filter>
+    <!-- Soft paper mottling -->
+    <filter id="mottle" filterUnits="userSpaceOnUse" x="0" y="0" width="2480" height="3508">
+      <feTurbulence type="fractalNoise" baseFrequency="0.004" numOctaves="3" seed="12" result="m"/>
+      <feColorMatrix in="m" type="matrix" values="0 0 0 0 0.55  0 0 0 0 0.48  0 0 0 0 0.32  0.35 0 0 0 -0.1"/>
+    </filter>
+    <radialGradient id="vignette" cx="50%" cy="50%" r="75%">
+      <stop offset="60%" stop-color="#8A7A55" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#8A7A55" stop-opacity="0.16"/>
+    </radialGradient>
+
+    <!-- Single leaf, pointing right from origin -->
+    <path id="leaf" d="M0 0 C 18 -15, 58 -17, 90 -3 C 60 10, 22 11, 0 0 Z M8 -1 C 30 -4, 55 -5, 76 -4"/>
+
+    <!-- Fern frond, base at origin, growing upward -->
+    <g id="frond" fill="none" stroke="#1F4A33" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M0 0 C 10 -130, 6 -260, -20 -400"/>
+      <use xlink:href="#leaf" transform="translate(4 -40) rotate(-35) scale(1)"/>
+      <use xlink:href="#leaf" transform="translate(4 -40) scale(-1 1) rotate(-35) scale(1)"/>
+      <use xlink:href="#leaf" transform="translate(7 -90) rotate(-37) scale(0.95)"/>
+      <use xlink:href="#leaf" transform="translate(7 -90) scale(-1 1) rotate(-37) scale(0.95)"/>
+      <use xlink:href="#leaf" transform="translate(8 -140) rotate(-39) scale(0.85)"/>
+      <use xlink:href="#leaf" transform="translate(8 -140) scale(-1 1) rotate(-39) scale(0.85)"/>
+      <use xlink:href="#leaf" transform="translate(7 -190) rotate(-41) scale(0.75)"/>
+      <use xlink:href="#leaf" transform="translate(7 -190) scale(-1 1) rotate(-41) scale(0.75)"/>
+      <use xlink:href="#leaf" transform="translate(5 -240) rotate(-43) scale(0.64)"/>
+      <use xlink:href="#leaf" transform="translate(5 -240) scale(-1 1) rotate(-43) scale(0.64)"/>
+      <use xlink:href="#leaf" transform="translate(0 -290) rotate(-46) scale(0.52)"/>
+      <use xlink:href="#leaf" transform="translate(0 -290) scale(-1 1) rotate(-46) scale(0.52)"/>
+      <use xlink:href="#leaf" transform="translate(-7 -338) rotate(-50) scale(0.4)"/>
+      <use xlink:href="#leaf" transform="translate(-7 -338) scale(-1 1) rotate(-50) scale(0.4)"/>
+      <use xlink:href="#leaf" transform="translate(-14 -378) rotate(-56) scale(0.28)"/>
+      <use xlink:href="#leaf" transform="translate(-14 -378) scale(-1 1) rotate(-56) scale(0.28)"/>
+    </g>
+
+    <!-- Section divider: rules with two small leaves -->
+    <g id="divider" fill="none" stroke="#1F4A33" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="-180" y1="0" x2="-62" y2="0" stroke-width="2.5" stroke="#6F8F78"/>
+      <line x1="62" y1="0" x2="180" y2="0" stroke-width="2.5" stroke="#6F8F78"/>
+      <use xlink:href="#leaf" stroke-width="5" transform="translate(-8 0) rotate(180) scale(0.45)"/>
+      <use xlink:href="#leaf" stroke-width="5" transform="translate(8 0) scale(0.45)"/>
+      <circle cx="0" cy="0" r="4" fill="#1F4A33" stroke="none"/>
+    </g>
+  </defs>
+
+  <!-- Paper -->
+  <rect x="0" y="0" width="2480" height="3508" fill="#F6F1E5"/>
+  <rect x="0" y="0" width="2480" height="3508" fill="#ffffff" filter="url(#mottle)"/>
+  <rect x="0" y="0" width="2480" height="3508" fill="#ffffff" filter="url(#grain)"/>
+  <rect x="0" y="0" width="2480" height="3508" fill="url(#vignette)"/>
+
+  <!-- Border -->
+  <rect x="110" y="110" width="2260" height="3288" fill="none" stroke="#1F4A33" stroke-width="3"/>
+  <rect x="130" y="130" width="2220" height="3248" fill="none" stroke="#1F4A33" stroke-width="1.5" opacity="0.7"/>
+
+  <!-- Corner fronds -->
+  <use xlink:href="#frond" transform="translate(215 760) rotate(25)"/>
+  <use xlink:href="#frond" transform="translate(2265 760) scale(-1 1) rotate(25)"/>
+  <use xlink:href="#frond" transform="translate(175 3335) rotate(80) scale(0.45)"/>
+  <use xlink:href="#frond" transform="translate(2305 3335) scale(-1 1) rotate(80) scale(0.45)"/>
+
+  <!-- Header -->
+  <g fill="none" stroke="#1F4A33" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M1240 330 L1240 300"/>
+    <use xlink:href="#leaf" transform="translate(1240 302) rotate(-90) scale(0.7)"/>
+    <use xlink:href="#leaf" transform="translate(1240 308) rotate(-140) scale(0.55)"/>
+    <use xlink:href="#leaf" transform="translate(1240 308) rotate(-40) scale(0.55)"/>
+  </g>
+  <text x="1240" y="500" text-anchor="middle" font-family="Didot, 'Bodoni 72', serif" font-size="180" letter-spacing="4" fill="#1F4A33">Sunday Fern</text>
+  <text x="1240" y="585" text-anchor="middle" font-family="'Avenir Next', 'Helvetica Neue', sans-serif" font-weight="500" font-size="36" letter-spacing="12" fill="#3E6150">NEIGHBORHOOD BRUNCH CAFÉ</text>
+  <use xlink:href="#divider" transform="translate(1240 650)"/>
+  <text x="1240" y="725" text-anchor="middle" font-family="'Avenir Next', 'Helvetica Neue', sans-serif" font-size="32" letter-spacing="3" fill="#52705D">Open daily · 8 am – 3 pm</text>
+
+  <!-- ===== COFFEE ===== -->
+  <text x="1240" y="890" text-anchor="middle" font-family="Didot, 'Bodoni 72', serif" font-size="96" fill="#1F4A33">Coffee</text>
+  <use xlink:href="#divider" transform="translate(1240 945)"/>
+
+  <g font-family="'Avenir Next', 'Helvetica Neue', sans-serif">
+    <!-- Leaders: x1 ≈ end of name + 40, x2 ≈ start of price − 40 -->
+    <g stroke="#7A9A83" stroke-width="3.5" stroke-linecap="round" stroke-dasharray="0 14">
+      <line x1="540" y1="1030" x2="2012" y2="1030"/>
+      <line x1="772" y1="1170" x2="2012" y2="1170"/>
+      <line x1="740" y1="1310" x2="2012" y2="1310"/>
+      <line x1="572" y1="1450" x2="2012" y2="1450"/>
+    </g>
+    <g font-size="48" font-weight="600" fill="#1F4A33">
+      <text x="300" y="1040">Espresso</text>
+      <text x="300" y="1180">Oat Milk Flat White</text>
+      <text x="300" y="1320">Sunday Fern Latte</text>
+      <text x="300" y="1460">Cold Brew</text>
+      <text x="2180" y="1040" text-anchor="end">$3.25</text>
+      <text x="2180" y="1180" text-anchor="end">$4.75</text>
+      <text x="2180" y="1320" text-anchor="end">$5.50</text>
+      <text x="2180" y="1460" text-anchor="end">$4.50</text>
+    </g>
+    <g font-size="36" fill="#52705D">
+      <text x="300" y="1094">Double shot of our house blend, notes of cocoa and cherry</text>
+      <text x="300" y="1234">Silky microfoam over a ristretto double shot</text>
+      <text x="300" y="1374">Honey, cardamom and a whisper of orange zest</text>
+      <text x="300" y="1514">Steeped for eighteen hours, served over ice</text>
+    </g>
+  </g>
+
+  <!-- ===== BRUNCH PLATES ===== -->
+  <text x="1240" y="1708" text-anchor="middle" font-family="Didot, 'Bodoni 72', serif" font-size="96" fill="#1F4A33">Brunch Plates</text>
+  <use xlink:href="#divider" transform="translate(1240 1763)"/>
+
+  <g font-family="'Avenir Next', 'Helvetica Neue', sans-serif">
+    <g stroke="#7A9A83" stroke-width="3.5" stroke-linecap="round" stroke-dasharray="0 14">
+      <line x1="882" y1="1848" x2="1980" y2="1848"/>
+      <line x1="790" y1="1988" x2="1980" y2="1988"/>
+      <line x1="757" y1="2128" x2="1980" y2="2128"/>
+      <line x1="648" y1="2268" x2="1980" y2="2268"/>
+    </g>
+    <g font-size="48" font-weight="600" fill="#1F4A33">
+      <text x="300" y="1858">Smashed Avocado Toast</text>
+      <text x="300" y="1998">Buttermilk Pancakes</text>
+      <text x="300" y="2138">Garden Shakshuka</text>
+      <text x="300" y="2278">Fern Benedict</text>
+      <text x="2180" y="1858" text-anchor="end">$13.50</text>
+      <text x="2180" y="1998" text-anchor="end">$12.00</text>
+      <text x="2180" y="2138" text-anchor="end">$14.50</text>
+      <text x="2180" y="2278" text-anchor="end">$16.00</text>
+    </g>
+    <g font-size="36" fill="#52705D">
+      <text x="300" y="1912">Sourdough, poached egg, chili flakes, lemon and pea shoots</text>
+      <text x="300" y="2052">A stack of three with maple syrup, whipped butter and berries</text>
+      <text x="300" y="2192">Eggs baked in spiced tomato with feta, herbs and warm pita</text>
+      <text x="300" y="2332">English muffin, smoked salmon, wilted greens, dill hollandaise</text>
+    </g>
+  </g>
+
+  <!-- ===== FRESH JUICES ===== -->
+  <text x="1240" y="2526" text-anchor="middle" font-family="Didot, 'Bodoni 72', serif" font-size="96" fill="#1F4A33">Fresh Juices</text>
+  <use xlink:href="#divider" transform="translate(1240 2581)"/>
+
+  <g font-family="'Avenir Next', 'Helvetica Neue', sans-serif">
+    <g stroke="#7A9A83" stroke-width="3.5" stroke-linecap="round" stroke-dasharray="0 14">
+      <line x1="680" y1="2666" x2="2012" y2="2666"/>
+      <line x1="505" y1="2806" x2="2012" y2="2806"/>
+      <line x1="487" y1="2946" x2="2012" y2="2946"/>
+      <line x1="778" y1="3086" x2="2012" y2="3086"/>
+    </g>
+    <g font-size="48" font-weight="600" fill="#1F4A33">
+      <text x="300" y="2676">Green Morning</text>
+      <text x="300" y="2816">Sunrise</text>
+      <text x="300" y="2956">Beet It</text>
+      <text x="300" y="3096">Watermelon Cooler</text>
+      <text x="2180" y="2676" text-anchor="end">$7.50</text>
+      <text x="2180" y="2816" text-anchor="end">$7.00</text>
+      <text x="2180" y="2956" text-anchor="end">$7.25</text>
+      <text x="2180" y="3096" text-anchor="end">$6.75</text>
+    </g>
+    <g font-size="36" fill="#52705D">
+      <text x="300" y="2730">Kale, cucumber, green apple, celery and lime</text>
+      <text x="300" y="2870">Orange, carrot, ginger and a touch of turmeric</text>
+      <text x="300" y="3010">Beetroot, apple, lemon and fresh mint</text>
+      <text x="300" y="3150">Watermelon, basil and lime, lightly sparkling</text>
+    </g>
+  </g>
+
+  <!-- Footer -->
+  <text x="1240" y="3300" text-anchor="middle" font-family="'Avenir Next', 'Helvetica Neue', sans-serif" font-size="30" letter-spacing="2" fill="#52705D">Oat, almond or soy milk +$0.75  ·  Please tell us about any allergies</text>
+</svg>

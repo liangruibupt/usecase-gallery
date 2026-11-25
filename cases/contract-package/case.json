@@ -1,0 +1,58 @@
+{
+  "slug": "contract-package",
+  "title": "Draft a B2B Contract Package",
+  "summary": "A short consulting brief becomes an editable contract package: a pre-drafting clarification check, then a Consulting Services Agreement, SOW, Payment Schedule, Acceptance Form, Negotiation Guide and Lawyer Review checklist, then a focused revision of the payment and acceptance terms.",
+  "tags": [
+    "Legal",
+    "Word",
+    "Multi-turn"
+  ],
+  "source": {
+    "site": "AutoClaw Blog",
+    "category": "Tutorial",
+    "title": "How to Draft a Contract with AutoClaw: From Business Brief to Contract Package",
+    "url": "https://autoclaw.z.ai/en/blog/tutorial/Draft%20a%20Contract%20with%20AutoClaw/",
+    "published": "2026-11-12",
+    "original_setup": "AutoClaw Legal workspace, country set to United Kingdom"
+  },
+  "system": "You are a commercial contracts lawyer's drafting assistant working in a legal workspace. Workspace country setting: United Kingdom.\n\nHow you work:\n- Follow the user's sequencing instructions exactly. If they say not to draft yet, do not draft.\n- When you ask clarification questions, number them. For each question give the options, a one-line trade-off per option, and mark one option as (Recommended). Separate essential questions from points that can stay as placeholders.\n- Never invent company particulars such as registered numbers, addresses or signatories. Use clearly marked placeholders like [Provider registered number].\n- Mark open commercial choices as [NEGOTIABLE: ...] and points that need a qualified lawyer as [LAWYER REVIEW: ...].\n- Deliver each document as a Markdown file (headings, numbered clauses, tables where useful). Each Markdown file is converted to an editable Word .docx automatically, so deliver only the .md. Use these file names: consulting-services-agreement.md, statement-of-work.md, payment-schedule.md, deliverable-acceptance-form.md, negotiation-guide.md, lawyer-review-required.md, plus change-log.md, consistency-checklist.md and unresolved-decisions.md when asked for them.\n- Your documents are drafts for commercial negotiation and qualified legal review, not legal advice. Say so once in the agreement's front matter.",
+  "convert": {
+    ".md": {
+      "to": "docx"
+    }
+  },
+  "turns": [
+    {
+      "label": "Prompt 1 · Business brief",
+      "prompt": "I represent Example Alpha Research Ltd (the Provider) in a B2B consulting engagement with Example Beta Commerce Ltd (the Client). Do not invent missing company particulars.\nJurisdiction: England and Wales, United Kingdom\nServices: UK market research and market-entry advice for the Client's planned entry into the UK market: market research, data collection, business analysis and advisory services.\nProject duration: approximately six weeks\nProject fee: £12,000 fixed fee, exclusive of VAT where applicable\nPayment arrangement: two instalments of £6,000, the first linked to signing and the second linked to final delivery\nExpected deliverables:\nD1 — Initial research plan\nD2 — Market and competitor analysis report\nD3 — Final research report\nD4 — Executive summary and presentation\nI need a professional English-language B2B Consulting Services Agreement from the Provider's perspective, together with a Statement of Work, Payment Schedule, Deliverable Acceptance Form, internal Negotiation Guide and Lawyer Review Required checklist. The drafting should protect the Provider's legitimate commercial interests while remaining commercially reasonable. Identify any unconfirmed facts or negotiable terms rather than inventing them. I will send a separate clarification-check instruction next. Do not draft the agreement or supporting documents yet."
+    },
+    {
+      "label": "Prompt 2 · Clarification check",
+      "prompt": "Before drafting the agreement, review the business information I have provided. Identify any material gaps, ambiguities or conflicting instructions, and ask me the questions needed to resolve them. Distinguish essential information from details that can remain as placeholders. Do not draft the agreement yet. Wait for my responses before proceeding."
+    },
+    {
+      "label": "Answers",
+      "prompt": "Go with your recommended option for every question. Anything I have not confirmed should stay in the drafts as a clearly marked placeholder for negotiation rather than appear as an agreed term."
+    },
+    {
+      "label": "Proceed with drafting · Agreement",
+      "prompt": "Using the confirmed information in this conversation, draft the Consulting Services Agreement and supporting documents requested in my original brief. Use placeholders for unresolved facts, flag commercial choices that need approval, and keep the agreement and schedules consistent. Provide editable drafts for review.\nDeliver the Consulting Services Agreement in this reply. I will ask for the supporting documents one batch at a time."
+    },
+    {
+      "label": "Proceed with drafting · SOW and Payment Schedule",
+      "prompt": "Now deliver the Statement of Work and the Payment Schedule, consistent with the Agreement."
+    },
+    {
+      "label": "Proceed with drafting · Acceptance Form, Negotiation Guide, Lawyer Review",
+      "prompt": "Now deliver the Deliverable Acceptance Form, the internal Negotiation Guide and the Lawyer Review Required checklist, consistent with the documents you have already drafted."
+    },
+    {
+      "label": "Check the terms and refine",
+      "prompt": "Review the package against my original brief and tighten the payment and acceptance provisions. Separate the payment trigger from the invoice date and the due date. Distinguish interim deliverables, which the Client comments on, from final deliverables, which are subject to formal acceptance. Deliver the revised Consulting Services Agreement, Payment Schedule and Deliverable Acceptance Form in full. I will ask for the review lists next."
+    },
+    {
+      "label": "Change log and review lists",
+      "prompt": "Now deliver a change log for this revision, a consistency checklist across all six documents, and a list of unresolved decisions that need business or legal approval."
+    }
+  ]
+}

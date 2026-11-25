@@ -1,0 +1,2 @@
+boto3>=1.40
+openai>=1.0  # only for HUB_PROVIDER=openai
